@@ -98,9 +98,7 @@
 		83E74B29292E315600FA1F46 /* ios-archi */ = {
 			isa = PBXGroup;
 			children = (
-				83E74B56292E354900FA1F46 /* Data */,
 				83E74B55292E354200FA1F46 /* UI */,
-				83E74B54292E353600FA1F46 /* Domain */,
 				83E74B2A292E315600FA1F46 /* ios_archiApp.swift */,
 				83E74B2C292E315600FA1F46 /* ContentView.swift */,
 				83E74B2E292E315D00FA1F46 /* Assets.xcassets */,
@@ -134,13 +132,6 @@
 			path = "ios-archiUITests";
 			sourceTree = "<group>";
 		};
-		83E74B54292E353600FA1F46 /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Domain;
-			sourceTree = "<group>";
-		};
 		83E74B55292E354200FA1F46 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,13 +139,6 @@
 				8370C21B29803BD100559998 /* ImagePicker.swift */,
 			);
 			path = UI;
-			sourceTree = "<group>";
-		};
-		83E74B56292E354900FA1F46 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
