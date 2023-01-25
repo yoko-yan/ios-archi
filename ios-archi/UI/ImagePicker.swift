@@ -6,14 +6,15 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct ImagePicker: UIViewControllerRepresentable {
     @Binding var show: Bool
     @Binding var image: Data
     var sourceType: UIImagePickerController.SourceType
 
-    func makeCoordinator() -> ImagePicker.Coodinator {
-        return ImagePicker.Coodinator(parent: self)
+    func makeCoordinator() -> ImagePicker.Coordinator {
+        return ImagePicker.Coordinator(parent: self)
     }
 
     func makeUIViewController(context: Context) -> some UIViewController {
@@ -25,7 +26,7 @@ struct ImagePicker: UIViewControllerRepresentable {
 
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
 
-    class Coodinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
         var parent: ImagePicker
 
@@ -43,6 +44,16 @@ struct ImagePicker: UIViewControllerRepresentable {
             let data = image.pngData()
             self.parent.image = data!
             self.parent.show.toggle()
+
+            // Convert from UIImageOrientation to CGImagePropertyOrientation.
+            let cgOrientation = CGImagePropertyOrientation(image.imageOrientation)
+
+            // Fire off request based on URL of chosen photo.
+            guard let cgImage = image.cgImage else {
+                return
+            }
+
+            TextRecognizer().performVisionRequest(image: cgImage, orientation: cgOrientation)
         }
     }
 }

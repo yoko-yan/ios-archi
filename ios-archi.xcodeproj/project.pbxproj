@@ -16,6 +16,10 @@
 		83E74B3C292E315D00FA1F46 /* ios_archiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E74B3B292E315D00FA1F46 /* ios_archiTests.swift */; };
 		83E74B46292E315D00FA1F46 /* ios_archiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E74B45292E315D00FA1F46 /* ios_archiUITests.swift */; };
 		83E74B48292E315D00FA1F46 /* ios_archiUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E74B47292E315D00FA1F46 /* ios_archiUITestsLaunchTests.swift */; };
+		975960CC29817E3200B42FB3 /* TextRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975960CB29817E3200B42FB3 /* TextRecognizer.swift */; };
+		975960CE2981974D00B42FB3 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975960CD2981974D00B42FB3 /* WebView.swift */; };
+		975960D0298197F100B42FB3 /* BiomeFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975960CF298197F100B42FB3 /* BiomeFinderView.swift */; };
+		975960D329819BD500B42FB3 /* CGImagePropertyOrientation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975960D229819BD500B42FB3 /* CGImagePropertyOrientation+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +52,10 @@
 		83E74B41292E315D00FA1F46 /* ios-archiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ios-archiUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83E74B45292E315D00FA1F46 /* ios_archiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_archiUITests.swift; sourceTree = "<group>"; };
 		83E74B47292E315D00FA1F46 /* ios_archiUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_archiUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		975960CB29817E3200B42FB3 /* TextRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognizer.swift; sourceTree = "<group>"; };
+		975960CD2981974D00B42FB3 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		975960CF298197F100B42FB3 /* BiomeFinderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiomeFinderView.swift; sourceTree = "<group>"; };
+		975960D229819BD500B42FB3 /* CGImagePropertyOrientation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImagePropertyOrientation+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +106,8 @@
 		83E74B29292E315600FA1F46 /* ios-archi */ = {
 			isa = PBXGroup;
 			children = (
+				975960D129819BC800B42FB3 /* Extension */,
+				975960CA29817E2300B42FB3 /* Data */,
 				83E74B55292E354200FA1F46 /* UI */,
 				83E74B2A292E315600FA1F46 /* ios_archiApp.swift */,
 				83E74B2C292E315600FA1F46 /* ContentView.swift */,
@@ -137,8 +147,26 @@
 			children = (
 				8370C2192980360B00559998 /* CameraView.swift */,
 				8370C21B29803BD100559998 /* ImagePicker.swift */,
+				975960CD2981974D00B42FB3 /* WebView.swift */,
+				975960CF298197F100B42FB3 /* BiomeFinderView.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		975960CA29817E2300B42FB3 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				975960CB29817E3200B42FB3 /* TextRecognizer.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		975960D129819BC800B42FB3 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				975960D229819BD500B42FB3 /* CGImagePropertyOrientation+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,8 +299,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				975960CC29817E3200B42FB3 /* TextRecognizer.swift in Sources */,
 				83E74B2D292E315600FA1F46 /* ContentView.swift in Sources */,
+				975960D0298197F100B42FB3 /* BiomeFinderView.swift in Sources */,
 				83E74B2B292E315600FA1F46 /* ios_archiApp.swift in Sources */,
+				975960CE2981974D00B42FB3 /* WebView.swift in Sources */,
+				975960D329819BD500B42FB3 /* CGImagePropertyOrientation+Extension.swift in Sources */,
 				8370C21C29803BD100559998 /* ImagePicker.swift in Sources */,
 				8370C21A2980360B00559998 /* CameraView.swift in Sources */,
 			);
