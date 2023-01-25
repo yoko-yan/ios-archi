@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8370C21A2980360B00559998 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8370C2192980360B00559998 /* CameraView.swift */; };
+		8370C21C29803BD100559998 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8370C21B29803BD100559998 /* ImagePicker.swift */; };
 		83E74B2B292E315600FA1F46 /* ios_archiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E74B2A292E315600FA1F46 /* ios_archiApp.swift */; };
 		83E74B2D292E315600FA1F46 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E74B2C292E315600FA1F46 /* ContentView.swift */; };
 		83E74B2F292E315D00FA1F46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83E74B2E292E315D00FA1F46 /* Assets.xcassets */; };
@@ -34,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8370C2192980360B00559998 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		8370C21B29803BD100559998 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		83E74B27292E315600FA1F46 /* ios-archi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-archi.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83E74B2A292E315600FA1F46 /* ios_archiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_archiApp.swift; sourceTree = "<group>"; };
 		83E74B2C292E315600FA1F46 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -140,6 +144,8 @@
 		83E74B55292E354200FA1F46 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				8370C2192980360B00559998 /* CameraView.swift */,
+				8370C21B29803BD100559998 /* ImagePicker.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -283,6 +289,8 @@
 			files = (
 				83E74B2D292E315600FA1F46 /* ContentView.swift in Sources */,
 				83E74B2B292E315600FA1F46 /* ios_archiApp.swift in Sources */,
+				8370C21C29803BD100559998 /* ImagePicker.swift in Sources */,
+				8370C21A2980360B00559998 /* CameraView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
