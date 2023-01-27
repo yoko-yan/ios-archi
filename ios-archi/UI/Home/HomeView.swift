@@ -1,20 +1,20 @@
 //
-//  Camera.swift
+//  HomeView.swift
 //  ios-archi
 //
 //  Created by yokoda.takayuki on 2023/01/25.
 //
 
 import SwiftUI
-import Vision
-import VisionKit
 
-struct CameraView: View {
-    @State var imageData: Data = .init(capacity: 0)
-    @State var source: UIImagePickerController.SourceType = .photoLibrary
+struct HomeView: View {
+    @State private var imageData: Data = .init(capacity: 0)
+    @State private var source: UIImagePickerController.SourceType = .photoLibrary
 
-    @State var isImagePicker = false
-    private var requests = [VNRequest]()
+    @State private var isImagePicker = false
+    @State private var isBiomeFinderView = false
+
+    private var viewModel = HomeViewModel()
 
     var body: some View {
         NavigationView {
@@ -30,10 +30,16 @@ struct CameraView: View {
                         isActive: $isImagePicker,
                         label: { Text("") }
                     )
+                    NavigationLink(
+                        destination:
+                            BiomeFinderView(mapGotoX: 100, mapGotoZ: 200),
+                        isActive: $isBiomeFinderView,
+                        label: { Text("") }
+                    )
                     VStack(spacing: 0) {
                         if imageData.count != 0{
                             Image(
-                                uiImage: UIImage(data: self.imageData)!
+                                uiImage: UIImage(data: imageData)!
                             )
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -46,7 +52,13 @@ struct CameraView: View {
                         } label: {
                             Text("Take Photo")
                         }
-                        BiomeFinderView(mapGotoX: 100, mapGotoZ: 200)
+                        Button {
+                            viewModel.getCoordinate(imageData: imageData)
+
+                            self.isBiomeFinderView.toggle()
+                        } label: {
+                            Text("Show Biome Finder")
+                        }
                     }
                 }
             }
@@ -54,8 +66,8 @@ struct CameraView: View {
     }
 }
 
-struct CameraView_Previews: PreviewProvider {
+struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        CameraView()
+        HomeView()
     }
 }

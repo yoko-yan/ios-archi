@@ -44,16 +44,6 @@ struct ImagePicker: UIViewControllerRepresentable {
             let data = image.pngData()
             self.parent.image = data!
             self.parent.show.toggle()
-
-            // Convert from UIImageOrientation to CGImagePropertyOrientation.
-            let cgOrientation = CGImagePropertyOrientation(image.imageOrientation)
-
-            // Fire off request based on URL of chosen photo.
-            guard let cgImage = image.cgImage else {
-                return
-            }
-
-            TextRecognizer().performVisionRequest(image: cgImage, orientation: cgOrientation)
         }
     }
 }

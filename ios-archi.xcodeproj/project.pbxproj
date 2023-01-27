@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8370C21A2980360B00559998 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8370C2192980360B00559998 /* CameraView.swift */; };
+		83273AEE2984306B006FA87C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83273AED2984306B006FA87C /* HomeViewModel.swift */; };
+		83273AF02984310E006FA87C /* HomeViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83273AEF2984310E006FA87C /* HomeViewState.swift */; };
+		8370C21A2980360B00559998 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8370C2192980360B00559998 /* HomeView.swift */; };
 		8370C21C29803BD100559998 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8370C21B29803BD100559998 /* ImagePicker.swift */; };
 		83E74B2B292E315600FA1F46 /* ios_archiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E74B2A292E315600FA1F46 /* ios_archiApp.swift */; };
 		83E74B2D292E315600FA1F46 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E74B2C292E315600FA1F46 /* ContentView.swift */; };
@@ -40,7 +42,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8370C2192980360B00559998 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		83273AED2984306B006FA87C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		83273AEF2984310E006FA87C /* HomeViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewState.swift; sourceTree = "<group>"; };
+		8370C2192980360B00559998 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		8370C21B29803BD100559998 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		83E74B27292E315600FA1F46 /* ios-archi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-archi.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83E74B2A292E315600FA1F46 /* ios_archiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_archiApp.swift; sourceTree = "<group>"; };
@@ -83,6 +87,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		83273AEC2984305B006FA87C /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				8370C2192980360B00559998 /* HomeView.swift */,
+				83273AED2984306B006FA87C /* HomeViewModel.swift */,
+				83273AEF2984310E006FA87C /* HomeViewState.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		83E74B1E292E315600FA1F46 = {
 			isa = PBXGroup;
 			children = (
@@ -145,7 +159,7 @@
 		83E74B55292E354200FA1F46 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				8370C2192980360B00559998 /* CameraView.swift */,
+				83273AEC2984305B006FA87C /* Home */,
 				8370C21B29803BD100559998 /* ImagePicker.swift */,
 				975960CD2981974D00B42FB3 /* WebView.swift */,
 				975960CF298197F100B42FB3 /* BiomeFinderView.swift */,
@@ -306,7 +320,9 @@
 				975960CE2981974D00B42FB3 /* WebView.swift in Sources */,
 				975960D329819BD500B42FB3 /* CGImagePropertyOrientation+Extension.swift in Sources */,
 				8370C21C29803BD100559998 /* ImagePicker.swift in Sources */,
-				8370C21A2980360B00559998 /* CameraView.swift in Sources */,
+				83273AEE2984306B006FA87C /* HomeViewModel.swift in Sources */,
+				8370C21A2980360B00559998 /* HomeView.swift in Sources */,
+				83273AF02984310E006FA87C /* HomeViewState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

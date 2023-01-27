@@ -8,13 +8,7 @@
 import Vision
 
 final class TextRecognizer: ObservableObject {
-    @Published private(set) var x: Int
-    @Published private(set) var z: Int
-
-    init() {
-        x = 100
-        z = 200
-    }
+    @Published private(set) var recognizedText = ""
 
     private lazy var recognizeTextRequest: VNRecognizeTextRequest = {
         let recognizeTextRequest = VNRecognizeTextRequest(completionHandler: self.handleRecognizeText)
@@ -56,12 +50,24 @@ private extension TextRecognizer {
             guard let observations = request?.results as? [VNRecognizedTextObservation] else { return }
             print(observations)
             let maximumCandidates = 1
-            var recognizedText = ""
+            var text = ""
             for observation in observations {
                 guard let candidate = observation.topCandidates(maximumCandidates).first else { continue }
-                recognizedText += candidate.string
+                text += "\(candidate.string)"
             }
-            print(recognizedText)
+            print(text)
+            self.recognizedText = text
+
+            let pattern = "(-?[0-9]{1,4}, -?[0-9]{1,4}, -?[0-9]{1,4})"
+            let regex = try! NSRegularExpression(pattern: pattern, options: [])
+            let matches = regex.matches(in: text, options: [], range: NSRange(0..<text.count))
+            if let match = matches.first {
+                let range = match.range(at:1)
+                if let range = Range(range, in: text) {
+                    let name = text[range]
+                    print(name)
+                }
+            }
         }
     }
 }
