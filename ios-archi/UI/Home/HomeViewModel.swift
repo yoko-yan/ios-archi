@@ -5,23 +5,44 @@
 //  Created by yokoda.takayuki on 2023/01/28.
 //
 
+import Combine
 import UIKit
 
-struct HomeViewModel {
-    var state: HomeViewState
+@MainActor
+final class HomeViewModel: ObservableObject {
+    @Published private(set) var state = HomeViewState()
 
-    init(_ state: HomeViewState = .init()) {
-        self.state = state
+    private var cancellables: Set<AnyCancellable> = []
+
+    func clearSeed() {
+        state.seed = .zero
     }
 
-    func getCoordinate(imageData: Data) {
-        let image = UIImage(data: imageData)!
-        let cgOrientation = CGImagePropertyOrientation(image.imageOrientation)
-        guard let cgImage = image.cgImage else {
-            return
-        }
+    func clearPosition() {
+        state.position = .zero
+    }
 
-        let textRecognizer = TextRecognizer()
-        textRecognizer.performVisionRequest(image: cgImage, orientation: cgOrientation)
+    func getSeed(imageData: Data) {
+        let repository = SeedRepository()
+        repository.get(imageData: imageData)
+            .sink { [weak self] seed in
+                self?.state.seed = Seed(rawValue: Int(seed)!)
+            }
+            .store(in: &cancellables)
+    }
+
+    func getPosition(imageData: Data) {
+        let repository = PositionRepository()
+        repository.get(imageData: imageData)
+            .sink { [weak self] position in
+                let arr = position.components(separatedBy: ",")
+                if arr.count >= 3 {
+                    let x = Int(arr[0].trimmingCharacters(in: .whitespaces))!
+                    let y = Int(arr[1].trimmingCharacters(in: .whitespaces))!
+                    let z = Int(arr[2].trimmingCharacters(in: .whitespaces))!
+                    self?.state.position = Position(x: x, y: y, z: z)
+                }
+            }
+            .store(in: &cancellables)
     }
 }

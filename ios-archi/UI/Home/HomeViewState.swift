@@ -7,6 +7,13 @@
 
 import Foundation
 
-struct HomeViewState {
-    
+struct HomeViewState: Equatable {
+    var seed: Seed = .init(rawValue: 0)
+    var seedText: String {
+        seed.rawValue == 0 ? "" : String(seed.rawValue)
+    }
+    var position: Position = .zero
+    var positionText: String {
+        "\(position.x), \(position.y), \(position.z)"
+    }
 }

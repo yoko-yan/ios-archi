@@ -9,10 +9,11 @@ import SwiftUI
 import WebKit
 
 struct BiomeFinderView: UIViewRepresentable {
-    private let loadUrl = "https://www.chunkbase.com/apps/biome-finder#132431431"
+    private let loadUrl = "https://www.chunkbase.com/apps/biome-finder#%d"
 
-    var mapGotoX: Int
-    var mapGotoZ: Int
+    var seed: Int
+    var positionX: Int
+    var positionZ: Int
 
     func makeUIView(context: Context) -> WKWebView {
         let webView = WKWebView()
@@ -21,7 +22,7 @@ struct BiomeFinderView: UIViewRepresentable {
     }
 
     func updateUIView(_ webView: WKWebView, context: Context) {
-        webView.load(URLRequest(url: URL(string: loadUrl)!))
+        webView.load(URLRequest(url: URL(string: String(format: loadUrl, seed))!))
     }
 
     class Coordinator: NSObject, WKUIDelegate, WKNavigationDelegate {
@@ -34,8 +35,8 @@ struct BiomeFinderView: UIViewRepresentable {
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
             webView.evaluateJavaScript(
                 """
-                document.getElementById('map-goto-x').value = '\(parent.mapGotoX)';
-                document.getElementById('map-goto-z').value = '\(parent.mapGotoZ)';
+                document.getElementById('map-goto-x').value = '\(parent.positionX)';
+                document.getElementById('map-goto-z').value = '\(parent.positionZ)';
                 document.getElementById("map-goto-go").click();
                 """
             ) { _, error in
@@ -53,6 +54,10 @@ struct BiomeFinderView: UIViewRepresentable {
 
 struct BiomeFinderView_Previews: PreviewProvider {
     static var previews: some View {
-        BiomeFinderView(mapGotoX: 1500, mapGotoZ: -1500)
+        BiomeFinderView(
+            seed: 132431431,
+            positionX: 1500,
+            positionZ: -1500
+        )
     }
 }
