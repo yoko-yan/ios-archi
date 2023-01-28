@@ -8,7 +8,7 @@
 import Combine
 import Vision
 
-final class RecognizeTextRequest: ObservableObject {
+final class RecognizeTextRequest {
     private var subject: CurrentValueSubject<String, Never> = .init("")
 
     func perform(image: CGImage, orientation: CGImagePropertyOrientation) -> AnyPublisher<String, Never> {
