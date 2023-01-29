@@ -54,7 +54,7 @@ struct HomeView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarTitle(Text("Top"))
+            .navigationBarTitle(Text("Seed And Position Getter"))
             .onChange(of: seedImage) { image in
                 guard let image else { return }
                 viewModel.clearSeed()
