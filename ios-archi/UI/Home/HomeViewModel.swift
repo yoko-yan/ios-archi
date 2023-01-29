@@ -22,18 +22,18 @@ final class HomeViewModel: ObservableObject {
         state.position = .zero
     }
 
-    func getSeed(imageData: Data) {
+    func getSeed(image: UIImage) {
         let repository = SeedRepository()
-        repository.get(imageData: imageData)
+        repository.get(image: image)
             .sink { [weak self] seed in
                 self?.state.seed = Seed(rawValue: Int(seed)!)
             }
             .store(in: &cancellables)
     }
 
-    func getPosition(imageData: Data) {
+    func getPosition(image: UIImage) {
         let repository = PositionRepository()
-        repository.get(imageData: imageData)
+        repository.get(image: image)
             .sink { [weak self] position in
                 let arr = position.components(separatedBy: ",")
                 if arr.count >= 3 {

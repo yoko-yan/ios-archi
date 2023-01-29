@@ -13,4 +13,8 @@ struct Position: Equatable {
     let z: Int
 
     public static var zero: Self { .init(x: 0, y: 0, z: 0) }
+
+    var text: String {
+        "\(x), \(y), \(z)"
+    }
 }

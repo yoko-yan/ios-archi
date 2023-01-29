@@ -10,9 +10,8 @@ import Foundation
 import UIKit
 
 final class SeedRepository {
-    func get(imageData: Data) -> AnyPublisher<String, Never> {
+    func get(image: UIImage) -> AnyPublisher<String, Never> {
         let request = RecognizeTextRequest()
-        let image = UIImage(data: imageData)!
         let cgOrientation = CGImagePropertyOrientation(image.imageOrientation)
         guard let cgImage = image.cgImage else {
             fatalError()

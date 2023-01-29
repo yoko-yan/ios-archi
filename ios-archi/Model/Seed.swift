@@ -11,4 +11,8 @@ struct Seed: Equatable, RawRepresentable {
     var rawValue: Int
 
     public static var zero: Self { .init(rawValue: 0) }
+
+    var text: String {
+        String(rawValue)
+    }
 }

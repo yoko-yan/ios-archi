@@ -10,118 +10,69 @@ import SwiftUI
 struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
 
-    @State private var seedImageData: Data = .init(capacity: 0)
-    @State private var positionImageData: Data = .init(capacity: 0)
-    @State private var isSeedImagePicker = false
-    @State private var isPositionImagePicker = false
+    @State private var seedImage: UIImage?
+    @State private var positionImage: UIImage?
+    @State private var seed: Seed = .zero
+    @State private var position: Position = .zero
     @State private var isBiomeFinderView = false
 
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack {
-                    ZStack {
-                        NavigationLink(
-                            destination:
-                            BiomeFinderView(
-                                seed: viewModel.state.seed.rawValue,
-                                positionX: viewModel.state.position.x,
-                                positionZ: viewModel.state.position.z
-                            )
-                            .navigationBarTitle("BiomeFinder"),
-                            isActive: $isBiomeFinderView,
-                            label: { Text("") }
+                ZStack {
+                    NavigationLink(
+                        destination:
+                        BiomeFinderView(
+                            seed: viewModel.state.seed.rawValue,
+                            positionX: viewModel.state.position.x,
+                            positionZ: viewModel.state.position.z
                         )
-                        VStack {
-                            if seedImageData.count != 0 {
-                                Image(
-                                    uiImage: UIImage(data: seedImageData)!
-                                )
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .padding(.all)
-                            }
-                            Button {
-                                self.isSeedImagePicker.toggle()
-                            } label: {
-                                Text("画像からSeed値を取得")
-                            }
-                            .padding(.all)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.blue, lineWidth: 1)
-                            )
-                            HStack {
-                                Text("シード値 : ")
-                                Text(viewModel.state.seedText)
-                            }
-                            if positionImageData.count != 0 {
-                                Image(
-                                    uiImage: UIImage(data: positionImageData)!
-                                )
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .padding()
-                            }
+                        .navigationBarTitle("BiomeFinder"),
+                        isActive: $isBiomeFinderView,
+                        label: { Text("") }
+                    )
+                    VStack(spacing: 0) {
+                        SeedCardView(
+                            seed: $seed,
+                            image: $seedImage
+                        )
 
-                            Button {
-                                self.isPositionImagePicker.toggle()
-                            } label: {
-                                Text("画像から座標を取得")
-                            }
-                            .padding(.all)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.blue, lineWidth: 1)
-                            )
-                            .sheet(isPresented: $isSeedImagePicker) {
-                                ImagePicker(
-                                    show: $isSeedImagePicker,
-                                    image: $seedImageData,
-                                    sourceType: .photoLibrary
-                                )
-                            }
+                        PositionCardView(
+                            position: $position,
+                            image: $positionImage
+                        )
 
-                            HStack {
-                                Text("座標 : ")
-                                Text(viewModel.state.positionText)
-                            }
-
-                            Button {
-                                self.isBiomeFinderView.toggle()
-                            } label: {
-                                Text("Show Biome Finder")
-                            }
-                            .sheet(isPresented: $isPositionImagePicker) {
-                                ImagePicker(
-                                    show: $isPositionImagePicker,
-                                    image: $positionImageData,
-                                    sourceType: .photoLibrary
-                                )
-                            }
-                            .padding(.all)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.blue, lineWidth: 1)
-                            )
+                        Button {
+                            self.isBiomeFinderView.toggle()
+                        } label: {
+                            Text("Show Biome Finder")
                         }
+                        .frame(height: 200)
+                        .accentColor(.gray)
+                        .buttonStyle(OutlineButton())
                     }
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarTitle("Top")
-            .onChange(of: seedImageData) { imageData in
+            .navigationBarTitle(Text("Top"))
+            .onChange(of: seedImage) { image in
+                guard let image else { return }
                 viewModel.clearSeed()
-                viewModel.getSeed(imageData: imageData)
+                viewModel.getSeed(image: image)
             }
-            .onChange(of: positionImageData) { imageData in
+            .onChange(of: positionImage) { image in
+                guard let image else { return }
                 viewModel.clearPosition()
-                viewModel.getPosition(imageData: imageData)
+                viewModel.getPosition(image: image)
             }
-//            .onChange(of: viewModel.state) { [oldState = viewModel.state] newState in
-//                if oldState.recognizedText != newState.recognizedText {
-//                }
-//            }
+            .onChange(of: viewModel.state) { [oldState = viewModel.state] newState in
+                if oldState.seed != newState.seed {
+                    seed = newState.seed
+                }
+                if oldState.position != newState.position {
+                    position = newState.position
+                }
+            }
         }
     }
 }

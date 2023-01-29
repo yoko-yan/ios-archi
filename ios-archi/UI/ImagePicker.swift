@@ -10,8 +10,8 @@ import UIKit
 
 struct ImagePicker: UIViewControllerRepresentable {
     @Binding var show: Bool
-    @Binding var image: Data
-    var sourceType: UIImagePickerController.SourceType
+    @Binding var image: UIImage?
+    @Binding var sourceType: UIImagePickerController.SourceType
 
     func makeCoordinator() -> ImagePicker.Coordinator {
         ImagePicker.Coordinator(parent: self)
@@ -41,10 +41,7 @@ struct ImagePicker: UIViewControllerRepresentable {
             _: UIImagePickerController,
             didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
         ) {
-            // swiftlint:disable force_cast
-            let image = info[.originalImage] as! UIImage
-            let data = image.pngData()
-            parent.image = data!
+            parent.image = info[.originalImage] as? UIImage
             parent.show.toggle()
         }
     }
