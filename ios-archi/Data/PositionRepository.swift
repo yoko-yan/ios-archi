@@ -22,7 +22,7 @@ final class PositionRepository {
             .filter { !$0.isEmpty }
             .map { (recognizeText: String) -> String in
                 let pattern = "(-?[0-9]{1,4}, -?[0-9]{1,4}, -?[0-9]{1,4})"
-                let regex = try! NSRegularExpression(pattern: pattern, options: [])
+                let regex = try! NSRegularExpression(pattern: pattern, options: [.allowCommentsAndWhitespace])
                 let matches = regex.matches(in: recognizeText, options: [], range: NSRange(0..<recognizeText.count))
                 if let match = matches.first {
                     let range = match.range(at:1)
