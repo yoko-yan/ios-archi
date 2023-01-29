@@ -19,9 +19,10 @@ final class SeedRepository {
         }
 
         return request.perform(image: cgImage, orientation: cgOrientation)
-            .filter { !$0.isEmpty }
-            .map { (recognizeText: String) -> String in
-                let arr = recognizeText.components(separatedBy: " ")
+            .filter { !$0.rawValue.isEmpty }
+            .map { (recognizeText: RecognizeText) -> String in
+                let text = recognizeText.rawValue
+                let arr = text.components(separatedBy: " ")
                 let filterdArr = arr.filter { Int($0) != nil }.map { Int($0)! }
                 guard let max = filterdArr.max() else { return "" }
                 return String(max)

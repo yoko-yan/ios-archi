@@ -19,16 +19,17 @@ final class PositionRepository {
         }
 
         return request.perform(image: cgImage, orientation: cgOrientation)
-            .filter { !$0.isEmpty }
-            .map { (recognizeText: String) -> String in
+            .filter { !$0.rawValue.isEmpty }
+            .map { (recognizeText: RecognizeText) -> String in
+                let text = recognizeText.rawValue
                 let pattern = "(-?[0-9]{1,4}, -?[0-9]{1,4}, -?[0-9]{1,4})"
                 // swiftlint:disable force_try
                 let regex = try! NSRegularExpression(pattern: pattern, options: [.allowCommentsAndWhitespace])
-                let matches = regex.matches(in: recognizeText, options: [], range: NSRange(0 ..< recognizeText.count))
+                let matches = regex.matches(in: text, options: [], range: NSRange(0 ..< text.count))
                 if let match = matches.first {
                     let range = match.range(at: 1)
-                    if let range = Range(range, in: recognizeText) {
-                        let position = recognizeText[range]
+                    if let range = Range(range, in: text) {
+                        let position = text[range]
                         print(position)
                         return String(position)
                     }
