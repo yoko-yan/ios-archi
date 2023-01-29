@@ -9,7 +9,7 @@ import Combine
 import SwiftUI
 
 struct SeedCardView: View {
-    @Binding var seed: Seed
+    @Binding var seed: Seed?
     @Binding var image: UIImage?
 
     @State private var isImagePicker = false
@@ -33,9 +33,15 @@ struct SeedCardView: View {
                         self.imageSourceType = .photoLibrary
                         self.isImagePicker.toggle()
                     } label: {
+                        Spacer()
                         Text("画像からシード値を取得")
+                        Spacer()
                     }
                     .frame(height: 200)
+                    .background(
+                        Color.gray
+                            .opacity(0.1)
+                    )
                     .sheet(isPresented: $isImagePicker) {
                         ImagePicker(
                             show: $isImagePicker,
@@ -45,7 +51,7 @@ struct SeedCardView: View {
                     }
                 }
                 HStack {
-                    Text(seed.text)
+                    Text(seed?.text ?? "Not Found")
                         .bold()
                     Spacer()
                     Button(action: {

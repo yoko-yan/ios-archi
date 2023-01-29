@@ -15,18 +15,22 @@ final class HomeViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
 
     func clearSeed() {
-        state.seed = .zero
+        state.seed = nil
     }
 
     func clearPosition() {
-        state.position = .zero
+        state.position = nil
     }
 
     func getSeed(image: UIImage) {
         let repository = SeedRepository()
         repository.get(image: image)
             .sink { [weak self] seed in
-                self?.state.seed = Seed(rawValue: Int(seed)!)
+                if !seed.isEmpty {
+                    self?.state.seed = Seed(rawValue: Int(seed)!)
+                    return
+                }
+                self?.state.seed = nil
             }
             .store(in: &cancellables)
     }
@@ -41,7 +45,9 @@ final class HomeViewModel: ObservableObject {
                     let y = Int(arr[1].trimmingCharacters(in: .whitespaces))!
                     let z = Int(arr[2].trimmingCharacters(in: .whitespaces))!
                     self?.state.position = Position(x: x, y: y, z: z)
+                    return
                 }
+                self?.state.position = nil
             }
             .store(in: &cancellables)
     }

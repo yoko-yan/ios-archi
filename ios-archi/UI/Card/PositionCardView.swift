@@ -9,7 +9,7 @@ import Combine
 import SwiftUI
 
 struct PositionCardView: View {
-    @Binding var position: Position
+    @Binding var position: Position?
     @Binding var image: UIImage?
 
     @State private var isImagePicker = false
@@ -33,9 +33,15 @@ struct PositionCardView: View {
                         self.imageSourceType = .photoLibrary
                         self.isImagePicker.toggle()
                     } label: {
+                        Spacer()
                         Text("画像から座標を取得")
+                        Spacer()
                     }
                     .frame(height: 200)
+                    .background(
+                        Color.gray
+                            .opacity(0.1)
+                    )
                     .sheet(isPresented: $isImagePicker) {
                         ImagePicker(
                             show: $isImagePicker,
@@ -45,7 +51,7 @@ struct PositionCardView: View {
                     }
                 }
                 HStack {
-                    Text(position.text)
+                    Text(position?.text ?? "Not Found")
                         .bold()
                     Spacer()
                     Button(action: {

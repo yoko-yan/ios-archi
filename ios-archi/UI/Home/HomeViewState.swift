@@ -8,6 +8,6 @@
 import Foundation
 
 struct HomeViewState: Equatable {
-    var seed: Seed = .zero
-    var position: Position = .zero
+    var seed: Seed?
+    var position: Position?
 }

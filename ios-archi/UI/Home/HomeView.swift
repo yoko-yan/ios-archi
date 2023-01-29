@@ -12,8 +12,8 @@ struct HomeView: View {
 
     @State private var seedImage: UIImage?
     @State private var positionImage: UIImage?
-    @State private var seed: Seed = .zero
-    @State private var position: Position = .zero
+    @State private var seed: Seed?
+    @State private var position: Position?
     @State private var isBiomeFinderView = false
 
     var body: some View {
@@ -23,9 +23,9 @@ struct HomeView: View {
                     NavigationLink(
                         destination:
                         BiomeFinderView(
-                            seed: viewModel.state.seed.rawValue,
-                            positionX: viewModel.state.position.x,
-                            positionZ: viewModel.state.position.z
+                            seed: viewModel.state.seed?.rawValue ?? 0,
+                            positionX: viewModel.state.position?.x ?? 0,
+                            positionZ: viewModel.state.position?.z ?? 0
                         )
                         .navigationBarTitle("BiomeFinder"),
                         isActive: $isBiomeFinderView,

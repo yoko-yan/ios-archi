@@ -10,6 +10,13 @@ import Foundation
 import UIKit
 
 final class PositionRepository {
+    enum TestError: Error {
+        case minusError
+        case nilError
+        case timeoutError
+        case otherError
+    }
+
     func get(image: UIImage) -> AnyPublisher<String, Never> {
         let request = RecognizeTextRequest()
         let cgOrientation = CGImagePropertyOrientation(image.imageOrientation)
@@ -33,7 +40,7 @@ final class PositionRepository {
                         return String(position)
                     }
                 }
-                return ""
+                return "Not Found"
             }
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()

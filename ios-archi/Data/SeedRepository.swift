@@ -23,7 +23,7 @@ final class SeedRepository {
                 let text = recognizeText.rawValue
                 let arr = text.components(separatedBy: " ")
                 let filterdArr = arr.filter { Int($0) != nil }.map { Int($0)! }
-                guard let max = filterdArr.max() else { return "" }
+                guard let max = filterdArr.max() else { return "Not Found" }
                 return String(max)
             }
             .receive(on: DispatchQueue.main)
