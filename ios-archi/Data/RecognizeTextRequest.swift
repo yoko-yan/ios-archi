@@ -12,7 +12,7 @@ final class RecognizeTextRequest {
     private var subject: CurrentValueSubject<String, Never> = .init("")
 
     func perform(image: CGImage, orientation: CGImagePropertyOrientation) -> AnyPublisher<String, Never> {
-        let request = VNRecognizeTextRequest(completionHandler: self.handle)
+        let request = VNRecognizeTextRequest(completionHandler: handle)
         request.recognitionLevel = .accurate
         //　日本語を指定する
         request.recognitionLanguages = ["ja-JP"]

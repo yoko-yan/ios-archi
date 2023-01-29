@@ -21,7 +21,7 @@ struct BiomeFinderView: UIViewRepresentable {
         return webView
     }
 
-    func updateUIView(_ webView: WKWebView, context: Context) {
+    func updateUIView(_ webView: WKWebView, context _: Context) {
         webView.load(URLRequest(url: URL(string: String(format: loadUrl, seed))!))
     }
 
@@ -32,7 +32,7 @@ struct BiomeFinderView: UIViewRepresentable {
             parent = biomeFinderView
         }
 
-        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        func webView(_ webView: WKWebView, didFinish _: WKNavigation!) {
             webView.evaluateJavaScript(
                 """
                 document.getElementById('map-goto-x').value = '\(parent.positionX)';
@@ -40,7 +40,7 @@ struct BiomeFinderView: UIViewRepresentable {
                 document.getElementById("map-goto-go").click();
                 """
             ) { _, error in
-                if let error = error {
+                if let error {
                     print(error)
                 }
             }
@@ -48,14 +48,14 @@ struct BiomeFinderView: UIViewRepresentable {
     }
 
     func makeCoordinator() -> Coordinator {
-        return Coordinator(self)
+        Coordinator(self)
     }
 }
 
 struct BiomeFinderView_Previews: PreviewProvider {
     static var previews: some View {
         BiomeFinderView(
-            seed: 132431431,
+            seed: 132_431_431,
             positionX: 1500,
             positionZ: -1500
         )

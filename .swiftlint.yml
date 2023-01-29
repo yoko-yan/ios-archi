@@ -1,0 +1,12 @@
+disabled_rules:
+  - identifier_name
+
+excluded:
+  - Pods
+
+type_name:
+  excluded: 
+    - ios_archiApp
+    - ios_archiTests
+    - ios_archiUITests
+    - ios_archiUITestsLaunchTests

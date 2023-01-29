@@ -1,0 +1,6 @@
+# format options
+
+# file options
+--exclude Pods
+
+# rules

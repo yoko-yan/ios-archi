@@ -23,36 +23,17 @@ struct HomeView: View {
                     ZStack {
                         NavigationLink(
                             destination:
-                                ImagePicker(
-                                    show: $isSeedImagePicker,
-                                    image: $seedImageData,
-                                    sourceType: .photoLibrary
-                                ),
-                            isActive: $isSeedImagePicker,
-                            label: { Text("") }
-                        )
-                        NavigationLink(
-                            destination:
-                                ImagePicker(
-                                    show: $isPositionImagePicker,
-                                    image: $positionImageData,
-                                    sourceType: .photoLibrary
-                                ),
-                            isActive: $isPositionImagePicker,
-                            label: { Text("") }
-                        )
-                        NavigationLink(
-                            destination:
-                                BiomeFinderView(
-                                    seed: viewModel.state.seed.rawValue,
-                                    positionX: viewModel.state.position.x,
-                                    positionZ: viewModel.state.position.z
-                                ),
+                            BiomeFinderView(
+                                seed: viewModel.state.seed.rawValue,
+                                positionX: viewModel.state.position.x,
+                                positionZ: viewModel.state.position.z
+                            )
+                            .navigationBarTitle("BiomeFinder"),
                             isActive: $isBiomeFinderView,
                             label: { Text("") }
                         )
                         VStack {
-                            if seedImageData.count != 0{
+                            if seedImageData.count != 0 {
                                 Image(
                                     uiImage: UIImage(data: seedImageData)!
                                 )
@@ -74,7 +55,7 @@ struct HomeView: View {
                                 Text("シード値 : ")
                                 Text(viewModel.state.seedText)
                             }
-                            if positionImageData.count != 0{
+                            if positionImageData.count != 0 {
                                 Image(
                                     uiImage: UIImage(data: positionImageData)!
                                 )
@@ -82,6 +63,7 @@ struct HomeView: View {
                                 .aspectRatio(contentMode: .fit)
                                 .padding()
                             }
+
                             Button {
                                 self.isPositionImagePicker.toggle()
                             } label: {
@@ -92,14 +74,30 @@ struct HomeView: View {
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color.blue, lineWidth: 1)
                             )
+                            .sheet(isPresented: $isSeedImagePicker) {
+                                ImagePicker(
+                                    show: $isSeedImagePicker,
+                                    image: $seedImageData,
+                                    sourceType: .photoLibrary
+                                )
+                            }
+
                             HStack {
                                 Text("座標 : ")
                                 Text(viewModel.state.positionText)
                             }
+
                             Button {
                                 self.isBiomeFinderView.toggle()
                             } label: {
                                 Text("Show Biome Finder")
+                            }
+                            .sheet(isPresented: $isPositionImagePicker) {
+                                ImagePicker(
+                                    show: $isPositionImagePicker,
+                                    image: $positionImageData,
+                                    sourceType: .photoLibrary
+                                )
                             }
                             .padding(.all)
                             .overlay(
@@ -110,6 +108,8 @@ struct HomeView: View {
                     }
                 }
             }
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitle("Top")
             .onChange(of: seedImageData) { imageData in
                 viewModel.clearSeed()
                 viewModel.getSeed(imageData: imageData)

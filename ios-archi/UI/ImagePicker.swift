@@ -14,7 +14,7 @@ struct ImagePicker: UIViewControllerRepresentable {
     var sourceType: UIImagePickerController.SourceType
 
     func makeCoordinator() -> ImagePicker.Coordinator {
-        return ImagePicker.Coordinator(parent: self)
+        ImagePicker.Coordinator(parent: self)
     }
 
     func makeUIViewController(context: Context) -> some UIViewController {
@@ -24,26 +24,28 @@ struct ImagePicker: UIViewControllerRepresentable {
         return controller
     }
 
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
+    func updateUIViewController(_: UIViewControllerType, context _: Context) {}
 
     class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
         var parent: ImagePicker
 
         init(parent: ImagePicker) {
             self.parent = parent
         }
 
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            self.parent.show.toggle()
+        func imagePickerControllerDidCancel(_: UIImagePickerController) {
+            parent.show.toggle()
         }
 
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-
+        func imagePickerController(
+            _: UIImagePickerController,
+            didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+        ) {
+            // swiftlint:disable force_cast
             let image = info[.originalImage] as! UIImage
             let data = image.pngData()
-            self.parent.image = data!
-            self.parent.show.toggle()
+            parent.image = data!
+            parent.show.toggle()
         }
     }
 }
