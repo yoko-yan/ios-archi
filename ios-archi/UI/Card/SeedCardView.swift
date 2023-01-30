@@ -20,7 +20,7 @@ struct SeedCardView: View {
             Spacer()
             VStack {
                 HStack {
-                    Label("seed", systemImage: "globe.asia.australia")
+                    Label("seed", systemImage: "globe")
                     Spacer()
                 }
                 if let image {
@@ -102,7 +102,7 @@ struct SeedCardView: View {
 struct SeedCardView_Previews: PreviewProvider {
     static var previews: some View {
         SeedCardView(
-            seed: .constant(Seed(rawValue: 1_234_567_890)),
+            seed: .constant(Seed(rawValue: 1234567890)),
             image: .constant(UIImage(named: "sample-seed")!)
         )
     }
