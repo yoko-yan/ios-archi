@@ -74,7 +74,7 @@ struct PositionCardView: View {
                         self.imageSourceType = .photoLibrary
                         self.isImagePicker.toggle()
                     }) {
-                        Image(systemName: "photo.circle")
+                        Image(systemName: "photo.on.rectangle.angled")
                             .resizable()
                             .frame(width: 30, height: 30)
                     }
