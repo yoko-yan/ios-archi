@@ -15,7 +15,6 @@
 		83C439DF29868F0C00DA1425 /* RecognizeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C439DE29868F0C00DA1425 /* RecognizeText.swift */; };
 		83C439E42986A44000DA1425 /* SeedCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C439E32986A44000DA1425 /* SeedCardView.swift */; };
 		83C439E62986CCE100DA1425 /* PositionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C439E52986CCE100DA1425 /* PositionCardView.swift */; };
-		83C439EA2986DA3200DA1425 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C439E92986DA3200DA1425 /* ButtonStyle.swift */; };
 		83E74B2B292E315600FA1F46 /* ios_archiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E74B2A292E315600FA1F46 /* ios_archiApp.swift */; };
 		83E74B2D292E315600FA1F46 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E74B2C292E315600FA1F46 /* ContentView.swift */; };
 		83E74B2F292E315D00FA1F46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83E74B2E292E315D00FA1F46 /* Assets.xcassets */; };
@@ -25,6 +24,7 @@
 		83E74B48292E315D00FA1F46 /* ios_archiUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E74B47292E315D00FA1F46 /* ios_archiUITestsLaunchTests.swift */; };
 		970AE8FB298444C700BECFA6 /* PositionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970AE8FA298444C700BECFA6 /* PositionRepository.swift */; };
 		970AE8FE2984533A00BECFA6 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970AE8FD2984533A00BECFA6 /* Position.swift */; };
+		975204FF2987532700115D00 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975204FE2987532700115D00 /* ButtonStyle.swift */; };
 		975960CC29817E3200B42FB3 /* RecognizeTextRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975960CB29817E3200B42FB3 /* RecognizeTextRequest.swift */; };
 		975960CE2981974D00B42FB3 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975960CD2981974D00B42FB3 /* WebView.swift */; };
 		975960D0298197F100B42FB3 /* BiomeFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975960CF298197F100B42FB3 /* BiomeFinderView.swift */; };
@@ -63,7 +63,6 @@
 		83C439DE29868F0C00DA1425 /* RecognizeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognizeText.swift; sourceTree = "<group>"; };
 		83C439E32986A44000DA1425 /* SeedCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedCardView.swift; sourceTree = "<group>"; };
 		83C439E52986CCE100DA1425 /* PositionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionCardView.swift; sourceTree = "<group>"; };
-		83C439E92986DA3200DA1425 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		83E74B27292E315600FA1F46 /* ios-archi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-archi.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83E74B2A292E315600FA1F46 /* ios_archiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_archiApp.swift; sourceTree = "<group>"; };
 		83E74B2C292E315600FA1F46 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -76,6 +75,7 @@
 		83E74B47292E315D00FA1F46 /* ios_archiUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_archiUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		970AE8FA298444C700BECFA6 /* PositionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionRepository.swift; sourceTree = "<group>"; };
 		970AE8FD2984533A00BECFA6 /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
+		975204FE2987532700115D00 /* ButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		975960CB29817E3200B42FB3 /* RecognizeTextRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognizeTextRequest.swift; sourceTree = "<group>"; };
 		975960CD2981974D00B42FB3 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		975960CF298197F100B42FB3 /* BiomeFinderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiomeFinderView.swift; sourceTree = "<group>"; };
@@ -137,18 +137,9 @@
 			path = Card;
 			sourceTree = "<group>";
 		};
-		83C439E82986DA1E00DA1425 /* Style */ = {
-			isa = PBXGroup;
-			children = (
-				83C439E92986DA3200DA1425 /* ButtonStyle.swift */,
-			);
-			path = Style;
-			sourceTree = "<group>";
-		};
 		83E74B1E292E315600FA1F46 = {
 			isa = PBXGroup;
 			children = (
-				83C439E82986DA1E00DA1425 /* Style */,
 				83E74B29292E315600FA1F46 /* ios-archi */,
 				83E74B3A292E315D00FA1F46 /* ios-archiTests */,
 				83E74B44292E315D00FA1F46 /* ios-archiUITests */,
@@ -171,6 +162,7 @@
 		83E74B29292E315600FA1F46 /* ios-archi */ = {
 			isa = PBXGroup;
 			children = (
+				975204FD2987532700115D00 /* Style */,
 				970AE8FC2984532700BECFA6 /* Model */,
 				975960D129819BC800B42FB3 /* Extension */,
 				975960CA29817E2300B42FB3 /* Data */,
@@ -227,6 +219,14 @@
 				979763722985A10500EB4DB6 /* Seed.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		975204FD2987532700115D00 /* Style */ = {
+			isa = PBXGroup;
+			children = (
+				975204FE2987532700115D00 /* ButtonStyle.swift */,
+			);
+			path = Style;
 			sourceTree = "<group>";
 		};
 		975960CA29817E2300B42FB3 /* Data */ = {
@@ -526,7 +526,7 @@
 				83273AEE2984306B006FA87C /* HomeViewModel.swift in Sources */,
 				8370C21A2980360B00559998 /* HomeView.swift in Sources */,
 				970AE8FB298444C700BECFA6 /* PositionRepository.swift in Sources */,
-				83C439EA2986DA3200DA1425 /* ButtonStyle.swift in Sources */,
+				975204FF2987532700115D00 /* ButtonStyle.swift in Sources */,
 				83C439E42986A44000DA1425 /* SeedCardView.swift in Sources */,
 				83273AF02984310E006FA87C /* HomeViewState.swift in Sources */,
 			);
@@ -685,9 +685,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ios-archi/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -703,6 +704,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.runpany.archi.ios-archi";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -715,9 +717,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ios-archi/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -733,6 +736,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.runpany.archi.ios-archi";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -745,13 +749,15 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.runpany.archi.ios-archiTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -765,13 +771,15 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.runpany.archi.ios-archiTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -784,12 +792,14 @@
 			baseConfigurationReference = AF2259DC3A322691802325EF /* Pods-ios-archi-ios-archiUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.runpany.archi.ios-archiUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -802,12 +812,14 @@
 			baseConfigurationReference = 08E149C8145BD24E276272A1 /* Pods-ios-archi-ios-archiUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.runpany.archi.ios-archiUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
