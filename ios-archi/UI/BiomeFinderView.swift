@@ -55,7 +55,7 @@ struct BiomeFinderView: UIViewRepresentable {
 struct BiomeFinderView_Previews: PreviewProvider {
     static var previews: some View {
         BiomeFinderView(
-            seed: 132_431_431,
+            seed: 132431431,
             positionX: 1500,
             positionZ: -1500
         )

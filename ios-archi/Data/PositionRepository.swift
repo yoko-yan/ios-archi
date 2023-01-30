@@ -40,7 +40,7 @@ final class PositionRepository {
                         return String(position)
                     }
                 }
-                return "Not Found"
+                return ""
             }
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
