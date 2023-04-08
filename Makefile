@@ -1,4 +1,5 @@
 bootstrap:
+	rbenv install -s
 	# bundlerでcocoapodsとfastlaneをインストール
 	bundle install
 	# cocoapodsのライブラリをインストール
