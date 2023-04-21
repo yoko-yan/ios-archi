@@ -43,7 +43,7 @@ struct HomeView: View {
                         )
 
                         Button {
-                            self.isBiomeFinderView.toggle()
+                            isBiomeFinderView.toggle()
                         } label: {
                             Text("Show Biome Finder")
                         }

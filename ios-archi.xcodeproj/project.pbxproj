@@ -283,7 +283,7 @@
 				83E74B24292E315600FA1F46 /* Frameworks */,
 				83E74B25292E315600FA1F46 /* Resources */,
 				83C439DC2986807600DA1425 /* SwiftFormat */,
-				83C439DD298680AA00DA1425 /* Swiftlint */,
+				83C439DD298680AA00DA1425 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -442,7 +442,7 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" \"$SRCROOT\"\n";
 		};
-		83C439DD298680AA00DA1425 /* Swiftlint */ = {
+		83C439DD298680AA00DA1425 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -451,7 +451,7 @@
 			);
 			inputPaths = (
 			);
-			name = Swiftlint;
+			name = SwiftLint;
 			outputFileListPaths = (
 			);
 			outputPaths = (

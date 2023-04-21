@@ -30,8 +30,8 @@ struct SeedCardView: View {
                         .frame(height: 200)
                 } else {
                     Button {
-                        self.imageSourceType = .photoLibrary
-                        self.isImagePicker.toggle()
+                        imageSourceType = .photoLibrary
+                        isImagePicker.toggle()
                     } label: {
                         Spacer()
                         Text("画像からシード値を取得")
@@ -55,8 +55,8 @@ struct SeedCardView: View {
                         .bold()
                     Spacer()
                     Button(action: {
-                        self.imageSourceType = .camera
-                        self.isImagePicker.toggle()
+                        imageSourceType = .camera
+                        isImagePicker.toggle()
                     }) {
                         Image(systemName: "camera.circle")
                             .resizable()
@@ -71,8 +71,8 @@ struct SeedCardView: View {
                     }
 
                     Button(action: {
-                        self.imageSourceType = .photoLibrary
-                        self.isImagePicker.toggle()
+                        imageSourceType = .photoLibrary
+                        isImagePicker.toggle()
                     }) {
                         Image(systemName: "photo.on.rectangle.angled")
                             .resizable()
