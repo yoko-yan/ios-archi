@@ -10,7 +10,7 @@ import UIKit
 
 @MainActor
 final class HomeViewModel: ObservableObject {
-    @Published private(set) var state = HomeViewState()
+    @Published private(set) var state = HomeViewUiState()
 
     private var cancellables: Set<AnyCancellable> = []
 

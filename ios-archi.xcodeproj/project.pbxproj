@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		351C6CF987F10AE0357A4265 /* Pods_ios_archi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D74C31526259A4A8B52B2B13 /* Pods_ios_archi.framework */; };
 		83273AEE2984306B006FA87C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83273AED2984306B006FA87C /* HomeViewModel.swift */; };
-		83273AF02984310E006FA87C /* HomeViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83273AEF2984310E006FA87C /* HomeViewState.swift */; };
+		83273AF02984310E006FA87C /* HomeViewUiState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83273AEF2984310E006FA87C /* HomeViewUiState.swift */; };
 		8370C21A2980360B00559998 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8370C2192980360B00559998 /* HomeView.swift */; };
 		8370C21C29803BD100559998 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8370C21B29803BD100559998 /* ImagePicker.swift */; };
 		83C439DF29868F0C00DA1425 /* RecognizeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C439DE29868F0C00DA1425 /* RecognizeText.swift */; };
@@ -57,7 +57,7 @@
 		35F8154540A55F12D3F7B2B3 /* Pods-ios-archiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-archiTests.debug.xcconfig"; path = "Target Support Files/Pods-ios-archiTests/Pods-ios-archiTests.debug.xcconfig"; sourceTree = "<group>"; };
 		68DA763FD5EBDE3B2F2E05B9 /* Pods-ios-archiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-archiTests.release.xcconfig"; path = "Target Support Files/Pods-ios-archiTests/Pods-ios-archiTests.release.xcconfig"; sourceTree = "<group>"; };
 		83273AED2984306B006FA87C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		83273AEF2984310E006FA87C /* HomeViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewState.swift; sourceTree = "<group>"; };
+		83273AEF2984310E006FA87C /* HomeViewUiState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewUiState.swift; sourceTree = "<group>"; };
 		8370C2192980360B00559998 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		8370C21B29803BD100559998 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		83C439DE29868F0C00DA1425 /* RecognizeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognizeText.swift; sourceTree = "<group>"; };
@@ -123,7 +123,7 @@
 			children = (
 				8370C2192980360B00559998 /* HomeView.swift */,
 				83273AED2984306B006FA87C /* HomeViewModel.swift */,
-				83273AEF2984310E006FA87C /* HomeViewState.swift */,
+				83273AEF2984310E006FA87C /* HomeViewUiState.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -528,7 +528,7 @@
 				970AE8FB298444C700BECFA6 /* PositionRepository.swift in Sources */,
 				975204FF2987532700115D00 /* ButtonStyle.swift in Sources */,
 				83C439E42986A44000DA1425 /* SeedCardView.swift in Sources */,
-				83273AF02984310E006FA87C /* HomeViewState.swift in Sources */,
+				83273AF02984310E006FA87C /* HomeViewUiState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
