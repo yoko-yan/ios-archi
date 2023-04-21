@@ -8,13 +8,13 @@
 import Foundation
 
 struct Position: Equatable {
-    let x: Int
-    let y: Int
-    let z: Int
-
     public static var zero: Self { .init(x: 0, y: 0, z: 0) }
 
     var text: String {
         "\(x), \(y), \(z)"
     }
+
+    let x: Int
+    let y: Int
+    let z: Int
 }

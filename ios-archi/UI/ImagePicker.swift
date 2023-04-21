@@ -9,23 +9,6 @@ import SwiftUI
 import UIKit
 
 struct ImagePicker: UIViewControllerRepresentable {
-    @Binding var show: Bool
-    @Binding var image: UIImage?
-    @Binding var sourceType: UIImagePickerController.SourceType
-
-    func makeCoordinator() -> ImagePicker.Coordinator {
-        ImagePicker.Coordinator(parent: self)
-    }
-
-    func makeUIViewController(context: Context) -> some UIViewController {
-        let controller = UIImagePickerController()
-        controller.sourceType = sourceType
-        controller.delegate = context.coordinator
-        return controller
-    }
-
-    func updateUIViewController(_: UIViewControllerType, context _: Context) {}
-
     class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
         var parent: ImagePicker
 
@@ -45,4 +28,21 @@ struct ImagePicker: UIViewControllerRepresentable {
             parent.show.toggle()
         }
     }
+
+    @Binding var show: Bool
+    @Binding var image: UIImage?
+    @Binding var sourceType: UIImagePickerController.SourceType
+
+    func makeCoordinator() -> ImagePicker.Coordinator {
+        Self.Coordinator(parent: self)
+    }
+
+    func makeUIViewController(context: Context) -> some UIViewController {
+        let controller = UIImagePickerController()
+        controller.sourceType = sourceType
+        controller.delegate = context.coordinator
+        return controller
+    }
+
+    func updateUIViewController(_: UIViewControllerType, context _: Context) {}
 }

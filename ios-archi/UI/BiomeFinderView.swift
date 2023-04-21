@@ -9,6 +9,28 @@ import SwiftUI
 import WebKit
 
 struct BiomeFinderView: UIViewRepresentable {
+    class Coordinator: NSObject, WKUIDelegate, WKNavigationDelegate {
+        var parent: BiomeFinderView
+
+        init(_ biomeFinderView: BiomeFinderView) {
+            parent = biomeFinderView
+        }
+
+        func webView(_ webView: WKWebView, didFinish _: WKNavigation?) {
+            webView.evaluateJavaScript(
+                """
+                document.getElementById('map-goto-x').value = '\(parent.positionX)';
+                document.getElementById('map-goto-z').value = '\(parent.positionZ)';
+                document.getElementById("map-goto-go").click();
+                """
+            ) { _, error in
+                if let error {
+                    print(error)
+                }
+            }
+        }
+    }
+
     private let loadUrl = "https://www.chunkbase.com/apps/biome-finder#%d"
 
     var seed: Int
@@ -23,28 +45,6 @@ struct BiomeFinderView: UIViewRepresentable {
 
     func updateUIView(_ webView: WKWebView, context _: Context) {
         webView.load(URLRequest(url: URL(string: String(format: loadUrl, seed))!))
-    }
-
-    class Coordinator: NSObject, WKUIDelegate, WKNavigationDelegate {
-        var parent: BiomeFinderView
-
-        init(_ biomeFinderView: BiomeFinderView) {
-            parent = biomeFinderView
-        }
-
-        func webView(_ webView: WKWebView, didFinish _: WKNavigation!) {
-            webView.evaluateJavaScript(
-                """
-                document.getElementById('map-goto-x').value = '\(parent.positionX)';
-                document.getElementById('map-goto-z').value = '\(parent.positionZ)';
-                document.getElementById("map-goto-go").click();
-                """
-            ) { _, error in
-                if let error {
-                    print(error)
-                }
-            }
-        }
     }
 
     func makeCoordinator() -> Coordinator {

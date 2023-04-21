@@ -29,9 +29,9 @@ final class PositionRepository {
             .map { (recognizeText: RecognizeText) -> String in
                 let text = recognizeText.rawValue
                 let pattern = "(-?[0-9]{1,4}, -?[0-9]{1,4}, -?[0-9]{1,4})"
-                // swiftlint:disable force_try
+                // swiftlint:disable:next force_try
                 let regex = try! NSRegularExpression(pattern: pattern, options: [.allowCommentsAndWhitespace])
-                let matches = regex.matches(in: text, options: [], range: NSRange(0 ..< text.count))
+                let matches = regex.matches(in: text, options: [], range: NSRange(0..<text.count))
                 if let match = matches.first {
                     let range = match.range(at: 1)
                     if let range = Range(range, in: text) {

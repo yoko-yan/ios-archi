@@ -20,9 +20,11 @@ final class RecognizeTextRequest {
         var requests: [VNRequest] = []
         requests.append(request)
 
-        let imageRequestHandler = VNImageRequestHandler(cgImage: image,
-                                                        orientation: orientation,
-                                                        options: [:])
+        let imageRequestHandler = VNImageRequestHandler(
+            cgImage: image,
+            orientation: orientation,
+            options: [:]
+        )
 
         DispatchQueue.global(qos: .userInitiated).async {
             do {

@@ -13,8 +13,6 @@ class ios_archiTests: XCTestCase {
 
     override func tearDownWithError() throws {}
 
-    func testExample() throws {}
-
     func testPerformanceExample() throws {
         measure {}
     }
