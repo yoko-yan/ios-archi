@@ -23,9 +23,9 @@ struct HomeView: View {
                     NavigationLink(
                         destination:
                         BiomeFinderView(
-                            seed: viewModel.state.seed?.rawValue ?? 0,
-                            positionX: viewModel.state.position?.x ?? 0,
-                            positionZ: viewModel.state.position?.z ?? 0
+                            seed: viewModel.uiState.seed?.rawValue ?? 0,
+                            positionX: viewModel.uiState.position?.x ?? 0,
+                            positionZ: viewModel.uiState.position?.z ?? 0
                         )
                         .navigationBarTitle("BiomeFinder"),
                         isActive: $isBiomeFinderView,
@@ -65,7 +65,7 @@ struct HomeView: View {
                 viewModel.clearPosition()
                 viewModel.getPosition(image: image)
             }
-            .onChange(of: viewModel.state) { [oldState = viewModel.state] newState in
+            .onChange(of: viewModel.uiState) { [oldState = viewModel.uiState] newState in
                 if oldState.seed != newState.seed {
                     seed = newState.seed
                 }

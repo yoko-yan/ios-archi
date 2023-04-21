@@ -10,16 +10,16 @@ import UIKit
 
 @MainActor
 final class HomeViewModel: ObservableObject {
-    @Published private(set) var state = HomeViewUiState()
+    @Published private(set) var uiState = HomeViewUiState()
 
     private var cancellables: Set<AnyCancellable> = []
 
     func clearSeed() {
-        state.seed = nil
+        uiState.seed = nil
     }
 
     func clearPosition() {
-        state.position = nil
+        uiState.position = nil
     }
 
     func getSeed(image: UIImage) {
@@ -27,10 +27,10 @@ final class HomeViewModel: ObservableObject {
         repository.get(image: image)
             .sink { [weak self] seed in
                 if !seed.isEmpty {
-                    self?.state.seed = Seed(rawValue: Int(seed)!)
+                    self?.uiState.seed = Seed(rawValue: Int(seed)!)
                     return
                 }
-                self?.state.seed = nil
+                self?.uiState.seed = nil
             }
             .store(in: &cancellables)
     }
@@ -44,10 +44,10 @@ final class HomeViewModel: ObservableObject {
                     let x = Int(arr[0].trimmingCharacters(in: .whitespaces))!
                     let y = Int(arr[1].trimmingCharacters(in: .whitespaces))!
                     let z = Int(arr[2].trimmingCharacters(in: .whitespaces))!
-                    self?.state.position = Position(x: x, y: y, z: z)
+                    self?.uiState.position = Position(x: x, y: y, z: z)
                     return
                 }
-                self?.state.position = nil
+                self?.uiState.position = nil
             }
             .store(in: &cancellables)
     }
