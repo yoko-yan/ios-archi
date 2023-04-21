@@ -2,28 +2,28 @@
 
 # 無効にするルール
 disabled_rules:
-- multiple_closures_with_trailing_closure # 複数のクロージャーの場合でも、trailing closureを利用したいため
-- empty_enum_arguments # enumの引数を省略したいため
+  - multiple_closures_with_trailing_closure # 複数のクロージャーの場合でも、trailing closureを利用したいため
+  - empty_enum_arguments # enumの引数を省略したいため
 
-# opt-inルールの中で無効にするルール
-- conditional_returns_on_newline # ガード文などは簡潔に一行で記述したいため
-- discouraged_optional_collection # PHImageManagerの既存仕様のため
-- explicit_acl # できる限りACLを省略したいため
-- explicit_enum_raw_value # 暗黙的なraw値で問題ないため
-- explicit_top_level_acl # できる限りACLを省略したいため
-- explicit_type_interface # 型推論を利用したいため
-- fatal_error_message # メッセージは不要なため
-- file_header # ヘッダには特に決まりがないため
-- lower_acl_than_parent # 対応不可のため
-- no_extension_access_modifier # extension_access_modifierを優先するため
-- no_grouping_extension # グルーピングにextensionを利用したいため
-- no_magic_numbers
-- number_separator # 数字を `_` で区切りたくないため
-- object_literal # リテラルで生成したくないこともあるため
-- required_deinit # できる限りデイニシャライザを省略したいため
-- strict_fileprivate # fileprivateを利用したいため
-- switch_case_on_newline # caseと同じ行に記述したいため
-- trailing_closure # RxSwiftのOnNextでwarningが出るため
+  # opt-inルールの中で無効にするルール
+  - conditional_returns_on_newline # ガード文などは簡潔に一行で記述したいため
+  - discouraged_optional_collection # PHImageManagerの既存仕様のため
+  - explicit_acl # できる限りACLを省略したいため
+  - explicit_enum_raw_value # 暗黙的なraw値で問題ないため
+  - explicit_top_level_acl # できる限りACLを省略したいため
+  - explicit_type_interface # 型推論を利用したいため
+  - fatal_error_message # メッセージは不要なため
+  - file_header # ヘッダには特に決まりがないため
+  - lower_acl_than_parent # 対応不可のため
+  - no_extension_access_modifier # extension_access_modifierを優先するため
+  - no_grouping_extension # グルーピングにextensionを利用したいため
+  - no_magic_numbers
+  - number_separator # 数字を `_` で区切りたくないため
+  - object_literal # リテラルで生成したくないこともあるため
+  - required_deinit # できる限りデイニシャライザを省略したいため
+  - strict_fileprivate # fileprivateを利用したいため
+  - switch_case_on_newline # caseと同じ行に記述したいため
+  - trailing_closure # RxSwiftのOnNextでwarningが出るため
 
 # defaultルール以外にopt-inから採用するルール
 # Pods/SwiftLint/swiftlint rules | awk -F "|" '$3 ~ "yes" && $7 ~ "no" { print $2 }' | tr -d ' ' | sed 's/^/  - /' | pbcopy
@@ -167,6 +167,9 @@ analyzer_rules:
 
 excluded:
   - Pods
+
+file_name:
+  suffix_pattern: "Extensions?|\\+.*"
 
 identifier_name:
   min_length:

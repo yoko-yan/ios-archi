@@ -24,7 +24,7 @@
 		83E74B48292E315D00FA1F46 /* ios_archiUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E74B47292E315D00FA1F46 /* ios_archiUITestsLaunchTests.swift */; };
 		970AE8FB298444C700BECFA6 /* PositionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970AE8FA298444C700BECFA6 /* PositionRepository.swift */; };
 		970AE8FE2984533A00BECFA6 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970AE8FD2984533A00BECFA6 /* Position.swift */; };
-		975204FF2987532700115D00 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975204FE2987532700115D00 /* ButtonStyle.swift */; };
+		975204FF2987532700115D00 /* OutlineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975204FE2987532700115D00 /* OutlineButton.swift */; };
 		975960CC29817E3200B42FB3 /* RecognizeTextRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975960CB29817E3200B42FB3 /* RecognizeTextRequest.swift */; };
 		975960CE2981974D00B42FB3 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975960CD2981974D00B42FB3 /* WebView.swift */; };
 		975960D0298197F100B42FB3 /* BiomeFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975960CF298197F100B42FB3 /* BiomeFinderView.swift */; };
@@ -75,7 +75,7 @@
 		83E74B47292E315D00FA1F46 /* ios_archiUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_archiUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		970AE8FA298444C700BECFA6 /* PositionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionRepository.swift; sourceTree = "<group>"; };
 		970AE8FD2984533A00BECFA6 /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
-		975204FE2987532700115D00 /* ButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
+		975204FE2987532700115D00 /* OutlineButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutlineButton.swift; sourceTree = "<group>"; };
 		975960CB29817E3200B42FB3 /* RecognizeTextRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognizeTextRequest.swift; sourceTree = "<group>"; };
 		975960CD2981974D00B42FB3 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		975960CF298197F100B42FB3 /* BiomeFinderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiomeFinderView.swift; sourceTree = "<group>"; };
@@ -224,7 +224,7 @@
 		975204FD2987532700115D00 /* Style */ = {
 			isa = PBXGroup;
 			children = (
-				975204FE2987532700115D00 /* ButtonStyle.swift */,
+				975204FE2987532700115D00 /* OutlineButton.swift */,
 			);
 			path = Style;
 			sourceTree = "<group>";
@@ -526,7 +526,7 @@
 				83273AEE2984306B006FA87C /* HomeViewModel.swift in Sources */,
 				8370C21A2980360B00559998 /* HomeView.swift in Sources */,
 				970AE8FB298444C700BECFA6 /* PositionRepository.swift in Sources */,
-				975204FF2987532700115D00 /* ButtonStyle.swift in Sources */,
+				975204FF2987532700115D00 /* OutlineButton.swift in Sources */,
 				83C439E42986A44000DA1425 /* SeedCardView.swift in Sources */,
 				83273AF02984310E006FA87C /* HomeViewUiState.swift in Sources */,
 			);
