@@ -95,7 +95,7 @@ struct SeedCardView: View {
             .shadow(color: .gray.opacity(0.7), radius: 5)
             Spacer()
         }
-        .padding()
+        .padding(.horizontal, 8)
     }
 }
 
