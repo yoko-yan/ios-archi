@@ -16,8 +16,10 @@ struct SeedCardView: View {
     @State private var imageSourceType: UIImagePickerController.SourceType = .photoLibrary
 
     var body: some View {
+        // swiftlint:disable:next closure_body_length
         VStack {
             Spacer()
+            // swiftlint:disable:next closure_body_length
             VStack {
                 HStack {
                     Label("seed", systemImage: "globe")
@@ -50,6 +52,7 @@ struct SeedCardView: View {
                         )
                     }
                 }
+                // swiftlint:disable:next closure_body_length
                 HStack {
                     Text(seed?.text ?? "Not Found")
                         .bold()
@@ -93,6 +96,7 @@ struct SeedCardView: View {
             .cornerRadius(8)
             .clipped()
             .shadow(color: .gray.opacity(0.7), radius: 5)
+            .accessibilityElement()
             Spacer()
         }
         .padding(.horizontal, 8)
@@ -100,10 +104,12 @@ struct SeedCardView: View {
 }
 
 struct SeedCardView_Previews: PreviewProvider {
+    // swiftlint:disable force_unwrapping
     static var previews: some View {
         SeedCardView(
             seed: .constant(Seed(rawValue: 1234567890)),
             image: .constant(UIImage(named: "sample-seed")!)
         )
     }
+    // swiftlint:enable force_unwrapping
 }

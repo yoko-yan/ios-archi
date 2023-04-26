@@ -16,6 +16,7 @@ struct WebView: UIViewRepresentable {
     }
 
     func updateUIView(_ webView: WKWebView, context _: Context) {
+        // swiftlint:disable:next force_unwrapping
         webView.load(URLRequest(url: URL(string: loadUrl)!))
     }
 }

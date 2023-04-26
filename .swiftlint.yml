@@ -14,12 +14,14 @@ disabled_rules:
   - explicit_type_interface # 型推論を利用したいため
   - fatal_error_message # メッセージは不要なため
   - file_header # ヘッダには特に決まりがないため
+  - indentation_width # SwiftFormatと競合するため
   - lower_acl_than_parent # 対応不可のため
   - no_extension_access_modifier # extension_access_modifierを優先するため
   - no_grouping_extension # グルーピングにextensionを利用したいため
   - no_magic_numbers
   - number_separator # 数字を `_` で区切りたくないため
   - object_literal # リテラルで生成したくないこともあるため
+  - opening_brace # SwiftFormatと競合するため
   - required_deinit # できる限りデイニシャライザを省略したいため
   - strict_fileprivate # fileprivateを利用したいため
   - switch_case_on_newline # caseと同じ行に記述したいため

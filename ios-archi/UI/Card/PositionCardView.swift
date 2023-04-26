@@ -16,8 +16,10 @@ struct PositionCardView: View {
     @State private var imageSourceType: UIImagePickerController.SourceType = .photoLibrary
 
     var body: some View {
+        // swiftlint:disable:next closure_body_length
         VStack {
             Spacer()
+            // swiftlint:disable:next closure_body_length
             VStack {
                 HStack {
                     Label("position", systemImage: "location.circle")
@@ -50,6 +52,7 @@ struct PositionCardView: View {
                         )
                     }
                 }
+                // swiftlint:disable:next closure_body_length
                 HStack {
                     Text(position?.text ?? "Not Found")
                         .bold()
@@ -93,6 +96,7 @@ struct PositionCardView: View {
             .cornerRadius(8)
             .clipped()
             .shadow(color: .gray.opacity(0.7), radius: 5)
+            .accessibilityElement()
             Spacer()
         }
         .padding(.horizontal, 8)
@@ -100,10 +104,12 @@ struct PositionCardView: View {
 }
 
 struct PositionCardView_Previews: PreviewProvider {
+    // swiftlint:disable force_unwrapping
     static var previews: some View {
         PositionCardView(
             position: .constant(.init(x: 200, y: 0, z: -100)),
             image: .constant(UIImage(named: "sample-position")!)
         )
     }
+    // swiftlint:enable force_unwrapping
 }

@@ -31,8 +31,6 @@ struct BiomeFinderView: UIViewRepresentable {
         }
     }
 
-    private let loadUrl = "https://www.chunkbase.com/apps/biome-finder#%d"
-
     var seed: Int
     var positionX: Int
     var positionZ: Int
@@ -44,7 +42,10 @@ struct BiomeFinderView: UIViewRepresentable {
     }
 
     func updateUIView(_ webView: WKWebView, context _: Context) {
-        webView.load(URLRequest(url: URL(string: String(format: loadUrl, seed))!))
+        webView.load(
+            // swiftlint:disable:next force_unwrapping
+            URLRequest(url: URL(string: String(format: "https://www.chunkbase.com/apps/biome-finder#%d", seed))!)
+        )
     }
 
     func makeCoordinator() -> Coordinator {

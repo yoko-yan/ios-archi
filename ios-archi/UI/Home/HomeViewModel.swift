@@ -26,11 +26,10 @@ final class HomeViewModel: ObservableObject {
         let repository = SeedRepository()
         repository.get(image: image)
             .sink { [weak self] seed in
-                if !seed.isEmpty {
-                    self?.uiState.seed = Seed(rawValue: Int(seed)!)
+                if !seed.isEmpty, let seedValue = Int(seed) {
+                    self?.uiState.seed = Seed(rawValue: seedValue)
                     return
                 }
-                self?.uiState.seed = nil
             }
             .store(in: &cancellables)
     }
@@ -40,10 +39,11 @@ final class HomeViewModel: ObservableObject {
         repository.get(image: image)
             .sink { [weak self] position in
                 let arr = position.components(separatedBy: ",")
-                if arr.count >= 3 {
-                    let x = Int(arr[0].trimmingCharacters(in: .whitespaces))!
-                    let y = Int(arr[1].trimmingCharacters(in: .whitespaces))!
-                    let z = Int(arr[2].trimmingCharacters(in: .whitespaces))!
+                if arr.count >= 3,
+                   let x = Int(arr[0].trimmingCharacters(in: .whitespaces)),
+                   let y = Int(arr[1].trimmingCharacters(in: .whitespaces)),
+                   let z = Int(arr[2].trimmingCharacters(in: .whitespaces))
+                {
                     self?.uiState.position = Position(x: x, y: y, z: z)
                     return
                 }

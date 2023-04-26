@@ -9,10 +9,21 @@ import XCTest
 
 class ios_archiUITests: XCTestCase {
     override func setUpWithError() throws {
+        try super.setUpWithError()
         continueAfterFailure = false
     }
 
-    override func tearDownWithError() throws {}
+    override func setUp() {
+        super.setUp()
+    }
+
+    override func tearDown() {
+        super.tearDown()
+    }
+
+    override func tearDownWithError() throws {
+        try super.tearDownWithError()
+    }
 
     func testExample() throws {
         let app = XCUIApplication()

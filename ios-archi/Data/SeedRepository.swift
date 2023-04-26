@@ -22,6 +22,7 @@ final class SeedRepository {
             .map { (recognizeText: RecognizeText) -> String in
                 let text = recognizeText.rawValue
                 let arr = text.components(separatedBy: " ")
+                // swiftlint:disable:next force_unwrapping
                 let filterdArr = arr.filter { Int($0) != nil }.map { Int($0)! }
                 guard let max = filterdArr.max() else { return "" }
                 return String(max)

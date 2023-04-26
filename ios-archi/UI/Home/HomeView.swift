@@ -17,7 +17,9 @@ struct HomeView: View {
     @State private var isBiomeFinderView = false
 
     var body: some View {
+        // swiftlint:disable:next closure_body_length
         NavigationView {
+            // swiftlint:disable:next closure_body_length
             ScrollView {
                 ZStack {
                     NavigationLink(

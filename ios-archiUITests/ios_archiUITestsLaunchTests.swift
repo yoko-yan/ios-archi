@@ -12,7 +12,16 @@ class ios_archiUITestsLaunchTests: XCTestCase {
         true
     }
 
+    override func setUp() {
+        super.setUp()
+    }
+
+    override func tearDown() {
+        super.tearDown()
+    }
+
     override func setUpWithError() throws {
+        try super.setUpWithError()
         continueAfterFailure = false
     }
 
