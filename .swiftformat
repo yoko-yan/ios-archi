@@ -1,3 +1,9 @@
+# Rule List - https://github.com/nicklockwood/SwiftFormat/blob/master/Rules.md
+
+# file options
+--exclude Pods
+--exclude vendor
+
 # format options
 --allman false
 --binarygrouping none
@@ -32,8 +38,102 @@
 --wraparguments before-first
 --wrapcollections before-first
 
-# file options
---exclude Pods
---exclude vendor
+# Default Rules (enabled by default) デフォルトで有効なルール
+# コメントアウトを外すと無効になる
+# Pods/SwiftFormat/CommandLineTool/swiftformat -rules | awk '$2 !~ "(disabled)" { print $1 }' | tr -d ' ' | sed 's/^/#--disable /'
+#--disable andOperator
+#--disable anyObjectProtocol
+#--disable assertionFailures
+#--disable blankLinesAroundMark
+#--disable blankLinesAtEndOfScope
+#--disable blankLinesAtStartOfScope
+#--disable blankLinesBetweenScopes
+#--disable braces
+#--disable conditionalAssignment
+#--disable consecutiveBlankLines
+#--disable consecutiveSpaces
+#--disable duplicateImports
+#--disable elseOnSameLine
+#--disable emptyBraces
+#--disable enumNamespaces
+#--disable extensionAccessControl
+#--disable fileHeader
+#--disable genericExtensions
+#--disable hoistAwait
+#--disable hoistPatternLet
+#--disable hoistTry
+#--disable indent
+#--disable initCoderUnavailable
+#--disable leadingDelimiters
+#--disable linebreakAtEndOfFile
+#--disable linebreaks
+#--disable modifierOrder
+#--disable numberFormatting
+#--disable opaqueGenericParameters
+#--disable preferKeyPath
+#--disable redundantBackticks
+#--disable redundantBreak
+#--disable redundantClosure
+#--disable redundantExtensionACL
+#--disable redundantFileprivate
+#--disable redundantGet
+#--disable redundantInit
+#--disable redundantLet
+#--disable redundantLetError
+#--disable redundantNilInit
+#--disable redundantObjc
+#--disable redundantOptionalBinding
+#--disable redundantParens
+#--disable redundantPattern
+#--disable redundantRawValues
+#--disable redundantReturn
+#--disable redundantSelf
+#--disable redundantType
+#--disable redundantVoidReturnType
+#--disable semicolons
+#--disable sortDeclarations
+#--disable sortedImports
+#--disable spaceAroundBraces
+#--disable spaceAroundBrackets
+#--disable spaceAroundComments
+#--disable spaceAroundGenerics
+#--disable spaceAroundOperators
+#--disable spaceAroundParens
+#--disable spaceInsideBraces
+#--disable spaceInsideBrackets
+#--disable spaceInsideComments
+#--disable spaceInsideGenerics
+#--disable spaceInsideParens
+#--disable specifiers
+#--disable strongOutlets
+#--disable strongifiedSelf
+#--disable todos
+#--disable trailingClosures
+#--disable trailingCommas
+#--disable trailingSpace
+#--disable typeSugar
+#--disable unusedArguments
+#--disable void
+#--disable wrap
+#--disable wrapArguments
+#--disable wrapAttributes
+#--disable wrapMultilineStatementBraces
+#--disable wrapSingleLineComments
+#--disable yodaConditions
 
-# rules
+# Opt-in Rules (disabled by default) defaultルール以外にopt-inから採用するルール
+# コメントアウトを外すと有効になる
+# Pods/SwiftFormat/CommandLineTool/swiftformat -rules | awk '$2 ~ "(disabled)" { print $1 }' | tr -d ' ' | sed 's/^/#--enable /'
+#--enable acronyms
+#--enable blankLineAfterImports
+#--enable blankLinesBetweenImports
+#--enable blockComments
+#--enable docComments
+#--enable isEmpty
+#--enable markTypes
+#--enable organizeDeclarations
+#--enable sortedSwitchCases
+#--enable wrapConditionalBodies
+#--enable wrapEnumCases
+#--enable wrapSwitchCases
+
