@@ -1,4 +1,4 @@
-# document: https://github.com/realm/SwiftLint
+# Rule List - https://realm.github.io/SwiftLint/rule-directory.html
 
 # 無効にするルール
 disabled_rules:
