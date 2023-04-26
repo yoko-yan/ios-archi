@@ -54,7 +54,7 @@ struct PositionCardView: View {
                 }
                 // swiftlint:disable:next closure_body_length
                 HStack {
-                    Text(position?.text ?? "Not Found")
+                    Text(positionText)
                         .bold()
                     Spacer()
                     Button(action: {
@@ -89,6 +89,7 @@ struct PositionCardView: View {
                         )
                     }
                 }
+                .frame(height: 40)
             }
             .padding()
             .accentColor(.gray)
@@ -100,6 +101,18 @@ struct PositionCardView: View {
             Spacer()
         }
         .padding(.horizontal, 8)
+    }
+
+    private var positionText: String {
+        if let position {
+            if image != nil {
+                return position.text
+            } else {
+                return "not found position text"
+            }
+        } else {
+            return ""
+        }
     }
 }
 

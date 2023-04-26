@@ -54,7 +54,7 @@ struct SeedCardView: View {
                 }
                 // swiftlint:disable:next closure_body_length
                 HStack {
-                    Text(seed?.text ?? "Not Found")
+                    Text(seedText)
                         .bold()
                     Spacer()
                     Button(action: {
@@ -89,6 +89,7 @@ struct SeedCardView: View {
                         )
                     }
                 }
+                .frame(height: 40)
             }
             .padding()
             .accentColor(.gray)
@@ -100,6 +101,18 @@ struct SeedCardView: View {
             Spacer()
         }
         .padding(.horizontal, 8)
+    }
+
+    private var seedText: String {
+        if let seed {
+            if image != nil {
+                return seed.text
+            } else {
+                return "not seed position text"
+            }
+        } else {
+            return ""
+        }
     }
 }
 
