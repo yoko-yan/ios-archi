@@ -15,20 +15,6 @@ struct BiomeFinderView: UIViewRepresentable {
         init(_ biomeFinderView: BiomeFinderView) {
             parent = biomeFinderView
         }
-
-        func webView(_ webView: WKWebView, didFinish _: WKNavigation?) {
-            webView.evaluateJavaScript(
-                """
-                document.getElementById('map-goto-x').value = '\(parent.positionX)';
-                document.getElementById('map-goto-z').value = '\(parent.positionZ)';
-                document.getElementById("map-goto-go").click();
-                """
-            ) { _, error in
-                if let error {
-                    print(error)
-                }
-            }
-        }
     }
 
     var seed: Int
@@ -36,7 +22,25 @@ struct BiomeFinderView: UIViewRepresentable {
     var positionZ: Int
 
     func makeUIView(context: Context) -> WKWebView {
-        let webView = WKWebView()
+        let webView: WKWebView
+        let userScript1 = WKUserScript(
+            source:
+            """
+            document.getElementById('map-goto-x').value = '\(positionX)';
+            document.getElementById('map-goto-z').value = '\(positionZ)';
+            document.getElementById("map-goto-go").click();
+            """,
+            injectionTime: .atDocumentEnd,
+            forMainFrameOnly: true
+        )
+
+        let controller = WKUserContentController()
+        controller.addUserScript(userScript1)
+
+        let configuration = WKWebViewConfiguration()
+        configuration.userContentController = controller
+
+        webView = WKWebView(frame: .zero, configuration: configuration)
         webView.navigationDelegate = context.coordinator
         return webView
     }
