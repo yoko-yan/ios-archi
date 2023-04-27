@@ -35,10 +35,10 @@ struct PositionCardView: View {
                         imageSourceType = .photoLibrary
                         isImagePicker.toggle()
                     } label: {
-                        Spacer()
                         Text("画像から座標を取得")
-                        Spacer()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
+                    .contentShape(Rectangle())
                     .frame(height: 200)
                     .background(
                         Color.gray
@@ -122,6 +122,10 @@ struct PositionCardView_Previews: PreviewProvider {
         PositionCardView(
             position: .constant(.init(x: 200, y: 0, z: -100)),
             image: .constant(UIImage(named: "sample-position")!)
+        )
+        PositionCardView(
+            position: .constant(nil),
+            image: .constant(nil)
         )
     }
     // swiftlint:enable force_unwrapping

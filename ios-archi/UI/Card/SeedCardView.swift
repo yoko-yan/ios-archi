@@ -35,10 +35,10 @@ struct SeedCardView: View {
                         imageSourceType = .photoLibrary
                         isImagePicker.toggle()
                     } label: {
-                        Spacer()
                         Text("画像からシード値を取得")
-                        Spacer()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
+                    .contentShape(Rectangle())
                     .frame(height: 200)
                     .background(
                         Color.gray
@@ -122,6 +122,10 @@ struct SeedCardView_Previews: PreviewProvider {
         SeedCardView(
             seed: .constant(Seed(rawValue: 1234567890)),
             image: .constant(UIImage(named: "sample-seed")!)
+        )
+        SeedCardView(
+            seed: .constant(nil),
+            image: .constant(nil)
         )
     }
     // swiftlint:enable force_unwrapping
