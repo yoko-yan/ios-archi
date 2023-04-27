@@ -25,6 +25,7 @@
 		970AE8FB298444C700BECFA6 /* PositionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970AE8FA298444C700BECFA6 /* PositionRepository.swift */; };
 		970AE8FE2984533A00BECFA6 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970AE8FD2984533A00BECFA6 /* Position.swift */; };
 		975204FF2987532700115D00 /* OutlineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975204FE2987532700115D00 /* OutlineButton.swift */; };
+		975686A229F9A8B600F62179 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975686A129F9A8B600F62179 /* ActivityIndicator.swift */; };
 		975960CC29817E3200B42FB3 /* RecognizeTextRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975960CB29817E3200B42FB3 /* RecognizeTextRequest.swift */; };
 		975960CE2981974D00B42FB3 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975960CD2981974D00B42FB3 /* WebView.swift */; };
 		975960D0298197F100B42FB3 /* BiomeFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975960CF298197F100B42FB3 /* BiomeFinderView.swift */; };
@@ -76,6 +77,7 @@
 		970AE8FA298444C700BECFA6 /* PositionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionRepository.swift; sourceTree = "<group>"; };
 		970AE8FD2984533A00BECFA6 /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		975204FE2987532700115D00 /* OutlineButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutlineButton.swift; sourceTree = "<group>"; };
+		975686A129F9A8B600F62179 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		975960CB29817E3200B42FB3 /* RecognizeTextRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognizeTextRequest.swift; sourceTree = "<group>"; };
 		975960CD2981974D00B42FB3 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		975960CF298197F100B42FB3 /* BiomeFinderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiomeFinderView.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				8370C21B29803BD100559998 /* ImagePicker.swift */,
 				975960CD2981974D00B42FB3 /* WebView.swift */,
 				975960CF298197F100B42FB3 /* BiomeFinderView.swift */,
+				975686A129F9A8B600F62179 /* ActivityIndicator.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -515,6 +518,7 @@
 			files = (
 				975960CC29817E3200B42FB3 /* RecognizeTextRequest.swift in Sources */,
 				97976371298599EB00EB4DB6 /* SeedRepository.swift in Sources */,
+				975686A229F9A8B600F62179 /* ActivityIndicator.swift in Sources */,
 				83E74B2D292E315600FA1F46 /* ContentView.swift in Sources */,
 				83C439E62986CCE100DA1425 /* PositionCardView.swift in Sources */,
 				970AE8FE2984533A00BECFA6 /* Position.swift in Sources */,
