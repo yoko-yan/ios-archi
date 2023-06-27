@@ -121,7 +121,7 @@ struct SeedCardView_Previews: PreviewProvider {
     static var previews: some View {
         SeedCardView(
             seed: .constant(Seed(rawValue: 1234567890)),
-            image: .constant(UIImage(named: "sample-seed")!)
+            image: .constant(UIImage(named: "sample-seed", in: Bundle.module, with: nil)!)
         )
         SeedCardView(
             seed: .constant(nil),

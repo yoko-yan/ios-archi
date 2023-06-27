@@ -12,7 +12,7 @@ import SwiftUI
 struct ios_archiApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView()
         }
     }
 }

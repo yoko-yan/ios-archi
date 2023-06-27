@@ -121,7 +121,7 @@ struct PositionCardView_Previews: PreviewProvider {
     static var previews: some View {
         PositionCardView(
             position: .constant(.init(x: 200, y: 0, z: -100)),
-            image: .constant(UIImage(named: "sample-position")!)
+            image: .constant(UIImage(named: "sample-position", in: Bundle.module, with: nil)!)
         )
         PositionCardView(
             position: .constant(nil),

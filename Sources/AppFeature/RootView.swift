@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  RootView.swift
 //  ios-archi
 //
 //  Created by yokoda.takayuki on 2022/11/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct ContentView: View {
+public struct RootView: View {
     public var body: some View {
         HomeView()
     }
@@ -17,6 +17,6 @@ public struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        RootView()
     }
 }
