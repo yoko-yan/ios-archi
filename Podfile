@@ -1,5 +1,7 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '14.0'
+platform :ios, '16.0'
+workspace 'ios-archi'
+project 'App/ios-archi.xcodeproj'
 install! 'cocoapods', :warn_for_unused_master_specs_repo => false
 
 target 'ios-archi' do

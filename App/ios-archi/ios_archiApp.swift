@@ -5,6 +5,7 @@
 //  Created by yokoda.takayuki on 2022/11/23.
 //
 
+import AppFeature
 import SwiftUI
 
 @main
