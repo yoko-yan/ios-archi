@@ -25,9 +25,9 @@ final class CoordinatesRepository {
         }
 
         return request.perform(image: cgImage, orientation: cgOrientation)
-            .filter { !$0.rawValue.isEmpty }
-            .map { (recognizeText: RecognizeText) -> String in
-                let text = recognizeText.rawValue
+            .filter { !$0.isEmpty }
+            .map { (recognizeText: String) -> String in
+                let text = recognizeText
                 let pattern = "(-?[0-9]{1,4}, -?[0-9]{1,4}, -?[0-9]{1,4})"
                 // swiftlint:disable:next force_try
                 let regex = try! NSRegularExpression(pattern: pattern, options: [.allowCommentsAndWhitespace])

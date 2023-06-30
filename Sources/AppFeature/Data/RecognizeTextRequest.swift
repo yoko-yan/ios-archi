@@ -9,9 +9,9 @@ import Combine
 import Vision
 
 final class RecognizeTextRequest {
-    private var subject: CurrentValueSubject<RecognizeText, Never> = .init(RecognizeText(rawValue: ""))
+    private var subject: CurrentValueSubject<String, Never> = .init("")
 
-    func perform(image: CGImage, orientation: CGImagePropertyOrientation) -> AnyPublisher<RecognizeText, Never> {
+    func perform(image: CGImage, orientation: CGImagePropertyOrientation) -> AnyPublisher<String, Never> {
         let request = VNRecognizeTextRequest(completionHandler: handle)
         request.recognitionLevel = .accurate
         //　日本語を指定する
@@ -55,6 +55,6 @@ private extension RecognizeTextRequest {
             text += "\(candidate.string) "
         }
         print(text)
-        subject.send(RecognizeText(rawValue: String(text)))
+        subject.send(String(text))
     }
 }

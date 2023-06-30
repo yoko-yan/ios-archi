@@ -18,9 +18,9 @@ final class SeedRepository {
         }
 
         return request.perform(image: cgImage, orientation: cgOrientation)
-            .filter { !$0.rawValue.isEmpty }
-            .map { (recognizeText: RecognizeText) -> String in
-                let text = recognizeText.rawValue
+            .filter { !$0.isEmpty }
+            .map { (recognizeText: String) -> String in
+                let text = recognizeText
                 let arr = text.components(separatedBy: " ")
                 // swiftlint:disable:next force_unwrapping
                 let filterdArr = arr.filter { Int($0) != nil }.map { Int($0)! }
