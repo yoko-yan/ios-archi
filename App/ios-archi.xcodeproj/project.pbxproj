@@ -98,8 +98,8 @@
 		83E74B1E292E315600FA1F46 = {
 			isa = PBXGroup;
 			children = (
-				83E74B29292E315600FA1F46 /* ios-archi */,
 				9716ED6E2A4B4C9F00A79868 /* ios-archi */,
+				83E74B29292E315600FA1F46 /* ios-archi */,
 				83E74B28292E315600FA1F46 /* Products */,
 				DF99ECBECFE82D436A431575 /* Frameworks */,
 				20ABA691EDCBAB865296460F /* Pods */,

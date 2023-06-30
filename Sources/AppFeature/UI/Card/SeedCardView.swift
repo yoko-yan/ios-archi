@@ -108,7 +108,7 @@ struct SeedCardView: View {
             if image != nil {
                 return seed.text
             } else {
-                return "not seed position text"
+                return "not found seed text"
             }
         } else {
             return ""

@@ -1,5 +1,5 @@
 //
-//  PositionCardView.swift
+//  CoordinatesCardView.swift
 //  ios-archi
 //
 //  Created by yokoda.takayuki on 2023/01/29.
@@ -8,8 +8,8 @@
 import Combine
 import SwiftUI
 
-struct PositionCardView: View {
-    @Binding var position: Position?
+struct CoordinatesCardView: View {
+    @Binding var coordinates: Coordinates?
     @Binding var image: UIImage?
 
     @State private var isImagePicker = false
@@ -22,7 +22,7 @@ struct PositionCardView: View {
             // swiftlint:disable:next closure_body_length
             VStack {
                 HStack {
-                    Label("position", systemImage: "location.circle")
+                    Label("coordinates", systemImage: "location.circle")
                     Spacer()
                 }
                 if let image {
@@ -54,7 +54,7 @@ struct PositionCardView: View {
                 }
                 // swiftlint:disable:next closure_body_length
                 HStack {
-                    Text(positionText)
+                    Text(coordinatesText)
                         .bold()
                     Spacer()
                     Button(action: {
@@ -103,12 +103,12 @@ struct PositionCardView: View {
         .padding(.horizontal, 8)
     }
 
-    private var positionText: String {
-        if let position {
+    private var coordinatesText: String {
+        if let coordinates {
             if image != nil {
-                return position.text
+                return coordinates.text
             } else {
-                return "not found position text"
+                return "not found coordinates text"
             }
         } else {
             return ""
@@ -116,15 +116,15 @@ struct PositionCardView: View {
     }
 }
 
-struct PositionCardView_Previews: PreviewProvider {
+struct CoordinatesCardView_Previews: PreviewProvider {
     // swiftlint:disable force_unwrapping
     static var previews: some View {
-        PositionCardView(
-            position: .constant(.init(x: 200, y: 0, z: -100)),
-            image: .constant(UIImage(named: "sample-position", in: Bundle.module, with: nil)!)
+        CoordinatesCardView(
+            coordinates: .constant(.init(x: 200, y: 0, z: -100)),
+            image: .constant(UIImage(named: "sample-coordinates", in: Bundle.module, with: nil)!)
         )
-        PositionCardView(
-            position: .constant(nil),
+        CoordinatesCardView(
+            coordinates: .constant(nil),
             image: .constant(nil)
         )
     }

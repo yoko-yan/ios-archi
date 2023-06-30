@@ -1,5 +1,5 @@
 //
-//  PositionRepository.swift
+//  CoordinatesRepository.swift
 //  ios-archi
 //
 //  Created by takayuki.yokoda on 2023/01/28.
@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import UIKit
 
-final class PositionRepository {
+final class CoordinatesRepository {
     enum TestError: Error {
         case minusError
         case nilError
@@ -35,9 +35,9 @@ final class PositionRepository {
                 if let match = matches.first {
                     let range = match.range(at: 1)
                     if let range = Range(range, in: text) {
-                        let position = text[range]
-                        print(position)
-                        return String(position)
+                        let coordinates = text[range]
+                        print(coordinates)
+                        return String(coordinates)
                     }
                 }
                 return ""

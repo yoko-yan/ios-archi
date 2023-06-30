@@ -1,5 +1,5 @@
 //
-//  Position.swift
+//  Coordinates.swift
 //  ios-archi
 //
 //  Created by takayuki.yokoda on 2023/01/28.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Position: Equatable {
+struct Coordinates: Equatable {
     public static var zero: Self { .init(x: 0, y: 0, z: 0) }
 
     var text: String {

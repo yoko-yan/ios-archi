@@ -18,16 +18,15 @@ struct BiomeFinderView: UIViewRepresentable {
     }
 
     var seed: Int
-    var positionX: Int
-    var positionZ: Int
+    var coordinates: Coordinates
 
     func makeUIView(context: Context) -> WKWebView {
         let webView: WKWebView
         let userScript1 = WKUserScript(
             source:
             """
-            document.getElementById('map-goto-x').value = '\(positionX)';
-            document.getElementById('map-goto-z').value = '\(positionZ)';
+            document.getElementById('map-goto-x').value = '\(coordinates.x)';
+            document.getElementById('map-goto-z').value = '\(coordinates.z)';
             document.getElementById("map-goto-go").click();
             """,
             injectionTime: .atDocumentEnd,
@@ -61,8 +60,7 @@ struct BiomeFinderView_Previews: PreviewProvider {
     static var previews: some View {
         BiomeFinderView(
             seed: 132431431,
-            positionX: 1500,
-            positionZ: -1500
+            coordinates: Coordinates(x: 1500, y: 500, z: -1500)
         )
     }
 }

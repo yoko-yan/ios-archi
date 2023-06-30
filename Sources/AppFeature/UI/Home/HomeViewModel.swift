@@ -18,8 +18,8 @@ final class HomeViewModel: ObservableObject {
         uiState.seed = nil
     }
 
-    func clearPosition() {
-        uiState.position = nil
+    func clearCoordinates() {
+        uiState.coordinates = nil
     }
 
     func getSeed(image: UIImage) {
@@ -35,21 +35,21 @@ final class HomeViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func getPosition(image: UIImage) {
-        let repository = PositionRepository()
+    func getCoordinates(image: UIImage) {
+        let repository = CoordinatesRepository()
         repository.get(image: image)
-            .sink { [weak self] position in
+            .sink { [weak self] coordinates in
                 guard let self else { return }
-                let arr = position.components(separatedBy: ",")
+                let arr = coordinates.components(separatedBy: ",")
                 if arr.count >= 3,
                    let x = Int(arr[0].trimmingCharacters(in: .whitespaces)),
                    let y = Int(arr[1].trimmingCharacters(in: .whitespaces)),
                    let z = Int(arr[2].trimmingCharacters(in: .whitespaces))
                 {
-                    uiState.position = Position(x: x, y: y, z: z)
+                    uiState.coordinates = Coordinates(x: x, y: y, z: z)
                     return
                 }
-                uiState.position = nil
+                uiState.coordinates = nil
             }
             .store(in: &cancellables)
     }

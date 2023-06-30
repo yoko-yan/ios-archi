@@ -9,5 +9,5 @@ import Foundation
 
 struct HomeViewUiState: Equatable {
     var seed: Seed?
-    var position: Position?
+    var coordinates: Coordinates?
 }

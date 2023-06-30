@@ -11,9 +11,9 @@ struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
 
     @State private var seedImage: UIImage?
-    @State private var positionImage: UIImage?
+    @State private var coordinatesImage: UIImage?
     @State private var seed: Seed?
-    @State private var position: Position?
+    @State private var coordinates: Coordinates?
     @State private var isBiomeFinderView = false
 
     var body: some View {
@@ -26,8 +26,7 @@ struct HomeView: View {
                         destination:
                         BiomeFinderView(
                             seed: viewModel.uiState.seed?.rawValue ?? 0,
-                            positionX: viewModel.uiState.position?.x ?? 0,
-                            positionZ: viewModel.uiState.position?.z ?? 0
+                            coordinates: viewModel.uiState.coordinates ?? Coordinates(x: 0, y: 0, z: 0)
                         )
                         .navigationBarTitle("BiomeFinder"),
                         isActive: $isBiomeFinderView,
@@ -39,9 +38,9 @@ struct HomeView: View {
                             image: $seedImage
                         )
 
-                        PositionCardView(
-                            position: $position,
-                            image: $positionImage
+                        CoordinatesCardView(
+                            coordinates: $coordinates,
+                            image: $coordinatesImage
                         )
 
                         Button {
@@ -56,23 +55,23 @@ struct HomeView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarTitle(Text("Seed And Position Getter"))
+            .navigationBarTitle(Text("Seed And Coordinates Getter"))
             .onChange(of: seedImage) { image in
                 guard let image else { return }
                 viewModel.clearSeed()
                 viewModel.getSeed(image: image)
             }
-            .onChange(of: positionImage) { image in
+            .onChange(of: coordinatesImage) { image in
                 guard let image else { return }
-                viewModel.clearPosition()
-                viewModel.getPosition(image: image)
+                viewModel.clearCoordinates()
+                viewModel.getCoordinates(image: image)
             }
             .onChange(of: viewModel.uiState) { [oldState = viewModel.uiState] newState in
                 if oldState.seed != newState.seed {
                     seed = newState.seed
                 }
-                if oldState.position != newState.position {
-                    position = newState.position
+                if oldState.coordinates != newState.coordinates {
+                    coordinates = newState.coordinates
                 }
             }
         }
