@@ -1,5 +1,5 @@
 //
-//  HomeViewModel.swift
+//  DetailViewModel.swift
 //  ios-archi
 //
 //  Created by yokoda.takayuki on 2023/01/28.
@@ -7,19 +7,33 @@
 
 import Combine
 import UIKit
+import SwiftUI
 
 @MainActor
-final class HomeViewModel: ObservableObject {
-    @Published private(set) var uiState = HomeViewUiState()
+final class DetailViewModel: ObservableObject {
+    @Published private(set) var uiState: DetailUiState
 
     private var cancellables: Set<AnyCancellable> = []
 
+    var item: Binding<Item> {
+        Binding(
+            get: { self.uiState.item },
+            set: { newValue in
+                self.uiState.item = newValue
+            }
+        )
+    }
+
+    init(item: Item) {
+        self.uiState = DetailUiState(item: item)
+    }
+
     func clearSeed() {
-        uiState.seed = nil
+        uiState.item.seed = nil
     }
 
     func clearCoordinates() {
-        uiState.coordinates = nil
+        uiState.item.coordinates = nil
     }
 
     func getSeed(image: UIImage) {
@@ -28,7 +42,7 @@ final class HomeViewModel: ObservableObject {
             .sink { [weak self] seed in
                 guard let self else { return }
                 if !seed.isEmpty, let seedValue = Int(seed) {
-                    uiState.seed = Seed(rawValue: seedValue)
+                    uiState.item.seed = Seed(rawValue: seedValue)
                     return
                 }
             }
@@ -46,10 +60,10 @@ final class HomeViewModel: ObservableObject {
                    let y = Int(arr[1].trimmingCharacters(in: .whitespaces)),
                    let z = Int(arr[2].trimmingCharacters(in: .whitespaces))
                 {
-                    uiState.coordinates = Coordinates(x: x, y: y, z: z)
+                    uiState.item.coordinates = Coordinates(x: x, y: y, z: z)
                     return
                 }
-                uiState.coordinates = nil
+                uiState.item.coordinates = nil
             }
             .store(in: &cancellables)
     }

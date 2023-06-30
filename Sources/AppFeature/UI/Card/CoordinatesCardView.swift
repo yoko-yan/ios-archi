@@ -54,7 +54,7 @@ struct CoordinatesCardView: View {
                 }
                 // swiftlint:disable:next closure_body_length
                 HStack {
-                    Text(coordinatesText)
+                    Text(coordinates?.text ?? "")
                         .bold()
                     Spacer()
                     Button(action: {
@@ -101,18 +101,6 @@ struct CoordinatesCardView: View {
             Spacer()
         }
         .padding(.horizontal, 8)
-    }
-
-    private var coordinatesText: String {
-        if let coordinates {
-            if image != nil {
-                return coordinates.text
-            } else {
-                return "not found coordinates text"
-            }
-        } else {
-            return ""
-        }
     }
 }
 

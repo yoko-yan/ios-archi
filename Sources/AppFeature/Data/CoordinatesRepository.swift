@@ -28,7 +28,7 @@ final class CoordinatesRepository {
             .filter { !$0.isEmpty }
             .map { (recognizeText: String) -> String in
                 let text = recognizeText
-                let pattern = "(-?[0-9]{1,4}, -?[0-9]{1,4}, -?[0-9]{1,4})"
+                let pattern = #"(-?[0-9]{1,4},[\s]?-?[0-9]{1,4},[\s]?-?[0-9]{1,4})"#
                 // swiftlint:disable:next force_try
                 let regex = try! NSRegularExpression(pattern: pattern, options: [.allowCommentsAndWhitespace])
                 let matches = regex.matches(in: text, options: [], range: NSRange(0..<text.count))
