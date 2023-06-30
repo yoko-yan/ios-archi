@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     var body: some View {
-        TabView{
+        TabView {
             ListView()
                 .tabItem {
                     Image(systemName: "1.circle.fill")

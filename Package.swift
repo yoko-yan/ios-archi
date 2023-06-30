@@ -10,13 +10,13 @@ let package = Package(
         .library(name: "AppFeature", targets: ["AppFeature"])
     ],
     dependencies: [
-        .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "0.1.4"),
+        .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "0.1.4")
     ],
     targets: [
         .target(
             name: "AppFeature",
             dependencies: [
-                .product(name: "Dependencies", package: "swift-dependencies"),
+                .product(name: "Dependencies", package: "swift-dependencies")
             ]
         )
     ]

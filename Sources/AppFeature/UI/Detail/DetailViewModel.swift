@@ -6,8 +6,8 @@
 //
 
 import Combine
-import UIKit
 import SwiftUI
+import UIKit
 
 @MainActor
 final class DetailViewModel: ObservableObject {
@@ -25,7 +25,7 @@ final class DetailViewModel: ObservableObject {
     }
 
     init(item: Item) {
-        self.uiState = DetailUiState(item: item)
+        uiState = DetailUiState(item: item)
     }
 
     func clearSeed() {
