@@ -16,3 +16,17 @@ struct Seed: Equatable, RawRepresentable {
         String(rawValue)
     }
 }
+
+extension Seed: Translator {
+    static func translate(_ entity: ItemEntity.Seed?) -> Self? {
+        guard let entity else { return nil }
+        return Self(rawValue: entity.rawValue)
+    }
+}
+
+extension ItemEntity.Seed: Translator {
+    static func translate(_ model: Seed?) -> Self? {
+        guard let model else { return nil }
+        return Self(rawValue: model.rawValue)
+    }
+}

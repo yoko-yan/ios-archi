@@ -8,28 +8,46 @@
 import SwiftUI
 
 struct ListView: View {
-    let items = [
-        Item(seed: .zero, coordinates: .zero),
-        Item(seed: nil, coordinates: nil),
-        Item(
-            seed: Seed(rawValue: 500),
-            coordinates: Coordinates(x: 100, y: 20, z: 300)
-        )
-    ]
+    @StateObject private var viewModel: ListViewModel
 
     var body: some View {
-        NavigationView {
-            List(items) { item in
-                NavigationLink(destination: DetailView(item: item)) {
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text("seed: \(item.seed?.text ?? "")")
-                            Text("coordinates: \(item.coordinates?.text ?? "")")
-                        }
+        List(viewModel.uiState.items) { item in
+            NavigationLink(destination: DetailView(item: item)) {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("seed: \(item.seed?.text ?? "")")
+                        Text("coordinates: \(item.coordinates?.text ?? "")")
                     }
                 }
             }
         }
+        .task {
+            viewModel.loadItems()
+        }
+        .refreshable {
+            viewModel.loadItems()
+        }
+    }
+
+    init() {
+        self.init(viewModel: ListViewModel())
+
+        // FIXME: DEBUG
+        ItemsRepository().create(
+            items:
+            [
+                Item(seed: .zero, coordinates: .zero),
+                Item(seed: nil, coordinates: nil),
+                Item(
+                    seed: Seed(rawValue: 500),
+                    coordinates: Coordinates(x: 100, y: 20, z: 300)
+                )
+            ]
+        )
+    }
+
+    private init(viewModel: ListViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
     }
 }
 

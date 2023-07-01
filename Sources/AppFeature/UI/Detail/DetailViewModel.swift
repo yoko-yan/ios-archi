@@ -67,4 +67,8 @@ final class DetailViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
+
+    func updateItem() {
+        ItemsRepository().update(item: uiState.item)
+    }
 }

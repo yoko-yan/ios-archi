@@ -14,8 +14,8 @@ struct DetailView: View {
     @State private var isBiomeFinderView = false
 
     var body: some View {
-        ScrollView {
-            ZStack {
+        VStack {
+            ScrollView {
                 NavigationLink(
                     destination:
                     BiomeFinderView(
@@ -24,9 +24,9 @@ struct DetailView: View {
                     )
                     .navigationBarTitle("BiomeFinder"),
                     isActive: $isBiomeFinderView,
-                    label: { Text("") }
+                    label: { EmptyView() }
                 )
-                VStack(spacing: 0) {
+                VStack(spacing: 10) {
                     SeedCardView(
                         seed: viewModel.item.seed,
                         image: $seedImage
@@ -37,16 +37,30 @@ struct DetailView: View {
                         image: $coordinatesImage
                     )
 
+                    Divider()
+
                     Button {
                         isBiomeFinderView.toggle()
                     } label: {
-                        Text("Show Biome Finder")
+                        Text("画像と座標からバイオームを検索")
                     }
-                    .frame(height: 200)
                     .accentColor(.gray)
                     .buttonStyle(OutlineButton())
                 }
             }
+
+            Spacer()
+            Divider()
+
+            Button {
+                viewModel.updateItem()
+            } label: {
+                Text("データを保存する")
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .foregroundColor(.red)
+            .padding(14)
+            .frame(maxWidth: .infinity)
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarTitle(Text("Seed And Coordinates Getter"))
@@ -60,13 +74,15 @@ struct DetailView: View {
             viewModel.clearCoordinates()
             viewModel.getCoordinates(image: image)
         }
-        .onChange(of: viewModel.uiState) { [oldState = viewModel.uiState] _ in
-//                if oldState.item.seed != newState.item.seed {
-//                    seed = newState.item.seed
-//                }
-//                if oldState.item.coordinates != newState.item.coordinates {
-//                    coordinates = newState.item.coordinates
-//                }
+        .onChange(of: viewModel.uiState) { [oldState = viewModel.uiState] newValue in
+            print(newValue)
+//            if oldState.item.seed != newState.item.seed {
+//                seed = newState.item.seed
+//                print(newValue)
+//            }
+//            if oldState.item.coordinates != newState.item.coordinates {
+//                coordinates = newState.item.coordinates
+//            }
         }
     }
 

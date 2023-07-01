@@ -9,15 +9,17 @@ import SwiftUI
 
 struct HomeView: View {
     var body: some View {
-        TabView {
-            ListView()
-                .tabItem {
-                    Image(systemName: "1.circle.fill")
-                }
-            DetailView(item: Item(seed: .zero, coordinates: .zero))
-                .tabItem {
-                    Image(systemName: "2.circle.fill")
-                }
+        NavigationView {
+            TabView {
+                ListView()
+                    .tabItem {
+                        Image(systemName: "1.circle.fill")
+                    }
+                DetailView(item: Item(seed: .zero, coordinates: .zero))
+                    .tabItem {
+                        Image(systemName: "2.circle.fill")
+                    }
+            }
         }
     }
 }
