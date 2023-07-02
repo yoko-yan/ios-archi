@@ -9,30 +9,20 @@ import SwiftUI
 
 struct DetailView: View {
     @StateObject private var viewModel: DetailViewModel
-//    @State private var seedImage: UIImage?
-//    @State private var coordinatesImage: UIImage?
     @State private var isBiomeFinderView = false
 
     var body: some View {
         VStack {
             ScrollView {
-                NavigationLink(
-                    destination:
-                    BiomeFinderView(
-                        seed: viewModel.uiState.item.seed?.rawValue ?? 0,
-                        coordinates: viewModel.uiState.item.coordinates ?? Coordinates(x: 0, y: 0, z: 0)
-                    )
-                    .navigationBarTitle("BiomeFinder"),
-                    isActive: $isBiomeFinderView,
-                    label: { EmptyView() }
-                )
                 VStack(spacing: 10) {
-                    SeedCardView(
+                    SeedView(
                         seed: viewModel.item.seed,
                         image: viewModel.seedImage
                     )
 
-                    CoordinatesCardView(
+                    Divider()
+
+                    CoordinatesView(
                         coordinates: viewModel.item.coordinates,
                         image: viewModel.coordinatesImage
                     )
@@ -45,25 +35,10 @@ struct DetailView: View {
                         Text("画像と座標からバイオームを検索")
                     }
                     .accentColor(.gray)
-                    .buttonStyle(OutlineButton())
+                    .buttonStyle(OutlineButtonStyle())
                 }
             }
-
-            Spacer()
-            Divider()
-
-            Button {
-                viewModel.updateItem()
-            } label: {
-                Text("データを保存する")
-            }
-            .clipShape(RoundedRectangle(cornerRadius: 8))
-            .foregroundColor(.red)
-            .padding(14)
-            .frame(maxWidth: .infinity)
         }
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarTitle(Text("Seed And Coordinates Getter"))
         .task {
             viewModel.loadImage()
         }
@@ -75,6 +50,12 @@ struct DetailView: View {
             {
                 viewModel.getCoordinates(image: coordinatesImage)
             }
+        }
+        .sheet(isPresented: $isBiomeFinderView) {
+            BiomeFinderView(
+                seed: viewModel.uiState.item.seed?.rawValue ?? 0,
+                coordinates: viewModel.uiState.item.coordinates ?? Coordinates(x: 0, y: 0, z: 0)
+            )
         }
     }
 

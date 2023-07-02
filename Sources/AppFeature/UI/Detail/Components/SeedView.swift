@@ -1,5 +1,5 @@
 //
-//  CoordinatesCardView.swift
+//  SeedView.swift
 //  ios-archi
 //
 //  Created by yokoda.takayuki on 2023/01/29.
@@ -8,8 +8,8 @@
 import Combine
 import SwiftUI
 
-struct CoordinatesCardView: View {
-    @Binding var coordinates: Coordinates?
+struct SeedView: View {
+    @Binding var seed: Seed?
     @Binding var image: UIImage?
 
     @State private var isImagePicker = false
@@ -22,7 +22,7 @@ struct CoordinatesCardView: View {
             // swiftlint:disable:next closure_body_length
             VStack {
                 HStack {
-                    Label("coordinates", systemImage: "location.circle")
+                    Label("seed", systemImage: "globe")
                     Spacer()
                 }
                 if let image {
@@ -35,7 +35,7 @@ struct CoordinatesCardView: View {
                         imageSourceType = .photoLibrary
                         isImagePicker.toggle()
                     } label: {
-                        Text("画像から座標を取得")
+                        Text("画像からシード値を取得")
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                     .contentShape(Rectangle())
@@ -54,7 +54,7 @@ struct CoordinatesCardView: View {
                 }
                 // swiftlint:disable:next closure_body_length
                 HStack {
-                    Text(coordinates?.text ?? "")
+                    Text(seed?.text ?? "")
                         .bold()
                     Spacer()
                     Button(action: {
@@ -93,26 +93,20 @@ struct CoordinatesCardView: View {
             }
             .padding()
             .accentColor(.gray)
-            .background(Color.white)
-            .cornerRadius(8)
-            .clipped()
-            .shadow(color: .gray.opacity(0.7), radius: 5)
-            .accessibilityElement()
-            Spacer()
         }
         .padding(.horizontal, 8)
     }
 }
 
-struct CoordinatesCardView_Previews: PreviewProvider {
+struct SeedCardView_Previews: PreviewProvider {
     // swiftlint:disable force_unwrapping
     static var previews: some View {
-        CoordinatesCardView(
-            coordinates: .constant(.init(x: 200, y: 0, z: -100)),
-            image: .constant(UIImage(named: "sample-coordinates", in: Bundle.module, with: nil)!)
+        SeedView(
+            seed: .constant(Seed(rawValue: 1234567890)),
+            image: .constant(UIImage(named: "sample-seed", in: Bundle.module, with: nil)!)
         )
-        CoordinatesCardView(
-            coordinates: .constant(nil),
+        SeedView(
+            seed: .constant(nil),
             image: .constant(nil)
         )
     }

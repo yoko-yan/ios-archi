@@ -18,7 +18,7 @@ struct ItemEntity: Identifiable, Codable {
         let z: Int
     }
 
-    var id = UUID()
+    var id: String
     var seed: Seed?
     var coordinates: Coordinates?
 }

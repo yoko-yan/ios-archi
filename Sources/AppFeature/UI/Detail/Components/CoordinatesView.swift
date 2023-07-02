@@ -1,5 +1,5 @@
 //
-//  SeedCardView.swift
+//  CoordinatesView.swift
 //  ios-archi
 //
 //  Created by yokoda.takayuki on 2023/01/29.
@@ -8,8 +8,8 @@
 import Combine
 import SwiftUI
 
-struct SeedCardView: View {
-    @Binding var seed: Seed?
+struct CoordinatesView: View {
+    @Binding var coordinates: Coordinates?
     @Binding var image: UIImage?
 
     @State private var isImagePicker = false
@@ -22,7 +22,7 @@ struct SeedCardView: View {
             // swiftlint:disable:next closure_body_length
             VStack {
                 HStack {
-                    Label("seed", systemImage: "globe")
+                    Label("coordinates", systemImage: "location.circle")
                     Spacer()
                 }
                 if let image {
@@ -35,7 +35,7 @@ struct SeedCardView: View {
                         imageSourceType = .photoLibrary
                         isImagePicker.toggle()
                     } label: {
-                        Text("画像からシード値を取得")
+                        Text("画像から座標を取得")
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                     .contentShape(Rectangle())
@@ -54,7 +54,7 @@ struct SeedCardView: View {
                 }
                 // swiftlint:disable:next closure_body_length
                 HStack {
-                    Text(seed?.text ?? "")
+                    Text(coordinates?.text ?? "")
                         .bold()
                     Spacer()
                     Button(action: {
@@ -93,26 +93,20 @@ struct SeedCardView: View {
             }
             .padding()
             .accentColor(.gray)
-            .background(Color.white)
-            .cornerRadius(8)
-            .clipped()
-            .shadow(color: .gray.opacity(0.7), radius: 5)
-            .accessibilityElement()
-            Spacer()
         }
         .padding(.horizontal, 8)
     }
 }
 
-struct SeedCardView_Previews: PreviewProvider {
+struct CoordinatesCardView_Previews: PreviewProvider {
     // swiftlint:disable force_unwrapping
     static var previews: some View {
-        SeedCardView(
-            seed: .constant(Seed(rawValue: 1234567890)),
-            image: .constant(UIImage(named: "sample-seed", in: Bundle.module, with: nil)!)
+        CoordinatesView(
+            coordinates: .constant(.init(x: 200, y: 0, z: -100)),
+            image: .constant(UIImage(named: "sample-coordinates", in: Bundle.module, with: nil)!)
         )
-        SeedCardView(
-            seed: .constant(nil),
+        CoordinatesView(
+            coordinates: .constant(nil),
             image: .constant(nil)
         )
     }

@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct Item: Identifiable, Equatable {
-    var id = UUID()
+struct Item: Identifiable, Equatable, Hashable {
+    var id: String = UUID().uuidString
+    var uid: String? // 永続化用のユニークID
     var seed: Seed?
     var coordinates: Coordinates?
 }
@@ -16,9 +17,10 @@ struct Item: Identifiable, Equatable {
 extension Item: Translator {
     static func translate(_ entity: ItemEntity) -> Self {
         let id = entity.id
+        let uid = entity.id
         let seed = Seed.translate(entity.seed)
         let coordinates = Coordinates.translate(entity.coordinates)
-        return Self(id: id, seed: seed, coordinates: coordinates)
+        return Self(id: id, uid: uid, seed: seed, coordinates: coordinates)
     }
 }
 

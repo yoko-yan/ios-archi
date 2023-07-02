@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 @MainActor
 final class ListViewModel: ObservableObject {
@@ -13,6 +14,10 @@ final class ListViewModel: ObservableObject {
 
     func loadItems() {
         uiState.items = ItemsRepository().load()
+    }
+
+    func loadImage(itemsId: String) -> UIImage? {
+        ImageRepository().load(fileName: "\(itemsId)_coordinates")
     }
 
     init(uiState: ListUiState = ListUiState()) {

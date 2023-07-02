@@ -88,16 +88,16 @@ final class DetailViewModel: ObservableObject {
 
     func updateItem() {
         if let seedImage = uiState.seedImage {
-            ImageRepository().saveImage(seedImage, fileName: "\(uiState.item.id)_seed")
+            ImageRepository().save(seedImage, fileName: "\(uiState.item.id)_seed")
         }
         if let coordinatesImage = uiState.coordinatesImage {
-            ImageRepository().saveImage(coordinatesImage, fileName: "\(uiState.item.id)_coordinates")
+            ImageRepository().save(coordinatesImage, fileName: "\(uiState.item.id)_coordinates")
         }
         ItemsRepository().update(item: uiState.item)
     }
 
     func loadImage() {
-        uiState.seedImage = ImageRepository().loadImage(fileName: "\(uiState.item.id)_seed")
-        uiState.coordinatesImage = ImageRepository().loadImage(fileName: "\(uiState.item.id)_coordinates")
+        uiState.seedImage = ImageRepository().load(fileName: "\(uiState.item.id)_seed")
+        uiState.coordinatesImage = ImageRepository().load(fileName: "\(uiState.item.id)_coordinates")
     }
 }

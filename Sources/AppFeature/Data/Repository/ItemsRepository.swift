@@ -8,17 +8,17 @@
 import Foundation
 
 final class ItemsRepository {
-    let dataStore = ItemsDataStoreFactory.createItemsDataStore()
+    let dataSource = ItemsDataSourceFactory.createItemsDataStore()
 
     func create(items: [Item]) {
         save(items: items)
     }
 
-    func load() -> [Item] { dataStore.load().map { Item.translate($0) } }
+    func load() -> [Item] { dataSource.load().map { Item.translate($0) } }
 
     func save(items: [Item]) {
         let entities = items.map { ItemEntity(id: $0.id, seed: ItemEntity.Seed.translate($0.seed), coordinates: ItemEntity.Coordinates.translate($0.coordinates)) }
-        dataStore.save(items: entities)
+        dataSource.save(items: entities)
     }
 
     func update(item: Item) {

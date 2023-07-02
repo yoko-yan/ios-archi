@@ -9,25 +9,56 @@ import SwiftUI
 
 struct ListView: View {
     @StateObject private var viewModel: ListViewModel
+    @State private var path: [Item] = []
 
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $path) {
             List(viewModel.uiState.items) { item in
-                NavigationLink(destination: DetailView(item: item)) {
+                NavigationLink(value: item) {
                     HStack {
                         VStack(alignment: .leading) {
-                            Text("seed: \(item.seed?.text ?? "")")
-                            Text("coordinates: \(item.coordinates?.text ?? "")")
+                            if let image = viewModel.loadImage(itemsId: item.id) {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .scaledToFill()
+                            } else {
+                                Image(systemName: "sample-coordinates")
+                                    .resizable()
+                                    .scaledToFill()
+                            }
+                            VStack(alignment: .leading) {
+                                if let seed = item.seed {
+                                    HStack {
+                                        Image(systemName: "globe")
+                                        Text(seed.text)
+                                    }
+                                }
+                                if let coordinates = item.coordinates {
+                                    HStack {
+                                        Image(systemName: "location.circle")
+                                            .accentColor(.gray)
+                                        Text(coordinates.text)
+                                    }
+                                }
+                            }
+                            .foregroundColor(.gray)
+                            .padding()
                         }
                     }
+                    .modifier(CardStyle())
                 }
             }
             .listStyle(.plain)
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitle(Text("a"))
             .task {
                 viewModel.loadItems()
             }
             .refreshable {
                 viewModel.loadItems()
+            }
+            .navigationDestination(for: Item.self) { item in
+                UpdateItemView(item: item)
             }
         }
     }

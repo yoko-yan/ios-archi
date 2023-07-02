@@ -1,5 +1,5 @@
 //
-//  OutlineButton.swift
+//  OutlineButtonStyle.swift
 //  ios-archi
 //
 //  Created by yokoda.takayuki on 2023/01/30.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OutlineButton: ButtonStyle {
+struct OutlineButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration
             .label
