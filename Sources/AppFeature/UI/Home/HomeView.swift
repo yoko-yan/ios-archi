@@ -8,23 +8,8 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State private var isShowDetailView = false
-
     var body: some View {
-        ZStack {
-            ListView()
-
-            FloatingButton(action: {
-                isShowDetailView.toggle()
-            }, label: {
-                Image(systemName: "pencil")
-                    .foregroundColor(.white)
-                    .font(.system(size: 24))
-            })
-        }
-        .fullScreenCover(isPresented: $isShowDetailView) {
-            AddItemView()
-        }
+        ListView()
     }
 }
 

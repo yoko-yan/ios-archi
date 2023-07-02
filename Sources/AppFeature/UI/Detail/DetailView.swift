@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DetailView: View {
     @StateObject private var viewModel: DetailViewModel
+    @State private var isEditView = false
     @State private var isBiomeFinderView = false
 
     var body: some View {
@@ -16,15 +17,15 @@ struct DetailView: View {
             ScrollView {
                 VStack(spacing: 10) {
                     SeedView(
-                        seed: viewModel.item.seed,
-                        image: viewModel.seedImage
+                        seed: viewModel.uiState.item.seed,
+                        image: viewModel.uiState.seedImage
                     )
 
                     Divider()
 
                     CoordinatesView(
-                        coordinates: viewModel.item.coordinates,
-                        image: viewModel.coordinatesImage
+                        coordinates: viewModel.uiState.item.coordinates,
+                        image: viewModel.uiState.coordinatesImage
                     )
 
                     Divider()
@@ -32,30 +33,36 @@ struct DetailView: View {
                     Button {
                         isBiomeFinderView.toggle()
                     } label: {
-                        Text("画像と座標からバイオームを検索")
+                        Text("シード値と座標からバイオームを検索")
                     }
                     .accentColor(.gray)
                     .buttonStyle(OutlineButtonStyle())
                 }
             }
         }
+        .navigationBarTitle("詳細", displayMode: .inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    isEditView.toggle()
+                }) {
+                    HStack {
+                        Text("編集")
+                    }
+                }
+            }
+        }
         .task {
             viewModel.loadImage()
-        }
-        .onChange(of: viewModel.uiState) { [oldState = viewModel.uiState] newState in
-            if let seedImage = newState.seedImage, oldState.seedImage != seedImage {
-                viewModel.getSeed(image: seedImage)
-            }
-            if let coordinatesImage = newState.coordinatesImage, oldState.coordinatesImage != coordinatesImage
-            {
-                viewModel.getCoordinates(image: coordinatesImage)
-            }
         }
         .sheet(isPresented: $isBiomeFinderView) {
             BiomeFinderView(
                 seed: viewModel.uiState.item.seed?.rawValue ?? 0,
                 coordinates: viewModel.uiState.item.coordinates ?? Coordinates(x: 0, y: 0, z: 0)
             )
+        }
+        .fullScreenCover(isPresented: $isEditView) {
+            EditItemView(item: viewModel.uiState.item)
         }
     }
 

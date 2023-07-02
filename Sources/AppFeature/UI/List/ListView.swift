@@ -9,56 +9,69 @@ import SwiftUI
 
 struct ListView: View {
     @StateObject private var viewModel: ListViewModel
-    @State private var path: [Item] = []
+    @State private var isShowDetailView = false
 
     var body: some View {
-        NavigationStack(path: $path) {
-            List(viewModel.uiState.items) { item in
-                NavigationLink(value: item) {
-                    HStack {
-                        VStack(alignment: .leading) {
-                            if let image = viewModel.loadImage(itemsId: item.id) {
-                                Image(uiImage: image)
-                                    .resizable()
-                                    .scaledToFill()
-                            } else {
-                                Image(systemName: "sample-coordinates")
-                                    .resizable()
-                                    .scaledToFill()
-                            }
+        NavigationStack {
+            ZStack {
+                List(viewModel.uiState.items) { item in
+                    NavigationLink(value: item) {
+                        HStack {
                             VStack(alignment: .leading) {
-                                if let seed = item.seed {
-                                    HStack {
-                                        Image(systemName: "globe")
-                                        Text(seed.text)
+                                if let image = viewModel.loadImage(itemsId: item.id) {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .scaledToFill()
+                                } else {
+                                    Image(systemName: "sample-coordinates")
+                                        .resizable()
+                                        .scaledToFill()
+                                }
+                                VStack(alignment: .leading) {
+                                    if let seed = item.seed {
+                                        HStack {
+                                            Image(systemName: "globe")
+                                            Text(seed.text)
+                                        }
+                                    }
+                                    if let coordinates = item.coordinates {
+                                        HStack {
+                                            Image(systemName: "location.circle")
+                                                .accentColor(.gray)
+                                            Text(coordinates.text)
+                                        }
                                     }
                                 }
-                                if let coordinates = item.coordinates {
-                                    HStack {
-                                        Image(systemName: "location.circle")
-                                            .accentColor(.gray)
-                                        Text(coordinates.text)
-                                    }
-                                }
+                                .foregroundColor(.gray)
+                                .padding()
                             }
-                            .foregroundColor(.gray)
-                            .padding()
                         }
+                        .modifier(CardStyle())
                     }
-                    .modifier(CardStyle())
                 }
+                .listStyle(.plain)
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarTitle(Text("一覧"))
+                .task {
+                    viewModel.loadItems()
+                }
+                .refreshable {
+                    viewModel.loadItems()
+                }
+                .navigationDestination(for: Item.self) { item in
+                    DetailView(item: item)
+                }
+
+                FloatingButton(action: {
+                    isShowDetailView.toggle()
+                }, label: {
+                    Image(systemName: "plus")
+                        .foregroundColor(.white)
+                        .font(.system(size: 24))
+                })
             }
-            .listStyle(.plain)
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarTitle(Text("a"))
-            .task {
-                viewModel.loadItems()
-            }
-            .refreshable {
-                viewModel.loadItems()
-            }
-            .navigationDestination(for: Item.self) { item in
-                UpdateItemView(item: item)
+            .fullScreenCover(isPresented: $isShowDetailView) {
+                EditItemView()
             }
         }
     }
