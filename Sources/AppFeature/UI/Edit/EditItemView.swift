@@ -13,7 +13,7 @@ struct EditItemView: View {
 
     var body: some View {
         NavigationStack {
-            VStack {
+            ZStack {
                 ScrollView {
                     VStack(spacing: 10) {
                         SeedEditView(
@@ -27,7 +27,24 @@ struct EditItemView: View {
                             coordinates: viewModel.editItem.coordinates,
                             image: viewModel.coordinatesImage
                         )
+
+                        Color.clear
+                            .frame(height: 100)
                     }
+                }
+                VStack {
+                    Spacer()
+                    Button(action: {
+                        viewModel.updateItem()
+                        dismiss()
+                    }) {
+                        Text(viewModel.uiState.editMode.button)
+                            .bold()
+                            .frame(width: 300, height: 60)
+                    }
+                    .accentColor(Color.white)
+                    .background(Color.orange)
+                    .cornerRadius(20)
                 }
             }
             .task {
@@ -49,16 +66,6 @@ struct EditItemView: View {
                         dismiss()
                     }) {
                         Image(systemName: "xmark")
-                    }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        viewModel.updateItem()
-                        dismiss()
-                    }) {
-                        HStack {
-                            Text(viewModel.uiState.editMode.button)
-                        }
                     }
                 }
             }
