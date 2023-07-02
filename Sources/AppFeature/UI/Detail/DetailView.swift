@@ -9,8 +9,8 @@ import SwiftUI
 
 struct DetailView: View {
     @StateObject private var viewModel: DetailViewModel
-    @State private var seedImage: UIImage?
-    @State private var coordinatesImage: UIImage?
+//    @State private var seedImage: UIImage?
+//    @State private var coordinatesImage: UIImage?
     @State private var isBiomeFinderView = false
 
     var body: some View {
@@ -29,12 +29,12 @@ struct DetailView: View {
                 VStack(spacing: 10) {
                     SeedCardView(
                         seed: viewModel.item.seed,
-                        image: $seedImage
+                        image: viewModel.seedImage
                     )
 
                     CoordinatesCardView(
                         coordinates: viewModel.item.coordinates,
-                        image: $coordinatesImage
+                        image: viewModel.coordinatesImage
                     )
 
                     Divider()
@@ -64,25 +64,17 @@ struct DetailView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarTitle(Text("Seed And Coordinates Getter"))
-        .onChange(of: seedImage) { image in
-            guard let image else { return }
-            viewModel.clearSeed()
-            viewModel.getSeed(image: image)
+        .task {
+            viewModel.loadImage()
         }
-        .onChange(of: coordinatesImage) { image in
-            guard let image else { return }
-            viewModel.clearCoordinates()
-            viewModel.getCoordinates(image: image)
-        }
-        .onChange(of: viewModel.uiState) { [oldState = viewModel.uiState] newValue in
-            print(newValue)
-//            if oldState.item.seed != newState.item.seed {
-//                seed = newState.item.seed
-//                print(newValue)
-//            }
-//            if oldState.item.coordinates != newState.item.coordinates {
-//                coordinates = newState.item.coordinates
-//            }
+        .onChange(of: viewModel.uiState) { [oldState = viewModel.uiState] newState in
+            if let seedImage = newState.seedImage, oldState.seedImage != seedImage {
+                viewModel.getSeed(image: seedImage)
+            }
+            if let coordinatesImage = newState.coordinatesImage, oldState.coordinatesImage != coordinatesImage
+            {
+                viewModel.getCoordinates(image: coordinatesImage)
+            }
         }
     }
 

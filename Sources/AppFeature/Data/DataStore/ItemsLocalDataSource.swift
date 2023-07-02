@@ -1,5 +1,5 @@
 //
-//  ItemsDataStoreInStorage.swift
+//  ItemsLocalDataSource.swift
 //
 //
 //  Created by takayuki.yokoda on 2023/07/01.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ItemsDataStoreInStorage: ItemsDataStore {
+struct ItemsLocalDataSource: ItemsDataSource {
     private static let key = "ItemsDataStoreInStorage"
 
     func save(items: [ItemEntity]) {

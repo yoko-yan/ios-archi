@@ -1,5 +1,5 @@
 //
-//  ItemsDataStore.swift
+//  ItemsDataSource.swift
 //
 //
 //  Created by takayuki.yokoda on 2023/07/02.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ItemsDataStore {
+protocol ItemsDataSource {
     func save(items: [ItemEntity])
     func load() -> [ItemEntity]
 }

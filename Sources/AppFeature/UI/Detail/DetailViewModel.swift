@@ -24,6 +24,24 @@ final class DetailViewModel: ObservableObject {
         )
     }
 
+    var seedImage: Binding<UIImage?> {
+        Binding(
+            get: { self.uiState.seedImage },
+            set: { newValue in
+                self.uiState.seedImage = newValue
+            }
+        )
+    }
+
+    var coordinatesImage: Binding<UIImage?> {
+        Binding(
+            get: { self.uiState.coordinatesImage },
+            set: { newValue in
+                self.uiState.coordinatesImage = newValue
+            }
+        )
+    }
+
     init(item: Item) {
         uiState = DetailUiState(item: item)
     }
@@ -69,6 +87,17 @@ final class DetailViewModel: ObservableObject {
     }
 
     func updateItem() {
+        if let seedImage = uiState.seedImage {
+            ImageRepository().saveImage(seedImage, fileName: "\(uiState.item.id)_seed")
+        }
+        if let coordinatesImage = uiState.coordinatesImage {
+            ImageRepository().saveImage(coordinatesImage, fileName: "\(uiState.item.id)_coordinates")
+        }
         ItemsRepository().update(item: uiState.item)
+    }
+
+    func loadImage() {
+        uiState.seedImage = ImageRepository().loadImage(fileName: "\(uiState.item.id)_seed")
+        uiState.coordinatesImage = ImageRepository().loadImage(fileName: "\(uiState.item.id)_coordinates")
     }
 }
