@@ -23,9 +23,9 @@ struct ListView: View {
                                         .resizable()
                                         .scaledToFill()
                                 } else {
-                                    Image(systemName: "sample-coordinates")
-                                        .resizable()
-                                        .scaledToFill()
+                                    Text("画像なし")
+                                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                        .foregroundColor(.gray)
                                 }
                                 VStack(alignment: .leading) {
                                     if let seed = item.seed {
@@ -48,6 +48,7 @@ struct ListView: View {
                         }
                         .modifier(CardStyle())
                     }
+                    .listRowSeparator(.hidden)
                 }
                 .listStyle(.plain)
                 .navigationBarTitleDisplayMode(.inline)

@@ -10,6 +10,7 @@ import SwiftUI
 struct CardStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
+            .frame(minHeight: 50)
             .background(Color.white)
             .cornerRadius(8)
             .clipped()
