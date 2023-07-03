@@ -52,8 +52,8 @@ struct CoordinatesEditView: View {
                     }
                 }
             }
+            .padding(.horizontal)
             .accentColor(.gray)
-            .padding()
 
             HStack {
                 Spacer()
@@ -91,7 +91,7 @@ struct CoordinatesEditView: View {
                     )
                 }
             }
-            .padding()
+            .padding(.horizontal)
             .accentColor(.gray)
         }
     }

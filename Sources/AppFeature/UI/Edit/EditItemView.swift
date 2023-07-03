@@ -31,6 +31,7 @@ struct EditItemView: View {
                         Color.clear
                             .frame(height: 100)
                     }
+                    .padding(.top)
                 }
                 VStack {
                     Spacer()
@@ -78,6 +79,8 @@ struct EditItemView: View {
                     }
                 }
             }
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbarColorScheme(.light, for: .navigationBar)
         }
     }
 
@@ -86,15 +89,16 @@ struct EditItemView: View {
     }
 }
 
-// struct EditItemView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        EditItemView()
-//        EditItemView(
-//            item:
-//                EditItemUiState.EditItem(
-//                    coordinates: Coordinates(x: 100, y: 20, z: 300),
-//                    seed: Seed(rawValue: 500)
-//                )
-//        )
-//    }
-// }
+struct EditItemView_Previews: PreviewProvider {
+    static var previews: some View {
+        EditItemView()
+        EditItemView(
+            item:
+            Item(
+                id: "",
+                coordinates: Coordinates(x: 100, y: 20, z: 300),
+                seed: Seed(rawValue: 500)
+            )
+        )
+    }
+}

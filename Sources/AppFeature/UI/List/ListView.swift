@@ -65,7 +65,7 @@ struct ListView: View {
                 }
                 .listStyle(.plain)
                 .navigationBarTitleDisplayMode(.inline)
-                .navigationBarTitle(Text("一覧"))
+                .navigationBarTitle(Text("スポット一覧"))
                 .task {
                     viewModel.loadItems()
                 }

@@ -52,6 +52,8 @@ struct DetailView: View {
                 }
             }
         }
+        .toolbarBackground(.visible, for: .navigationBar)
+        .toolbarColorScheme(.light, for: .navigationBar)
         .task {
             viewModel.loadImage()
         }
