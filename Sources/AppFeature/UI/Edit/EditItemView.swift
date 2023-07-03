@@ -35,8 +35,15 @@ struct EditItemView: View {
                 VStack {
                     Spacer()
                     Button(action: {
-                        viewModel.updateItem()
+                        let editMode = viewModel.uiState.editMode
+                        viewModel.saveImage()
+                        if case .add = editMode {
+                            viewModel.insertItem()
+                        } else if case .update = editMode {
+                            viewModel.updateItem()
+                        }
                         dismiss()
+
                     }) {
                         Text(viewModel.uiState.editMode.button)
                             .bold()

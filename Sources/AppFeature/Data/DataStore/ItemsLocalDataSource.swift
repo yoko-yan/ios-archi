@@ -11,25 +11,33 @@ struct ItemsLocalDataSource: ItemsDataSource {
     private static let key = "ItemsDataStoreInStorage"
 
     func save(items: [Item]) {
-        let entities = items.map { ItemEntity.translate($0) }
-        guard let data = try? JSONEncoder().encode(entities) else { return }
+        guard let data = try? JSONEncoder().encode(items) else { fatalError() }
         UserDefaults.standard.set(data, forKey: Self.key)
     }
 
     func load() -> [Item] {
         guard let data = UserDefaults.standard.object(forKey: Self.key) as? Data,
-              let items = try? JSONDecoder().decode([ItemEntity].self, from: data)
+              let items = try? JSONDecoder().decode([Item].self, from: data)
         else { return [] }
-        return items.sorted(by: { $0.createdAt > $1.createdAt }).map { Item.translate($0) }
+        return items
+    }
+
+    func insert(item: Item) {
+        // TODO:
+        fatalError()
     }
 
     func update(item: Item) {
-        var items = load()
-        if let index = items.firstIndex(where: { $0.id == item.id }) {
-            items[index] = item
-        } else {
-            items.append(item)
+        do {
+            var items = try load()
+            if let index = items.firstIndex(where: { $0.id == item.id }) {
+                items[index] = item
+            } else {
+                items.append(item)
+            }
+            try save(items: items)
+        } catch {
+            print(error)
         }
-        save(items: items)
     }
 }

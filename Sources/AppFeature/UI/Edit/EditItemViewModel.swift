@@ -89,7 +89,27 @@ final class EditItemViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
+    func createItem() -> Item {
+        Item(
+            id: uiState.input.id ?? UUID().uuidString,
+            coordinates: uiState.input.coordinates,
+            seed: uiState.input.seed,
+            coordinatesImageName: uiState.input.coordinatesImageName,
+            seedImageName: uiState.input.seedImageName,
+            createdAt: uiState.input.createdAt,
+            updatedAt: uiState.input.updatedAt
+        )
+    }
+
+    func insertItem() {
+        ItemRepository().insert(item: createItem())
+    }
+
     func updateItem() {
+        ItemRepository().update(item: createItem())
+    }
+
+    func saveImage() {
         if let coordinatesImage = uiState.coordinatesImage {
             let coordinatesImageName = uiState.input.coordinatesImageName ?? UUID().uuidString
             uiState.input.coordinatesImageName = coordinatesImageName
@@ -99,6 +119,7 @@ final class EditItemViewModel: ObservableObject {
                 print(error)
             }
         }
+
         if let seedImage = uiState.seedImage {
             let seedImageName = uiState.input.seedImageName ?? UUID().uuidString
             uiState.input.seedImageName = seedImageName
@@ -108,17 +129,6 @@ final class EditItemViewModel: ObservableObject {
                 print(error)
             }
         }
-        ItemsRepository().update(
-            item: Item(
-                id: uiState.input.id ?? UUID().uuidString,
-                coordinates: uiState.input.coordinates,
-                seed: uiState.input.seed,
-                coordinatesImageName: uiState.input.coordinatesImageName,
-                seedImageName: uiState.input.seedImageName,
-                createdAt: uiState.input.createdAt,
-                updatedAt: uiState.input.updatedAt
-            )
-        )
     }
 
     func loadImage() {

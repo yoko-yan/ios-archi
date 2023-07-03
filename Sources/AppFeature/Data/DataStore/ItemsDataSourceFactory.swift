@@ -9,6 +9,7 @@ import Foundation
 
 struct ItemsDataSourceFactory {
     static func createItemsDataStore() -> ItemsDataSource {
-        ItemsLocalDataSource()
+//        ItemsLocalDataSource()
+        ItemsLocalDataSourceByCoreData()
     }
 }

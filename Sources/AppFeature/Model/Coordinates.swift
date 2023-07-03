@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Coordinates: Hashable {
+struct Coordinates: Hashable, Codable {
     public static var zero: Self { .init(x: 0, y: 0, z: 0) }
 
     var text: String {

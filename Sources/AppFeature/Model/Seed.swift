@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Seed: RawRepresentable, Hashable {
+struct Seed: RawRepresentable, Hashable, Codable {
     public static var zero: Self { .init(rawValue: 0) }
 
     var rawValue: Int

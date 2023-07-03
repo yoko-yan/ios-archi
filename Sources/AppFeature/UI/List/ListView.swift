@@ -79,7 +79,7 @@ struct ListView: View {
         self.init(viewModel: ListViewModel())
 
 //        // FIXME: DEBUG
-//        ItemsRepository().create(
+//        ItemRepository().create(
 //            items:
 //            [
 //                Item(seed: .zero, coordinates: .zero),

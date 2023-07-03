@@ -10,5 +10,6 @@ import Foundation
 protocol ItemsDataSource {
     func save(items: [Item])
     func load() -> [Item]
+    func insert(item: Item)
     func update(item: Item)
 }
