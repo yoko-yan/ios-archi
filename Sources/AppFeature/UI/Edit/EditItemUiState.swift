@@ -15,6 +15,8 @@ struct EditItemUiState: Equatable {
         var seed: Seed?
         var coordinatesImageName: String?
         var seedImageName: String?
+        var createdAt: Date?
+        var updatedAt: Date?
 
         init(item: Item?) {
             id = item?.id

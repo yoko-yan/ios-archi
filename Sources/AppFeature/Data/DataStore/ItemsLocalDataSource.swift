@@ -22,4 +22,14 @@ struct ItemsLocalDataSource: ItemsDataSource {
         else { return [] }
         return items.sorted(by: { $0.createdAt > $1.createdAt }).map { Item.translate($0) }
     }
+
+    func update(item: Item) {
+        var items = load()
+        if let index = items.firstIndex(where: { $0.id == item.id }) {
+            items[index] = item
+        } else {
+            items.append(item)
+        }
+        save(items: items)
+    }
 }

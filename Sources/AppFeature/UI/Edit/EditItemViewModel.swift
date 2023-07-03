@@ -115,8 +115,8 @@ final class EditItemViewModel: ObservableObject {
                 seed: uiState.input.seed,
                 coordinatesImageName: uiState.input.coordinatesImageName,
                 seedImageName: uiState.input.seedImageName,
-                createdAt: nil,
-                updatedAt: nil
+                createdAt: uiState.input.createdAt,
+                updatedAt: uiState.input.updatedAt
             )
         )
     }

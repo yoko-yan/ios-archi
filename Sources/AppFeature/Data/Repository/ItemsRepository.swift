@@ -14,20 +14,16 @@ final class ItemsRepository {
         save(items: items)
     }
 
-    func load() -> [Item] { dataSource.load() }
+    func load() -> [Item] {
+        dataSource.load()
+    }
 
     func save(items: [Item]) {
         dataSource.save(items: items)
     }
 
     func update(item: Item) {
-        var items = load()
-        if let index = items.firstIndex(where: { $0.id == item.id }) {
-            items[index] = item
-        } else {
-            items.append(item)
-        }
-        save(items: items)
+        dataSource.update(item: item)
     }
 }
 
