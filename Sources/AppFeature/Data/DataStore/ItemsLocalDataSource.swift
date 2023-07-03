@@ -19,7 +19,7 @@ struct ItemsLocalDataSource: ItemsDataSource {
         guard let data = UserDefaults.standard.object(forKey: Self.key) as? Data,
               let items = try? JSONDecoder().decode([Item].self, from: data)
         else { return [] }
-        return items
+        return items.sorted(by: { $0.createdAt < $1.createdAt })
     }
 
     func insert(item: Item) {

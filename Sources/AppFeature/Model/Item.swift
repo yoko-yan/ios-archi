@@ -13,6 +13,6 @@ struct Item: Identifiable, Hashable, Codable {
     var seed: Seed?
     var coordinatesImageName: String?
     var seedImageName: String?
-    var createdAt: Date?
-    var updatedAt: Date?
+    var createdAt: Date
+    var updatedAt: Date
 }

@@ -79,21 +79,27 @@ struct DetailView_Previews: PreviewProvider {
             item: Item(
                 id: UUID().uuidString,
                 coordinates: .zero,
-                seed: .zero
+                seed: .zero,
+                createdAt: Date(),
+                updatedAt: Date()
             )
         )
         DetailView(
             item: Item(
                 id: UUID().uuidString,
                 coordinates: nil,
-                seed: nil
+                seed: nil,
+                createdAt: Date(),
+                updatedAt: Date()
             )
         )
         DetailView(
             item: Item(
                 id: UUID().uuidString,
                 coordinates: Coordinates(x: 100, y: 20, z: 300),
-                seed: Seed(rawValue: 500)
+                seed: Seed(rawValue: 500),
+                createdAt: Date(),
+                updatedAt: Date()
             )
         )
     }

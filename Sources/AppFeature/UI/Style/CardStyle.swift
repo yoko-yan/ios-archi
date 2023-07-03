@@ -14,6 +14,7 @@ struct CardStyle: ViewModifier {
             .cornerRadius(8)
             .clipped()
             .shadow(color: .gray.opacity(0.7), radius: 5)
+//            .shadow(color: .gray, radius: 3, x: 3, y: 3)
             .accessibilityElement()
     }
 }

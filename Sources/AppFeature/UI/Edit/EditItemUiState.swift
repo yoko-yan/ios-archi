@@ -15,8 +15,6 @@ struct EditItemUiState: Equatable {
         var seed: Seed?
         var coordinatesImageName: String?
         var seedImageName: String?
-        var createdAt: Date?
-        var updatedAt: Date?
 
         init(item: Item?) {
             id = item?.id
@@ -37,7 +35,7 @@ struct EditItemUiState: Equatable {
 
     enum EditMode: Equatable {
         case add
-        case update
+        case update(Item)
 
         var title: String {
             switch self {
@@ -54,10 +52,17 @@ struct EditItemUiState: Equatable {
         }
 
         init(item: Item?) {
-            if item != nil {
-                self = .update
+            if let item {
+                self = .update(item)
             } else {
                 self = .add
+            }
+        }
+
+        var item: Item? {
+            switch self {
+            case .add: return nil
+            case let .update(item): return item
             }
         }
     }

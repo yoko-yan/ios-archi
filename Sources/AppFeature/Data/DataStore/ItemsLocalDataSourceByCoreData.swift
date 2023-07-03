@@ -28,7 +28,6 @@ struct ItemsLocalDataSourceByCoreData: ItemsDataSource {
         request.predicate = NSPredicate(
             format: "id = %@", id.uuidString
         )
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \ItemEntity.createdAt, ascending: false)]
         let context = container.viewContext
         let itemEntity = try context.fetch(request)[0]
         return itemEntity
@@ -40,13 +39,15 @@ struct ItemsLocalDataSourceByCoreData: ItemsDataSource {
     }
 
     func load() -> [Item] {
-        guard let result = try? container.viewContext.fetch(ItemEntity.fetchRequest())
+        let request = ItemEntity.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \ItemEntity.createdAt, ascending: false)]
+        guard let result = try? container.viewContext.fetch(request)
         else { fatalError() }
 
         return result.map { itemEntity in
             let coordinates: Coordinates?
             if let entityCoordinatesX = itemEntity.coordinatesX,
-               let entityCoordinatesY = itemEntity.coordinatesX,
+               let entityCoordinatesY = itemEntity.coordinatesY,
                let entityCoordinatesZ = itemEntity.coordinatesZ,
                let coordinatesX = Int(entityCoordinatesX),
                let coordinatesY = Int(entityCoordinatesY),
@@ -74,8 +75,8 @@ struct ItemsLocalDataSourceByCoreData: ItemsDataSource {
                 seed: seed,
                 coordinatesImageName: itemEntity.coordinatesImageName,
                 seedImageName: itemEntity.seedImageName,
-                createdAt: itemEntity.createdAt,
-                updatedAt: itemEntity.updatedAt
+                createdAt: itemEntity.createdAt ?? Date(),
+                updatedAt: itemEntity.updatedAt ?? Date()
             )
         }
     }
@@ -113,7 +114,7 @@ struct ItemsLocalDataSourceByCoreData: ItemsDataSource {
         }
         itemEntity.coordinatesImageName = item.coordinatesImageName
         itemEntity.seedImageName = item.seedImageName
-        itemEntity.createdAt = itemEntity.createdAt
+        itemEntity.createdAt = item.createdAt
         itemEntity.updatedAt = Date()
         saveContext()
     }

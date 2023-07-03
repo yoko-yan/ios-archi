@@ -97,7 +97,9 @@ struct EditItemView_Previews: PreviewProvider {
             Item(
                 id: "",
                 coordinates: Coordinates(x: 100, y: 20, z: 300),
-                seed: Seed(rawValue: 500)
+                seed: Seed(rawValue: 500),
+                createdAt: Date(),
+                updatedAt: Date()
             )
         )
     }
