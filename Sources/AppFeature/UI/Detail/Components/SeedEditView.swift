@@ -52,8 +52,8 @@ struct SeedEditView: View {
                     }
                 }
             }
+            .padding(.horizontal)
             .accentColor(.gray)
-            .padding()
 
             HStack {
                 Spacer()
@@ -91,7 +91,7 @@ struct SeedEditView: View {
                     )
                 }
             }
-            .padding()
+            .padding(.horizontal)
             .accentColor(.gray)
         }
     }

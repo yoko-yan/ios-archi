@@ -33,7 +33,7 @@ struct DetailView: View {
                     Button {
                         isBiomeFinderView.toggle()
                     } label: {
-                        Text("シード値と座標からバイオームを検索")
+                        Text("座標とシード値からバイオームを検索")
                     }
                     .accentColor(.gray)
                     .buttonStyle(OutlineButtonStyle())

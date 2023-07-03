@@ -16,35 +16,50 @@ struct ListView: View {
             ZStack {
                 List(viewModel.uiState.items) { item in
                     NavigationLink(value: item) {
-                        HStack {
-                            VStack(alignment: .leading) {
-                                if let image = viewModel.loadImage(fileName: item.coordinatesImageName) {
-                                    Image(uiImage: image)
-                                        .resizable()
-                                        .scaledToFill()
-                                } else {
-                                    Text("画像なし")
-                                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                        .foregroundColor(.gray)
-                                }
-                                VStack(alignment: .leading, spacing: 4) {
-                                    if let coordinates = item.coordinates {
-                                        HStack {
-                                            Image(systemName: "location.circle")
-                                            Text(coordinates.text)
+                        ZStack(alignment: .leading) {
+                            if let image = viewModel.loadImage(fileName: item.coordinatesImageName) {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .frame(height: 250)
+                            } else {
+                                Text("画像なし")
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                    .foregroundColor(.gray)
+                                    .frame(height: 250)
+                            }
+                            VStack {
+                                Spacer()
+                                ZStack {
+                                    VStack {
+                                        Spacer()
+                                        Color.black
+                                            .frame(width: .infinity)
+                                            .frame(maxHeight: 50)
+                                            .opacity(0.5)
+                                    }
+                                    HStack {
+                                        if let coordinates = item.coordinates {
+                                            HStack {
+                                                Image(systemName: "location.circle")
+                                                Text(coordinates.text)
+                                            }
+                                        }
+                                        Spacer()
+                                        if let seed = item.seed {
+                                            HStack {
+                                                Image(systemName: "globe.desk")
+                                                Text(seed.text)
+                                            }
                                         }
                                     }
-                                    if let seed = item.seed {
-                                        HStack {
-                                            Image(systemName: "globe.desk")
-                                            Text(seed.text)
-                                        }
-                                    }
+                                    .foregroundColor(.white)
+                                    .padding()
                                 }
-                                .padding()
+                                .frame(maxHeight: 40)
                             }
                         }
                         .modifier(CardStyle())
+                        .frame(height: 250)
                     }
                     .listRowSeparator(.hidden)
                 }

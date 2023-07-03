@@ -24,7 +24,6 @@ struct SeedView: View {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
-                    .frame(height: 200)
             }
         }
         .padding()

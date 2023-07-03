@@ -51,7 +51,7 @@ struct EditItemView: View {
                             .frame(maxWidth: .infinity)
                     }
                     .accentColor(Color.white)
-                    .background(Color.orange)
+                    .background(Color.green)
                     .cornerRadius(8)
                 }
                 .padding()
