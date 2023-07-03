@@ -13,7 +13,7 @@ final class ListViewModel: ObservableObject {
     @Published private(set) var uiState = ListUiState()
 
     func loadItems() {
-        uiState.items = ItemsRepository().load()
+        uiState.items = ItemRepository().load()
     }
 
     func loadImage(fileName: String?) -> UIImage? {
