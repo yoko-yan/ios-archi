@@ -16,8 +16,8 @@ final class ListViewModel: ObservableObject {
         uiState.items = ItemsRepository().load()
     }
 
-    func loadImage(itemsId: String) -> UIImage? {
-        ImageRepository().load(fileName: "\(itemsId)_coordinates")
+    func loadImage(fileName: String?) -> UIImage? {
+        ImageRepository().load(fileName: fileName)
     }
 
     init(uiState: ListUiState = ListUiState()) {

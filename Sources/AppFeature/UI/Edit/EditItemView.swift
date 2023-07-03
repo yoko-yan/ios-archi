@@ -16,16 +16,16 @@ struct EditItemView: View {
             ZStack {
                 ScrollView {
                     VStack(spacing: 10) {
-                        SeedEditView(
-                            seed: viewModel.editItem.seed,
-                            image: viewModel.seedImage
+                        CoordinatesEditView(
+                            coordinates: viewModel.input.coordinates,
+                            image: viewModel.coordinatesImage
                         )
 
                         Divider()
 
-                        CoordinatesEditView(
-                            coordinates: viewModel.editItem.coordinates,
-                            image: viewModel.coordinatesImage
+                        SeedEditView(
+                            seed: viewModel.input.seed,
+                            image: viewModel.seedImage
                         )
 
                         Color.clear
@@ -40,23 +40,25 @@ struct EditItemView: View {
                     }) {
                         Text(viewModel.uiState.editMode.button)
                             .bold()
-                            .frame(width: 300, height: 60)
+                            .frame(height: 50)
+                            .frame(maxWidth: .infinity)
                     }
                     .accentColor(Color.white)
                     .background(Color.orange)
-                    .cornerRadius(20)
+                    .cornerRadius(8)
                 }
+                .padding()
             }
             .task {
                 viewModel.loadImage()
             }
             .onChange(of: viewModel.uiState) { [oldState = viewModel.uiState] newState in
-                if let seedImage = newState.seedImage, oldState.seedImage != seedImage {
-                    viewModel.getSeed(image: seedImage)
-                }
                 if let coordinatesImage = newState.coordinatesImage, oldState.coordinatesImage != coordinatesImage
                 {
                     viewModel.getCoordinates(image: coordinatesImage)
+                }
+                if let seedImage = newState.seedImage, oldState.seedImage != seedImage {
+                    viewModel.getSeed(image: seedImage)
                 }
             }
             .navigationBarTitle(viewModel.uiState.editMode.title, displayMode: .inline)
@@ -77,15 +79,15 @@ struct EditItemView: View {
     }
 }
 
-struct EditItemView_Previews: PreviewProvider {
-    static var previews: some View {
-        EditItemView()
-        EditItemView(
-            item:
-            Item(
-                seed: Seed(rawValue: 500),
-                coordinates: Coordinates(x: 100, y: 20, z: 300)
-            )
-        )
-    }
-}
+// struct EditItemView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        EditItemView()
+//        EditItemView(
+//            item:
+//                EditItemUiState.EditItem(
+//                    coordinates: Coordinates(x: 100, y: 20, z: 300),
+//                    seed: Seed(rawValue: 500)
+//                )
+//        )
+//    }
+// }

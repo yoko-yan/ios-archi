@@ -9,6 +9,30 @@ import Foundation
 import UIKit
 
 struct EditItemUiState: Equatable {
+    struct Input: Equatable {
+        var id: String?
+        var coordinates: Coordinates?
+        var seed: Seed?
+        var coordinatesImageName: String?
+        var seedImageName: String?
+
+        init(item: Item?) {
+            id = item?.id
+            if let coordinates = item?.coordinates {
+                self.coordinates = Coordinates(
+                    x: coordinates.x,
+                    y: coordinates.y,
+                    z: coordinates.z
+                )
+            }
+            if let seed = item?.seed {
+                self.seed = seed
+            }
+            coordinatesImageName = item?.coordinatesImageName
+            seedImageName = item?.seedImageName
+        }
+    }
+
     enum EditMode: Equatable {
         case add
         case update
@@ -26,11 +50,19 @@ struct EditItemUiState: Equatable {
             case .update: return "更新"
             }
         }
+
+        init(item: Item?) {
+            if item != nil {
+                self = .update
+            } else {
+                self = .add
+            }
+        }
     }
 
     let editMode: EditMode
 
-    var editItem: Item
+    var input: Input
     var seedImage: UIImage?
     var coordinatesImage: UIImage?
 }

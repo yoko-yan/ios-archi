@@ -8,6 +8,6 @@
 import Foundation
 
 protocol ItemsDataSource {
-    func save(items: [ItemEntity])
-    func load() -> [ItemEntity]
+    func save(items: [Item])
+    func load() -> [Item]
 }

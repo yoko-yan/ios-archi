@@ -15,11 +15,11 @@ final class EditItemViewModel: ObservableObject {
 
     private var cancellables: Set<AnyCancellable> = []
 
-    var editItem: Binding<Item> {
+    var input: Binding<EditItemUiState.Input> {
         Binding(
-            get: { self.uiState.editItem },
+            get: { self.uiState.input },
             set: { newValue in
-                self.uiState.editItem = newValue
+                self.uiState.input = newValue
             }
         )
     }
@@ -43,24 +43,18 @@ final class EditItemViewModel: ObservableObject {
     }
 
     init(item: Item?) {
-        let editItem: Item
-        let editMode: EditItemUiState.EditMode
-        if let item {
-            editItem = item
-            editMode = .update
-        } else {
-            editItem = Item()
-            editMode = .add
-        }
-        uiState = EditItemUiState(editMode: editMode, editItem: editItem)
+        uiState = EditItemUiState(
+            editMode: EditItemUiState.EditMode(item: item),
+            input: EditItemUiState.Input(item: item)
+        )
     }
 
     func clearSeed() {
-        uiState.editItem.seed = nil
+        uiState.input.seed = nil
     }
 
     func clearCoordinates() {
-        uiState.editItem.coordinates = nil
+        uiState.input.coordinates = nil
     }
 
     func getSeed(image: UIImage) {
@@ -69,7 +63,7 @@ final class EditItemViewModel: ObservableObject {
             .sink { [weak self] seed in
                 guard let self else { return }
                 if !seed.isEmpty, let seedValue = Int(seed) {
-                    uiState.editItem.seed = Seed(rawValue: seedValue)
+                    uiState.input.seed = Seed(rawValue: seedValue)
                     return
                 }
             }
@@ -87,26 +81,48 @@ final class EditItemViewModel: ObservableObject {
                    let y = Int(arr[1].trimmingCharacters(in: .whitespaces)),
                    let z = Int(arr[2].trimmingCharacters(in: .whitespaces))
                 {
-                    uiState.editItem.coordinates = Coordinates(x: x, y: y, z: z)
+                    uiState.input.coordinates = Coordinates(x: x, y: y, z: z)
                     return
                 }
-                uiState.editItem.coordinates = nil
+                uiState.input.coordinates = nil
             }
             .store(in: &cancellables)
     }
 
     func updateItem() {
-        if let seedImage = uiState.seedImage {
-            ImageRepository().save(seedImage, fileName: "\(uiState.editItem.id)_seed")
-        }
         if let coordinatesImage = uiState.coordinatesImage {
-            ImageRepository().save(coordinatesImage, fileName: "\(uiState.editItem.id)_coordinates")
+            let coordinatesImageName = uiState.input.coordinatesImageName ?? UUID().uuidString
+            uiState.input.coordinatesImageName = coordinatesImageName
+            do {
+                try ImageRepository().save(coordinatesImage, fileName: coordinatesImageName)
+            } catch {
+                print(error)
+            }
         }
-        ItemsRepository().update(item: uiState.editItem)
+        if let seedImage = uiState.seedImage {
+            let seedImageName = uiState.input.seedImageName ?? UUID().uuidString
+            uiState.input.seedImageName = seedImageName
+            do {
+                try ImageRepository().save(seedImage, fileName: seedImageName)
+            } catch {
+                print(error)
+            }
+        }
+        ItemsRepository().update(
+            item: Item(
+                id: uiState.input.id ?? UUID().uuidString,
+                coordinates: uiState.input.coordinates,
+                seed: uiState.input.seed,
+                coordinatesImageName: uiState.input.coordinatesImageName,
+                seedImageName: uiState.input.seedImageName,
+                createdAt: nil,
+                updatedAt: nil
+            )
+        )
     }
 
     func loadImage() {
-        uiState.seedImage = ImageRepository().load(fileName: "\(uiState.editItem.id)_seed")
-        uiState.coordinatesImage = ImageRepository().load(fileName: "\(uiState.editItem.id)_coordinates")
+        uiState.coordinatesImage = ImageRepository().load(fileName: uiState.input.coordinatesImageName)
+        uiState.seedImage = ImageRepository().load(fileName: uiState.input.seedImageName)
     }
 }

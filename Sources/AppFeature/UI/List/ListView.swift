@@ -18,7 +18,7 @@ struct ListView: View {
                     NavigationLink(value: item) {
                         HStack {
                             VStack(alignment: .leading) {
-                                if let image = viewModel.loadImage(itemsId: item.id) {
+                                if let image = viewModel.loadImage(fileName: item.coordinatesImageName) {
                                     Image(uiImage: image)
                                         .resizable()
                                         .scaledToFill()
@@ -28,16 +28,16 @@ struct ListView: View {
                                         .foregroundColor(.gray)
                                 }
                                 VStack(alignment: .leading, spacing: 4) {
-                                    if let seed = item.seed {
-                                        HStack {
-                                            Image(systemName: "globe.desk")
-                                            Text(seed.text)
-                                        }
-                                    }
                                     if let coordinates = item.coordinates {
                                         HStack {
                                             Image(systemName: "location.circle")
                                             Text(coordinates.text)
+                                        }
+                                    }
+                                    if let seed = item.seed {
+                                        HStack {
+                                            Image(systemName: "globe.desk")
+                                            Text(seed.text)
                                         }
                                     }
                                 }

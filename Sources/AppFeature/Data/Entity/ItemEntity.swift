@@ -19,6 +19,10 @@ struct ItemEntity: Identifiable, Codable {
     }
 
     var id: String
-    var seed: Seed?
     var coordinates: Coordinates?
+    var seed: Seed?
+    var coordinatesImageName: String?
+    var seedImageName: String?
+    var createdAt: Date
+    var updatedAt: Date
 }

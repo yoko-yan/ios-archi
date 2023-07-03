@@ -16,16 +16,16 @@ struct DetailView: View {
         VStack {
             ScrollView {
                 VStack(spacing: 10) {
-                    SeedView(
-                        seed: viewModel.uiState.item.seed,
-                        image: viewModel.uiState.seedImage
+                    CoordinatesView(
+                        coordinates: viewModel.uiState.item.coordinates,
+                        image: viewModel.uiState.coordinatesImage
                     )
 
                     Divider()
 
-                    CoordinatesView(
-                        coordinates: viewModel.uiState.item.coordinates,
-                        image: viewModel.uiState.coordinatesImage
+                    SeedView(
+                        seed: viewModel.uiState.item.seed,
+                        image: viewModel.uiState.seedImage
                     )
 
                     Divider()
@@ -73,13 +73,25 @@ struct DetailView: View {
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView(item: Item(seed: .zero, coordinates: .zero))
-        DetailView(item: Item(seed: nil, coordinates: nil))
         DetailView(
-            item:
-            Item(
-                seed: Seed(rawValue: 500),
-                coordinates: Coordinates(x: 100, y: 20, z: 300)
+            item: Item(
+                id: UUID().uuidString,
+                coordinates: .zero,
+                seed: .zero
+            )
+        )
+        DetailView(
+            item: Item(
+                id: UUID().uuidString,
+                coordinates: nil,
+                seed: nil
+            )
+        )
+        DetailView(
+            item: Item(
+                id: UUID().uuidString,
+                coordinates: Coordinates(x: 100, y: 20, z: 300),
+                seed: Seed(rawValue: 500)
             )
         )
     }
