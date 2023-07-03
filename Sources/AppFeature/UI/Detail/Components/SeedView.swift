@@ -15,7 +15,7 @@ struct SeedView: View {
     var body: some View {
         VStack {
             HStack {
-                Label("seed", systemImage: "globe")
+                Label("seed", systemImage: "globe.desk")
                 Spacer()
                 Text(seed?.text ?? "未登録")
                     .bold()

@@ -17,19 +17,19 @@ struct SeedEditView: View {
 
     var body: some View {
         VStack {
-            if let image {
-                SeedView(
-                    seed: seed,
-                    image: image
-                )
-            } else {
-                VStack {
-                    HStack {
-                        Label("seed", systemImage: "globe")
-                        Spacer()
-                        Text(seed?.text ?? "未登録")
-                            .bold()
-                    }
+            VStack {
+                HStack {
+                    Label("seed", systemImage: "globe.desk")
+                    Spacer()
+                    Text(seed?.text ?? "未登録")
+                        .bold()
+                }
+                if let image {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 200)
+                } else {
                     Button {
                         imageSourceType = .photoLibrary
                         isImagePicker.toggle()
@@ -51,9 +51,9 @@ struct SeedEditView: View {
                         )
                     }
                 }
-                .accentColor(.gray)
-                .padding()
             }
+            .accentColor(.gray)
+            .padding()
 
             HStack {
                 Spacer()
@@ -61,8 +61,9 @@ struct SeedEditView: View {
                     imageSourceType = .camera
                     isImagePicker.toggle()
                 }) {
-                    Image(systemName: "camera.circle")
+                    Image(systemName: "camera.circle.fill")
                         .resizable()
+                        .scaledToFill()
                         .frame(width: 30, height: 30)
                 }
                 .sheet(isPresented: $isImagePicker) {
@@ -77,8 +78,9 @@ struct SeedEditView: View {
                     imageSourceType = .photoLibrary
                     isImagePicker.toggle()
                 }) {
-                    Image(systemName: "photo.on.rectangle.angled")
+                    Image(systemName: "photo.circle.fill")
                         .resizable()
+                        .scaledToFill()
                         .frame(width: 30, height: 30)
                 }
                 .sheet(isPresented: $isImagePicker) {

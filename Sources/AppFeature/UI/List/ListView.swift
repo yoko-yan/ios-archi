@@ -27,22 +27,20 @@ struct ListView: View {
                                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                                         .foregroundColor(.gray)
                                 }
-                                VStack(alignment: .leading) {
+                                VStack(alignment: .leading, spacing: 4) {
                                     if let seed = item.seed {
                                         HStack {
-                                            Image(systemName: "globe")
+                                            Image(systemName: "globe.desk")
                                             Text(seed.text)
                                         }
                                     }
                                     if let coordinates = item.coordinates {
                                         HStack {
                                             Image(systemName: "location.circle")
-                                                .accentColor(.gray)
                                             Text(coordinates.text)
                                         }
                                     }
                                 }
-                                .foregroundColor(.gray)
                                 .padding()
                             }
                         }
