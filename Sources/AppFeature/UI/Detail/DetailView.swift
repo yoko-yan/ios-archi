@@ -61,7 +61,9 @@ struct DetailView: View {
             )
         }
         .fullScreenCover(isPresented: $isEditView) {
-            EditItemView(item: viewModel.uiState.item)
+            EditItemView(item: viewModel.uiState.item) { item in
+                viewModel.reload(item: item)
+            }
         }
     }
 

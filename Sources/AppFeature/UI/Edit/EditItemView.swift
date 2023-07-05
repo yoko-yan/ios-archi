@@ -7,6 +7,7 @@ import SwiftUI
 struct EditItemView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject private var viewModel: EditItemViewModel
+    let onTapDismiss: ((Item) -> Void)?
 
     var body: some View {
         NavigationStack {
@@ -40,6 +41,7 @@ struct EditItemView: View {
                         } else if case .update = editMode {
                             viewModel.updateItem()
                         }
+                        onTapDismiss?(viewModel.createItem())
                         dismiss()
 
                     }) {
@@ -81,8 +83,9 @@ struct EditItemView: View {
         }
     }
 
-    init(item: Item? = nil) {
+    init(item: Item? = nil, onTapDismiss: ((Item) -> Void)? = nil) {
         _viewModel = StateObject(wrappedValue: EditItemViewModel(item: item))
+        self.onTapDismiss = onTapDismiss
     }
 }
 

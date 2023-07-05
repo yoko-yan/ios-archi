@@ -9,6 +9,10 @@ import UIKit
 final class ListViewModel: ObservableObject {
     @Published private(set) var uiState = ListUiState()
 
+    init(uiState: ListUiState = ListUiState()) {
+        self.uiState = uiState
+    }
+
     func loadItems() {
         uiState.items = ItemRepository().load()
     }
@@ -17,7 +21,7 @@ final class ListViewModel: ObservableObject {
         ImageRepository().load(fileName: fileName)
     }
 
-    init(uiState: ListUiState = ListUiState()) {
-        self.uiState = uiState
+    func reload() {
+        loadItems()
     }
 }

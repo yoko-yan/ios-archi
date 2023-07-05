@@ -85,7 +85,9 @@ struct ListView: View {
                 })
             }
             .fullScreenCover(isPresented: $isShowDetailView) {
-                EditItemView()
+                EditItemView { _ in
+                    viewModel.reload()
+                }
             }
         }
     }
