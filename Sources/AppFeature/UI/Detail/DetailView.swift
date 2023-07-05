@@ -10,45 +10,57 @@ struct DetailView: View {
     @State private var isBiomeFinderView = false
 
     var body: some View {
-        VStack {
+        ZStack {
             ScrollView {
-                VStack(spacing: 10) {
-                    CoordinatesView(
-                        coordinates: viewModel.uiState.item.coordinates,
-                        image: viewModel.uiState.coordinatesImage
-                    )
+                CoordinatesView(
+                    coordinates: viewModel.uiState.item.coordinates,
+                    image: viewModel.uiState.coordinatesImage
+                )
 
-                    Divider()
+                Divider()
 
-                    SeedView(
-                        seed: viewModel.uiState.item.seed,
-                        image: viewModel.uiState.seedImage
-                    )
+                SeedView(
+                    seed: viewModel.uiState.item.seed,
+                    image: viewModel.uiState.seedImage
+                )
 
-                    Divider()
+                Divider()
 
-                    Button {
-                        isBiomeFinderView.toggle()
-                    } label: {
-                        Text("座標とシード値からバイオームを検索")
-                    }
-                    .accentColor(.gray)
-                    .buttonStyle(OutlineButtonStyle())
+                Button {
+                    isBiomeFinderView.toggle()
+                } label: {
+                    Text("座標とシード値からバイオームを検索")
+                        .bold()
+                        .frame(height: 50)
+                        .frame(maxWidth: .infinity)
                 }
-            }
-        }
-        .navigationBarTitle("詳細", displayMode: .inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
+                .buttonStyle(OutlineButtonStyle(color: .gray))
+                .padding()
+
                 Button(action: {
                     isEditView.toggle()
                 }) {
-                    HStack {
-                        Text("編集")
-                    }
+                    Text("編集する")
+                        .bold()
+                        .frame(height: 50)
+                        .frame(maxWidth: .infinity)
                 }
+                .buttonStyle(OutlineButtonStyle(color: .green))
+                .padding()
             }
         }
+        .navigationBarTitle("詳細", displayMode: .inline)
+//        .toolbar {
+//            ToolbarItem(placement: .navigationBarTrailing) {
+//                Button(action: {
+//                    isEditView.toggle()
+//                }) {
+//                    HStack {
+//                        Text("編集")
+//                    }
+//                }
+//            }
+//        }
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbarColorScheme(.light, for: .navigationBar)
         .task {

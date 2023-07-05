@@ -43,8 +43,8 @@ struct EditItemUiState: Equatable {
 
         var button: String {
             switch self {
-            case .add: return "追加"
-            case .update: return "更新"
+            case .add: return "追加する"
+            case .update: return "変更する"
             }
         }
 
