@@ -34,7 +34,7 @@ struct DetailView: View {
                         .frame(height: 50)
                         .frame(maxWidth: .infinity)
                 }
-                .buttonStyle(OutlineButtonStyle(color: .gray))
+                .buttonStyle(OutlineButtonStyle(color: .black))
                 .padding()
 
                 Button(action: {
