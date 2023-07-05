@@ -58,33 +58,29 @@ final class EditItemViewModel: ObservableObject {
     }
 
     func getSeed(image: UIImage) {
+//        let repository = SeedRepository()
+//        repository.get(image: image)
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] seed in
+//                guard let self else { return }
+//                uiState.input.seed = seed
+//            }
+//            .store(in: &cancellables)
+
         let repository = SeedRepository()
-        repository.get(image: image)
-            .sink { [weak self] seed in
-                guard let self else { return }
-                if !seed.isEmpty, let seedValue = Int(seed) {
-                    uiState.input.seed = Seed(rawValue: seedValue)
-                    return
-                }
-            }
-            .store(in: &cancellables)
+        repository.get(image: image) { [weak self] seed in
+            guard let self else { return }
+            uiState.input.seed = seed
+        }
     }
 
     func getCoordinates(image: UIImage) {
         let repository = CoordinatesRepository()
         repository.get(image: image)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] coordinates in
                 guard let self else { return }
-                let arr = coordinates.components(separatedBy: ",")
-                if arr.count >= 3,
-                   let x = Int(arr[0].trimmingCharacters(in: .whitespaces)),
-                   let y = Int(arr[1].trimmingCharacters(in: .whitespaces)),
-                   let z = Int(arr[2].trimmingCharacters(in: .whitespaces))
-                {
-                    uiState.input.coordinates = Coordinates(x: x, y: y, z: z)
-                    return
-                }
-                uiState.input.coordinates = nil
+                uiState.input.coordinates = coordinates
             }
             .store(in: &cancellables)
     }

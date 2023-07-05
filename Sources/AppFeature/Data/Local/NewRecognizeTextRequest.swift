@@ -1,17 +1,15 @@
 //
-//  RecognizeTextRequest.swift
-//  ios-archi
+//  NewRecognizeTextRequest.swift
 //
-//  Created by takayuki.yokoda on 2023/01/26.
+//
+//  Created by yokoda.takayuki on 2023/07/05.
 //
 
-import Combine
+import Foundation
 import Vision
 
-final class RecognizeTextRequest {
-    private var subject: CurrentValueSubject<[String], Never> = .init([])
-
-    func perform(image: CGImage, orientation: CGImagePropertyOrientation) -> AnyPublisher<[String], Never> {
+struct NewRecognizeTextRequest {
+    func perform(image: CGImage, orientation: CGImagePropertyOrientation, completionHandler: @escaping ([String]) -> Void) {
         let request = VNRecognizeTextRequest { request, error in
             if let nsError = error as NSError? {
                 print("Text Detection Error \(nsError)")
@@ -26,7 +24,7 @@ final class RecognizeTextRequest {
             }
             // 得られたテキストを出力する
             print(strings)
-            self.subject.send(strings)
+            completionHandler(strings)
         }
 
         request.recognitionLevel = .accurate
@@ -49,7 +47,5 @@ final class RecognizeTextRequest {
                 return
             }
         }
-
-        return subject.eraseToAnyPublisher()
     }
 }
