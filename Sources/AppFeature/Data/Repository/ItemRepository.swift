@@ -12,34 +12,18 @@ final class ItemRepository {
     }
 
     func load() -> [Item] {
-        do {
-            return try dataSource.load()
-        } catch {
-            fatalError("")
-        }
+        dataSource.load()
     }
 
     func save(items: [Item]) {
-        do {
-            try dataSource.save(items: items)
-        } catch {
-            print(error)
-        }
+        dataSource.save(items: items)
     }
 
     func insert(item: Item) {
-        do {
-            try dataSource.insert(item: item)
-        } catch {
-            print(error)
-        }
+        dataSource.insert(item: item)
     }
 
     func update(item: Item) {
-        do {
-            try dataSource.update(item: item)
-        } catch {
-            print(error)
-        }
+        dataSource.update(item: item)
     }
 }

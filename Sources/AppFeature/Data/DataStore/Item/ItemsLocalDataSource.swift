@@ -25,16 +25,12 @@ struct ItemsLocalDataSource: ItemsDataSource {
     }
 
     func update(item: Item) {
-        do {
-            var items = try load()
-            if let index = items.firstIndex(where: { $0.id == item.id }) {
-                items[index] = item
-            } else {
-                items.append(item)
-            }
-            try save(items: items)
-        } catch {
-            print(error)
+        var items = load()
+        if let index = items.firstIndex(where: { $0.id == item.id }) {
+            items[index] = item
+        } else {
+            items.append(item)
         }
+        save(items: items)
     }
 }
