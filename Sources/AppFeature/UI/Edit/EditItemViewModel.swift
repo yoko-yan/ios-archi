@@ -68,9 +68,14 @@ final class EditItemViewModel: ObservableObject {
 //            .store(in: &cancellables)
 
         let repository = SeedRepository()
-        repository.get(image: image) { [weak self] seed in
+        repository.get(image: image) { [weak self] result in
             guard let self else { return }
-            uiState.input.seed = seed
+            switch result {
+            case let .success(seed):
+                uiState.input.seed = seed
+            case let .failure(error):
+                print(error.localizedDescription)
+            }
         }
     }
 
@@ -78,10 +83,17 @@ final class EditItemViewModel: ObservableObject {
         let repository = CoordinatesRepository()
         repository.get(image: image)
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] coordinates in
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    print("Finish.")
+                case let .failure(error):
+                    print(error.localizedDescription)
+                }
+            }, receiveValue: { [weak self] coordinates in
                 guard let self else { return }
                 uiState.input.coordinates = coordinates
-            }
+            })
             .store(in: &cancellables)
     }
 

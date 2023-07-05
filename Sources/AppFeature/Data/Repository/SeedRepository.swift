@@ -9,8 +9,8 @@ import Combine
 import Foundation
 import UIKit
 
-final class SeedRepository {
-    func get(image: UIImage) -> AnyPublisher<Seed?, Never> {
+struct SeedRepository {
+    func get(image: UIImage) -> AnyPublisher<Seed?, RecognizeTextError> {
         let request = RecognizeTextRequest()
         let cgOrientation = CGImagePropertyOrientation(image.imageOrientation)
         guard let cgImage = image.cgImage else {
@@ -19,23 +19,26 @@ final class SeedRepository {
 
         return request.perform(image: cgImage, orientation: cgOrientation)
             .filter { !$0.isEmpty }
-            .map { [weak self] (texts: [String]) -> Seed? in
-                guard let self else { return nil }
-                return makeSeed(texts)
+            .map { (texts: [String]) -> Seed? in
+                makeSeed(texts)
             }
             .eraseToAnyPublisher()
     }
 
-    func get(image: UIImage, completionHandler: @escaping (Seed?) -> Void) {
+    func get(image: UIImage, completionHandler: @escaping (Result<Seed?, NewRecognizeTextError>) -> Void) {
         let request = NewRecognizeTextRequest()
         let cgOrientation = CGImagePropertyOrientation(image.imageOrientation)
         guard let cgImage = image.cgImage else {
             fatalError()
         }
 
-        request.perform(image: cgImage, orientation: cgOrientation) { [weak self] texts in
-            guard let self else { return completionHandler(nil) }
-            return completionHandler(makeSeed(texts))
+        request.perform(image: cgImage, orientation: cgOrientation) { result in
+            switch result {
+            case let .success(texts):
+                completionHandler(.success(makeSeed(texts)))
+            case let .failure(error):
+                completionHandler(.failure(error))
+            }
         }
     }
 

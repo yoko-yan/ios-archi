@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import UIKit
 
-final class CoordinatesRepository {
+struct CoordinatesRepository {
     enum TestError: Error {
         case minusError
         case nilError
@@ -17,7 +17,7 @@ final class CoordinatesRepository {
         case otherError
     }
 
-    func get(image: UIImage) -> AnyPublisher<Coordinates?, Never> {
+    func get(image: UIImage) -> AnyPublisher<Coordinates?, RecognizeTextError> {
         let request = RecognizeTextRequest()
         let cgOrientation = CGImagePropertyOrientation(image.imageOrientation)
         guard let cgImage = image.cgImage else {
@@ -26,9 +26,8 @@ final class CoordinatesRepository {
 
         return request.perform(image: cgImage, orientation: cgOrientation)
             .filter { !$0.isEmpty }
-            .map { [weak self] (texts: [String]) -> Coordinates? in
-                guard let self else { return nil }
-                return makeCoordinates(texts)
+            .map { (texts: [String]) -> Coordinates? in
+                makeCoordinates(texts)
             }
             .eraseToAnyPublisher()
     }
