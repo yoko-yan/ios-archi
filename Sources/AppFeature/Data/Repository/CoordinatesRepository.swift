@@ -15,13 +15,7 @@ struct CoordinatesRepository {
     }
 
     func get(image: UIImage) -> AnyPublisher<Coordinates?, RecognizeTextError> {
-        let request = RecognizeTextRequest()
-        let cgOrientation = CGImagePropertyOrientation(image.imageOrientation)
-        guard let cgImage = image.cgImage else {
-            fatalError()
-        }
-
-        return request.perform(image: cgImage, orientation: cgOrientation)
+        RecognizeTextRequest().perform(image: image)
             .filter { !$0.isEmpty }
             .map { (texts: [String]) -> Coordinates? in
                 makeCoordinates(texts)

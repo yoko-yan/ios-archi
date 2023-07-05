@@ -3,24 +3,31 @@
 //
 
 import Combine
+import UIKit
 import Vision
 
 enum RecognizeTextError: Error {
     case error(Error)
-    case NoRecognizedText
-    case FailRecognizeTextRequest
+    case GetCgImage
+    case RecognizeText
+    case RecognizeTextRequest
 }
 
 struct RecognizeTextRequest {
-    func perform(image: CGImage, orientation: CGImagePropertyOrientation) -> AnyPublisher<[String], RecognizeTextError> {
+    func perform(image: UIImage) -> AnyPublisher<[String], RecognizeTextError> {
         Future<[String], RecognizeTextError> { promise in
+            let cgOrientation = CGImagePropertyOrientation(image.imageOrientation)
+            guard let cgImage = image.cgImage else {
+                return promise(.failure(RecognizeTextError.GetCgImage))
+            }
+
             let request = VNRecognizeTextRequest { request, error in
                 if let error {
                     return promise(.failure(RecognizeTextError.error(error)))
                 }
 
                 guard let observations = request.results as? [VNRecognizedTextObservation] else {
-                    return promise(.failure(RecognizeTextError.NoRecognizedText))
+                    return promise(.failure(RecognizeTextError.RecognizeText))
                 }
                 let maximumCandidates = 1
                 let strings = observations.compactMap { observation in
@@ -38,8 +45,8 @@ struct RecognizeTextRequest {
             requests.append(request)
 
             let imageRequestHandler = VNImageRequestHandler(
-                cgImage: image,
-                orientation: orientation,
+                cgImage: cgImage,
+                orientation: cgOrientation,
                 options: [:]
             )
 
@@ -48,7 +55,7 @@ struct RecognizeTextRequest {
                     try imageRequestHandler.perform(requests)
                 } catch {
                     print("Failed to perform image request: \(error)")
-                    return promise(.failure(RecognizeTextError.FailRecognizeTextRequest))
+                    return promise(.failure(RecognizeTextError.RecognizeTextRequest))
                 }
             }
         }

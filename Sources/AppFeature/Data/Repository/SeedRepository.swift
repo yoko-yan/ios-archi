@@ -8,13 +8,7 @@ import UIKit
 
 struct SeedRepository {
     func get(image: UIImage) -> AnyPublisher<Seed?, RecognizeTextError> {
-        let request = RecognizeTextRequest()
-        let cgOrientation = CGImagePropertyOrientation(image.imageOrientation)
-        guard let cgImage = image.cgImage else {
-            fatalError()
-        }
-
-        return request.perform(image: cgImage, orientation: cgOrientation)
+        RecognizeTextRequest().perform(image: image)
             .filter { !$0.isEmpty }
             .map { (texts: [String]) -> Seed? in
                 makeSeed(texts)
@@ -23,13 +17,7 @@ struct SeedRepository {
     }
 
     func get(image: UIImage, completionHandler: @escaping (Result<Seed?, NewRecognizeTextError>) -> Void) {
-        let request = NewRecognizeTextRequest()
-        let cgOrientation = CGImagePropertyOrientation(image.imageOrientation)
-        guard let cgImage = image.cgImage else {
-            fatalError()
-        }
-
-        request.perform(image: cgImage, orientation: cgOrientation) { result in
+        NewRecognizeTextRequest().perform(image: image) { result in
             switch result {
             case let .success(texts):
                 completionHandler(.success(makeSeed(texts)))
