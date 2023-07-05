@@ -1,2 +1,4 @@
 #include "../Pods/Target Support Files/Pods-ios-archi/Pods-ios-archi.debug.xcconfig"
 #include "Base.xcconfig"
+
+PRODUCT_BUNDLE_IDENTIFIER = ${PRODUCT_BUNDLE_IDENTIFIER}.debug
