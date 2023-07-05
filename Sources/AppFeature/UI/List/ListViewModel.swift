@@ -25,7 +25,7 @@ final class ListViewModel: ObservableObject {
         loadItems()
     }
 
-    func remove(offsets: IndexSet) {
+    func delete(offsets: IndexSet) {
         let items = offsets.map { uiState.items[$0] }
         items.forEach { item in
             ItemRepository().delete(item: item)

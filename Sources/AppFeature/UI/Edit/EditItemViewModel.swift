@@ -147,4 +147,9 @@ final class EditItemViewModel: ObservableObject {
         uiState.coordinatesImage = ImageRepository().load(fileName: uiState.input.coordinatesImageName)
         uiState.seedImage = ImageRepository().load(fileName: uiState.input.seedImageName)
     }
+
+    func delete() {
+        guard case .update = uiState.editMode, let item = uiState.editMode.item else { return }
+        ItemRepository().delete(item: item)
+    }
 }

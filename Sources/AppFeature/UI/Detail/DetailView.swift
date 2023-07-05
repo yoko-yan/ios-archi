@@ -5,6 +5,7 @@
 import SwiftUI
 
 struct DetailView: View {
+    @Environment(\.dismiss) var dismiss
     @StateObject private var viewModel: DetailViewModel
     @State private var isEditView = false
     @State private var isBiomeFinderView = false
@@ -37,6 +38,8 @@ struct DetailView: View {
                 .buttonStyle(OutlineButtonStyle(color: .black))
                 .padding()
 
+                Divider()
+
                 Button(action: {
                     isEditView.toggle()
                 }) {
@@ -45,7 +48,7 @@ struct DetailView: View {
                         .frame(height: 50)
                         .frame(maxWidth: .infinity)
                 }
-                .buttonStyle(OutlineButtonStyle(color: .green))
+                .buttonStyle(RoundedButtonStyle(color: .green))
                 .padding()
             }
         }
@@ -73,9 +76,15 @@ struct DetailView: View {
             )
         }
         .fullScreenCover(isPresented: $isEditView) {
-            EditItemView(item: viewModel.uiState.item) { item in
-                viewModel.reload(item: item)
-            }
+            EditItemView(
+                item: viewModel.uiState.item,
+                onTapDismiss: { item in
+                    viewModel.reload(item: item)
+                },
+                onTapDelete: { _ in
+                    dismiss()
+                }
+            )
         }
     }
 

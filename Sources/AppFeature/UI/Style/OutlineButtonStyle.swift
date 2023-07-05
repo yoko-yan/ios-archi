@@ -9,8 +9,7 @@ struct OutlineButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration
             .label
-            .accentColor(color)
-            .foregroundColor(configuration.isPressed ? .gray : .accentColor)
+            .foregroundColor(color)
             .background(
                 RoundedRectangle(
                     cornerRadius: 8,

@@ -9,8 +9,7 @@ struct RoundedButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration
             .label
-            .accentColor(.white)
-            .foregroundColor(configuration.isPressed ? .gray : .accentColor)
+            .foregroundColor(.white)
             .background(color)
             .cornerRadius(8)
     }

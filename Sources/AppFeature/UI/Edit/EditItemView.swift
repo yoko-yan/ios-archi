@@ -8,6 +8,7 @@ struct EditItemView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject private var viewModel: EditItemViewModel
     let onTapDismiss: ((Item) -> Void)?
+    let onTapDelete: ((Item) -> Void)?
 
     var body: some View {
         NavigationStack {
@@ -33,24 +34,40 @@ struct EditItemView: View {
                 }
                 VStack {
                     Spacer()
-                    Button(action: {
-                        let editMode = viewModel.uiState.editMode
-                        viewModel.saveImage()
-                        if case .add = editMode {
-                            viewModel.insertItem()
-                        } else if case .update = editMode {
-                            viewModel.updateItem()
+                    HStack {
+                        if case .update = viewModel.uiState.editMode {
+                            Button(action: {
+                                viewModel.delete()
+                                onTapDelete?(viewModel.createItem())
+                                dismiss()
+                            }) {
+                                Text("削除する")
+                                    .bold()
+                                    .frame(height: 50)
+                            }
+                            .foregroundColor(.red)
+                            .padding(.horizontal)
                         }
-                        onTapDismiss?(viewModel.createItem())
-                        dismiss()
 
-                    }) {
-                        Text(viewModel.uiState.editMode.button)
-                            .bold()
-                            .frame(height: 50)
-                            .frame(maxWidth: .infinity)
+                        Button(action: {
+                            let editMode = viewModel.uiState.editMode
+                            viewModel.saveImage()
+                            if case .add = editMode {
+                                viewModel.insertItem()
+                            } else if case .update = editMode {
+                                viewModel.updateItem()
+                            }
+                            onTapDismiss?(viewModel.createItem())
+                            dismiss()
+
+                        }) {
+                            Text(viewModel.uiState.editMode.button)
+                                .bold()
+                                .frame(height: 50)
+                                .frame(maxWidth: .infinity)
+                        }
+                        .buttonStyle(RoundedButtonStyle(color: .red))
                     }
-                    .buttonStyle(RoundedButtonStyle(color: .green))
                 }
                 .padding()
             }
@@ -81,9 +98,10 @@ struct EditItemView: View {
         }
     }
 
-    init(item: Item? = nil, onTapDismiss: ((Item) -> Void)? = nil) {
+    init(item: Item? = nil, onTapDismiss: ((Item) -> Void)? = nil, onTapDelete: ((Item) -> Void)? = nil) {
         _viewModel = StateObject(wrappedValue: EditItemViewModel(item: item))
         self.onTapDismiss = onTapDismiss
+        self.onTapDelete = onTapDelete
     }
 }
 

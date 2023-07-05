@@ -54,7 +54,7 @@ struct ListView: View {
     }
 
     func delete(offsets: IndexSet) {
-        viewModel.remove(offsets: offsets)
+        viewModel.delete(offsets: offsets)
     }
 
     init() {
