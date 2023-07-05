@@ -116,6 +116,20 @@ struct ItemsLocalDataSourceByCoreData: ItemsDataSource {
         saveContext()
     }
 
+    func delete(item: Item) {
+        guard let id = UUID(uuidString: item.id),
+              let itemEntity = try? getEntityById(id)
+        else { fatalError() }
+        let context = container.viewContext
+        context.delete(itemEntity)
+        do {
+            try context.save()
+        } catch {
+            context.rollback()
+            fatalError("Error: \(error.localizedDescription)")
+        }
+    }
+
     private func saveContext() {
         let context = container.viewContext
         if context.hasChanges {

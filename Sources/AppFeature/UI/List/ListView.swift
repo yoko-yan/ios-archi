@@ -11,61 +11,17 @@ struct ListView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                List(viewModel.uiState.items) { item in
-                    NavigationLink(value: item) {
-                        ZStack(alignment: .leading) {
-                            if let image = viewModel.loadImage(fileName: item.coordinatesImageName) {
-                                Image(uiImage: image)
-                                    .resizable()
-                                    .aspectRatio(4 / 3, contentMode: .fill)
-                            } else {
-                                Text("画像なし")
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                    .foregroundColor(.gray)
-                                    .aspectRatio(4 / 3, contentMode: .fill)
-                            }
-
-                            if item.coordinates != nil || item.coordinates != nil {
-                                VStack {
-                                    Spacer()
-                                    ZStack {
-                                        VStack {
-                                            Spacer()
-                                            Color.black
-                                                .frame(width: .infinity)
-                                                .frame(maxHeight: 50)
-                                                .opacity(0.5)
-                                        }
-                                        HStack {
-                                            if let coordinates = item.coordinates {
-                                                HStack {
-                                                    Image(systemName: "location.circle")
-                                                    Text(coordinates.text)
-                                                }
-                                            }
-                                            Spacer()
-                                            if let seed = item.seed {
-                                                HStack {
-                                                    Image(systemName: "globe.desk")
-                                                    Text(seed.text)
-                                                }
-                                            }
-                                        }
-                                        .foregroundColor(.white)
-                                        .padding()
-                                    }
-                                    .frame(maxHeight: 40)
-                                }
-                            }
+                List {
+                    ForEach(viewModel.uiState.items, id: \.self) { item in
+                        NavigationLink(value: item) {
+                            let image = viewModel.loadImage(fileName: item.coordinatesImageName)
+                            ListCell(item: item, imate: image)
                         }
-                        .modifier(CardStyle())
-                        .aspectRatio(4 / 3, contentMode: .fill)
                     }
+                    .onDelete(perform: delete)
                     .listRowSeparator(.hidden)
                 }
                 .listStyle(.plain)
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationBarTitle(Text("スポット一覧"))
                 .task {
                     viewModel.loadItems()
                 }
@@ -84,6 +40,11 @@ struct ListView: View {
                         .font(.system(size: 24))
                 })
             }
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitle(Text("スポット一覧"))
+            .navigationBarItems(trailing: EditButton())
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbarColorScheme(.light, for: .navigationBar)
             .fullScreenCover(isPresented: $isShowDetailView) {
                 EditItemView { _ in
                     viewModel.reload()
@@ -92,21 +53,12 @@ struct ListView: View {
         }
     }
 
+    func delete(offsets: IndexSet) {
+        viewModel.remove(offsets: offsets)
+    }
+
     init() {
         self.init(viewModel: ListViewModel())
-
-//        // FIXME: DEBUG
-//        ItemRepository().create(
-//            items:
-//            [
-//                Item(seed: .zero, coordinates: .zero),
-//                Item(seed: nil, coordinates: nil),
-//                Item(
-//                    seed: Seed(rawValue: 500),
-//                    coordinates: Coordinates(x: 100, y: 20, z: 300)
-//                )
-//            ]
-//        )
     }
 
     private init(viewModel: ListViewModel) {

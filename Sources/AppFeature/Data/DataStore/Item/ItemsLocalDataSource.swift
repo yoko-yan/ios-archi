@@ -33,4 +33,9 @@ struct ItemsLocalDataSource: ItemsDataSource {
         }
         save(items: items)
     }
+
+    func delete(item: Item) {
+        // TODO:
+        fatalError()
+    }
 }

@@ -9,4 +9,5 @@ protocol ItemsDataSource {
     func load() -> [Item]
     func insert(item: Item)
     func update(item: Item)
+    func delete(item: Item)
 }

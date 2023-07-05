@@ -26,4 +26,8 @@ final class ItemRepository {
     func update(item: Item) {
         dataSource.update(item: item)
     }
+
+    func delete(item: Item) {
+        dataSource.delete(item: item)
+    }
 }
