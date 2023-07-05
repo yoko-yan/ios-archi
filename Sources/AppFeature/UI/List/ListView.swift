@@ -16,6 +16,7 @@ struct ListView: View {
                         NavigationLink(value: item) {
                             let image = viewModel.loadImage(fileName: item.coordinatesImageName)
                             ListCell(item: item, imate: image)
+                                .padding(.top)
                         }
                     }
                     .onDelete(perform: delete)
@@ -46,9 +47,11 @@ struct ListView: View {
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbarColorScheme(.light, for: .navigationBar)
             .fullScreenCover(isPresented: $isShowDetailView) {
-                EditItemView { _ in
-                    viewModel.reload()
-                }
+                EditItemView(
+                    onTapDismiss: { _ in
+                        viewModel.reload()
+                    }
+                )
             }
         }
     }

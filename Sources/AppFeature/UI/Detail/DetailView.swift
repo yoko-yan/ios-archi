@@ -35,7 +35,7 @@ struct DetailView: View {
                         .frame(height: 50)
                         .frame(maxWidth: .infinity)
                 }
-                .buttonStyle(OutlineButtonStyle(color: .black))
+                .buttonStyle(OutlineButtonStyle(color: .green))
                 .padding()
 
                 Divider()
@@ -78,11 +78,10 @@ struct DetailView: View {
         .fullScreenCover(isPresented: $isEditView) {
             EditItemView(
                 item: viewModel.uiState.item,
-                onTapDismiss: { item in
-                    viewModel.reload(item: item)
-                },
                 onTapDelete: { _ in
                     dismiss()
+                }, onTapDismiss: { item in
+                    viewModel.reload(item: item)
                 }
             )
         }
