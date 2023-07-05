@@ -1,7 +1,4 @@
 //
-//  ActivityIndicator.swift
-//  ios-archi
-//
 //  Created by takayuki.yokoda on 2023/04/27.
 //
 

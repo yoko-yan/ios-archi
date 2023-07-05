@@ -1,7 +1,4 @@
 //
-//  RootView.swift
-//  ios-archi
-//
 //  Created by yokoda.takayuki on 2022/11/23.
 //
 

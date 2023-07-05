@@ -1,7 +1,4 @@
 //
-//  Seed.swift
-//  ios-archi
-//
 //  Created by takayuki.yokoda on 2023/01/29.
 //
 

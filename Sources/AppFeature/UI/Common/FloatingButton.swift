@@ -1,7 +1,4 @@
 //
-//  FloatingButton.swift
-//
-//
 //  Created by takayuki.yokoda on 2023/07/03.
 //
 
