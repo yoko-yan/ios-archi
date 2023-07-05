@@ -1,0 +1,2 @@
+#include "../Pods/Target Support Files/Pods-ios-archi/Pods-ios-archi.release.xcconfig"
+#include "Base.xcconfig"

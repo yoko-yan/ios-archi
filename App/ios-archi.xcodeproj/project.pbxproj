@@ -13,6 +13,9 @@
 		83E74B32292E315D00FA1F46 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83E74B31292E315D00FA1F46 /* Preview Assets.xcassets */; };
 		97B0E22E2A4F6551003581A1 /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 97B0E22D2A4F6551003581A1 /* AppFeature */; };
 		BEA1EFCA1D8B2AE3E57FF011 /* Pods_ios_archi_ios_archiUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A40AA8A53CC603C2620ADD73 /* Pods_ios_archi_ios_archiUITests.framework */; };
+		CD430D132A55D0AC00AB8EFA /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD430D0F2A55D0AC00AB8EFA /* Debug.xcconfig */; };
+		CD430D142A55D0AC00AB8EFA /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD430D102A55D0AC00AB8EFA /* Release.xcconfig */; };
+		CD430D162A55D0AC00AB8EFA /* Base.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD430D122A55D0AC00AB8EFA /* Base.xcconfig */; };
 		E8723E109570D659B1D5DDFF /* Pods_ios_archiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A5AE0F226689BAD58D9569 /* Pods_ios_archiTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +51,9 @@
 		A40AA8A53CC603C2620ADD73 /* Pods_ios_archi_ios_archiUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_archi_ios_archiUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B137D1DEF9A121B7DFC6ED73 /* Pods-ios-archi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-archi.debug.xcconfig"; path = "Target Support Files/Pods-ios-archi/Pods-ios-archi.debug.xcconfig"; sourceTree = "<group>"; };
 		C8DE0496DD3F390CC3237C42 /* Pods-ios-archi-ios-archiUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-archi-ios-archiUITests.release.xcconfig"; path = "Target Support Files/Pods-ios-archi-ios-archiUITests/Pods-ios-archi-ios-archiUITests.release.xcconfig"; sourceTree = "<group>"; };
+		CD430D0F2A55D0AC00AB8EFA /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		CD430D102A55D0AC00AB8EFA /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		CD430D122A55D0AC00AB8EFA /* Base.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
 		D74C31526259A4A8B52B2B13 /* Pods_ios_archi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_archi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -120,6 +126,7 @@
 				83E74B2A292E315600FA1F46 /* ios_archiApp.swift */,
 				83E74B2E292E315D00FA1F46 /* Assets.xcassets */,
 				83E74B30292E315D00FA1F46 /* Preview Content */,
+				CD430D0E2A55D0AC00AB8EFA /* XCConfig */,
 			);
 			path = "ios-archi";
 			sourceTree = "<group>";
@@ -130,6 +137,16 @@
 				83E74B31292E315D00FA1F46 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		CD430D0E2A55D0AC00AB8EFA /* XCConfig */ = {
+			isa = PBXGroup;
+			children = (
+				CD430D0F2A55D0AC00AB8EFA /* Debug.xcconfig */,
+				CD430D102A55D0AC00AB8EFA /* Release.xcconfig */,
+				CD430D122A55D0AC00AB8EFA /* Base.xcconfig */,
+			);
+			path = XCConfig;
 			sourceTree = "<group>";
 		};
 		DF99ECBECFE82D436A431575 /* Frameworks */ = {
@@ -255,8 +272,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD430D132A55D0AC00AB8EFA /* Debug.xcconfig in Resources */,
 				83E74B32292E315D00FA1F46 /* Preview Assets.xcassets in Resources */,
 				83E74B2F292E315D00FA1F46 /* Assets.xcassets in Resources */,
+				CD430D142A55D0AC00AB8EFA /* Release.xcconfig in Resources */,
+				CD430D162A55D0AC00AB8EFA /* Base.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,6 +461,7 @@
 /* Begin XCBuildConfiguration section */
 		83E74B49292E315D00FA1F46 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD430D122A55D0AC00AB8EFA /* Base.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -501,6 +522,7 @@
 		};
 		83E74B4A292E315D00FA1F46 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD430D122A55D0AC00AB8EFA /* Base.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -555,7 +577,7 @@
 		};
 		83E74B4C292E315D00FA1F46 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B137D1DEF9A121B7DFC6ED73 /* Pods-ios-archi.debug.xcconfig */;
+			baseConfigurationReference = CD430D0F2A55D0AC00AB8EFA /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -587,7 +609,7 @@
 		};
 		83E74B4D292E315D00FA1F46 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9EA0AD020CD2636DAEC60268 /* Pods-ios-archi.release.xcconfig */;
+			baseConfigurationReference = CD430D102A55D0AC00AB8EFA /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

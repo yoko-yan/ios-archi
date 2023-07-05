@@ -1,0 +1,4 @@
+DEVELOPMENT_TEAM = ""
+CODE_SIGN_STYLE = Manual
+
+#include? "Local.xcconfig"
