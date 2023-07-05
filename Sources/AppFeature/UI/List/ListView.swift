@@ -42,7 +42,7 @@ struct ListView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarTitle(Text("スポット一覧"))
-            .navigationBarItems(trailing: EditButton())
+//            .navigationBarItems(trailing: EditButton())
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbarColorScheme(.light, for: .navigationBar)
             .fullScreenCover(isPresented: $isShowDetailView) {
