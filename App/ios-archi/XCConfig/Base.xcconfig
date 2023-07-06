@@ -1,4 +1,6 @@
 DEVELOPMENT_TEAM = ""
 CODE_SIGN_STYLE = Manual
+PRODUCT_BUNDLE_IDENTIFIER = com.runpany.ios-archi
+
 
 #include? "Local.xcconfig"
