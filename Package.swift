@@ -18,6 +18,12 @@ let package = Package(
             dependencies: [
                 .product(name: "Dependencies", package: "swift-dependencies")
             ]
+        ),
+        .testTarget(
+          name: "AppFeatureTests",
+          dependencies: [
+            "AppFeature"
+          ]
         )
     ]
 )
