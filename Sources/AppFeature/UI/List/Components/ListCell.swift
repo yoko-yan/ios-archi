@@ -21,6 +21,7 @@ struct ListCell: View {
                     .background(
                         colorScheme == .dark ? Color.black : Color.white
                     )
+                    .foregroundColor(.gray)
                     .aspectRatio(4 / 3, contentMode: .fill)
             }
 
@@ -74,6 +75,17 @@ struct ListCell_Previews: PreviewProvider {
                 updatedAt: Date()
             ),
             image: UIImage(named: "sample-coordinates", in: Bundle.module, with: nil)
+        )
+        ListCell(
+            item:
+            Item(
+                id: UUID().uuidString,
+                coordinates: Coordinates(x: 100, y: 20, z: 300),
+                seed: Seed(rawValue: 500),
+                createdAt: Date(),
+                updatedAt: Date()
+            ),
+            image: nil
         )
     }
 }
