@@ -250,6 +250,7 @@
 		};
 		97B0E22F2A4F6BBE003581A1 /* create env.txt */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
