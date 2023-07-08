@@ -28,6 +28,7 @@
 		CD430D102A55D0AC00AB8EFA /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		CD430D122A55D0AC00AB8EFA /* Base.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
 		CD73EEE92A59B6930028B068 /* ios-archi.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "ios-archi.xctestplan"; sourceTree = "<group>"; };
+		CDE7E6232A59CA3F00EFDC11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E41725DDA4F7CD16B1057AFB /* Pods_ios_archi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_archi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -76,6 +77,7 @@
 		83E74B29292E315600FA1F46 /* ios-archi */ = {
 			isa = PBXGroup;
 			children = (
+				CDE7E6232A59CA3F00EFDC11 /* Info.plist */,
 				83E74B2A292E315600FA1F46 /* ios_archiApp.swift */,
 				83E74B2E292E315D00FA1F46 /* Assets.xcassets */,
 				83E74B30292E315D00FA1F46 /* Preview Content */,
@@ -404,6 +406,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"ios-archi/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ios-archi/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -431,6 +434,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"ios-archi/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ios-archi/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
