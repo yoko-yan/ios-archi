@@ -12,29 +12,10 @@
 		83E74B2F292E315D00FA1F46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83E74B2E292E315D00FA1F46 /* Assets.xcassets */; };
 		83E74B32292E315D00FA1F46 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83E74B31292E315D00FA1F46 /* Preview Assets.xcassets */; };
 		97B0E22E2A4F6551003581A1 /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 97B0E22D2A4F6551003581A1 /* AppFeature */; };
-		BEA1EFCA1D8B2AE3E57FF011 /* Pods_ios_archi_ios_archiUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A40AA8A53CC603C2620ADD73 /* Pods_ios_archi_ios_archiUITests.framework */; };
 		CD430D132A55D0AC00AB8EFA /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD430D0F2A55D0AC00AB8EFA /* Debug.xcconfig */; };
 		CD430D142A55D0AC00AB8EFA /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD430D102A55D0AC00AB8EFA /* Release.xcconfig */; };
 		CD430D162A55D0AC00AB8EFA /* Base.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD430D122A55D0AC00AB8EFA /* Base.xcconfig */; };
-		E8723E109570D659B1D5DDFF /* Pods_ios_archiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A5AE0F226689BAD58D9569 /* Pods_ios_archiTests.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		83E74B38292E315D00FA1F46 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83E74B1F292E315600FA1F46 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 83E74B26292E315600FA1F46;
-			remoteInfo = "ios-archi";
-		};
-		83E74B42292E315D00FA1F46 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83E74B1F292E315600FA1F46 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 83E74B26292E315600FA1F46;
-			remoteInfo = "ios-archi";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		18D3E76D2D39A54542A3B5B0 /* Pods-ios-archiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-archiTests.debug.xcconfig"; path = "Target Support Files/Pods-ios-archiTests/Pods-ios-archiTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -43,8 +24,6 @@
 		83E74B2A292E315600FA1F46 /* ios_archiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_archiApp.swift; sourceTree = "<group>"; };
 		83E74B2E292E315D00FA1F46 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		83E74B31292E315D00FA1F46 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		83E74B37292E315D00FA1F46 /* ios-archiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ios-archiTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		83E74B41292E315D00FA1F46 /* ios-archiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ios-archiUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EA0AD020CD2636DAEC60268 /* Pods-ios-archi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-archi.release.xcconfig"; path = "Target Support Files/Pods-ios-archi/Pods-ios-archi.release.xcconfig"; sourceTree = "<group>"; };
 		A269635049C7C3FF6C1EB87B /* Pods-ios-archiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-archiTests.release.xcconfig"; path = "Target Support Files/Pods-ios-archiTests/Pods-ios-archiTests.release.xcconfig"; sourceTree = "<group>"; };
 		A3A5AE0F226689BAD58D9569 /* Pods_ios_archiTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_archiTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,6 +33,7 @@
 		CD430D0F2A55D0AC00AB8EFA /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		CD430D102A55D0AC00AB8EFA /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		CD430D122A55D0AC00AB8EFA /* Base.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
+		CD73EEE92A59B6930028B068 /* ios-archi.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "ios-archi.xctestplan"; sourceTree = "<group>"; };
 		D74C31526259A4A8B52B2B13 /* Pods_ios_archi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_archi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -64,22 +44,6 @@
 			files = (
 				351C6CF987F10AE0357A4265 /* Pods_ios_archi.framework in Frameworks */,
 				97B0E22E2A4F6551003581A1 /* AppFeature in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		83E74B34292E315D00FA1F46 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E8723E109570D659B1D5DDFF /* Pods_ios_archiTests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		83E74B3E292E315D00FA1F46 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BEA1EFCA1D8B2AE3E57FF011 /* Pods_ios_archi_ios_archiUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +67,7 @@
 		83E74B1E292E315600FA1F46 = {
 			isa = PBXGroup;
 			children = (
+				CD73EEE92A59B6930028B068 /* ios-archi.xctestplan */,
 				83E74B29292E315600FA1F46 /* ios-archi */,
 				83E74B28292E315600FA1F46 /* Products */,
 				DF99ECBECFE82D436A431575 /* Frameworks */,
@@ -114,8 +79,6 @@
 			isa = PBXGroup;
 			children = (
 				83E74B27292E315600FA1F46 /* ios-archi.app */,
-				83E74B37292E315D00FA1F46 /* ios-archiTests.xctest */,
-				83E74B41292E315D00FA1F46 /* ios-archiUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -186,44 +149,6 @@
 			productReference = 83E74B27292E315600FA1F46 /* ios-archi.app */;
 			productType = "com.apple.product-type.application";
 		};
-		83E74B36292E315D00FA1F46 /* ios-archiTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 83E74B4E292E315D00FA1F46 /* Build configuration list for PBXNativeTarget "ios-archiTests" */;
-			buildPhases = (
-				4A127C1CF7AF59E491C68D2C /* [CP] Check Pods Manifest.lock */,
-				83E74B33292E315D00FA1F46 /* Sources */,
-				83E74B34292E315D00FA1F46 /* Frameworks */,
-				83E74B35292E315D00FA1F46 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				83E74B39292E315D00FA1F46 /* PBXTargetDependency */,
-			);
-			name = "ios-archiTests";
-			productName = "ios-archiTests";
-			productReference = 83E74B37292E315D00FA1F46 /* ios-archiTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		83E74B40292E315D00FA1F46 /* ios-archiUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 83E74B51292E315D00FA1F46 /* Build configuration list for PBXNativeTarget "ios-archiUITests" */;
-			buildPhases = (
-				D18F4AF4A7D596A2BFDCFE7E /* [CP] Check Pods Manifest.lock */,
-				83E74B3D292E315D00FA1F46 /* Sources */,
-				83E74B3E292E315D00FA1F46 /* Frameworks */,
-				83E74B3F292E315D00FA1F46 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				83E74B43292E315D00FA1F46 /* PBXTargetDependency */,
-			);
-			name = "ios-archiUITests";
-			productName = "ios-archiUITests";
-			productReference = 83E74B41292E315D00FA1F46 /* ios-archiUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -236,14 +161,6 @@
 				TargetAttributes = {
 					83E74B26292E315600FA1F46 = {
 						CreatedOnToolsVersion = 13.4.1;
-					};
-					83E74B36292E315D00FA1F46 = {
-						CreatedOnToolsVersion = 13.4.1;
-						TestTargetID = 83E74B26292E315600FA1F46;
-					};
-					83E74B40292E315D00FA1F46 = {
-						CreatedOnToolsVersion = 13.4.1;
-						TestTargetID = 83E74B26292E315600FA1F46;
 					};
 				};
 			};
@@ -261,8 +178,6 @@
 			projectRoot = "";
 			targets = (
 				83E74B26292E315600FA1F46 /* ios-archi */,
-				83E74B36292E315D00FA1F46 /* ios-archiTests */,
-				83E74B40292E315D00FA1F46 /* ios-archiUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -280,45 +195,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		83E74B35292E315D00FA1F46 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		83E74B3F292E315D00FA1F46 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4A127C1CF7AF59E491C68D2C /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ios-archiTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		83C439DC2986807600DA1425 /* SwiftFormat */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -397,28 +276,6 @@
 			shellPath = /bin/sh;
 			shellScript = "#env > env.txt\n";
 		};
-		D18F4AF4A7D596A2BFDCFE7E /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ios-archi-ios-archiUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -430,34 +287,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		83E74B33292E315D00FA1F46 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		83E74B3D292E315D00FA1F46 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		83E74B39292E315D00FA1F46 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 83E74B26292E315600FA1F46 /* ios-archi */;
-			targetProxy = 83E74B38292E315D00FA1F46 /* PBXContainerItemProxy */;
-		};
-		83E74B43292E315D00FA1F46 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 83E74B26292E315600FA1F46 /* ios-archi */;
-			targetProxy = 83E74B42292E315D00FA1F46 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		83E74B49292E315D00FA1F46 /* Debug */ = {
@@ -630,88 +460,6 @@
 			};
 			name = Release;
 		};
-		83E74B4F292E315D00FA1F46 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 18D3E76D2D39A54542A3B5B0 /* Pods-ios-archiTests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.runpany.archi.ios-archiTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ios-archi.app/ios-archi";
-			};
-			name = Debug;
-		};
-		83E74B50292E315D00FA1F46 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A269635049C7C3FF6C1EB87B /* Pods-ios-archiTests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.runpany.archi.ios-archiTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ios-archi.app/ios-archi";
-			};
-			name = Release;
-		};
-		83E74B52292E315D00FA1F46 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4117832D663A2DEA8D43D73E /* Pods-ios-archi-ios-archiUITests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.runpany.archi.ios-archiUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "ios-archi";
-			};
-			name = Debug;
-		};
-		83E74B53292E315D00FA1F46 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C8DE0496DD3F390CC3237C42 /* Pods-ios-archi-ios-archiUITests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.runpany.archi.ios-archiUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "ios-archi";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -729,24 +477,6 @@
 			buildConfigurations = (
 				83E74B4C292E315D00FA1F46 /* Debug */,
 				83E74B4D292E315D00FA1F46 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		83E74B4E292E315D00FA1F46 /* Build configuration list for PBXNativeTarget "ios-archiTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				83E74B4F292E315D00FA1F46 /* Debug */,
-				83E74B50292E315D00FA1F46 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		83E74B51292E315D00FA1F46 /* Build configuration list for PBXNativeTarget "ios-archiUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				83E74B52292E315D00FA1F46 /* Debug */,
-				83E74B53292E315D00FA1F46 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
