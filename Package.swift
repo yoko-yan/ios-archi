@@ -7,7 +7,10 @@ let package = Package(
     name: "ios-archi",
     platforms: [.iOS(.v16)],
     products: [
-        .library(name: "AppFeature", targets: ["AppFeature"])
+        .library(
+            name: "AppFeature",
+            targets: ["AppFeature"]
+        )
     ],
     dependencies: [
         .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "0.1.4")
