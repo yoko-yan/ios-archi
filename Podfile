@@ -12,15 +12,6 @@ target 'ios-archi' do
   pod 'SwiftLint'
   pod 'SwiftFormat/CLI'
 
-  target 'ios-archiTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'ios-archiUITests' do
-    # Pods for testing
-  end
-
 end
 
 post_install do |installer|
