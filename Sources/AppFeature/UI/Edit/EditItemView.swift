@@ -90,7 +90,6 @@ struct EditItemView: View {
                         dismiss()
                     }) {
                         Image(systemName: "xmark")
-                            .foregroundColor(.primary)
                     }
                 }
             }
