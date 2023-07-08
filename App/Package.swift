@@ -1,3 +1,5 @@
+// swiftlint:disable all
+
 import PackageDescription
 
 let package = Package(
@@ -6,3 +8,5 @@ let package = Package(
     dependencies: [],
     targets: []
 )
+
+// swiftlint:enable all
