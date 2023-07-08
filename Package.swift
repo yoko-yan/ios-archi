@@ -20,10 +20,10 @@ let package = Package(
             ]
         ),
         .testTarget(
-          name: "AppFeatureTests",
-          dependencies: [
-            "AppFeature"
-          ]
+            name: "AppFeatureTests",
+            dependencies: [
+                "AppFeature"
+            ]
         )
     ]
 )

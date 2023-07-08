@@ -167,12 +167,12 @@
 			buildConfigurationList = 83E74B4B292E315D00FA1F46 /* Build configuration list for PBXNativeTarget "ios-archi" */;
 			buildPhases = (
 				8C0A583C1902CE216094A872 /* [CP] Check Pods Manifest.lock */,
+				83C439DC2986807600DA1425 /* SwiftFormat */,
+				83C439DD298680AA00DA1425 /* SwiftLint */,
 				83E74B23292E315600FA1F46 /* Sources */,
 				83E74B24292E315600FA1F46 /* Frameworks */,
 				83E74B25292E315600FA1F46 /* Resources */,
-				83C439DC2986807600DA1425 /* SwiftFormat */,
-				83C439DD298680AA00DA1425 /* SwiftLint */,
-				97B0E22F2A4F6BBE003581A1 /* ShellScript */,
+				97B0E22F2A4F6BBE003581A1 /* create env.txt */,
 			);
 			buildRules = (
 			);
@@ -336,7 +336,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" \"$SRCROOT\"/..\n";
+			shellScript = "if which \"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" > /dev/null; then\n    \"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" \"${SRCROOT}/..\"\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
 		};
 		83C439DD298680AA00DA1425 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -355,7 +355,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+			shellScript = "if which \"${PODS_ROOT}/SwiftLint/swiftlint\" > /dev/null; then\n  \"${PODS_ROOT}/SwiftLint/swiftlint\"\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		8C0A583C1902CE216094A872 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -379,7 +379,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		97B0E22F2A4F6BBE003581A1 /* ShellScript */ = {
+		97B0E22F2A4F6BBE003581A1 /* create env.txt */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -388,13 +388,14 @@
 			);
 			inputPaths = (
 			);
+			name = "create env.txt";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "env > env.txt\n";
+			shellScript = "#env > env.txt\n";
 		};
 		D18F4AF4A7D596A2BFDCFE7E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
