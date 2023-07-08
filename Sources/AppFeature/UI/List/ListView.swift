@@ -15,7 +15,7 @@ struct ListView: View {
                     ForEach(viewModel.uiState.items, id: \.self) { item in
                         NavigationLink(value: item) {
                             let image = viewModel.loadImage(fileName: item.coordinatesImageName)
-                            ListCell(item: item, imate: image)
+                            ListCell(item: item, image: image)
                                 .padding(.top)
                         }
                     }
@@ -45,7 +45,6 @@ struct ListView: View {
             .navigationBarTitle(Text("スポット一覧"))
 //            .navigationBarItems(trailing: EditButton())
             .toolbarBackground(.visible, for: .navigationBar)
-            .toolbarColorScheme(.light, for: .navigationBar)
             .fullScreenCover(isPresented: $isShowDetailView) {
                 EditItemView(
                     onTapDismiss: { _ in

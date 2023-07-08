@@ -90,11 +90,11 @@ struct EditItemView: View {
                         dismiss()
                     }) {
                         Image(systemName: "xmark")
+                            .foregroundColor(.primary)
                     }
                 }
             }
             .toolbarBackground(.visible, for: .navigationBar)
-            .toolbarColorScheme(.light, for: .navigationBar)
         }
     }
 

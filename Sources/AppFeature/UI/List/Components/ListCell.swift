@@ -5,19 +5,22 @@
 import SwiftUI
 
 struct ListCell: View {
+    @Environment(\.colorScheme) var colorScheme
     let item: Item
-    let imate: UIImage?
+    let image: UIImage?
 
     var body: some View {
         ZStack(alignment: .leading) {
-            if let image = imate {
+            if let image {
                 Image(uiImage: image)
                     .resizable()
                     .aspectRatio(4 / 3, contentMode: .fill)
             } else {
                 Text("画像なし")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .foregroundColor(.gray)
+                    .background(
+                        colorScheme == .dark ? Color.black : Color.white
+                    )
                     .aspectRatio(4 / 3, contentMode: .fill)
             }
 
@@ -70,7 +73,7 @@ struct ListCell_Previews: PreviewProvider {
                 createdAt: Date(),
                 updatedAt: Date()
             ),
-            imate: nil
+            image: UIImage(named: "sample-coordinates", in: Bundle.module, with: nil)
         )
     }
 }
