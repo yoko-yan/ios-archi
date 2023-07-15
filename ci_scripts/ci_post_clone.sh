@@ -6,4 +6,5 @@ brew install cocoapods
 # Install dependencies you manage with CocoaPods.
 pod install
 
-pwd
+
+echo "$XCCONFIG" | base64 --decode > ../App/ios-archi/XCConfig/Local.xcconfig
