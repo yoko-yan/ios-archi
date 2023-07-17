@@ -10,7 +10,7 @@ struct CoordinatesEditView: View {
     @Binding var image: UIImage?
 
     @State private var isImagePicker = false
-    @State private var imageSourceType: UIImagePickerController.SourceType = .photoLibrary
+    @State private var imageSourceType: ImagePicker.SourceType = .library
 
     var body: some View {
         VStack {
@@ -28,7 +28,7 @@ struct CoordinatesEditView: View {
                         .frame(height: 200)
                 } else {
                     Button {
-                        imageSourceType = .photoLibrary
+                        imageSourceType = .library
                         isImagePicker.toggle()
                     } label: {
                         Text("画像から座標を取得")
@@ -40,13 +40,6 @@ struct CoordinatesEditView: View {
                         Color.gray
                             .opacity(0.1)
                     )
-                    .sheet(isPresented: $isImagePicker) {
-                        ImagePicker(
-                            show: $isImagePicker,
-                            image: $image,
-                            sourceType: $imageSourceType
-                        )
-                    }
                 }
             }
             .padding(.horizontal)
@@ -63,16 +56,9 @@ struct CoordinatesEditView: View {
                         .scaledToFill()
                         .frame(width: 30, height: 30)
                 }
-                .sheet(isPresented: $isImagePicker) {
-                    ImagePicker(
-                        show: $isImagePicker,
-                        image: $image,
-                        sourceType: $imageSourceType
-                    )
-                }
 
                 Button(action: {
-                    imageSourceType = .photoLibrary
+                    imageSourceType = .library
                     isImagePicker.toggle()
                 }) {
                     Image(systemName: "photo.circle.fill")
@@ -80,16 +66,17 @@ struct CoordinatesEditView: View {
                         .scaledToFill()
                         .frame(width: 30, height: 30)
                 }
-                .sheet(isPresented: $isImagePicker) {
-                    ImagePicker(
-                        show: $isImagePicker,
-                        image: $image,
-                        sourceType: $imageSourceType
-                    )
-                }
             }
             .padding(.horizontal)
             .accentColor(.gray)
+        }
+        .sheet(isPresented: $isImagePicker) {
+            ImagePicker(
+                show: $isImagePicker,
+                image: $image,
+                sourceType: imageSourceType,
+                allowsEditing: true
+            )
         }
     }
 }

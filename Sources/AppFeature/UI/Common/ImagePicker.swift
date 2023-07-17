@@ -6,6 +6,11 @@ import SwiftUI
 import UIKit
 
 struct ImagePicker: UIViewControllerRepresentable {
+    enum SourceType {
+        case camera
+        case library
+    }
+
     class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
         var parent: ImagePicker
 
@@ -28,16 +33,24 @@ struct ImagePicker: UIViewControllerRepresentable {
 
     @Binding var show: Bool
     @Binding var image: UIImage?
-    @Binding var sourceType: UIImagePickerController.SourceType
+    var sourceType: SourceType
+    var allowsEditing: Bool = false
 
     func makeCoordinator() -> ImagePicker.Coordinator {
         Self.Coordinator(parent: self)
     }
 
     func makeUIViewController(context: Context) -> some UIViewController {
+        // FIXME: UIImagePickerControllerからフォトライブラリへのアクセスはiOS14でdeprecatedなのでPHPickerViewControllerにする
         let controller = UIImagePickerController()
-        controller.sourceType = sourceType
+        switch sourceType {
+        case .camera:
+            controller.sourceType = UIImagePickerController.SourceType.camera
+        case .library:
+            controller.sourceType = UIImagePickerController.SourceType.photoLibrary
+        }
         controller.delegate = context.coordinator
+        controller.allowsEditing = allowsEditing
         return controller
     }
 
