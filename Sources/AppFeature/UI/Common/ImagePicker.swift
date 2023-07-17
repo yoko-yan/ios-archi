@@ -26,7 +26,8 @@ struct ImagePicker: UIViewControllerRepresentable {
             _: UIImagePickerController,
             didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
         ) {
-            parent.image = info[.originalImage] as? UIImage
+            let image = info[.editedImage] as? UIImage
+            parent.image = image?.normalizedImage()
             parent.show.toggle()
         }
     }
