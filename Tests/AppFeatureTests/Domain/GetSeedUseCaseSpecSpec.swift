@@ -15,7 +15,6 @@ class GetSeedUseCaseSpecSpec: QuickSpec {
     override class func spec() {
         var recognizeText2RepositoryMock: RecognizeText2RepositoryMock!
         var useCase: GetSeed2UseCaseImpl!
-
         var cancellables: [AnyCancellable] = []
         let image = UIImage(named: "seed_1541822036", in: Bundle.module, with: nil)!
         let expectedError = NSError(domain: "VNRecognizeTextRequest Error", code: -10001, userInfo: nil)

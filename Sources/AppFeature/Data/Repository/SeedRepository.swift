@@ -16,16 +16,16 @@ struct SeedRepository {
             .eraseToAnyPublisher()
     }
 
-    func get(image: UIImage, completionHandler: @escaping (Result<Seed?, NewRecognizeTextError>) -> Void) {
-        NewRecognizeTextRequest().perform(image: image) { result in
-            switch result {
-            case let .success(texts):
-                completionHandler(.success(makeSeed(texts)))
-            case let .failure(error):
-                completionHandler(.failure(error))
-            }
-        }
-    }
+//    func get(image: UIImage, completionHandler: @escaping (Result<Seed?, NewRecognizeTextError>) -> Void) {
+//        NewRecognizeTextRequest().perform(image: image) { result in
+//            switch result {
+//            case let .success(texts):
+//                completionHandler(.success(makeSeed(texts)))
+//            case let .failure(error):
+//                completionHandler(.failure(error))
+//            }
+//        }
+//    }
 
     // 読み取れた数字が複数ある場合は、より大きい数字をSeedにする
     private func makeSeed(_ texts: [String]) -> Seed? {
