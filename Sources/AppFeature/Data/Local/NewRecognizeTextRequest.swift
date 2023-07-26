@@ -8,16 +8,16 @@ import Vision
 
 enum NewRecognizeTextError: Error {
     case error(Error)
-    case GetCgImage
-    case RecognizeText
-    case RecognizeTextRequest
+    case getCgImage
+    case recognizeText
+    case recognizeTextRequest
 }
 
 struct NewRecognizeTextRequest {
     func perform(image: UIImage, completionHandler: @escaping @Sendable (Result<[String], NewRecognizeTextError>) -> Void) {
         let cgOrientation = CGImagePropertyOrientation(image.imageOrientation)
         guard let cgImage = image.cgImage else {
-            completionHandler(.failure(NewRecognizeTextError.GetCgImage))
+            completionHandler(.failure(NewRecognizeTextError.getCgImage))
             return
         }
 
@@ -28,7 +28,7 @@ struct NewRecognizeTextRequest {
             }
 
             guard let observations = request.results as? [VNRecognizedTextObservation] else {
-                completionHandler(.failure(NewRecognizeTextError.RecognizeText))
+                completionHandler(.failure(NewRecognizeTextError.recognizeText))
                 return
             }
             let maximumCandidates = 1
@@ -57,7 +57,7 @@ struct NewRecognizeTextRequest {
                 try imageRequestHandler.perform(requests)
             } catch {
                 print("Failed to perform image request: \(error)")
-                completionHandler(.failure(NewRecognizeTextError.RecognizeTextRequest))
+                completionHandler(.failure(NewRecognizeTextError.recognizeTextRequest))
                 return
             }
         }

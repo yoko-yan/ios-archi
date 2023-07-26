@@ -55,8 +55,7 @@ final class EditItemViewModel: ObservableObject {
     }
 
     func getSeed(image: UIImage) {
-        let repository = SeedRepository()
-        repository.get(image: image)
+        GetSeedUseCaseImpl().execute(image: image)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
                 switch completion {
@@ -70,6 +69,22 @@ final class EditItemViewModel: ObservableObject {
                 uiState.input.seed = seed
             })
             .store(in: &cancellables)
+
+//        let repository = SeedRepository()
+//        repository.get(image: image)
+//            .receive(on: DispatchQueue.main)
+//            .sink(receiveCompletion: { completion in
+//                switch completion {
+//                case .finished:
+//                    print("Finish.")
+//                case let .failure(error):
+//                    print(error.localizedDescription)
+//                }
+//            }, receiveValue: { [weak self] seed in
+//                guard let self else { return }
+//                uiState.input.seed = seed
+//            })
+//            .store(in: &cancellables)
 
 //        let repository = SeedRepository()
 //        repository.get(image: image) { [weak self] result in

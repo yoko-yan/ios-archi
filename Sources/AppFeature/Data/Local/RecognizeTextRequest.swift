@@ -8,9 +8,9 @@ import Vision
 
 enum RecognizeTextError: Error {
     case error(Error)
-    case GetCgImage
-    case RecognizeText
-    case RecognizeTextRequest
+    case getCgImage
+    case recognizeText
+    case recognizeTextRequest
 }
 
 struct RecognizeTextRequest {
@@ -18,7 +18,7 @@ struct RecognizeTextRequest {
         Future<[String], RecognizeTextError> { promise in
             let cgOrientation = CGImagePropertyOrientation(image.imageOrientation)
             guard let cgImage = image.cgImage else {
-                return promise(.failure(RecognizeTextError.GetCgImage))
+                return promise(.failure(RecognizeTextError.getCgImage))
             }
 
             let request = VNRecognizeTextRequest { request, error in
@@ -27,7 +27,7 @@ struct RecognizeTextRequest {
                 }
 
                 guard let observations = request.results as? [VNRecognizedTextObservation] else {
-                    return promise(.failure(RecognizeTextError.RecognizeText))
+                    return promise(.failure(RecognizeTextError.recognizeText))
                 }
                 let maximumCandidates = 1
                 let strings = observations.compactMap { observation in
@@ -55,7 +55,7 @@ struct RecognizeTextRequest {
                     try imageRequestHandler.perform(requests)
                 } catch {
                     print("Failed to perform image request: \(error)")
-                    return promise(.failure(RecognizeTextError.RecognizeTextRequest))
+                    return promise(.failure(RecognizeTextError.recognizeTextRequest))
                 }
             }
         }
