@@ -3,21 +3,19 @@
 //
 
 import Combine
+import Dependencies
 import Foundation
 import UIKit
 
-protocol GetSeedUseCase {
+protocol GetSeed2UseCase {
     func execute(image: UIImage) -> AnyPublisher<Seed?, RecognizeTextError>
 }
 
-struct GetSeedUseCaseImpl: GetSeedUseCase {
-    private let recognizeTextRepository: RecognizeTextRepository
-    init(recognizeTextRepository: RecognizeTextRepository = RecognizeTextRepositoryImpl()) {
-        self.recognizeTextRepository = recognizeTextRepository
-    }
+struct GetSeed2UseCaseImpl: GetSeed2UseCase {
+    @Dependency(\.recognizeText2Repository) var recognizeText2Repository
 
     func execute(image: UIImage) -> AnyPublisher<Seed?, RecognizeTextError> {
-        recognizeTextRepository.get(image: image)
+        recognizeText2Repository.get(image: image)
             .map { (texts: [String]) -> Seed? in
                 // 読み取れた数字が複数ある場合は、より大きい数字をSeedにする
                 let filterdTexs = texts.compactMap { Seed($0) }

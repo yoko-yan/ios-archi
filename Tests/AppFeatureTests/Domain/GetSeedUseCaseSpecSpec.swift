@@ -3,6 +3,7 @@
 //
 
 import Combine
+import Dependencies
 import Foundation
 import Nimble
 import Quick
@@ -10,10 +11,10 @@ import UIKit
 
 @testable import AppFeature
 
-class GetSeedUseCaseSpec: QuickSpec {
+class GetSeedUseCaseSpecSpec: QuickSpec {
     override class func spec() {
-        var recognizeTextRepositoryMock: RecognizeTextRepositoryMock!
-        var useCase: GetSeedUseCaseImpl!
+        var recognizeText2RepositoryMock: RecognizeText2RepositoryMock!
+        var useCase: GetSeed2UseCaseImpl!
 
         var cancellables: [AnyCancellable] = []
         let image = UIImage(named: "seed_1541822036", in: Bundle.module, with: nil)!
@@ -21,14 +22,19 @@ class GetSeedUseCaseSpec: QuickSpec {
 
         describe("execute") {
             beforeEach {
-                recognizeTextRepositoryMock = RecognizeTextRepositoryMock()
-                useCase = GetSeedUseCaseImpl(recognizeTextRepository: recognizeTextRepositoryMock)
+                recognizeText2RepositoryMock = RecognizeText2RepositoryMock()
+                withDependencies {
+                    $0.recognizeText2Repository = recognizeText2RepositoryMock
+                } operation: {
+                    useCase = GetSeed2UseCaseImpl()
+                }
+
                 cancellables = []
             }
 
             context("画像から文字が1つ以上取得できた場合") {
                 beforeEach {
-                    recognizeTextRepositoryMock.getHandler = { _ in
+                    recognizeText2RepositoryMock.getHandler = { _ in
                         Just(["1541822036"])
                             .setFailureType(to: RecognizeTextError.self)
                             .eraseToAnyPublisher()
@@ -51,7 +57,7 @@ class GetSeedUseCaseSpec: QuickSpec {
 
             context("画像から文字が取得できなかった場合") {
                 beforeEach {
-                    recognizeTextRepositoryMock.getHandler = { _ in
+                    recognizeText2RepositoryMock.getHandler = { _ in
                         Just([])
                             .setFailureType(to: RecognizeTextError.self)
                             .eraseToAnyPublisher()
@@ -74,7 +80,7 @@ class GetSeedUseCaseSpec: QuickSpec {
 
             context("画像解析に失敗した場合") {
                 beforeEach {
-                    recognizeTextRepositoryMock.getHandler = { _ in
+                    recognizeText2RepositoryMock.getHandler = { _ in
                         Fail(error: RecognizeTextError.error(expectedError))
                             .eraseToAnyPublisher()
                     }
@@ -99,7 +105,7 @@ class GetSeedUseCaseSpec: QuickSpec {
     }
 }
 
-class RecognizeTextRepositoryMock: RecognizeTextRepository {
+class RecognizeText2RepositoryMock: RecognizeText2Repository {
     init() {}
 
     private(set) var getCallCount = 0
