@@ -16,6 +16,16 @@ struct SeedRepository {
             .eraseToAnyPublisher()
     }
 
+    // 読み取れた数字が複数ある場合は、より大きい数字をSeedにする
+    private func makeSeed(_ texts: [String]) -> Seed? {
+        let filterdTexs = texts.compactMap { Seed($0) }
+        guard let max = filterdTexs.max(by: { a, b -> Bool in
+            a.rawValue < b.rawValue
+        }) else { return nil }
+        return max
+    }
+}
+
 //    func get(image: UIImage, completionHandler: @escaping (Result<Seed?, NewRecognizeTextError>) -> Void) {
 //        NewRecognizeTextRequest().perform(image: image) { result in
 //            switch result {
@@ -26,13 +36,3 @@ struct SeedRepository {
 //            }
 //        }
 //    }
-
-    // 読み取れた数字が複数ある場合は、より大きい数字をSeedにする
-    private func makeSeed(_ texts: [String]) -> Seed? {
-        let filterdTexs = texts.compactMap { Seed($0) }
-        guard let max = filterdTexs.max(by: { a, b -> Bool in
-            a.rawValue < b.rawValue
-        }) else { return nil }
-        return max
-    }
-}

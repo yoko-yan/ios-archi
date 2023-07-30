@@ -28,7 +28,7 @@ class GetSeedUseCaseSpec: QuickSpec {
             context("画像から文字が1つ以上取得できた場合") {
                 beforeEach {
                     recognizeTextRepositoryMock.getHandler = { _ in
-                        Just(["1541822036"])
+                        Just(["1541822036", "15418"])
                             .setFailureType(to: RecognizeTextError.self)
                             .eraseToAnyPublisher()
                     }

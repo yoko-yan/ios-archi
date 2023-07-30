@@ -11,7 +11,7 @@ import UIKit
 
 @testable import AppFeature
 
-class GetSeedUseCaseSpecSpec: QuickSpec {
+class GetSeed2UseCaseSpec: QuickSpec {
     override class func spec() {
         var recognizeText2RepositoryMock: RecognizeText2RepositoryMock!
         var useCase: GetSeed2UseCaseImpl!
