@@ -19,23 +19,27 @@ struct ItemsLocalDataSourceByCoreData: ItemsDataSource {
         }
     }
 
-    private func getEntityById(_ id: UUID) throws -> ItemEntity? {
+    private func getEntityById(_ id: UUID) async throws -> ItemEntity? {
         let request = ItemEntity.fetchRequest()
         request.fetchLimit = 1
         request.predicate = NSPredicate(
             format: "id = %@", id.uuidString
         )
         let context = container.viewContext
-        let itemEntity = try context.fetch(request)[0]
+
+        var itemEntity: ItemEntity?
+        try await context.perform { [context] in
+            itemEntity = try context.fetch(request)[0]
+        }
         return itemEntity
     }
 
-    func save(items: [Item]) {
+    func save(items: [Item]) async throws {
         // TODO:
         fatalError()
     }
 
-    func load() -> [Item] {
+    func load() async throws -> [Item] {
         let request = ItemEntity.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(keyPath: \ItemEntity.createdAt, ascending: false)]
         guard let result = try? container.viewContext.fetch(request)
@@ -78,7 +82,7 @@ struct ItemsLocalDataSourceByCoreData: ItemsDataSource {
         }
     }
 
-    func insert(item: Item) {
+    func insert(item: Item) async throws {
         let itemEntity = ItemEntity(context: container.viewContext)
         itemEntity.id = UUID(uuidString: item.id)
         if let coordinates = item.coordinates {
@@ -96,9 +100,9 @@ struct ItemsLocalDataSourceByCoreData: ItemsDataSource {
         saveContext()
     }
 
-    func update(item: Item) {
+    func update(item: Item) async throws {
         guard let id = UUID(uuidString: item.id),
-              let itemEntity = try? getEntityById(id)
+              let itemEntity = try? await getEntityById(id)
         else { fatalError() }
         itemEntity.id = UUID(uuidString: item.id)
         if let coordinates = item.coordinates {
@@ -116,9 +120,9 @@ struct ItemsLocalDataSourceByCoreData: ItemsDataSource {
         saveContext()
     }
 
-    func delete(item: Item) {
+    func delete(item: Item) async throws {
         guard let id = UUID(uuidString: item.id),
-              let itemEntity = try? getEntityById(id)
+              let itemEntity = try? await getEntityById(id)
         else { fatalError() }
         let context = container.viewContext
         context.delete(itemEntity)

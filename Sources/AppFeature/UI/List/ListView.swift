@@ -19,7 +19,7 @@ struct ListView: View {
                                 .padding(.top)
                         }
                     }
-                    .onDelete(perform: delete)
+                    .onDelete { delete(offsets: $0) }
                     .listRowSeparator(.hidden)
                 }
                 .listStyle(.plain)
@@ -55,7 +55,7 @@ struct ListView: View {
         }
     }
 
-    func delete(offsets: IndexSet) {
+    private func delete(offsets: IndexSet) {
         viewModel.delete(offsets: offsets)
     }
 

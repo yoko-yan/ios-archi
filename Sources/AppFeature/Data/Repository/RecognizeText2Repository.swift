@@ -7,7 +7,7 @@ import Dependencies
 import Foundation
 import UIKit
 
-protocol RecognizeText2Repository {
+protocol RecognizeText2Repository: Sendable {
     func get(image: UIImage) -> AnyPublisher<[String], RecognizeTextError>
 }
 

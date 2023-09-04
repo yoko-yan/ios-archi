@@ -129,11 +129,15 @@ final class EditItemViewModel: ObservableObject {
     }
 
     func insertItem() {
-        ItemRepository().insert(item: createItem())
+        Task {
+            try await ItemRepository().insert(item: createItem())
+        }
     }
 
     func updateItem() {
-        ItemRepository().update(item: createItem())
+        Task {
+            try await ItemRepository().update(item: createItem())
+        }
     }
 
     func saveImage() {
@@ -165,6 +169,8 @@ final class EditItemViewModel: ObservableObject {
 
     func delete() {
         guard case .update = uiState.editMode, let item = uiState.editMode.item else { return }
-        ItemRepository().delete(item: item)
+        Task {
+            try await ItemRepository().delete(item: item)
+        }
     }
 }

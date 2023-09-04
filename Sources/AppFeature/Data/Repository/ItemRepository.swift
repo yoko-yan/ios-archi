@@ -7,27 +7,27 @@ import Foundation
 final class ItemRepository {
     let dataSource = ItemsDataSourceFactory.createItemsDataStore()
 
-    func create(items: [Item]) {
-        save(items: items)
+    func create(items: [Item]) async throws {
+        try await save(items: items)
     }
 
-    func load() -> [Item] {
-        dataSource.load()
+    func load() async throws -> [Item] {
+        try await dataSource.load()
     }
 
-    func save(items: [Item]) {
-        dataSource.save(items: items)
+    func save(items: [Item]) async throws {
+        try await dataSource.save(items: items)
     }
 
-    func insert(item: Item) {
-        dataSource.insert(item: item)
+    func insert(item: Item) async throws {
+        try await dataSource.insert(item: item)
     }
 
-    func update(item: Item) {
-        dataSource.update(item: item)
+    func update(item: Item) async throws {
+        try await dataSource.update(item: item)
     }
 
-    func delete(item: Item) {
-        dataSource.delete(item: item)
+    func delete(item: Item) async throws {
+        try await dataSource.delete(item: item)
     }
 }

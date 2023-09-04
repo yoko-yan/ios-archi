@@ -14,7 +14,9 @@ final class ListViewModel: ObservableObject {
     }
 
     func loadItems() {
-        uiState.items = ItemRepository().load()
+        Task {
+            uiState.items = try await ItemRepository().load()
+        }
     }
 
     func loadImage(fileName: String?) -> UIImage? {
@@ -28,7 +30,9 @@ final class ListViewModel: ObservableObject {
     func delete(offsets: IndexSet) {
         let items = offsets.map { uiState.items[$0] }
         items.forEach { item in
-            ItemRepository().delete(item: item)
+            Task {
+                try await ItemRepository().delete(item: item)
+            }
         }
         reload()
     }
