@@ -128,19 +128,7 @@ final class EditItemViewModel: ObservableObject {
         )
     }
 
-    func insertItem() {
-        Task {
-            try await ItemRepository().insert(item: createItem())
-        }
-    }
-
-    func updateItem() {
-        Task {
-            try await ItemRepository().update(item: createItem())
-        }
-    }
-
-    func saveImage() {
+    func saveImage() async {
         if let coordinatesImage = uiState.coordinatesImage {
             let coordinatesImageName = uiState.input.coordinatesImageName ?? UUID().uuidString
             uiState.input.coordinatesImageName = coordinatesImageName
@@ -162,9 +150,24 @@ final class EditItemViewModel: ObservableObject {
         }
     }
 
-    func loadImage() {
+    func loadImage() async {
         uiState.coordinatesImage = ImageRepository().load(fileName: uiState.input.coordinatesImageName)
         uiState.seedImage = ImageRepository().load(fileName: uiState.input.seedImageName)
+    }
+
+    func insertOrUpdate() async {
+        do {
+            switch uiState.editMode {
+            case .add:
+                try await ItemRepository().insert(item: createItem())
+            case .update:
+                Task {
+                    try await ItemRepository().update(item: createItem())
+                }
+            }
+        } catch {
+            print(error)
+        }
     }
 
     func delete() {

@@ -19,18 +19,14 @@ struct ItemsLocalDataSourceByCoreData: ItemsDataSource {
         }
     }
 
-    private func getEntityById(_ id: UUID) async throws -> ItemEntity? {
+    private func getEntityById(_ id: UUID) throws -> ItemEntity? {
         let request = ItemEntity.fetchRequest()
         request.fetchLimit = 1
         request.predicate = NSPredicate(
             format: "id = %@", id.uuidString
         )
         let context = container.viewContext
-
-        var itemEntity: ItemEntity?
-        try await context.perform { [context] in
-            itemEntity = try context.fetch(request)[0]
-        }
+        let itemEntity = try context.fetch(request)[0]
         return itemEntity
     }
 

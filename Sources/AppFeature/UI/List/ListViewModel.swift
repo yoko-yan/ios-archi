@@ -32,8 +32,8 @@ final class ListViewModel: ObservableObject {
         items.forEach { item in
             Task {
                 try await ItemRepository().delete(item: item)
+                reload()
             }
         }
-        reload()
     }
 }

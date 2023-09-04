@@ -50,16 +50,12 @@ struct EditItemView: View {
                         }
 
                         Button(action: {
-                            let editMode = viewModel.uiState.editMode
-                            viewModel.saveImage()
-                            if case .add = editMode {
-                                viewModel.insertItem()
-                            } else if case .update = editMode {
-                                viewModel.updateItem()
+                            Task {
+                                await viewModel.saveImage()
+                                await viewModel.insertOrUpdate()
+                                onTapDismiss?(viewModel.createItem())
+                                dismiss()
                             }
-                            onTapDismiss?(viewModel.createItem())
-                            dismiss()
-
                         }) {
                             Text(viewModel.uiState.editMode.button)
                                 .bold()
@@ -72,7 +68,7 @@ struct EditItemView: View {
                 .padding()
             }
             .task {
-                viewModel.loadImage()
+                await viewModel.loadImage()
             }
             .onChange(of: viewModel.uiState) { [oldState = viewModel.uiState] newState in
                 if let coordinatesImage = newState.coordinatesImage, oldState.coordinatesImage != coordinatesImage
