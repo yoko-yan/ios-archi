@@ -22,6 +22,11 @@ let package = Package(
             name: "AppFeature",
             dependencies: [
                 .product(name: "Dependencies", package: "swift-dependencies")
+            ],
+            swiftSettings: [
+                .unsafeFlags([
+                    "-strict-concurrency=complete"
+                ])
             ]
         ),
         .testTarget(
@@ -30,6 +35,11 @@ let package = Package(
                 "AppFeature",
                 "Quick",
                 "Nimble"
+            ],
+            swiftSettings: [
+                .unsafeFlags([
+                    "-strict-concurrency=complete"
+                ])
             ]
         )
     ]
