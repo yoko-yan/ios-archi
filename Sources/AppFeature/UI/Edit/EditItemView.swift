@@ -7,8 +7,8 @@ import SwiftUI
 struct EditItemView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject private var viewModel: EditItemViewModel
-    let onTapDelete: ((Item) -> Void)?
-    let onTapDismiss: ((Item) -> Void)?
+    private let onTapDelete: ((Item) -> Void)?
+    private let onTapDismiss: ((Item) -> Void)?
 
     var body: some View {
         NavigationStack {
@@ -37,9 +37,11 @@ struct EditItemView: View {
                     HStack {
                         if case .update = viewModel.uiState.editMode {
                             Button(action: {
-                                viewModel.delete()
-                                onTapDelete?(viewModel.createItem())
-                                dismiss()
+                                Task {
+                                    await viewModel.delete()
+                                    onTapDelete?(viewModel.uiState.editItem)
+                                    dismiss()
+                                }
                             }) {
                                 Text("削除する")
                                     .bold()
@@ -53,7 +55,7 @@ struct EditItemView: View {
                             Task {
                                 await viewModel.saveImage()
                                 await viewModel.insertOrUpdate()
-                                onTapDismiss?(viewModel.createItem())
+                                onTapDismiss?(viewModel.uiState.editItem)
                                 dismiss()
                             }
                         }) {

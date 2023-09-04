@@ -69,4 +69,15 @@ struct EditItemUiState: Equatable {
     var input: Input
     var seedImage: UIImage?
     var coordinatesImage: UIImage?
+    var editItem: Item {
+        Item(
+            id: input.id ?? UUID().uuidString,
+            coordinates: input.coordinates,
+            seed: input.seed,
+            coordinatesImageName: input.coordinatesImageName,
+            seedImageName: input.seedImageName,
+            createdAt: editMode.item?.createdAt ?? Date(),
+            updatedAt: editMode.item?.updatedAt ?? Date()
+        )
+    }
 }

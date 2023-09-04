@@ -116,18 +116,6 @@ final class EditItemViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func createItem() -> Item {
-        Item(
-            id: uiState.input.id ?? UUID().uuidString,
-            coordinates: uiState.input.coordinates,
-            seed: uiState.input.seed,
-            coordinatesImageName: uiState.input.coordinatesImageName,
-            seedImageName: uiState.input.seedImageName,
-            createdAt: uiState.editMode.item?.createdAt ?? Date(),
-            updatedAt: uiState.editMode.item?.updatedAt ?? Date()
-        )
-    }
-
     func saveImage() async {
         if let coordinatesImage = uiState.coordinatesImage {
             let coordinatesImageName = uiState.input.coordinatesImageName ?? UUID().uuidString
@@ -159,10 +147,10 @@ final class EditItemViewModel: ObservableObject {
         do {
             switch uiState.editMode {
             case .add:
-                try await ItemRepository().insert(item: createItem())
+                try await ItemRepository().insert(item: uiState.editItem)
             case .update:
                 Task {
-                    try await ItemRepository().update(item: createItem())
+                    try await ItemRepository().update(item: uiState.editItem)
                 }
             }
         } catch {
@@ -170,7 +158,7 @@ final class EditItemViewModel: ObservableObject {
         }
     }
 
-    func delete() {
+    func delete() async {
         guard case .update = uiState.editMode, let item = uiState.editMode.item else { return }
         Task {
             try await ItemRepository().delete(item: item)
