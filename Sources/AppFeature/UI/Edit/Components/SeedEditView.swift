@@ -81,17 +81,16 @@ struct SeedEditView: View {
     }
 }
 
-struct SeedEditView_Previews: PreviewProvider {
-    // swiftlint:disable force_unwrapping
-    static var previews: some View {
-        SeedEditView(
-            seed: .constant(Seed(rawValue: 1234567890)),
-            image: .constant(UIImage(named: "sample-seed", in: Bundle.module, with: nil)!)
-        )
-        SeedEditView(
-            seed: .constant(nil),
-            image: .constant(nil)
-        )
-    }
-    // swiftlint:enable force_unwrapping
+#Preview {
+    SeedEditView(
+        seed: .constant(Seed(rawValue: 1234567890)),
+        image: .constant(UIImage(named: "sample-seed", in: Bundle.module, with: nil)!)
+    )
+}
+
+#Preview {
+    SeedEditView(
+        seed: .constant(nil),
+        image: .constant(nil)
+    )
 }

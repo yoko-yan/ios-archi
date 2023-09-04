@@ -18,8 +18,6 @@ struct WebView: UIViewRepresentable {
     }
 }
 
-struct WebView_Previews: PreviewProvider {
-    static var previews: some View {
-        WebView(loadUrl: "https://www.chunkbase.com")
-    }
+#Preview {
+    WebView(loadUrl: "https://www.chunkbase.com")
 }

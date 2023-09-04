@@ -81,17 +81,16 @@ struct CoordinatesEditView: View {
     }
 }
 
-struct CoordinatesEditView_Previews: PreviewProvider {
-    // swiftlint:disable force_unwrapping
-    static var previews: some View {
-        CoordinatesEditView(
-            coordinates: .constant(.init(x: 200, y: 0, z: -100)),
-            image: .constant(UIImage(named: "sample-coordinates", in: Bundle.module, with: nil)!)
-        )
-        CoordinatesEditView(
-            coordinates: .constant(nil),
-            image: .constant(nil)
-        )
-    }
-    // swiftlint:enable force_unwrapping
+#Preview {
+    CoordinatesEditView(
+        coordinates: .constant(.init(x: 200, y: 0, z: -100)),
+        image: .constant(UIImage(named: "sample-coordinates", in: Bundle.module, with: nil)!)
+    )
+}
+
+#Preview {
+    CoordinatesEditView(
+        coordinates: .constant(nil),
+        image: .constant(nil)
+    )
 }

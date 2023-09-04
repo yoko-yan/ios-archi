@@ -27,17 +27,16 @@ struct SeedView: View {
     }
 }
 
-struct SeedView_Previews: PreviewProvider {
-    // swiftlint:disable force_unwrapping
-    static var previews: some View {
-        SeedView(
-            seed: Seed(rawValue: 1234567890),
-            image: UIImage(named: "sample-seed", in: Bundle.module, with: nil)!
-        )
-        SeedView(
-            seed: nil,
-            image: nil
-        )
-    }
-    // swiftlint:enable force_unwrapping
+#Preview {
+    SeedView(
+        seed: Seed(rawValue: 1234567890),
+        image: UIImage(named: "sample-seed", in: Bundle.module, with: nil)!
+    )
+}
+
+#Preview {
+    SeedView(
+        seed: nil,
+        image: nil
+    )
 }

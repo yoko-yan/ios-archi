@@ -29,17 +29,16 @@ struct CoordinatesView: View {
     }
 }
 
-struct CoordinatesView_Previews: PreviewProvider {
-    // swiftlint:disable force_unwrapping
-    static var previews: some View {
-        CoordinatesView(
-            coordinates: .init(x: 200, y: 0, z: -100),
-            image: UIImage(named: "sample-coordinates", in: Bundle.module, with: nil)
-        )
-        CoordinatesView(
-            coordinates: nil,
-            image: nil
-        )
-    }
-    // swiftlint:enable force_unwrapping
+#Preview {
+    CoordinatesView(
+        coordinates: .init(x: 200, y: 0, z: -100),
+        image: UIImage(named: "sample-coordinates", in: Bundle.module, with: nil)
+    )
+}
+
+#Preview {
+    CoordinatesView(
+        coordinates: nil,
+        image: nil
+    )
 }

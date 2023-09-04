@@ -53,11 +53,9 @@ struct BiomeFinderView: UIViewRepresentable {
     }
 }
 
-struct BiomeFinderView_Previews: PreviewProvider {
-    static var previews: some View {
-        BiomeFinderView(
-            seed: 132431431,
-            coordinates: Coordinates(x: 1500, y: 500, z: -1500)
-        )
-    }
+#Preview {
+    BiomeFinderView(
+        seed: 132431431,
+        coordinates: Coordinates(x: 1500, y: 500, z: -1500)
+    )
 }

@@ -63,29 +63,30 @@ struct ListCell: View {
     }
 }
 
-struct ListCell_Previews: PreviewProvider {
-    static var previews: some View {
-        ListCell(
-            item:
-            Item(
-                id: UUID().uuidString,
-                coordinates: Coordinates(x: 100, y: 20, z: 300),
-                seed: Seed(rawValue: 500),
-                createdAt: Date(),
-                updatedAt: Date()
-            ),
-            image: UIImage(named: "sample-coordinates", in: Bundle.module, with: nil)
-        )
-        ListCell(
-            item:
-            Item(
-                id: UUID().uuidString,
-                coordinates: Coordinates(x: 100, y: 20, z: 300),
-                seed: Seed(rawValue: 500),
-                createdAt: Date(),
-                updatedAt: Date()
-            ),
-            image: nil
-        )
-    }
+#Preview {
+    ListCell(
+        item:
+        Item(
+            id: UUID().uuidString,
+            coordinates: Coordinates(x: 100, y: 20, z: 300),
+            seed: Seed(rawValue: 500),
+            createdAt: Date(),
+            updatedAt: Date()
+        ),
+        image: UIImage(named: "sample-coordinates", in: Bundle.module, with: nil)
+    )
+}
+
+#Preview {
+    ListCell(
+        item:
+        Item(
+            id: UUID().uuidString,
+            coordinates: Coordinates(x: 100, y: 20, z: 300),
+            seed: Seed(rawValue: 500),
+            createdAt: Date(),
+            updatedAt: Date()
+        ),
+        image: nil
+    )
 }
