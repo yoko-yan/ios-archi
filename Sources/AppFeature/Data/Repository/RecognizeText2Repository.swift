@@ -8,14 +8,12 @@ import Foundation
 import UIKit
 
 protocol RecognizeText2Repository: Sendable {
-    func get(image: UIImage) -> AnyPublisher<[String], RecognizeTextError>
+    func get(image: UIImage) async throws -> [String]
 }
 
 struct RecognizeText2RepositoryImpl: RecognizeText2Repository {
-    func get(image: UIImage) -> AnyPublisher<[String], RecognizeTextError> {
-        RecognizeTextRequest().perform(image: image)
-            .filter { !$0.isEmpty }
-            .eraseToAnyPublisher()
+    func get(image: UIImage) async throws -> [String] {
+        try await RecognizeTextRequest().perform(image: image)
     }
 }
 

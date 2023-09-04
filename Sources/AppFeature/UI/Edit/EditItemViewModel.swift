@@ -55,65 +55,40 @@ final class EditItemViewModel: ObservableObject {
     }
 
     func getSeed(image: UIImage) {
-        GetSeedUseCaseImpl().execute(image: image)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    print("Finish.")
-                case let .failure(error):
-                    print(error.localizedDescription)
-                }
-            }, receiveValue: { [weak self] seed in
-                guard let self else { return }
+        Task {
+            do {
+                let seed = try await GetSeedUseCaseImpl().execute(image: image)
                 uiState.input.seed = seed
-            })
-            .store(in: &cancellables)
+            } catch {
+                print(error)
+            }
+        }
 
-//        let repository = SeedRepository()
-//        repository.get(image: image)
+//        GetSeedUseCaseImpl().execute(image: image)
 //            .receive(on: DispatchQueue.main)
 //            .sink(receiveCompletion: { completion in
 //                switch completion {
 //                case .finished:
 //                    print("Finish.")
 //                case let .failure(error):
-//                    print(error.localizedDescription)
+//                    print(error)
 //                }
 //            }, receiveValue: { [weak self] seed in
 //                guard let self else { return }
 //                uiState.input.seed = seed
 //            })
 //            .store(in: &cancellables)
-
-//        let repository = SeedRepository()
-//        repository.get(image: image) { [weak self] result in
-//            guard let self else { return }
-//            switch result {
-//            case let .success(seed):
-//                uiState.input.seed = seed
-//            case let .failure(error):
-//                print(error.localizedDescription)
-//            }
-//        }
     }
 
     func getCoordinates(image: UIImage) {
-        let repository = CoordinatesRepository()
-        repository.get(image: image)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    print("Finish.")
-                case let .failure(error):
-                    print(error.localizedDescription)
-                }
-            }, receiveValue: { [weak self] coordinates in
-                guard let self else { return }
+        Task {
+            do {
+                let coordinates = try await GetCoordinatesUseCaseImpl().execute(image: image)
                 uiState.input.coordinates = coordinates
-            })
-            .store(in: &cancellables)
+            } catch {
+                print(error)
+            }
+        }
     }
 
     func saveImage() async {
