@@ -12,20 +12,20 @@ import UIKit
 
 class GetSeedUseCaseSpec: AsyncSpec {
     override class func spec() {
-        var recognizeTextRepositoryMock: RecognizeTextRepositoryMock!
+        var recognizedTextsRepositoryMock: RecognizedTextsRepositoryMock!
         var useCase: GetSeedUseCaseImpl!
         let image = UIImage(named: "seed_1541822036", in: Bundle.module, with: nil)!
         let expectedError = NSError(domain: "VNRecognizeTextRequest Error", code: -10001, userInfo: nil)
 
         describe("execute") {
             beforeEach {
-                recognizeTextRepositoryMock = RecognizeTextRepositoryMock()
-                useCase = GetSeedUseCaseImpl(recognizeTextRepository: recognizeTextRepositoryMock)
+                recognizedTextsRepositoryMock = RecognizedTextsRepositoryMock()
+                useCase = GetSeedUseCaseImpl(recognizedTextsRepository: recognizedTextsRepositoryMock)
             }
 
             context("画像から文字が1つ以上取得できた場合") {
                 beforeEach {
-                    recognizeTextRepositoryMock.getHandler = { _ in
+                    recognizedTextsRepositoryMock.getHandler = { _ in
                         ["1541822036", "15418"]
                     }
                 }
@@ -38,7 +38,7 @@ class GetSeedUseCaseSpec: AsyncSpec {
 
             context("画像から文字が取得できなかった場合") {
                 beforeEach {
-                    recognizeTextRepositoryMock.getHandler = { _ in
+                    recognizedTextsRepositoryMock.getHandler = { _ in
                         []
                     }
                 }
@@ -51,8 +51,8 @@ class GetSeedUseCaseSpec: AsyncSpec {
 
             context("画像解析に失敗した場合") {
                 beforeEach {
-                    recognizeTextRepositoryMock.getHandler = { _ in
-                        throw RecognizeTextError.error(expectedError)
+                    recognizedTextsRepositoryMock.getHandler = { _ in
+                        throw RecognizeTextLocalRequestError.error(expectedError)
                     }
                 }
 
@@ -60,7 +60,7 @@ class GetSeedUseCaseSpec: AsyncSpec {
                     do {
                         let _ = try await useCase.execute(image: image)
                     } catch {
-                        expect(error).to(matchError(RecognizeTextError.error(expectedError)))
+                        expect(error).to(matchError(RecognizeTextLocalRequestError.error(expectedError)))
                     }
                 }
             }
@@ -68,7 +68,7 @@ class GetSeedUseCaseSpec: AsyncSpec {
     }
 }
 
-private final class RecognizeTextRepositoryMock: RecognizeTextRepository {
+private final class RecognizedTextsRepositoryMock: RecognizedTextsRepository {
     init() {}
 
     private(set) var getCallCount = 0
@@ -84,7 +84,7 @@ private final class RecognizeTextRepositoryMock: RecognizeTextRepository {
 
 // class GetSeedUseCaseSpec: QuickSpec {
 //    override class func spec() {
-//        var recognizeTextRepositoryMock: RecognizeTextRepositoryMock!
+//        var recognizedTextsRepositoryMock: RecognizedTextsRepositoryMock!
 //        var useCase: GetSeedUseCaseImpl!
 //        var cancellables: [AnyCancellable] = []
 //        let image = UIImage(named: "seed_1541822036", in: Bundle.module, with: nil)!
@@ -92,14 +92,14 @@ private final class RecognizeTextRepositoryMock: RecognizeTextRepository {
 //
 //        describe("execute") {
 //            beforeEach {
-//                recognizeTextRepositoryMock = RecognizeTextRepositoryMock()
-//                useCase = GetSeedUseCaseImpl(recognizeTextRepository: recognizeTextRepositoryMock)
+//                recognizedTextsRepositoryMock = RecognizedTextsRepositoryMock()
+//                useCase = GetSeedUseCaseImpl(recognizedTextsRepository: recognizedTextsRepositoryMock)
 //                cancellables = []
 //            }
 //
 //            context("画像から文字が1つ以上取得できた場合") {
 //                beforeEach {
-//                    recognizeTextRepositoryMock.getHandler = { _ in
+//                    recognizedTextsRepositoryMock.getHandler = { _ in
 //                        Just(["1541822036", "15418"])
 //                            .setFailureType(to: RecognizeTextError.self)
 //                            .eraseToAnyPublisher()
@@ -122,7 +122,7 @@ private final class RecognizeTextRepositoryMock: RecognizeTextRepository {
 //
 //            context("画像から文字が取得できなかった場合") {
 //                beforeEach {
-//                    recognizeTextRepositoryMock.getHandler = { _ in
+//                    recognizedTextsRepositoryMock.getHandler = { _ in
 //                        Just([])
 //                            .setFailureType(to: RecognizeTextError.self)
 //                            .eraseToAnyPublisher()
@@ -145,7 +145,7 @@ private final class RecognizeTextRepositoryMock: RecognizeTextRepository {
 //
 //            context("画像解析に失敗した場合") {
 //                beforeEach {
-//                    recognizeTextRepositoryMock.getHandler = { _ in
+//                    recognizedTextsRepositoryMock.getHandler = { _ in
 //                        Fail(error: RecognizeTextError.error(expectedError))
 //                            .eraseToAnyPublisher()
 //                    }
@@ -170,7 +170,7 @@ private final class RecognizeTextRepositoryMock: RecognizeTextRepository {
 //    }
 // }
 //
-// class RecognizeTextRepositoryMock: RecognizeTextRepository {
+// class RecognizedTextsRepositoryMock: RecognizedTextsRepository {
 //    init() {}
 //
 //    private(set) var getCallCount = 0

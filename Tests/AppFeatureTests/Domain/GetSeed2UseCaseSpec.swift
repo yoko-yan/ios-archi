@@ -13,16 +13,16 @@ import UIKit
 
 class GetSeed2UseCaseSpec: AsyncSpec {
     override class func spec() {
-        var recognizeText2RepositoryMock: RecognizeText2RepositoryMock!
+        var newRecognizedTextsRepositoryMock: NewRecognizedTextsRepositoryMock!
         var useCase: GetSeed2UseCaseImpl!
         let image = UIImage(named: "seed_1541822036", in: Bundle.module, with: nil)!
         let expectedError = NSError(domain: "VNRecognizeTextRequest Error", code: -10001, userInfo: nil)
 
         describe("execute") {
             beforeEach {
-                recognizeText2RepositoryMock = RecognizeText2RepositoryMock()
+                newRecognizedTextsRepositoryMock = NewRecognizedTextsRepositoryMock()
                 withDependencies {
-                    $0.recognizeText2Repository = recognizeText2RepositoryMock
+                    $0.newRecognizedTextsRepository = newRecognizedTextsRepositoryMock
                 } operation: {
                     useCase = GetSeed2UseCaseImpl()
                 }
@@ -30,7 +30,7 @@ class GetSeed2UseCaseSpec: AsyncSpec {
 
             context("画像から文字が1つ以上取得できた場合") {
                 beforeEach {
-                    recognizeText2RepositoryMock.getHandler = { _ in
+                    newRecognizedTextsRepositoryMock.getHandler = { _ in
                         ["1541822036", "15418"]
                     }
                 }
@@ -43,7 +43,7 @@ class GetSeed2UseCaseSpec: AsyncSpec {
 
             context("画像から文字が取得できなかった場合") {
                 beforeEach {
-                    recognizeText2RepositoryMock.getHandler = { _ in
+                    newRecognizedTextsRepositoryMock.getHandler = { _ in
                         []
                     }
                 }
@@ -56,8 +56,8 @@ class GetSeed2UseCaseSpec: AsyncSpec {
 
             context("画像解析に失敗した場合") {
                 beforeEach {
-                    recognizeText2RepositoryMock.getHandler = { _ in
-                        throw RecognizeTextError.error(expectedError)
+                    newRecognizedTextsRepositoryMock.getHandler = { _ in
+                        throw RecognizeTextLocalRequestError.error(expectedError)
                     }
                 }
 
@@ -65,7 +65,7 @@ class GetSeed2UseCaseSpec: AsyncSpec {
                     do {
                         let _ = try await useCase.execute(image: image)
                     } catch {
-                        expect(error).to(matchError(RecognizeTextError.error(expectedError)))
+                        expect(error).to(matchError(RecognizeTextLocalRequestError.error(expectedError)))
                     }
                 }
             }
@@ -73,7 +73,7 @@ class GetSeed2UseCaseSpec: AsyncSpec {
     }
 }
 
-private final class RecognizeText2RepositoryMock: RecognizeText2Repository {
+private final class NewRecognizedTextsRepositoryMock: NewRecognizedTextsRepository {
     init() {}
 
     private(set) var getCallCount = 0
@@ -87,7 +87,7 @@ private final class RecognizeText2RepositoryMock: RecognizeText2Repository {
     }
 }
 
-extension RecognizeText2RepositoryMock: @unchecked Sendable {}
+extension NewRecognizedTextsRepositoryMock: @unchecked Sendable {}
 
 // class GetSeed2UseCaseSpec: QuickSpec {
 //    override class func spec() {

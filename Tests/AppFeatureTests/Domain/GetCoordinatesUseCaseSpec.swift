@@ -12,20 +12,20 @@ import UIKit
 
 class GetCoordinatesUseCaseSpec: AsyncSpec {
     override class func spec() {
-        var recognizeTextRepositoryMock: RecognizeTextRepositoryMock!
+        var recognizedTextsRepositoryMock: RecognizedTextsRepositoryMock!
         var useCase: GetCoordinatesUseCaseImpl!
         let image = UIImage(named: "coordinates_318_63_1143", in: Bundle.module, with: nil)!
         let expectedError = NSError(domain: "VNRecognizeTextRequest Error", code: -10001, userInfo: nil)
 
         describe("execute") {
             beforeEach {
-                recognizeTextRepositoryMock = RecognizeTextRepositoryMock()
-                useCase = GetCoordinatesUseCaseImpl(recognizeTextRepository: recognizeTextRepositoryMock)
+                recognizedTextsRepositoryMock = RecognizedTextsRepositoryMock()
+                useCase = GetCoordinatesUseCaseImpl(recognizeTextRepository: recognizedTextsRepositoryMock)
             }
 
             context("画像から文字が1つ以上取得できた場合") {
                 beforeEach {
-                    recognizeTextRepositoryMock.getHandler = { _ in
+                    recognizedTextsRepositoryMock.getHandler = { _ in
                         ["318, 63, 1143", "8, 6, 13"]
                     }
                 }
@@ -38,7 +38,7 @@ class GetCoordinatesUseCaseSpec: AsyncSpec {
 
             context("画像から文字が取得できなかった場合") {
                 beforeEach {
-                    recognizeTextRepositoryMock.getHandler = { _ in
+                    recognizedTextsRepositoryMock.getHandler = { _ in
                         []
                     }
                 }
@@ -51,8 +51,8 @@ class GetCoordinatesUseCaseSpec: AsyncSpec {
 
             context("画像解析に失敗した場合") {
                 beforeEach {
-                    recognizeTextRepositoryMock.getHandler = { _ in
-                        throw RecognizeTextError.error(expectedError)
+                    recognizedTextsRepositoryMock.getHandler = { _ in
+                        throw RecognizeTextLocalRequestError.error(expectedError)
                     }
                 }
 
@@ -60,7 +60,7 @@ class GetCoordinatesUseCaseSpec: AsyncSpec {
                     do {
                         let _ = try await useCase.execute(image: image)
                     } catch {
-                        expect(error).to(matchError(RecognizeTextError.error(expectedError)))
+                        expect(error).to(matchError(RecognizeTextLocalRequestError.error(expectedError)))
                     }
                 }
             }
@@ -68,7 +68,7 @@ class GetCoordinatesUseCaseSpec: AsyncSpec {
     }
 }
 
-private final class RecognizeTextRepositoryMock: RecognizeTextRepository {
+private final class RecognizedTextsRepositoryMock: RecognizedTextsRepository {
     init() {}
 
     private(set) var getCallCount = 0

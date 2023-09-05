@@ -6,13 +6,13 @@ import Combine
 import Foundation
 import UIKit
 
-protocol RecognizeTextRepository {
+protocol RecognizedTextsRepository {
     func get(image: UIImage) async throws -> [String]
 //    func get(image: UIImage, completionHandler: @escaping @Sendable (Result<[String], RecognizeTextError>) -> Void)
 //    func get(image: UIImage) -> AnyPublisher<[String], RecognizeTextError>
 }
 
-struct RecognizeTextRepositoryImpl: RecognizeTextRepository {
+struct RecognizedTextsRepositoryImpl: RecognizedTextsRepository {
     func get(image: UIImage) async throws -> [String] {
         try await RecognizeTextLocalRequest().perform(image: image)
     }

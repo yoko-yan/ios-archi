@@ -7,8 +7,8 @@ import Foundation
 import UIKit
 
 struct GetCoordinatesUseCaseImpl {
-    private let recognizeTextRepository: RecognizeTextRepository
-    init(recognizeTextRepository: RecognizeTextRepository = RecognizeTextRepositoryImpl()) {
+    private let recognizeTextRepository: RecognizedTextsRepository
+    init(recognizeTextRepository: RecognizedTextsRepository = RecognizedTextsRepositoryImpl()) {
         self.recognizeTextRepository = recognizeTextRepository
     }
 
