@@ -6,15 +6,15 @@ import Combine
 import UIKit
 @preconcurrency import Vision
 
-enum RecognizeTextError: Error {
+enum RecognizeTextLocalRequestError: Error {
     case error(Error)
     case getCgImage
     case recognizeText
     case recognizeTextRequest
 }
 
-struct RecognizeTextRequest {
-    private func perform(image: UIImage, completionHandler: @escaping @Sendable (Result<[String], RecognizeTextError>) -> Void) {
+struct RecognizeTextLocalRequest {
+    private func perform(image: UIImage, completionHandler: @escaping @Sendable (Result<[String], RecognizeTextLocalRequestError>) -> Void) {
         let cgOrientation = CGImagePropertyOrientation(image.imageOrientation)
         guard let cgImage = image.cgImage else {
             completionHandler(.failure(.getCgImage))
@@ -76,22 +76,22 @@ struct RecognizeTextRequest {
         }
     }
 
-//    func perform(image: UIImage) -> AnyPublisher<[String], RecognizeTextError> {
-//        Future<[String], RecognizeTextError> { promise in
+//    func perform(image: UIImage) -> AnyPublisher<[String], RecognizeTextLocalRequestError> {
+//        Future<[String], RecognizeTextLocalRequestError> { promise in
 //            let cgOrientation = CGImagePropertyOrientation(image.imageOrientation)
 //            guard let cgImage = image.cgImage else {
-//                promise(.failure(RecognizeTextError.getCgImage))
+//                promise(.failure(.getCgImage))
 //                return
 //            }
 //
 //            let request = VNRecognizeTextRequest { request, error in
 //                if let error {
-//                    promise(.failure(RecognizeTextError.error(error)))
+//                    promise(.failure(.error(error)))
 //                    return
 //                }
 //
 //                guard let observations = request.results as? [VNRecognizedTextObservation] else {
-//                    promise(.failure(RecognizeTextError.recognizeText))
+//                    promise(.failure(.recognizeText))
 //                    return
 //                }
 //                let maximumCandidates = 1
@@ -120,7 +120,7 @@ struct RecognizeTextRequest {
 //                    try imageRequestHandler.perform(requests)
 //                } catch {
 //                    print("Failed to perform image request: \(error)")
-//                    promise(.failure(RecognizeTextError.recognizeTextRequest))
+//                    promise(.failure(.recognizeTextRequest))
 //                    return
 //                }
 //            }

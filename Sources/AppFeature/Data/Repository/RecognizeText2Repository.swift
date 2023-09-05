@@ -13,7 +13,7 @@ protocol RecognizeText2Repository: Sendable {
 
 struct RecognizeText2RepositoryImpl: RecognizeText2Repository {
     func get(image: UIImage) async throws -> [String] {
-        try await RecognizeTextRequest().perform(image: image)
+        try await RecognizeTextLocalRequest().perform(image: image)
     }
 }
 

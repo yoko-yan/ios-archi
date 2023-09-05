@@ -1,5 +1,5 @@
 //
-//  Created by apla on 2023/09/05
+//  Created by yokoda.takayuki on 2023/09/05
 //
 
 import Combine
@@ -13,7 +13,7 @@ final class RecognizeTextRepositorySpec: AsyncSpec {
     override class func spec() {
         describe("get(image:)") {
             context("読み取り可能な画像の場合") {
-                it("シード値を取得できる") {
+                it("テキストを取得できる") {
                     let image = UIImage(named: "seed_1541822036", in: Bundle.module, with: nil)
 
                     let texts = try await RecognizeTextRepositoryImpl().get(image: image!)

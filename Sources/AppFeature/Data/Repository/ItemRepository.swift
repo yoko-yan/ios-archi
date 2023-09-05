@@ -5,7 +5,10 @@
 import Foundation
 
 final class ItemRepository {
-    let dataSource = ItemsDataSourceFactory.createItemsDataStore()
+    private let dataSource: ItemsLocalDataSource
+    init(dataSource: ItemsLocalDataSource = ItemsLocalDataSource()) {
+        self.dataSource = dataSource
+    }
 
     func create(items: [Item]) async throws {
         try await save(items: items)

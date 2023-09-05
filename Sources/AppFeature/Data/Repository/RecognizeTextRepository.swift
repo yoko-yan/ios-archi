@@ -14,7 +14,7 @@ protocol RecognizeTextRepository {
 
 struct RecognizeTextRepositoryImpl: RecognizeTextRepository {
     func get(image: UIImage) async throws -> [String] {
-        try await RecognizeTextRequest().perform(image: image)
+        try await RecognizeTextLocalRequest().perform(image: image)
     }
 
 //    func get(image: UIImage, completionHandler: @escaping @Sendable (Result<[String], RecognizeTextError>) -> Void) {

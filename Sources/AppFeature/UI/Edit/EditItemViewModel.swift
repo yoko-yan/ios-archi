@@ -57,7 +57,8 @@ final class EditItemViewModel: ObservableObject {
     func getSeed(image: UIImage) {
         Task {
             do {
-                let seed = try await GetSeedUseCaseImpl().execute(image: image)
+//                let seed = try await GetSeedUseCaseImpl().execute(image: image)
+                let seed = try await GetSeed2UseCaseImpl().execute(image: image)
                 uiState.input.seed = seed
             } catch {
                 print(error)
