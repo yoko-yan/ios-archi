@@ -17,14 +17,17 @@ struct MakeSeedUseCaseImpl: MakeSeedUseCase {
             Capture {
                 Optionally("-")
                 OneOrMore(.digit)
-            }
+            } transform: { String($0) }
         }
-        // 読み取れた数字が複数ある場合は、より桁数が大きい数字をSeedにする
-        let filterdTexs = text.matches(of: regex).map(\.output.1)
+
+        let matches = text.matches(of: regex).map(\.output.1)
+        // シードに変換可能（取りうる値の範囲内）のみの数字に絞る
+        let filterdTexs = matches.filter { Seed($0) != nil }
+        // 読み取れた数字が複数ある場合は、マイナスの値も含めてrより桁数が大きい数字をSeedにする
         guard let max = filterdTexs.max(by: { a, b -> Bool in
             a.count < b.count
         }) else { return nil }
-        return Seed(String(max))
+        return Seed(max)
     }
 }
 
