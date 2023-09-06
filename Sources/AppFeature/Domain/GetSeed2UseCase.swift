@@ -13,12 +13,10 @@ protocol GetSeed2UseCase {
 
 struct GetSeed2UseCaseImpl: GetSeed2UseCase {
     @Dependency(\.newRecognizedTextsRepository) var newRecognizedTextsRepository
-    @Dependency(\.makeSeedUseCase) var makeSeedUseCase
+    @Dependency(\.extractSeedUseCase) var extractSeedUseCase
 
     func execute(image: UIImage) async throws -> Seed? {
         let texts = try await newRecognizedTextsRepository.get(image: image)
-        // シード値に余計な文字がついてしまったケースを考慮し、読み取れた文字を１つの文字列にして、シード値の形式にマッチするものをSeedにする
-        let text = texts.joined(separator: " ")
-        return await makeSeedUseCase.execute(text: text)
+        return await extractSeedUseCase.execute(texts: texts)
     }
 }

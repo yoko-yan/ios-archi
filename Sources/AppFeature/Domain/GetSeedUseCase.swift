@@ -14,19 +14,17 @@ protocol GetSeedUseCase {
 
 struct GetSeedUseCaseImpl: GetSeedUseCase {
     private let recognizedTextsRepository: RecognizedTextsRepository
-    private let makeSeedUseCase: MakeSeedUseCase
+    private let extractSeedUseCase: ExtractSeedUseCase
     init(
         recognizedTextsRepository: RecognizedTextsRepository = RecognizedTextsRepositoryImpl(),
-        makeSeedUseCase: MakeSeedUseCase = MakeSeedUseCaseImpl()
+        extractSeedUseCase: ExtractSeedUseCase = ExtractSeedUseCaseImpl()
     ) {
         self.recognizedTextsRepository = recognizedTextsRepository
-        self.makeSeedUseCase = makeSeedUseCase
+        self.extractSeedUseCase = extractSeedUseCase
     }
 
     func execute(image: UIImage) async throws -> Seed? {
         let texts = try await recognizedTextsRepository.get(image: image)
-        // シード値に余計な文字がついてしまったケースを考慮し、読み取れた文字を１つの文字列にして、シード値の形式にマッチするものをSeedにする
-        let text = texts.joined(separator: " ")
-        return await makeSeedUseCase.execute(text: text)
+        return await extractSeedUseCase.execute(texts: texts)
     }
 }

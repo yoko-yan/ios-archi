@@ -7,18 +7,21 @@ import Dependencies
 import Foundation
 import RegexBuilder
 
-protocol MakeSeedUseCase: Sendable {
-    func execute(text: String) async -> Seed?
+protocol ExtractSeedUseCase: Sendable {
+    func execute(texts: [String]) async -> Seed?
 }
 
-struct MakeSeedUseCaseImpl: MakeSeedUseCase {
-    func execute(text: String) async -> Seed? {
+struct ExtractSeedUseCaseImpl: ExtractSeedUseCase {
+    func execute(texts: [String]) async -> Seed? {
         let regex = Regex {
             Capture {
                 Optionally("-")
                 OneOrMore(.digit)
             } transform: { String($0) }
         }
+
+        // シード値に余計な文字がついてしまったケースを考慮し、読み取れた文字を１つの文字列にして、シード値の形式にマッチするものをSeedにする
+        let text = texts.joined(separator: " ")
 
         let matches = text.matches(of: regex).map(\.output.1)
         // シードに変換可能（取りうる値の範囲内）のみの数字に絞る
@@ -31,13 +34,13 @@ struct MakeSeedUseCaseImpl: MakeSeedUseCase {
     }
 }
 
-struct MakeSeedUseCaseKey: DependencyKey {
-    static let liveValue: any MakeSeedUseCase = MakeSeedUseCaseImpl()
+struct ExtractSeedUseCaseKey: DependencyKey {
+    static let liveValue: any ExtractSeedUseCase = ExtractSeedUseCaseImpl()
 }
 
 extension DependencyValues {
-    var makeSeedUseCase: any MakeSeedUseCase {
-        get { self[MakeSeedUseCaseKey.self] }
-        set { self[MakeSeedUseCaseKey.self] = newValue }
+    var extractSeedUseCase: any ExtractSeedUseCase {
+        get { self[ExtractSeedUseCaseKey.self] }
+        set { self[ExtractSeedUseCaseKey.self] = newValue }
     }
 }
