@@ -23,14 +23,13 @@ struct ExtractSeedUseCaseImpl: ExtractSeedUseCase {
         // シード値に余計な文字がついてしまったケースを考慮し、読み取れた文字を１つの文字列にして、シード値の形式にマッチするものをSeedにする
         let text = texts.joined(separator: " ")
 
-        let matches = text.matches(of: regex).map(\.output.1)
-        // シードに変換可能（取りうる値の範囲内）のみの数字に絞る
-        let filterdTexs = matches.filter { Seed($0) != nil }
-        // 読み取れた数字が複数ある場合は、マイナスの値も含めてrより桁数が大きい数字をSeedにする
-        guard let max = filterdTexs.max(by: { a, b -> Bool in
-            a.count < b.count
+        // シードに変換可能（取りうる値の範囲内）のみの数字に絞って抽出
+        let matches = text.matches(of: regex).compactMap { Seed($0.output.1) }
+        // 読み取れた数字が複数ある場合は、マイナスの値も含めてより桁数が大きい数字をSeedにする
+        guard let seed = matches.max(by: { a, b -> Bool in
+            a.text.count < b.text.count
         }) else { return nil }
-        return Seed(max)
+        return seed
     }
 }
 
