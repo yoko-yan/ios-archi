@@ -25,20 +25,24 @@ struct GetCoordinatesUseCaseImpl {
             } transform: {
                 Int($0)
             }
+            Optionally(.whitespace)
             ChoiceOf {
                 ","
                 "."
             }
+            Optionally(.whitespace)
             TryCapture {
                 Optionally("-")
                 Repeat(.digit, 1...4)
             } transform: {
                 Int($0)
             }
+            Optionally(.whitespace)
             ChoiceOf {
                 ","
                 "."
             }
+            Optionally(.whitespace)
             TryCapture {
                 Optionally("-")
                 Repeat(.digit, 1...4)

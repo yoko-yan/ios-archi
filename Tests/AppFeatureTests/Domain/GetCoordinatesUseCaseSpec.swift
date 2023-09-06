@@ -23,7 +23,20 @@ class GetCoordinatesUseCaseSpec: AsyncSpec {
                 useCase = GetCoordinatesUseCaseImpl(recognizeTextRepository: recognizedTextsRepositoryMock)
             }
 
-            context("画像から文字が1つ以上取得できた場合") {
+            context("画像から正しい形式で取得できた場合") {
+                beforeEach {
+                    recognizedTextsRepositoryMock.getHandler = { _ in
+                        ["318,63,1143", "8,6,z13"]
+                    }
+                }
+
+                it("Coordinatesに変換できる") {
+                    let coordinates = try await useCase.execute(image: image)
+                    expect(coordinates) == Coordinates(x: 318, y: 63, z: 1143)
+                }
+            }
+
+            context("画像から正しい形式（空白含む）で取得できた場合") {
                 beforeEach {
                     recognizedTextsRepositoryMock.getHandler = { _ in
                         ["318, 63, 1143", "8, 6, 13"]
