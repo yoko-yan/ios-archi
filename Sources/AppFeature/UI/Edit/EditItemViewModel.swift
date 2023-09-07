@@ -6,6 +6,24 @@ import Combine
 import SwiftUI
 import UIKit
 
+// MARK: - Action
+
+enum EditViewAction {
+    case clearSeed
+    case clearCoordinates
+    case getSeed(image: UIImage)
+    case getCoordinates(image: UIImage)
+    case saveImage
+    case loadImage
+    case onRegisterButtonClick
+    case onRegister
+    case onUpdateButtonClick
+    case onUpdate
+    case onDeleteButtonClick
+    case onDelete
+    case onAlertDismiss
+}
+
 @MainActor
 final class EditItemViewModel: ObservableObject {
     @Published private(set) var uiState: EditItemUiState
@@ -46,16 +64,19 @@ final class EditItemViewModel: ObservableObject {
         )
     }
 
-    func clearSeed() {
-        uiState.input.seed = nil
+    func consumeEvent() {
+        uiState.event = nil
     }
 
-    func clearCoordinates() {
-        uiState.input.coordinates = nil
-    }
+    func send(_ action: EditViewAction) async {
+        switch action {
+        case .clearSeed:
+            uiState.input.seed = nil
 
-    func getSeed(image: UIImage) {
-        Task {
+        case .clearCoordinates:
+            uiState.input.coordinates = nil
+
+        case let .getSeed(image):
             do {
                 let seed = try await GetSeedUseCaseImpl().execute(image: image)
 //                let seed = try await GetSeed2UseCaseImpl().execute(image: image)
@@ -63,81 +84,82 @@ final class EditItemViewModel: ObservableObject {
             } catch {
                 print(error)
             }
-        }
 
-//        GetSeedUseCaseImpl().execute(image: image)
-//            .receive(on: DispatchQueue.main)
-//            .sink(receiveCompletion: { completion in
-//                switch completion {
-//                case .finished:
-//                    print("Finish.")
-//                case let .failure(error):
-//                    print(error)
-//                }
-//            }, receiveValue: { [weak self] seed in
-//                guard let self else { return }
-//                uiState.input.seed = seed
-//            })
-//            .store(in: &cancellables)
-    }
-
-    func getCoordinates(image: UIImage) {
-        Task {
+        case let .getCoordinates(image):
             do {
                 let coordinates = try await GetCoordinatesUseCaseImpl().execute(image: image)
                 uiState.input.coordinates = coordinates
             } catch {
                 print(error)
             }
-        }
-    }
 
-    func saveImage() async {
-        if let coordinatesImage = uiState.coordinatesImage {
-            let coordinatesImageName = uiState.input.coordinatesImageName ?? UUID().uuidString
-            uiState.input.coordinatesImageName = coordinatesImageName
-            do {
-                try ImageRepository().save(coordinatesImage, fileName: coordinatesImageName)
-            } catch {
-                print(error)
-            }
-        }
-
-        if let seedImage = uiState.seedImage {
-            let seedImageName = uiState.input.seedImageName ?? UUID().uuidString
-            uiState.input.seedImageName = seedImageName
-            do {
-                try ImageRepository().save(seedImage, fileName: seedImageName)
-            } catch {
-                print(error)
-            }
-        }
-    }
-
-    func loadImage() async {
-        uiState.coordinatesImage = ImageRepository().load(fileName: uiState.input.coordinatesImageName)
-        uiState.seedImage = ImageRepository().load(fileName: uiState.input.seedImageName)
-    }
-
-    func insertOrUpdate() async {
-        do {
-            switch uiState.editMode {
-            case .add:
-                try await ItemRepository().insert(item: uiState.editItem)
-            case .update:
-                Task {
-                    try await ItemRepository().update(item: uiState.editItem)
+        case .saveImage:
+            if let coordinatesImage = uiState.coordinatesImage {
+                let coordinatesImageName = uiState.input.coordinatesImageName ?? UUID().uuidString
+                uiState.input.coordinatesImageName = coordinatesImageName
+                do {
+                    try ImageRepository().save(coordinatesImage, fileName: coordinatesImageName)
+                } catch {
+                    print(error)
                 }
             }
-        } catch {
-            print(error)
-        }
-    }
 
-    func delete() async {
-        guard case .update = uiState.editMode, let item = uiState.editMode.item else { return }
-        Task {
-            try await ItemRepository().delete(item: item)
+            if let seedImage = uiState.seedImage {
+                let seedImageName = uiState.input.seedImageName ?? UUID().uuidString
+                uiState.input.seedImageName = seedImageName
+                do {
+                    try ImageRepository().save(seedImage, fileName: seedImageName)
+                } catch {
+                    print(error)
+                }
+            }
+
+        case .loadImage:
+            uiState.coordinatesImage = ImageRepository().load(fileName: uiState.input.coordinatesImageName)
+            uiState.seedImage = ImageRepository().load(fileName: uiState.input.seedImageName)
+
+        case .onRegisterButtonClick:
+            await send(.onRegister)
+
+        case .onRegister:
+            do {
+                guard case .add = uiState.editMode else { fatalError() }
+                await send(.saveImage)
+                try await ItemRepository().insert(item: uiState.editItem)
+                uiState.event = .updated
+                await send(.onAlertDismiss)
+            } catch {
+                print(error)
+            }
+
+        case .onUpdateButtonClick:
+            uiState.alertType = .confirmUpdate
+
+        case .onUpdate:
+            do {
+                guard case .update = uiState.editMode else { fatalError() }
+                await send(.saveImage)
+                try await ItemRepository().update(item: uiState.editItem)
+                uiState.event = .updated
+                await send(.onAlertDismiss)
+            } catch {
+                print(error)
+            }
+
+        case .onAlertDismiss:
+            uiState.alertType = .none
+
+        case .onDeleteButtonClick:
+            uiState.alertType = .confirmDeletion
+
+        case .onDelete:
+            guard case .update = uiState.editMode, let item = uiState.editMode.item else { return }
+            do {
+                try await ItemRepository().delete(item: item)
+            } catch {
+                print(error)
+            }
+            uiState.event = .deleted
         }
     }
 }
