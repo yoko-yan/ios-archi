@@ -3,42 +3,55 @@
 //
 
 import Foundation
+import SwiftUI
 import UIKit
 
 struct EditItemUiState: Equatable {
-    enum AlertType {
-        case none
-        case confirmUpdate
-        case confirmDeletion
-
-        enum ButtonType {
-            case none
-            case destructive
-        }
+    enum AlertType: Equatable {
+        case confirmUpdate(EditViewAction)
+        case confirmDeletion(EditViewAction)
+        case confirmDismiss(EditViewAction)
 
         var message: String {
             switch self {
-            case .none:
-                return ""
-
             case .confirmUpdate:
                 return "更新してもいいですか？"
 
             case .confirmDeletion:
                 return "削除してもいいですか？"
+
+            case .confirmDismiss:
+                return "編集中のデータがあります。\nデータを保存せずに閉じてもいいですか？"
             }
         }
 
-        var buttonType: ButtonType {
+        var buttonLabel: String {
             switch self {
-            case .none:
-                return .none
-
             case .confirmUpdate:
-                return .none
+                return "更新する"
+
+            case .confirmDeletion:
+                return "削除する"
+
+            case .confirmDismiss:
+                return "保存せずに戻る"
+            }
+        }
+
+        var buttonRole: ButtonRole? {
+            switch self {
+            case .confirmUpdate, .confirmDismiss:
+                return nil
 
             case .confirmDeletion:
                 return .destructive
+            }
+        }
+
+        var action: EditViewAction {
+            switch self {
+            case let .confirmUpdate(action), let .confirmDismiss(action), let .confirmDeletion(action):
+                return action
             }
         }
     }
@@ -46,6 +59,7 @@ struct EditItemUiState: Equatable {
     enum Event: Equatable {
         case updated
         case deleted
+        case dismiss
     }
 
     enum EditMode: Equatable {
@@ -108,7 +122,7 @@ struct EditItemUiState: Equatable {
 
     let editMode: EditMode
 
-    var alertType: AlertType = .none
+    var confirmationAlert: AlertType?
     var event: Event?
     var input: Input
     var seedImage: UIImage?

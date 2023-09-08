@@ -6,6 +6,8 @@ import Combine
 import SwiftUI
 import UIKit
 
+// MARK: - View model
+
 @MainActor
 final class DetailViewModel: ObservableObject {
     @Published private(set) var uiState: DetailUiState

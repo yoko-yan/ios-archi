@@ -91,8 +91,12 @@ struct EditItemView: View {
                     case .updated:
                         onTapDismiss?(viewModel.uiState.editItem)
                         dismiss()
+
                     case .deleted:
                         onTapDelete?(viewModel.uiState.editItem)
+                        dismiss()
+
+                    case .dismiss:
                         dismiss()
                     }
 
@@ -103,31 +107,22 @@ struct EditItemView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
-                        dismiss()
+                        Task {
+                            await viewModel.send(.onCloseButtonTap)
+                        }
                     }) {
                         Image(systemName: "xmark")
                     }
                 }
             }
             .toolbarBackground(.visible, for: .navigationBar)
-            .confirmAlert(
-                alertType: viewModel.uiState.alertType,
-                onSave: {
+            .confirmationAlert(
+                alertType: viewModel.uiState.confirmationAlert,
+                onConfirmed: {
                     Task {
-                        await viewModel.send(.onUpdate)
-                    }
-                },
-                onDismiss: {
-                    Task {
-                        await viewModel.send(.onAlertDismiss)
-                    }
-                }
-            )
-            .deleteAlert(
-                alertType: viewModel.uiState.alertType,
-                onDelete: {
-                    Task {
-                        await viewModel.send(.onDelete)
+                        if let action = viewModel.uiState.confirmationAlert?.action {
+                            await viewModel.send(action)
+                        }
                     }
                 },
                 onDismiss: {
@@ -146,52 +141,27 @@ struct EditItemView: View {
     }
 }
 
-// MARK: - Privates
-
 private extension View {
-    func confirmAlert(
+    func confirmationAlert(
         alertType: EditItemUiState.AlertType?,
-        onSave: @escaping () -> Void,
+        onConfirmed: @escaping () -> Void,
         onDismiss: @escaping () -> Void
     ) -> some View {
-        alert(
+        confirmationDialog(
             "確認",
             isPresented: .init(get: {
-                alertType?.message != nil && alertType == .confirmUpdate
+                alertType?.message != nil
             }, set: { _ in
                 onDismiss()
             }),
-            presenting: alertType?.message
+            presenting: alertType
         ) { _ in
             Button("キャンセル", role: .cancel, action: {})
-            Button("更新する", action: {
-                onSave()
+            Button(alertType?.buttonLabel ?? "", role: alertType?.buttonRole, action: {
+                onConfirmed()
             })
-        } message: { message in
-            Text(message)
-        }
-    }
-
-    func deleteAlert(
-        alertType: EditItemUiState.AlertType?,
-        onDelete: @escaping () -> Void,
-        onDismiss: @escaping () -> Void
-    ) -> some View {
-        alert(
-            "確認",
-            isPresented: .init(get: {
-                alertType?.message != nil && alertType == .confirmDeletion
-            }, set: { _ in
-                onDismiss()
-            }),
-            presenting: alertType?.message
-        ) { _ in
-            Button("キャンセル", role: .cancel, action: {})
-            Button("削除する", role: .destructive, action: {
-                onDelete()
-            })
-        } message: { message in
-            Text(message)
+        } message: { alertType in
+            Text(alertType.message)
         }
     }
 }

@@ -15,6 +15,8 @@ enum ListViewAction {
     case onDeleteAlertDismiss
 }
 
+// MARK: - View model
+
 @MainActor
 final class ListViewModel: ObservableObject {
     @Published private(set) var uiState = ListUiState()

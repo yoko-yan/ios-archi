@@ -8,7 +8,7 @@ import UIKit
 
 // MARK: - Action
 
-enum EditViewAction {
+enum EditViewAction: Equatable {
     case clearSeed
     case clearCoordinates
     case getSeed(image: UIImage)
@@ -22,7 +22,11 @@ enum EditViewAction {
     case onDeleteButtonClick
     case onDelete
     case onAlertDismiss
+    case onCloseButtonTap
+    case onDismiss
 }
+
+// MARK: - View model
 
 @MainActor
 final class EditItemViewModel: ObservableObject {
@@ -133,7 +137,7 @@ final class EditItemViewModel: ObservableObject {
             }
 
         case .onUpdateButtonClick:
-            uiState.alertType = .confirmUpdate
+            uiState.confirmationAlert = .confirmUpdate(.onUpdate)
 
         case .onUpdate:
             do {
@@ -147,10 +151,10 @@ final class EditItemViewModel: ObservableObject {
             }
 
         case .onAlertDismiss:
-            uiState.alertType = .none
+            uiState.confirmationAlert = nil
 
         case .onDeleteButtonClick:
-            uiState.alertType = .confirmDeletion
+            uiState.confirmationAlert = .confirmDeletion(.onDelete)
 
         case .onDelete:
             guard case .update = uiState.editMode, let item = uiState.editMode.item else { return }
@@ -160,6 +164,19 @@ final class EditItemViewModel: ObservableObject {
                 print(error)
             }
             uiState.event = .deleted
+
+        case .onCloseButtonTap:
+            if uiState.editItem.seed == uiState.editMode.item?.seed,
+               uiState.editItem.coordinates == uiState.editMode.item?.coordinates,
+               uiState.editItem.coordinatesImageName == uiState.editMode.item?.coordinatesImageName,
+               uiState.editItem.seedImageName == uiState.editMode.item?.seedImageName
+            {
+                uiState.event = .dismiss
+            } else {
+                uiState.confirmationAlert = .confirmDismiss(.onDismiss)
+            }
+        case .onDismiss:
+            uiState.event = .dismiss
         }
     }
 }
