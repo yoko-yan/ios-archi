@@ -44,7 +44,7 @@ struct BiomeFinderView: UIViewRepresentable {
     func updateUIView(_ webView: WKWebView, context _: Context) {
         webView.load(
             // swiftlint:disable:next force_unwrapping
-            URLRequest(url: URL(string: String(format: "https://www.chunkbase.com/apps/biome-finder#%d", seed))!)
+            URLRequest(url: URL(string: "https://www.chunkbase.com/apps/biome-finder#\(seed)")!)
         )
     }
 
