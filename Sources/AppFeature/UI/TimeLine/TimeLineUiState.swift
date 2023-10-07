@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct PhotosUiState: Equatable {
+struct TimeLineUiState: Equatable {
     var items: [Item] = []
     var deleteItems: [Item]?
     var deleteAlertMessage: String?

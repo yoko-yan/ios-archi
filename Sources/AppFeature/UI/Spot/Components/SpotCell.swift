@@ -1,10 +1,10 @@
 //
-//  Created by takayuki.yokoda on 2023/10/07
+//  Created by apla on 2023/10/08
 //
 
 import SwiftUI
 
-struct PhotoCell: View {
+struct SpotCell: View {
     @Environment(\.colorScheme) var colorScheme
     let item: Item
     let image: UIImage?
@@ -24,40 +24,12 @@ struct PhotoCell: View {
                     .foregroundColor(.gray)
                     .aspectRatio(1, contentMode: /*@START_MENU_TOKEN@*/ .fill/*@END_MENU_TOKEN@*/)
             }
-
-            VStack {
-                Spacer()
-                ZStack {
-                    VStack {
-                        Spacer()
-                        Color.black
-                            .frame(width: .infinity)
-                            .frame(maxHeight: 50)
-                            .opacity(0.5)
-                    }
-                    HStack {
-                        HStack {
-                            Image(systemName: "location.circle")
-                            Text(item.coordinates?.text ?? "-")
-                        }
-                        Spacer()
-                        HStack {
-                            Image(systemName: "globe.desk")
-                            Text(item.seed?.text ?? "-")
-                        }
-                    }
-                    .foregroundColor(.white)
-                    .padding()
-                }
-                .frame(maxHeight: 40)
-            }
         }
-        .modifier(CardStyle())
     }
 }
 
 #Preview {
-    PhotoCell(
+    SpotCell(
         item:
         Item(
             id: UUID().uuidString,
@@ -71,7 +43,7 @@ struct PhotoCell: View {
 }
 
 #Preview {
-    PhotoCell(
+    SpotCell(
         item:
         Item(
             id: UUID().uuidString,

@@ -82,7 +82,7 @@ struct EditItemView: View {
                                 .frame(height: 50)
                                 .frame(maxWidth: .infinity)
                         }
-                        .buttonStyle(RoundedButtonStyle(color: .red))
+                        .buttonStyle(RoundedButtonStyle(color: .green))
                     }
                 }
                 .padding()
@@ -100,11 +100,6 @@ struct EditItemView: View {
                         await viewModel.send(.getCoordinates(image: coordinatesImage))
                     }
                 }
-//                if let seedImage = newState.seedImage, oldState.seedImage != seedImage {
-//                    Task {
-//                        await viewModel.send(.getSeed(image: seedImage))
-//                    }
-//                }
 
                 if let event = newState.event {
                     switch event {

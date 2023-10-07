@@ -19,9 +19,9 @@ enum TimeLineViewAction {
 
 @MainActor
 final class TimeLineViewModel: ObservableObject {
-    @Published private(set) var uiState = PhotosUiState()
+    @Published private(set) var uiState = TimeLineUiState()
 
-    init(uiState: PhotosUiState = PhotosUiState()) {
+    init(uiState: TimeLineUiState = TimeLineUiState()) {
         self.uiState = uiState
     }
 

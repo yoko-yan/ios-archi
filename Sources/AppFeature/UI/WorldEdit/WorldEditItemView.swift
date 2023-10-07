@@ -61,16 +61,10 @@ struct WorldEditItemView: View {
                                 .frame(height: 50)
                                 .frame(maxWidth: .infinity)
                         }
-                        .buttonStyle(RoundedButtonStyle(color: .red))
+                        .buttonStyle(RoundedButtonStyle(color: .green))
                     }
                 }
                 .padding()
-            }
-            .task {
-                Task {
-                    await viewModel.send(.loadImage)
-                    await viewModel.send(.getWorlds)
-                }
             }
             .onChange(of: viewModel.uiState) { [oldState = viewModel.uiState] newState in
                 if let seedImage = newState.seedImage, oldState.seedImage != seedImage {

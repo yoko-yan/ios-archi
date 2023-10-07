@@ -68,8 +68,8 @@ struct EditItemUiState: Equatable {
 
         var title: String {
             switch self {
-            case .add: return "新規"
-            case .update: return "編集"
+            case .add: return "スポットを新規に登録する"
+            case .update: return "スポットを編集して更新する"
             }
         }
 

@@ -6,6 +6,7 @@ import SwiftUI
 
 enum TabItem: String, CaseIterable {
     case home
+    case photo
     case list
 
     var name: String {
@@ -13,8 +14,11 @@ enum TabItem: String, CaseIterable {
         case .home:
             return "ホーム"
 
+        case .photo:
+            return "スポット"
+
         case .list:
-            return "リスト"
+            return "ワールド"
         }
     }
 
@@ -22,6 +26,9 @@ enum TabItem: String, CaseIterable {
         switch self {
         case .home:
             return "house"
+
+        case .photo:
+            return "photo.stack"
 
         case .list:
             return "list.bullet"
@@ -38,6 +45,12 @@ public struct RootView: View {
                 HomeView()
                     .tabItem {
                         Label(TabItem.home.name, systemImage: TabItem.home.icon)
+                    }
+                    .tag(TabItem.home)
+
+                PhotoView()
+                    .tabItem {
+                        Label(TabItem.photo.name, systemImage: TabItem.photo.icon)
                     }
                     .tag(TabItem.home)
 
