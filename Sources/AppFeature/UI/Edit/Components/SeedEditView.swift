@@ -18,8 +18,12 @@ struct SeedEditView: View {
                 HStack {
                     Label("seed", systemImage: "globe.desk")
                     Spacer()
-                    Text(seed?.text ?? "未登録")
-                        .bold()
+                    TextField("未登録", text: .init(get: {
+                        seed?.text ?? ""
+                    }, set: { newValue in
+                        seed = Seed(newValue)
+                    }))
+                    .multilineTextAlignment(TextAlignment.trailing)
                 }
                 if let image {
                     Image(uiImage: image)

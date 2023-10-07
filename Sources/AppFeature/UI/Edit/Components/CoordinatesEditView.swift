@@ -18,8 +18,12 @@ struct CoordinatesEditView: View {
                 HStack {
                     Label("coordinates", systemImage: "location.circle")
                     Spacer()
-                    Text(coordinates?.text ?? "未登録")
-                        .bold()
+                    TextField("未登録", text: .init(get: {
+                        coordinates?.text ?? ""
+                    }, set: { newValue in
+                        coordinates = Coordinates(newValue)
+                    }))
+                    .multilineTextAlignment(TextAlignment.trailing)
                 }
                 if let image {
                     Image(uiImage: image)

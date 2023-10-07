@@ -71,7 +71,7 @@ struct DetailView: View {
         .sheet(isPresented: $isBiomeFinderView) {
             BiomeFinderView(
                 seed: viewModel.uiState.item.seed?.rawValue ?? 0,
-                coordinates: viewModel.uiState.item.coordinates ?? Coordinates(x: 0, y: 0, z: 0)
+                coordinates: viewModel.uiState.item.coordinates ?? Coordinates.zero
             )
         }
         .fullScreenCover(isPresented: $isEditView) {
