@@ -34,3 +34,10 @@ final class ItemRepository {
         try await dataSource.delete(item: item)
     }
 }
+
+extension ItemRepository {
+    func allSeeds() async throws -> [Seed] {
+        let items = try await dataSource.load()
+        return Array(Set(items.compactMap(\.seed)))
+    }
+}

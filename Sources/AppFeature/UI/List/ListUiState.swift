@@ -5,7 +5,7 @@
 import Foundation
 
 struct ListUiState: Equatable {
-    var items: [Item] = []
-    var deleteItems: [Item]?
+    var seeds: [Seed] = []
+    var deleteItems: [Seed]?
     var deleteAlertMessage: String?
 }
