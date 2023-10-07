@@ -127,6 +127,7 @@ struct EditItemUiState: Equatable {
     var input: Input
     var seedImage: UIImage?
     var coordinatesImage: UIImage?
+    var worlds: [Seed] = []
 
     var editItem: Item {
         Item(

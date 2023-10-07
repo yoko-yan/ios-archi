@@ -22,16 +22,33 @@ struct EditItemView: View {
 
                         Divider()
 
-                        SeedEditView(
-                            seed: viewModel.input.seed,
-                            image: viewModel.seedImage
-                        )
+                        HStack {
+                            NavigationLink {
+                                WorldSelectionView(items: viewModel.uiState.worlds, selected: viewModel.uiState.editMode.item?.seed) { seed in
+                                    Task {
+                                        await viewModel.send(.setSeedd(seed: seed))
+                                    }
+                                }
+                            } label: {
+                                HStack {
+                                    Label("seed", systemImage: "globe.desk")
+                                    Spacer()
+                                    Text(viewModel.uiState.editItem.seed?.text ?? "未登録")
+                                }
+                                .padding(.horizontal)
+                                .accentColor(.gray)
+                            }
+
+                            Image(systemName: "chevron.right")
+                                .padding(.horizontal, 8)
+                        }
 
                         Color.clear
                             .frame(height: 100)
                     }
                     .padding(.top)
                 }
+
                 VStack {
                     Spacer()
                     HStack {
@@ -71,7 +88,10 @@ struct EditItemView: View {
                 .padding()
             }
             .task {
-                await viewModel.send(.loadImage)
+                Task {
+                    await viewModel.send(.loadImage)
+                    await viewModel.send(.getWorlds)
+                }
             }
             .onChange(of: viewModel.uiState) { [oldState = viewModel.uiState] newState in
                 if let coordinatesImage = newState.coordinatesImage, oldState.coordinatesImage != coordinatesImage
@@ -80,11 +100,11 @@ struct EditItemView: View {
                         await viewModel.send(.getCoordinates(image: coordinatesImage))
                     }
                 }
-                if let seedImage = newState.seedImage, oldState.seedImage != seedImage {
-                    Task {
-                        await viewModel.send(.getSeed(image: seedImage))
-                    }
-                }
+//                if let seedImage = newState.seedImage, oldState.seedImage != seedImage {
+//                    Task {
+//                        await viewModel.send(.getSeed(image: seedImage))
+//                    }
+//                }
 
                 if let event = newState.event {
                     switch event {

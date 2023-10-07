@@ -7,7 +7,7 @@ import UIKit
 
 // MARK: - Action
 
-enum ListViewAction {
+enum WorldListViewAction {
     case load
     case reload
 }
@@ -15,14 +15,14 @@ enum ListViewAction {
 // MARK: - View model
 
 @MainActor
-final class ListViewModel: ObservableObject {
-    @Published private(set) var uiState = ListUiState()
+final class WorldListViewModel: ObservableObject {
+    @Published private(set) var uiState = WorldListUiState()
 
-    init(uiState: ListUiState = ListUiState()) {
+    init(uiState: WorldListUiState = WorldListUiState()) {
         self.uiState = uiState
     }
 
-    func send(_ action: ListViewAction) {
+    func send(_ action: WorldListViewAction) {
         switch action {
         case .load:
             Task {

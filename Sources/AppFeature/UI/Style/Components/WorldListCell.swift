@@ -4,7 +4,7 @@
 
 import SwiftUI
 
-struct ListCell: View {
+struct WorldListCell: View {
     @Environment(\.colorScheme) var colorScheme
     let seed: Seed
 
@@ -16,5 +16,5 @@ struct ListCell: View {
 }
 
 #Preview {
-    ListCell(seed: Seed(rawValue: 500)!)
+    WorldListCell(seed: Seed(rawValue: 500)!)
 }
