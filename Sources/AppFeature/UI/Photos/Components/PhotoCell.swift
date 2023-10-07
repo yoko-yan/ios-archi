@@ -25,37 +25,31 @@ struct PhotoCell: View {
                     .aspectRatio(1, contentMode: /*@START_MENU_TOKEN@*/ .fill/*@END_MENU_TOKEN@*/)
             }
 
-            if item.coordinates != nil || item.coordinates != nil {
-                VStack {
-                    Spacer()
-                    ZStack {
-                        VStack {
-                            Spacer()
-                            Color.black
-                                .frame(width: .infinity)
-                                .frame(maxHeight: 50)
-                                .opacity(0.5)
-                        }
-                        HStack {
-                            if let coordinates = item.coordinates {
-                                HStack {
-                                    Image(systemName: "location.circle")
-                                    Text(coordinates.text)
-                                }
-                            }
-                            Spacer()
-                            if let seed = item.seed {
-                                HStack {
-                                    Image(systemName: "globe.desk")
-                                    Text(seed.text)
-                                }
-                            }
-                        }
-                        .foregroundColor(.white)
-                        .padding()
+            VStack {
+                Spacer()
+                ZStack {
+                    VStack {
+                        Spacer()
+                        Color.black
+                            .frame(width: .infinity)
+                            .frame(maxHeight: 50)
+                            .opacity(0.5)
                     }
-                    .frame(maxHeight: 40)
+                    HStack {
+                        HStack {
+                            Image(systemName: "location.circle")
+                            Text(item.coordinates?.text ?? "-")
+                        }
+                        Spacer()
+                        HStack {
+                            Image(systemName: "globe.desk")
+                            Text(item.seed?.text ?? "-")
+                        }
+                    }
+                    .foregroundColor(.white)
+                    .padding()
                 }
+                .frame(maxHeight: 40)
             }
         }
         .modifier(CardStyle())

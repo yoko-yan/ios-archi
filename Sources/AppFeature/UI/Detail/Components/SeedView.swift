@@ -7,7 +7,6 @@ import SwiftUI
 
 struct SeedView: View {
     let seed: Seed?
-    let image: UIImage?
 
     var body: some View {
         VStack {
@@ -17,11 +16,6 @@ struct SeedView: View {
                 Text(seed?.text ?? "未登録")
                     .bold()
             }
-            if let image {
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFit()
-            }
         }
         .padding()
     }
@@ -29,14 +23,12 @@ struct SeedView: View {
 
 #Preview {
     SeedView(
-        seed: Seed(rawValue: 1234567890),
-        image: UIImage(named: "sample-seed", in: Bundle.module, with: nil)!
+        seed: Seed(rawValue: 1234567890)
     )
 }
 
 #Preview {
     SeedView(
-        seed: nil,
-        image: nil
+        seed: nil
     )
 }

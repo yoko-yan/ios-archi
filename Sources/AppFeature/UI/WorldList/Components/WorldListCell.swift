@@ -9,9 +9,15 @@ struct WorldListCell: View {
     let seed: Seed
 
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(seed.text)
+        VStack {
+            HStack {
+                Label("seed", systemImage: "globe.desk")
+                Spacer()
+                Text(seed.text)
+                    .bold()
+            }
         }
+        .padding(.horizontal)
     }
 }
 

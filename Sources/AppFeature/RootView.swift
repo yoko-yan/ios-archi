@@ -48,6 +48,7 @@ public struct RootView: View {
                     .tag(TabItem.list)
             }
         }
+        .tint(.primary)
     }
 
     public init() {}

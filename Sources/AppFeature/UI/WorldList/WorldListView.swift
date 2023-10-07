@@ -14,8 +14,7 @@ struct WorldListView: View {
     var body: some View {
         ZStack {
             List {
-                ForEach(viewModel.uiState.seeds, id: \.self) { seed in
-//                    NavigationLink(value: seed) {
+                ForEach(viewModel.uiState.items, id: \.self) { seed in
                     WorldListCell(seed: seed)
                         .padding(.top)
                         .onTapGesture {
@@ -23,11 +22,8 @@ struct WorldListView: View {
                                 selectedAction(seed)
                             }
                             navigatePath.append(seed)
-//                            navigatePath.removeLast()
                         }
-//                    }
                 }
-                .listRowSeparator(.hidden)
             }
             .listStyle(.plain)
             .task {
@@ -39,10 +35,30 @@ struct WorldListView: View {
             .navigationDestination(for: Seed.self) { _ in
                 WorldDetailView(navigatePath: $navigatePath)
             }
+
+            FloatingButton(action: {
+                isShowDetailView.toggle()
+            }, label: {
+                Image(systemName: "plus")
+                    .foregroundColor(.white)
+                    .font(.system(size: 24))
+            })
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarTitle(Text("ワールド一覧"))
         .toolbarBackground(.visible, for: .navigationBar)
+        .fullScreenCover(isPresented: $isShowDetailView) {
+            WorldEditItemView(
+                onTapDismiss: { _ in
+                    viewModel.send(.reload)
+                }
+            )
+        }
+        .deleteAlert(
+            message: viewModel.uiState.deleteAlertMessage,
+            onDelete: { viewModel.send(.onDelete) },
+            onDismiss: { viewModel.send(.onDeleteAlertDismiss) }
+        )
     }
 }
 

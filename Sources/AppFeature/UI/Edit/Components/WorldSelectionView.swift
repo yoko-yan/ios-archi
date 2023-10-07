@@ -24,7 +24,6 @@ struct WorldSelectionView: View {
                             dismiss()
                         }
                 }
-                .listRowSeparator(.hidden)
             }
             .listStyle(.plain)
         }

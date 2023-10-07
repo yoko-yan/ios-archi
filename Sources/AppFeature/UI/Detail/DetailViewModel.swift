@@ -18,7 +18,6 @@ final class DetailViewModel: ObservableObject {
 
     func loadImage() {
         uiState.coordinatesImage = ImageRepository().load(fileName: uiState.item.coordinatesImageName)
-        uiState.seedImage = ImageRepository().load(fileName: uiState.item.seedImageName)
     }
 
     func reload(item: Item) {

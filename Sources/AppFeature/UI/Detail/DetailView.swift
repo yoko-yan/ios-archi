@@ -21,9 +21,7 @@ struct DetailView: View {
                 Divider()
 
                 SeedView(
-                    seed: viewModel.uiState.item.seed,
-                    image: viewModel.uiState.seedImage
-                )
+                    seed: viewModel.uiState.item.seed)
 
                 Divider()
 

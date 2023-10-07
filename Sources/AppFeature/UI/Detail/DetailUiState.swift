@@ -7,6 +7,5 @@ import UIKit
 
 struct DetailUiState: Equatable {
     var item: Item
-    var seedImage: UIImage?
     var coordinatesImage: UIImage?
 }

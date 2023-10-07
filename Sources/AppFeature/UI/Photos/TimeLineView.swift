@@ -2,14 +2,22 @@
 //  Created by takayuki.yokoda on 2023/10/07
 //
 
+import PhotosUI
 import SwiftUI
 
-struct PhotosView: View {
-    @StateObject private var viewModel: PhotosViewModel
+struct TimeLineView: View {
+    @StateObject private var viewModel: TimeLineViewModel
     @State private var isShowDetailView = false
+    @State var selectedItems: [PhotosPickerItem] = []
 
     var body: some View {
         NavigationStack {
+            PhotosPicker(
+                selection: $selectedItems,
+                matching: .images
+            ) {
+                Text("Select Multiple Photos")
+            }
             ZStack {
                 List {
                     ForEach(viewModel.uiState.items, id: \.self) { item in
@@ -61,17 +69,17 @@ struct PhotosView: View {
     }
 
     init() {
-        self.init(viewModel: PhotosViewModel())
+        self.init(viewModel: TimeLineViewModel())
     }
 
-    private init(viewModel: PhotosViewModel) {
+    private init(viewModel: TimeLineViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
 }
 
 // MARK: - Privates
 
-private extension View {
+extension View {
     func deleteAlert(
         message: String?,
         onDelete: @escaping () -> Void,
@@ -96,5 +104,5 @@ private extension View {
 }
 
 #Preview {
-    PhotosView()
+    TimeLineView()
 }
