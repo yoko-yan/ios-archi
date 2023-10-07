@@ -14,7 +14,7 @@ struct PhotoCell: View {
             if let image {
                 Image(uiImage: image)
                     .resizable()
-                    .aspectRatio(4 / 3, contentMode: .fill)
+                    .scaledToFill()
             } else {
                 Text("画像なし")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -22,7 +22,7 @@ struct PhotoCell: View {
                         colorScheme == .dark ? Color.black : Color.white
                     )
                     .foregroundColor(.gray)
-                    .aspectRatio(4 / 3, contentMode: .fill)
+                    .aspectRatio(1, contentMode: /*@START_MENU_TOKEN@*/ .fill/*@END_MENU_TOKEN@*/)
             }
 
             if item.coordinates != nil || item.coordinates != nil {
@@ -59,7 +59,6 @@ struct PhotoCell: View {
             }
         }
         .modifier(CardStyle())
-        .aspectRatio(4 / 3, contentMode: .fill)
     }
 }
 
