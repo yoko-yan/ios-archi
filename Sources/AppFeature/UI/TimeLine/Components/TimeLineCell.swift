@@ -14,7 +14,7 @@ struct TimeLineCell: View {
             if let image {
                 Image(uiImage: image)
                     .resizable()
-                    .scaledToFill()
+                    .aspectRatio(1, contentMode: /*@START_MENU_TOKEN@*/ .fill/*@END_MENU_TOKEN@*/)
             } else {
                 Text("画像なし")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)

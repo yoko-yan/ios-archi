@@ -14,7 +14,8 @@ struct SpotCell: View {
             if let image {
                 Image(uiImage: image)
                     .resizable()
-                    .scaledToFill()
+                    .aspectRatio(1, contentMode: /*@START_MENU_TOKEN@*/ .fill/*@END_MENU_TOKEN@*/)
+                    .cornerRadius(8.0)
             } else {
                 Text("画像なし")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -22,7 +23,11 @@ struct SpotCell: View {
                         colorScheme == .dark ? Color.black : Color.white
                     )
                     .foregroundColor(.gray)
-                    .aspectRatio(1, contentMode: /*@START_MENU_TOKEN@*/ .fill/*@END_MENU_TOKEN@*/)
+                    .cornerRadius(8.0)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8.0)
+                            .stroke(Color.gray, lineWidth: 0.5)
+                    )
             }
         }
     }
