@@ -15,26 +15,26 @@ struct WorldEditItemUiState: Equatable {
         var message: String {
             switch self {
             case .confirmUpdate:
-                return "更新してもいいですか？"
+                return "変更してもいいですか？"
 
             case .confirmDeletion:
                 return "削除してもいいですか？"
 
             case .confirmDismiss:
-                return "編集中のデータがあります。\nデータを保存せずに閉じてもいいですか？"
+                return "編集中のデータがあります。\nデータを変更せずに閉じてもいいですか？"
             }
         }
 
         var buttonLabel: String {
             switch self {
             case .confirmUpdate:
-                return "更新する"
+                return "変更する"
 
             case .confirmDeletion:
                 return "削除する"
 
             case .confirmDismiss:
-                return "保存せずに戻る"
+                return "変更せずに戻る"
             }
         }
 
@@ -69,14 +69,14 @@ struct WorldEditItemUiState: Equatable {
         var title: String {
             switch self {
             case .add: return "ワールドを新規に登録する"
-            case .update: return "ワールドを編集して更新する"
+            case .update: return "ワールド情報を変更する"
             }
         }
 
         var button: String {
             switch self {
             case .add: return "登録する"
-            case .update: return "更新する"
+            case .update: return "変更する"
             }
         }
 
