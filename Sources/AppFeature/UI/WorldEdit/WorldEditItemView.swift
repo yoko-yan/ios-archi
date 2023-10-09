@@ -40,6 +40,10 @@ struct WorldEditItemView: View {
                                 Text("削除する")
                                     .bold()
                                     .frame(height: 50)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .stroke(Color.red, lineWidth: 1)
+                                    )
                             }
                             .foregroundColor(.red)
                             .padding(.horizontal)
@@ -61,7 +65,7 @@ struct WorldEditItemView: View {
                                 .frame(height: 50)
                                 .frame(maxWidth: .infinity)
                         }
-                        .buttonStyle(RoundedButtonStyle(color: .green))
+                        .buttonStyle(RoundedButtonStyle(color: .red))
                     }
                 }
                 .padding()

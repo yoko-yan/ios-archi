@@ -61,9 +61,13 @@ struct EditItemView: View {
                                 Text("削除する")
                                     .bold()
                                     .frame(height: 50)
+                                    .padding(.horizontal)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .stroke(Color.red, lineWidth: 1)
+                                    )
                             }
                             .foregroundColor(.red)
-                            .padding(.horizontal)
                         }
 
                         Button(action: {
@@ -82,7 +86,7 @@ struct EditItemView: View {
                                 .frame(height: 50)
                                 .frame(maxWidth: .infinity)
                         }
-                        .buttonStyle(RoundedButtonStyle(color: .green))
+                        .buttonStyle(RoundedButtonStyle(color: .red))
                     }
                 }
                 .padding()
