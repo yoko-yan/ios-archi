@@ -17,7 +17,6 @@ struct WorldListCell: View {
                     .bold()
             }
         }
-        .padding(.horizontal)
     }
 }
 

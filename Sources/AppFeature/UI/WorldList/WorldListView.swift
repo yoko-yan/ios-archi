@@ -16,7 +16,6 @@ struct WorldListView: View {
             List {
                 ForEach(viewModel.uiState.items, id: \.self) { seed in
                     WorldListCell(seed: seed)
-                        .padding(.top)
                         .onTapGesture {
                             if let selectedAction {
                                 selectedAction(seed)
