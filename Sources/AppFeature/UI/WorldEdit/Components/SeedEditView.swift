@@ -15,21 +15,10 @@ struct SeedEditView: View {
     var body: some View {
         VStack {
             VStack {
-                HStack {
-                    Label("seed", systemImage: "globe.desk")
-                    Spacer()
-                    TextField("未登録", text: .init(get: {
-                        seed?.text ?? ""
-                    }, set: { newValue in
-                        seed = Seed(newValue)
-                    }))
-                    .multilineTextAlignment(TextAlignment.trailing)
-                }
                 if let image {
                     Image(uiImage: image)
                         .resizable()
                         .scaledToFit()
-                        .frame(height: 200)
                 } else {
                     Button {
                         imageSourceType = .library
@@ -45,8 +34,18 @@ struct SeedEditView: View {
                             .opacity(0.1)
                     )
                 }
+                HStack {
+                    Label("seed", systemImage: "globe.desk")
+                    Spacer()
+                    TextField("未登録", text: .init(get: {
+                        seed?.text ?? ""
+                    }, set: { newValue in
+                        seed = Seed(newValue)
+                    }))
+                    .multilineTextAlignment(TextAlignment.trailing)
+                }
+                .padding(.horizontal)
             }
-            .padding(.horizontal)
             .accentColor(.gray)
 
             HStack {

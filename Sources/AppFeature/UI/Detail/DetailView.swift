@@ -13,15 +13,21 @@ struct DetailView: View {
     var body: some View {
         ZStack {
             ScrollView {
-                CoordinatesView(
-                    coordinates: viewModel.uiState.item.coordinates,
-                    image: viewModel.uiState.coordinatesImage
-                )
+                if let image = viewModel.uiState.coordinatesImage {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFit()
+                }
 
-                Divider()
+                CoordinatesView(
+                    coordinates: viewModel.uiState.item.coordinates
+                )
+                .padding()
 
                 SeedView(
-                    seed: viewModel.uiState.item.seed)
+                    seed: viewModel.uiState.item.seed
+                )
+                .padding()
 
                 Divider()
 
@@ -35,8 +41,6 @@ struct DetailView: View {
                 }
                 .buttonStyle(OutlineButtonStyle(color: .green))
                 .padding()
-
-                Divider()
 
                 Button(action: {
                     isEditView.toggle()

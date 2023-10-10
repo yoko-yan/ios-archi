@@ -14,7 +14,7 @@ struct SpotCell: View {
             if let image {
                 Image(uiImage: image)
                     .resizable()
-                    .aspectRatio(1, contentMode: /*@START_MENU_TOKEN@*/ .fill/*@END_MENU_TOKEN@*/)
+                    .aspectRatio(1, contentMode: .fill)
                     .cornerRadius(8.0)
             } else {
                 Text("画像なし")

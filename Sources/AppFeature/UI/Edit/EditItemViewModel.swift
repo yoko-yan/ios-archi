@@ -81,7 +81,9 @@ final class EditItemViewModel: ObservableObject {
 
             case let .getCoordinates(image):
                 let coordinates = try await GetCoordinatesUseCaseImpl().execute(image: image)
-                uiState.input.coordinates = coordinates
+                if let coordinates = coordinates?.text {
+                    uiState.input.coordinates = coordinates
+                }
 
             case .getWorlds:
                 uiState.worlds = try await ItemRepository().allSeeds()

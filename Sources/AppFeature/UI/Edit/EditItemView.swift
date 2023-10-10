@@ -15,9 +15,12 @@ struct EditItemView: View {
             ZStack {
                 ScrollView {
                     VStack(spacing: 10) {
-                        CoordinatesEditView(
-                            coordinates: viewModel.input.coordinates,
+                        SpotImageView(
                             image: viewModel.coordinatesImage
+                        )
+
+                        CoordinatesEditView(
+                            coordinates: viewModel.input.coordinates
                         )
 
                         Divider()
@@ -34,19 +37,16 @@ struct EditItemView: View {
                                     Label("seed", systemImage: "globe.desk")
                                     Spacer()
                                     Text(viewModel.uiState.editItem.seed?.text ?? "未登録")
+                                    Image(systemName: "chevron.right")
                                 }
                                 .padding(.horizontal)
                                 .accentColor(.gray)
                             }
-
-                            Image(systemName: "chevron.right")
-                                .padding(.horizontal, 8)
                         }
 
                         Color.clear
                             .frame(height: 100)
                     }
-                    .padding(.top)
                 }
 
                 VStack {

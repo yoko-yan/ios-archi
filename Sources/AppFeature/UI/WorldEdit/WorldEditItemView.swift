@@ -25,7 +25,6 @@ struct WorldEditItemView: View {
                         Color.clear
                             .frame(height: 100)
                     }
-                    .padding(.top)
                 }
 
                 VStack {

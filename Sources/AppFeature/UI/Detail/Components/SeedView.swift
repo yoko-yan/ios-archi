@@ -17,7 +17,6 @@ struct SeedView: View {
                     .bold()
             }
         }
-        .padding()
     }
 }
 
