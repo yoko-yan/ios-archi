@@ -52,7 +52,7 @@ public struct RootView: View {
                     .tabItem {
                         Label(TabItem.photo.name, systemImage: TabItem.photo.icon)
                     }
-                    .tag(TabItem.home)
+                    .tag(TabItem.photo)
 
                 ListView()
                     .tabItem {

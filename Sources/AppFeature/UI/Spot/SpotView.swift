@@ -5,7 +5,7 @@
 import SwiftUI
 
 struct SpotView: View {
-    @StateObject private var viewModel = TimeLineViewModel()
+    @StateObject private var viewModel = SpotViewModel()
 
     private let columns = [
         GridItem(.adaptive(minimum: 80))
@@ -17,10 +17,11 @@ struct SpotView: View {
                 ForEach(viewModel.uiState.items, id: \.self) { item in
                     let image = viewModel.loadImage(fileName: item.coordinatesImageName)
                     SpotCell(item: item, image: image)
-                        .padding(.top)
+                        .padding(.bottom, 4)
                 }
             }
             .padding(.horizontal)
+            .padding(.top)
         }
 //        .frame(maxHeight: 300)
         .task {
