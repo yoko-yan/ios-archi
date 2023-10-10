@@ -46,7 +46,7 @@ struct WorldListView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarTitle(Text("ワールド一覧"))
         .toolbarBackground(.visible, for: .navigationBar)
-        .fullScreenCover(isPresented: $isShowDetailView) {
+        .sheet(isPresented: $isShowDetailView) {
             WorldEditItemView(
                 onTapDismiss: { _ in
                     viewModel.send(.reload)

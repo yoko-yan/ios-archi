@@ -123,6 +123,7 @@ struct WorldEditItemView: View {
                 }
             )
         }
+        .interactiveDismissDisabled(viewModel.uiState.isChanged)
     }
 
     init(item: Item? = nil, onTapDelete: ((Item) -> Void)? = nil, onTapDismiss: ((Item) -> Void)? = nil) {

@@ -44,7 +44,7 @@ struct TimeLineView: View {
         .navigationBarTitle(Text("ホーム"))
         .navigationBarItems(trailing: EditButton())
         .toolbarBackground(.visible, for: .navigationBar)
-        .fullScreenCover(isPresented: $isShowDetailView) {
+        .sheet(isPresented: $isShowDetailView) {
             EditItemView(
                 onTapDismiss: { _ in
                     viewModel.send(.reload)

@@ -45,15 +45,6 @@ final class EditItemViewModel: ObservableObject {
         )
     }
 
-    var seedImage: Binding<UIImage?> {
-        Binding(
-            get: { self.uiState.seedImage },
-            set: { newValue in
-                self.uiState.seedImage = newValue
-            }
-        )
-    }
-
     var coordinatesImage: Binding<UIImage?> {
         Binding(
             get: { self.uiState.coordinatesImage },
@@ -105,16 +96,8 @@ final class EditItemViewModel: ObservableObject {
                     try ImageRepository().save(coordinatesImage, fileName: coordinatesImageName)
                 }
 
-                if let seedImage = uiState.seedImage {
-                    let seedImageName = uiState.input.seedImageName ?? UUID().uuidString
-                    uiState.input.seedImageName = seedImageName
-
-                    try ImageRepository().save(seedImage, fileName: seedImageName)
-                }
-
             case .loadImage:
                 uiState.coordinatesImage = ImageRepository().load(fileName: uiState.input.coordinatesImageName)
-                uiState.seedImage = ImageRepository().load(fileName: uiState.input.seedImageName)
 
             case .onRegisterButtonClick:
                 await send(.onRegister)
@@ -149,14 +132,10 @@ final class EditItemViewModel: ObservableObject {
                 uiState.event = .deleted
 
             case .onCloseButtonTap:
-                if uiState.editItem.seed == uiState.editMode.item?.seed,
-                   uiState.editItem.coordinates == uiState.editMode.item?.coordinates,
-                   uiState.editItem.coordinatesImageName == uiState.editMode.item?.coordinatesImageName,
-                   uiState.editItem.seedImageName == uiState.editMode.item?.seedImageName
-                {
-                    uiState.event = .dismiss
-                } else {
+                if uiState.isChanged {
                     uiState.confirmationAlert = .confirmDismiss(.onDismiss)
+                } else {
+                    uiState.event = .dismiss
                 }
 
             case .onDismiss:

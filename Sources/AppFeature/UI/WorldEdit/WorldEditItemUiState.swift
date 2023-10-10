@@ -98,24 +98,14 @@ struct WorldEditItemUiState: Equatable {
 
     struct Input: Equatable {
         var id: String?
-        var coordinates: Coordinates?
         var seed: Seed?
-        var coordinatesImageName: String?
         var seedImageName: String?
 
         init(item: Item?) {
             id = item?.id
-            if let coordinates = item?.coordinates {
-                self.coordinates = Coordinates(
-                    x: coordinates.x,
-                    y: coordinates.y,
-                    z: coordinates.z
-                )
-            }
             if let seed = item?.seed {
                 self.seed = seed
             }
-            coordinatesImageName = item?.coordinatesImageName
             seedImageName = item?.seedImageName
         }
     }
@@ -126,18 +116,29 @@ struct WorldEditItemUiState: Equatable {
     var event: Event?
     var input: Input
     var seedImage: UIImage?
-    var coordinatesImage: UIImage?
     var worlds: [Seed] = []
 
     var editItem: Item {
         Item(
             id: input.id ?? UUID().uuidString,
-            coordinates: input.coordinates,
+            coordinates: nil,
             seed: input.seed,
-            coordinatesImageName: input.coordinatesImageName,
+            coordinatesImageName: nil,
             seedImageName: input.seedImageName,
             createdAt: editMode.item?.createdAt ?? Date(),
             updatedAt: editMode.item?.updatedAt ?? Date()
         )
+    }
+
+    var isChanged: Bool {
+        if editItem.seed == editMode.item?.seed,
+           editItem.coordinates == editMode.item?.coordinates,
+           editItem.coordinatesImageName == editMode.item?.coordinatesImageName,
+           editItem.seedImageName == editMode.item?.seedImageName
+        {
+            false
+        } else {
+            true
+        }
     }
 }

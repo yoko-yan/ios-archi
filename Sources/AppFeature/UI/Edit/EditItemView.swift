@@ -151,6 +151,7 @@ struct EditItemView: View {
                 }
             )
         }
+        .interactiveDismissDisabled(viewModel.uiState.isChanged)
     }
 
     init(item: Item? = nil, onTapDelete: ((Item) -> Void)? = nil, onTapDismiss: ((Item) -> Void)? = nil) {
@@ -168,17 +169,18 @@ private extension View {
     ) -> some View {
         confirmationDialog(
             "確認",
-            isPresented: .init(get: {
-                alertType?.message != nil
-            }, set: { _ in
-                onDismiss()
-            }),
+            isPresented: .init(
+                get: { alertType?.message != nil },
+                set: { _ in onDismiss() }
+            ),
             presenting: alertType
         ) { _ in
             Button("キャンセル", role: .cancel, action: {})
-            Button(alertType?.buttonLabel ?? "", role: alertType?.buttonRole, action: {
-                onConfirmed()
-            })
+            Button(
+                alertType?.buttonLabel ?? "",
+                role: alertType?.buttonRole,
+                action: { onConfirmed() }
+            )
         } message: { alertType in
             Text(alertType.message)
         }

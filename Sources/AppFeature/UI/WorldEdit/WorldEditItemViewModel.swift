@@ -49,15 +49,6 @@ final class WorldEditItemViewModel: ObservableObject {
         )
     }
 
-    var coordinatesImage: Binding<UIImage?> {
-        Binding(
-            get: { self.uiState.coordinatesImage },
-            set: { newValue in
-                self.uiState.coordinatesImage = newValue
-            }
-        )
-    }
-
     init(item: Item?) {
         uiState = .init(
             editMode: WorldEditItemUiState.EditMode(item: item),

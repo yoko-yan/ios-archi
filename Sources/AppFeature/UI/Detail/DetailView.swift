@@ -72,7 +72,7 @@ struct DetailView: View {
                 coordinates: viewModel.uiState.item.coordinates ?? Coordinates.zero
             )
         }
-        .fullScreenCover(isPresented: $isEditView) {
+        .sheet(isPresented: $isEditView) {
             EditItemView(
                 item: viewModel.uiState.item,
                 onTapDelete: { _ in
