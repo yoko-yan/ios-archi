@@ -15,13 +15,9 @@ struct WorldListView: View {
         ZStack {
             List {
                 ForEach(viewModel.uiState.worlds, id: \.self) { world in
-                    WorldListCell(world: world)
-                        .onTapGesture {
-                            if let selectedAction {
-                                selectedAction(world)
-                            }
-                            navigatePath.append(world)
-                        }
+                    NavigationLink(value: world) {
+                        WorldListCell(world: world)
+                    }
                 }
                 .onDelete { viewModel.send(.onDeleteButtonClick(offsets: $0)) }
             }

@@ -12,14 +12,19 @@ struct TimeLineView: View {
         ZStack {
             List {
                 ForEach(viewModel.uiState.items, id: \.self) { item in
-                    NavigationLink(value: item) {
+                    HStack {
                         let image = viewModel.loadImage(fileName: item.spotImageName)
                         TimeLineCell(item: item, image: image)
-                            .padding(.top)
+                        NavigationLink(value: item) {
+                            EmptyView()
+                        }
+                        .frame(width: 0)
+                        .opacity(0)
                     }
                 }
                 .listRowSeparator(.hidden)
             }
+            .padding(.top, 8)
             .listStyle(.plain)
             .task {
                 viewModel.send(.load)

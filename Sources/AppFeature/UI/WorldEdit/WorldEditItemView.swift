@@ -45,7 +45,6 @@ struct WorldEditItemView: View {
                                         RoundedRectangle(cornerRadius: 8)
                                             .stroke(Color.red, lineWidth: 1)
                                     )
-                                    .padding(.horizontal)
                             }
                             .foregroundColor(.red)
                         }

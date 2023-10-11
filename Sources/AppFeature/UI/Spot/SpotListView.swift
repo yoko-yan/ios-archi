@@ -31,6 +31,9 @@ struct SpotListView: View {
         .task {
             viewModel.send(.load)
         }
+        .refreshable {
+            viewModel.send(.load)
+        }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarTitle(Text("スポット一覧"))
         .toolbarBackground(.visible, for: .navigationBar)

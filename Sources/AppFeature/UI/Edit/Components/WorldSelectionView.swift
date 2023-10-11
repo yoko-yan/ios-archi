@@ -16,7 +16,6 @@ struct WorldSelectionView: View {
             List {
                 ForEach(worlds, id: \.self) { world in
                     WorldListCell(world: world)
-                        .padding(.top)
                         .onTapGesture {
                             if let selectedAction {
                                 selectedAction(world)
