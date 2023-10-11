@@ -10,9 +10,9 @@ struct WorldsLocalDataSource {
         CoreDataManager.shared.viewContext
     }
 
-    func getById(_ id: UUID) async throws -> World {
+    func getById(_ id: UUID) async throws -> World? {
         guard let entity = try await CoreDataDataSource<WorldEntity>.read(id: id)
-        else { fatalError() }
+        else { return nil }
         return World(
             id: entity.id!.uuidString,
             name: entity.name,
@@ -31,7 +31,7 @@ struct WorldsLocalDataSource {
         let request = WorldEntity.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(keyPath: \WorldEntity.createdAt, ascending: false)]
         guard let result = try? context.fetch(request)
-        else { fatalError() }
+        else { return [] }
 
         return result.map { entity in
             World(

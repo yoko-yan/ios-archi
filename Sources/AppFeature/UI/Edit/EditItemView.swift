@@ -17,7 +17,7 @@ struct EditItemView: View {
                 ScrollView {
                     VStack(spacing: 10) {
                         SpotImageView(
-                            image: viewModel.coordinatesImage
+                            image: viewModel.spotImage
                         )
 
                         CoordinatesEditView(
@@ -102,9 +102,9 @@ struct EditItemView: View {
                 }
             }
             .onChange(of: viewModel.uiState) { [oldState = viewModel.uiState] newState in
-                if let coordinatesImage = newState.coordinatesImage, oldState.coordinatesImage != coordinatesImage {
+                if let spotImage = newState.spotImage, oldState.spotImage != spotImage {
                     Task {
-                        await viewModel.send(.getCoordinates(image: coordinatesImage))
+                        await viewModel.send(.getCoordinates(image: spotImage))
                     }
                 }
 

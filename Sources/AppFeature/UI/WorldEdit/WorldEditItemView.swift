@@ -11,7 +11,8 @@ struct WorldEditItemView: View {
     private let onTapDismiss: ((World) -> Void)?
 
     var body: some View {
-        NavigationStack {
+        // FIXME:
+        NavigationStack { // swiftlint:disable:this closure_body_length
             ZStack {
                 ScrollView {
                     VStack(spacing: 10) {
@@ -39,13 +40,14 @@ struct WorldEditItemView: View {
                                 Text("削除する")
                                     .bold()
                                     .frame(height: 50)
+                                    .padding(.horizontal)
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 8)
                                             .stroke(Color.red, lineWidth: 1)
                                     )
+                                    .padding(.horizontal)
                             }
                             .foregroundColor(.red)
-                            .padding(.horizontal)
                         }
 
                         Button(action: {

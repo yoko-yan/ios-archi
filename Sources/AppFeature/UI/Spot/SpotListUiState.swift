@@ -4,6 +4,6 @@
 
 import Foundation
 
-struct SpotUiState: Equatable {
+struct SpotListUiState: Equatable {
     var items: [Item] = []
 }

@@ -13,7 +13,7 @@ struct TimeLineView: View {
             List {
                 ForEach(viewModel.uiState.items, id: \.self) { item in
                     NavigationLink(value: item) {
-                        let image = viewModel.loadImage(fileName: item.coordinatesImageName)
+                        let image = viewModel.loadImage(fileName: item.spotImageName)
                         TimeLineCell(item: item, image: image)
                             .padding(.top)
                     }

@@ -15,10 +15,10 @@ enum SpotViewAction {
 // MARK: - View model
 
 @MainActor
-final class SpotViewModel: ObservableObject {
-    @Published private(set) var uiState = SpotUiState()
+final class SpotListViewModel: ObservableObject {
+    @Published private(set) var uiState = SpotListUiState()
 
-    init(uiState: SpotUiState = SpotUiState()) {
+    init(uiState: SpotListUiState = SpotListUiState()) {
         self.uiState = uiState
     }
 

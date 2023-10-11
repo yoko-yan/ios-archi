@@ -17,7 +17,7 @@ final class DetailViewModel: ObservableObject {
     }
 
     func loadImage() {
-        uiState.coordinatesImage = ImageRepository().load(fileName: uiState.item.coordinatesImageName)
+        uiState.spotImageName = ImageRepository().load(fileName: uiState.item.spotImageName)
     }
 
     func reload(item: Item) {

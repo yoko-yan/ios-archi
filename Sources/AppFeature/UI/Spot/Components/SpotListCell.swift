@@ -4,7 +4,7 @@
 
 import SwiftUI
 
-struct SpotCell: View {
+struct SpotListCell: View {
     @Environment(\.colorScheme) var colorScheme
     let item: Item
     let image: UIImage?
@@ -34,9 +34,8 @@ struct SpotCell: View {
 }
 
 #Preview {
-    SpotCell(
-        item:
-        Item(
+    SpotListCell(
+        item: Item(
             id: UUID().uuidString,
             coordinates: Coordinates(x: 100, y: 20, z: 300),
             world: nil,
@@ -48,9 +47,8 @@ struct SpotCell: View {
 }
 
 #Preview {
-    SpotCell(
-        item:
-        Item(
+    SpotListCell(
+        item: Item(
             id: UUID().uuidString,
             coordinates: Coordinates(x: 100, y: 20, z: 300),
             world: nil,

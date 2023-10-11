@@ -44,11 +44,11 @@ final class EditItemViewModel: ObservableObject {
         )
     }
 
-    var coordinatesImage: Binding<UIImage?> {
+    var spotImage: Binding<UIImage?> {
         Binding(
-            get: { self.uiState.coordinatesImage },
+            get: { self.uiState.spotImage },
             set: { newValue in
-                self.uiState.coordinatesImage = newValue
+                self.uiState.spotImage = newValue
             }
         )
     }
@@ -88,14 +88,14 @@ final class EditItemViewModel: ObservableObject {
                 uiState.input.world = world
 
             case .saveImage:
-                if let coordinatesImage = uiState.coordinatesImage {
-                    let coordinatesImageName = uiState.input.coordinatesImageName ?? UUID().uuidString
-                    uiState.input.coordinatesImageName = coordinatesImageName
-                    try ImageRepository().save(coordinatesImage, fileName: coordinatesImageName)
+                if let spotImage = uiState.spotImage {
+                    let spotImageName = uiState.input.spotImageName ?? UUID().uuidString
+                    uiState.input.spotImageName = spotImageName
+                    try ImageRepository().save(spotImage, fileName: spotImageName)
                 }
 
             case .loadImage:
-                uiState.coordinatesImage = ImageRepository().load(fileName: uiState.input.coordinatesImageName)
+                uiState.spotImage = ImageRepository().load(fileName: uiState.input.spotImageName)
 
             case .onRegisterButtonClick:
                 await send(.onRegister)

@@ -19,7 +19,7 @@ struct ItemsLocalDataSource {
         let request = ItemEntity.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(keyPath: \ItemEntity.createdAt, ascending: false)]
         guard let result = try? context.fetch(request)
-        else { fatalError() }
+        else { return [] }
 
         var values = [Item]()
         for entity in result {
@@ -48,7 +48,7 @@ struct ItemsLocalDataSource {
                     id: entity.id!.uuidString,
                     coordinates: coordinates,
                     world: world,
-                    coordinatesImageName: entity.spotImageName,
+                    spotImageName: entity.spotImageName,
                     createdAt: entity.createdAt ?? Date(),
                     updatedAt: entity.updatedAt ?? Date()
                 )
@@ -68,7 +68,7 @@ struct ItemsLocalDataSource {
         if let world = item.world {
             entity.world = UUID(uuidString: world.id)
         }
-        entity.spotImageName = item.coordinatesImageName
+        entity.spotImageName = item.spotImageName
         entity.createdAt = Date()
         entity.updatedAt = Date()
         CoreDataManager.shared.saveContext()
@@ -87,7 +87,7 @@ struct ItemsLocalDataSource {
         if let world = item.world {
             entity.world = UUID(uuidString: world.id)
         }
-        entity.spotImageName = item.coordinatesImageName
+        entity.spotImageName = item.spotImageName
         entity.createdAt = item.createdAt
         entity.updatedAt = Date()
         CoreDataManager.shared.saveContext()

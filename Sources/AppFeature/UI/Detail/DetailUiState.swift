@@ -7,5 +7,5 @@ import UIKit
 
 struct DetailUiState: Equatable {
     var item: Item
-    var coordinatesImage: UIImage?
+    var spotImageName: UIImage?
 }

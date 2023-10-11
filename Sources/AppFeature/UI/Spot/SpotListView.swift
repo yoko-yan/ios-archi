@@ -4,8 +4,8 @@
 
 import SwiftUI
 
-struct SpotView: View {
-    @StateObject private var viewModel = SpotViewModel()
+struct SpotListView: View {
+    @StateObject private var viewModel = SpotListViewModel()
 
     private let columns = [
         GridItem(.adaptive(minimum: 80))
@@ -15,15 +15,19 @@ struct SpotView: View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 4) {
                 ForEach(viewModel.uiState.items, id: \.self) { item in
-                    let image = viewModel.loadImage(fileName: item.coordinatesImageName)
-                    SpotCell(item: item, image: image)
-                        .padding(.bottom, 4)
+                    NavigationLink(value: item) {
+                        let image = viewModel.loadImage(fileName: item.spotImageName)
+                        SpotListCell(item: item, image: image)
+                            .padding(.bottom, 4)
+                    }
                 }
             }
             .padding(.horizontal)
             .padding(.top)
+            .navigationDestination(for: Item.self) { item in
+                DetailView(item: item)
+            }
         }
-//        .frame(maxHeight: 300)
         .task {
             viewModel.send(.load)
         }
@@ -34,5 +38,5 @@ struct SpotView: View {
 }
 
 #Preview {
-    SpotView()
+    SpotListView()
 }

@@ -32,8 +32,8 @@ struct WorldListView: View {
             .refreshable {
                 viewModel.send(.load)
             }
-            .navigationDestination(for: Seed.self) { _ in
-                WorldDetailView(navigatePath: $navigatePath)
+            .navigationDestination(for: World.self) { world in
+                WorldDetailView(world: world)
             }
 
             FloatingButton(action: {
@@ -46,7 +46,7 @@ struct WorldListView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarTitle(Text("ワールド一覧"))
-        .navigationBarItems(trailing: EditButton())
+//        .navigationBarItems(trailing: EditButton())
         .toolbarBackground(.visible, for: .navigationBar)
         .sheet(isPresented: $isShowDetailView) {
             WorldEditItemView(

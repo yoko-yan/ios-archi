@@ -18,7 +18,7 @@ enum CoreDataDataSource<T: NSManagedObject> {
         )
         var entity: T?
         try await context.perform { [context] in
-            entity = try context.fetch(request)[0] as? T
+            entity = try context.fetch(request).first as? T
         }
         return entity
     }
