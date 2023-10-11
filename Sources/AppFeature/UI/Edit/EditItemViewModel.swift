@@ -14,7 +14,7 @@ enum EditViewAction: Equatable {
     case getSeed(image: UIImage)
     case getCoordinates(image: UIImage)
     case getWorlds
-    case setSeedd(seed: Seed)
+    case setSeed(seed: Seed)
     case saveImage
     case loadImage
     case onRegisterButtonClick
@@ -82,7 +82,7 @@ final class EditItemViewModel: ObservableObject {
                 uiState.input.seed = seed
 
             case let .getCoordinates(image):
-                let coordinates = try await GetCoordinatesUseCaseImpl().execute(image: image)
+                let coordinates = try await GetCoordinatesUseCase().execute(image: image)
                 if let coordinates = coordinates?.text {
                     uiState.input.coordinates = coordinates
                 }
@@ -90,7 +90,7 @@ final class EditItemViewModel: ObservableObject {
             case .getWorlds:
                 uiState.worlds = try await ItemRepository().allSeeds()
 
-            case let .setSeedd(seed: seed):
+            case let .setSeed(seed: seed):
                 uiState.input.seed = seed
 
             case .saveImage:

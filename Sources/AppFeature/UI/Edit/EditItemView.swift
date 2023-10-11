@@ -30,7 +30,7 @@ struct EditItemView: View {
                             NavigationLink {
                                 WorldSelectionView(items: viewModel.uiState.worlds, selected: viewModel.uiState.editMode.item?.seed) { seed in
                                     Task {
-                                        await viewModel.send(.setSeedd(seed: seed))
+                                        await viewModel.send(.setSeed(seed: seed))
                                     }
                                 }
                             } label: {
@@ -99,8 +99,7 @@ struct EditItemView: View {
                 }
             }
             .onChange(of: viewModel.uiState) { [oldState = viewModel.uiState] newState in
-                if let coordinatesImage = newState.coordinatesImage, oldState.coordinatesImage != coordinatesImage
-                {
+                if let coordinatesImage = newState.coordinatesImage, oldState.coordinatesImage != coordinatesImage {
                     Task {
                         await viewModel.send(.getCoordinates(image: coordinatesImage))
                     }

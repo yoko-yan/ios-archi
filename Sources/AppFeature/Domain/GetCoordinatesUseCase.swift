@@ -7,7 +7,7 @@ import Foundation
 import RegexBuilder
 import UIKit
 
-struct GetCoordinatesUseCaseImpl {
+struct GetCoordinatesUseCase {
     private let recognizeTextRepository: RecognizedTextsRepository
 
     init(recognizeTextRepository: RecognizedTextsRepository = RecognizedTextsRepositoryImpl()) {
