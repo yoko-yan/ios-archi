@@ -13,7 +13,6 @@ struct CoordinatesView: View {
             Label("coordinates", systemImage: "location.circle")
             Spacer()
             Text(coordinates?.text ?? "未登録")
-                .bold()
         }
     }
 }

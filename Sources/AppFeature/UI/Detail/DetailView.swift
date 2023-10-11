@@ -17,17 +17,27 @@ struct DetailView: View {
                     Image(uiImage: image)
                         .resizable()
                         .scaledToFit()
+                } else {
+                    Text("画像なし")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .contentShape(Rectangle())
+                        .frame(height: 200)
+                        .background(
+                            Color.gray
+                                .opacity(0.1)
+                        )
                 }
 
                 CoordinatesView(
                     coordinates: viewModel.uiState.item.coordinates
                 )
-                .padding()
+                .padding(.top, 4)
+                .padding(.horizontal)
 
                 SeedView(
                     seed: viewModel.uiState.item.seed
                 )
-                .padding()
+                .padding(.horizontal)
 
                 Divider()
 
@@ -40,7 +50,7 @@ struct DetailView: View {
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(OutlineButtonStyle(color: .green))
-                .padding()
+                .padding(.horizontal)
 
                 Button(action: {
                     isEditView.toggle()
@@ -51,7 +61,7 @@ struct DetailView: View {
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(RoundedButtonStyle(color: .green))
-                .padding()
+                .padding(.horizontal)
             }
         }
         .navigationBarTitle("詳細", displayMode: .inline)

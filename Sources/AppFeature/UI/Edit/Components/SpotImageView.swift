@@ -20,7 +20,7 @@ struct SpotImageView: View {
                     imageSourceType = .library
                     isImagePicker.toggle()
                 } label: {
-                    Text("画像から座標を取得")
+                    Text("写真を登録")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
                 .contentShape(Rectangle())
@@ -32,6 +32,8 @@ struct SpotImageView: View {
             }
 
             HStack {
+                Text("写真に座標が写っている場合、その座標を取得できます")
+                    .font(.caption2)
                 Spacer()
                 Button(action: {
                     imageSourceType = .camera

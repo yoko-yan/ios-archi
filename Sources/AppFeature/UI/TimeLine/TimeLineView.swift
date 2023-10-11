@@ -18,7 +18,6 @@ struct TimeLineView: View {
                             .padding(.top)
                     }
                 }
-                .onDelete { viewModel.send(.onDeleteButtonClick(offsets: $0)) }
                 .listRowSeparator(.hidden)
             }
             .listStyle(.plain)
@@ -42,7 +41,6 @@ struct TimeLineView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarTitle(Text("ホーム"))
-        .navigationBarItems(trailing: EditButton())
         .toolbarBackground(.visible, for: .navigationBar)
         .sheet(isPresented: $isShowDetailView) {
             EditItemView(
@@ -51,11 +49,6 @@ struct TimeLineView: View {
                 }
             )
         }
-        .deleteAlert(
-            message: viewModel.uiState.deleteAlertMessage,
-            onDelete: { viewModel.send(.onDelete) },
-            onDismiss: { viewModel.send(.onDeleteAlertDismiss) }
-        )
     }
 
     init() {
@@ -64,32 +57,6 @@ struct TimeLineView: View {
 
     private init(viewModel: TimeLineViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
-    }
-}
-
-// MARK: - Privates
-
-extension View {
-    func deleteAlert(
-        message: String?,
-        onDelete: @escaping () -> Void,
-        onDismiss: @escaping () -> Void
-    ) -> some View {
-        alert(
-            "確認",
-            isPresented: .init(get: {
-                message != nil
-            }, set: { _ in
-                onDismiss()
-            }),
-            presenting: message
-        ) { _ in
-            Button("削除する", role: .destructive, action: {
-                onDelete()
-            })
-        } message: { message in
-            Text(message)
-        }
     }
 }
 

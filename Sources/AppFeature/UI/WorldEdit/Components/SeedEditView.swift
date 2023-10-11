@@ -24,7 +24,7 @@ struct SeedEditView: View {
                         imageSourceType = .library
                         isImagePicker.toggle()
                     } label: {
-                        Text("画像からシード値を取得")
+                        Text("写真からシード値を登録")
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                     .contentShape(Rectangle())
@@ -34,21 +34,12 @@ struct SeedEditView: View {
                             .opacity(0.1)
                     )
                 }
-                HStack {
-                    Label("seed", systemImage: "globe.desk")
-                    Spacer()
-                    TextField("未登録", text: .init(get: {
-                        seed?.text ?? ""
-                    }, set: { newValue in
-                        seed = Seed(newValue)
-                    }))
-                    .multilineTextAlignment(TextAlignment.trailing)
-                }
-                .padding(.horizontal)
             }
             .accentColor(.gray)
 
             HStack {
+                Text("写真にシード値が写っている場合、そのシード値を取得できます")
+                    .font(.caption2)
                 Spacer()
                 Button(action: {
                     imageSourceType = .camera
@@ -72,6 +63,18 @@ struct SeedEditView: View {
             }
             .padding(.horizontal)
             .accentColor(.gray)
+
+            HStack {
+                Label("seed", systemImage: "globe.desk")
+                Spacer()
+                TextField("未登録", text: .init(get: {
+                    seed?.text ?? ""
+                }, set: { newValue in
+                    seed = Seed(newValue)
+                }))
+                .multilineTextAlignment(TextAlignment.trailing)
+            }
+            .padding(.horizontal)
         }
         .sheet(isPresented: $isImagePicker) {
             ImagePicker(

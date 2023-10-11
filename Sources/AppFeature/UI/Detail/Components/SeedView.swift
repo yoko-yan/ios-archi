@@ -14,7 +14,6 @@ struct SeedView: View {
                 Label("seed", systemImage: "globe.desk")
                 Spacer()
                 Text(seed?.text ?? "未登録")
-                    .bold()
             }
         }
     }

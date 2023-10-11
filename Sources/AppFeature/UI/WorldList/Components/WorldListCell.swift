@@ -14,7 +14,6 @@ struct WorldListCell: View {
                 Label("seed", systemImage: "globe.desk")
                 Spacer()
                 Text(seed.text)
-                    .bold()
             }
         }
     }

@@ -23,6 +23,7 @@ struct WorldListView: View {
                             navigatePath.append(seed)
                         }
                 }
+                .onDelete { viewModel.send(.onDeleteButtonClick(offsets: $0)) }
             }
             .listStyle(.plain)
             .task {
@@ -45,6 +46,7 @@ struct WorldListView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarTitle(Text("ワールド一覧"))
+        .navigationBarItems(trailing: EditButton())
         .toolbarBackground(.visible, for: .navigationBar)
         .sheet(isPresented: $isShowDetailView) {
             WorldEditItemView(
@@ -61,6 +63,32 @@ struct WorldListView: View {
     }
 }
 
-// #Preview {
-//    WorldListView(navigatePath: .constant([]))
-// }
+// MARK: - Privates
+
+private extension View {
+    func deleteAlert(
+        message: String?,
+        onDelete: @escaping () -> Void,
+        onDismiss: @escaping () -> Void
+    ) -> some View {
+        alert(
+            "確認",
+            isPresented: .init(get: {
+                message != nil
+            }, set: { _ in
+                onDismiss()
+            }),
+            presenting: message
+        ) { _ in
+            Button("削除する", role: .destructive, action: {
+                onDelete()
+            })
+        } message: { message in
+            Text(message)
+        }
+    }
+}
+
+#Preview {
+    WorldListView(navigatePath: .constant(NavigationPath()))
+}
