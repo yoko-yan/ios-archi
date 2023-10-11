@@ -26,7 +26,7 @@ final class TimeLineViewModel: ObservableObject {
         switch action {
         case .load:
             Task {
-                uiState.items = try await ItemRepository().load()
+                uiState.items = try await ItemsRepository().load()
             }
 
         case .reload:

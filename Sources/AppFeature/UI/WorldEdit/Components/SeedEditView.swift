@@ -87,16 +87,16 @@ struct SeedEditView: View {
     }
 }
 
-#Preview {
-    SeedEditView(
-        seed: .constant(Seed(rawValue: 1234567890)),
-        image: .constant(UIImage(named: "sample-seed", in: Bundle.module, with: nil)!) // swiftlint:disable:this force_unwrapping
-    )
-}
-
-#Preview {
-    SeedEditView(
-        seed: .constant(nil),
-        image: .constant(nil)
-    )
-}
+// #Preview {
+//    SeedEditView(
+//        world: .constant(nil),
+//        image: .constant(UIImage(named: "sample-seed", in: Bundle.module, with: nil)!) // swiftlint:disable:this force_unwrapping
+//    )
+// }
+//
+// #Preview {
+//    SeedEditView(
+//        world: .constant(nil),
+//        image: .constant(nil)
+//    )
+// }

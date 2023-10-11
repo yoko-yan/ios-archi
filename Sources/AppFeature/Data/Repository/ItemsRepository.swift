@@ -4,7 +4,7 @@
 
 import Foundation
 
-final class ItemRepository {
+final class ItemsRepository {
     private let dataSource: ItemsLocalDataSource
 
     init(dataSource: ItemsLocalDataSource = ItemsLocalDataSource()) {
@@ -33,12 +33,5 @@ final class ItemRepository {
 
     func delete(item: Item) async throws {
         try await dataSource.delete(item: item)
-    }
-}
-
-extension ItemRepository {
-    func allSeeds() async throws -> [Seed] {
-        let items = try await dataSource.load()
-        return Array(Set(items.compactMap(\.seed)))
     }
 }

@@ -11,10 +11,9 @@ import UIKit
 enum EditViewAction: Equatable {
     case clearSeed
     case clearCoordinates
-    case getSeed(image: UIImage)
     case getCoordinates(image: UIImage)
     case getWorlds
-    case setSeed(seed: Seed)
+    case set(world: World)
     case saveImage
     case loadImage
     case onRegisterButtonClick
@@ -71,15 +70,10 @@ final class EditItemViewModel: ObservableObject {
         do {
             switch action {
             case .clearSeed:
-                uiState.input.seed = nil
+                uiState.input.world = nil
 
             case .clearCoordinates:
                 uiState.input.coordinates = nil
-
-            case let .getSeed(image):
-                let seed = try await GetSeedUseCaseImpl().execute(image: image)
-//                let seed = try await GetSeed2UseCaseImpl().execute(image: image)
-                uiState.input.seed = seed
 
             case let .getCoordinates(image):
                 let coordinates = try await GetCoordinatesUseCase().execute(image: image)
@@ -88,10 +82,10 @@ final class EditItemViewModel: ObservableObject {
                 }
 
             case .getWorlds:
-                uiState.worlds = try await ItemRepository().allSeeds()
+                uiState.worlds = try await WorldsRepository().load()
 
-            case let .setSeed(seed: seed):
-                uiState.input.seed = seed
+            case let .set(world):
+                uiState.input.world = world
 
             case .saveImage:
                 if let coordinatesImage = uiState.coordinatesImage {
@@ -109,7 +103,7 @@ final class EditItemViewModel: ObservableObject {
             case .onRegister:
                 guard case .add = uiState.editMode else { fatalError() }
                 await send(.saveImage)
-                try await ItemRepository().insert(item: uiState.editItem)
+                try await ItemsRepository().insert(item: uiState.editItem)
                 uiState.event = .updated
                 await send(.onAlertDismiss)
 
@@ -119,7 +113,7 @@ final class EditItemViewModel: ObservableObject {
             case .onUpdate:
                 guard case .update = uiState.editMode else { fatalError() }
                 await send(.saveImage)
-                try await ItemRepository().update(item: uiState.editItem)
+                try await ItemsRepository().update(item: uiState.editItem)
                 uiState.event = .updated
                 await send(.onAlertDismiss)
 
@@ -132,7 +126,7 @@ final class EditItemViewModel: ObservableObject {
             case .onDelete:
                 guard case .update = uiState.editMode, let item = uiState.editMode.item else { return }
 
-                try await ItemRepository().delete(item: item)
+                try await ItemsRepository().delete(item: item)
                 uiState.event = .deleted
 
             case .onCloseButtonTap:

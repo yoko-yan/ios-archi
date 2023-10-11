@@ -9,18 +9,18 @@ struct WorldListView: View {
     @State private var isShowDetailView = false
 
     @Binding var navigatePath: NavigationPath
-    var selectedAction: ((_ selected: Seed) -> Void)?
+    var selectedAction: ((_ selected: World) -> Void)?
 
     var body: some View {
         ZStack {
             List {
-                ForEach(viewModel.uiState.items, id: \.self) { seed in
-                    WorldListCell(seed: seed)
+                ForEach(viewModel.uiState.worlds, id: \.self) { world in
+                    WorldListCell(world: world)
                         .onTapGesture {
                             if let selectedAction {
-                                selectedAction(seed)
+                                selectedAction(world)
                             }
-                            navigatePath.append(seed)
+                            navigatePath.append(world)
                         }
                 }
                 .onDelete { viewModel.send(.onDeleteButtonClick(offsets: $0)) }

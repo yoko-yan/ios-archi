@@ -5,7 +5,7 @@
 import Foundation
 
 struct WorldListUiState: Equatable {
-    var items: [Seed] = []
-    var deleteItems: [Seed]?
+    var worlds: [World] = []
+    var deleteWorlds: [World]?
     var deleteAlertMessage: String?
 }

@@ -6,19 +6,27 @@ import SwiftUI
 
 struct WorldListCell: View {
     @Environment(\.colorScheme) var colorScheme
-    let seed: Seed
+    let world: World
 
     var body: some View {
         VStack {
             HStack {
                 Label("seed", systemImage: "globe.desk")
                 Spacer()
-                Text(seed.text)
+                Text(world.seed?.text ?? "")
             }
         }
     }
 }
 
 #Preview {
-    WorldListCell(seed: Seed(rawValue: 500)!) // swiftlint:disable:this force_unwrapping
+    WorldListCell(
+        world: World(
+            id: "",
+            name: "aaa",
+            seed: nil,
+            createdAt: Date(),
+            updatedAt: Date()
+        )
+    )
 }

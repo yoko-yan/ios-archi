@@ -35,7 +35,7 @@ struct DetailView: View {
                 .padding(.horizontal)
 
                 SeedView(
-                    seed: viewModel.uiState.item.seed
+                    seed: viewModel.uiState.item.world?.seed
                 )
                 .padding(.horizontal)
 
@@ -82,7 +82,7 @@ struct DetailView: View {
         }
         .sheet(isPresented: $isBiomeFinderView) {
             BiomeFinderView(
-                seed: viewModel.uiState.item.seed?.rawValue ?? 0,
+                seed: viewModel.uiState.item.world?.seed?.rawValue ?? 0,
                 coordinates: viewModel.uiState.item.coordinates ?? Coordinates.zero
             )
         }
@@ -108,7 +108,7 @@ struct DetailView: View {
         item: Item(
             id: UUID().uuidString,
             coordinates: .zero,
-            seed: .zero,
+            world: nil,
             createdAt: Date(),
             updatedAt: Date()
         )
@@ -120,7 +120,7 @@ struct DetailView: View {
         item: Item(
             id: UUID().uuidString,
             coordinates: nil,
-            seed: nil,
+            world: nil,
             createdAt: Date(),
             updatedAt: Date()
         )
@@ -132,7 +132,7 @@ struct DetailView: View {
         item: Item(
             id: UUID().uuidString,
             coordinates: Coordinates(x: 100, y: 20, z: 300),
-            seed: Seed(rawValue: 500),
+            world: nil,
             createdAt: Date(),
             updatedAt: Date()
         )

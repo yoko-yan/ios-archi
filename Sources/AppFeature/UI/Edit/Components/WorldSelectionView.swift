@@ -7,19 +7,19 @@ import SwiftUI
 struct WorldSelectionView: View {
     @Environment(\.dismiss) var dismiss
 
-    let items: [Seed]
-    var selected: Seed?
-    var selectedAction: ((_ selected: Seed) -> Void)?
+    let worlds: [World]
+    var selected: World?
+    var selectedAction: ((_ selected: World) -> Void)?
 
     var body: some View {
         ZStack {
             List {
-                ForEach(items, id: \.self) { seed in
-                    WorldListCell(seed: seed)
+                ForEach(worlds, id: \.self) { world in
+                    WorldListCell(world: world)
                         .padding(.top)
                         .onTapGesture {
                             if let selectedAction {
-                                selectedAction(seed)
+                                selectedAction(world)
                             }
                             dismiss()
                         }
@@ -34,5 +34,5 @@ struct WorldSelectionView: View {
 }
 
 #Preview {
-    WorldSelectionView(items: [])
+    WorldSelectionView(worlds: [])
 }

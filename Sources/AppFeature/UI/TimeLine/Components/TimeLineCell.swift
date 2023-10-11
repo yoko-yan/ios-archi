@@ -43,7 +43,7 @@ struct TimeLineCell: View {
                         Spacer()
                         HStack {
                             Image(systemName: "globe.desk")
-                            Text(item.seed?.text ?? "-")
+                            Text(item.world?.seed?.text ?? "-")
                         }
                     }
                     .foregroundColor(.white)
@@ -62,7 +62,7 @@ struct TimeLineCell: View {
         Item(
             id: UUID().uuidString,
             coordinates: Coordinates(x: 100, y: 20, z: 300),
-            seed: Seed(rawValue: 500),
+            world: nil,
             createdAt: Date(),
             updatedAt: Date()
         ),
@@ -76,7 +76,7 @@ struct TimeLineCell: View {
         Item(
             id: UUID().uuidString,
             coordinates: Coordinates(x: 100, y: 20, z: 300),
-            seed: Seed(rawValue: 500),
+            world: nil,
             createdAt: Date(),
             updatedAt: Date()
         ),

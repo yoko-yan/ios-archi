@@ -11,7 +11,7 @@ import UIKit
 enum WorldEditViewAction: Equatable {
     case clearSeed
     case getSeed(image: UIImage)
-    case setSeedd(seed: Seed)
+    case setSeed(seed: Seed)
     case onRegisterButtonClick
     case onRegister
     case onUpdateButtonClick
@@ -49,10 +49,10 @@ final class WorldEditItemViewModel: ObservableObject {
         )
     }
 
-    init(item: Item?) {
+    init(world: World?) {
         uiState = .init(
-            editMode: WorldEditItemUiState.EditMode(item: item),
-            input: WorldEditItemUiState.Input(item: item)
+            editMode: WorldEditItemUiState.EditMode(world: world),
+            input: WorldEditItemUiState.Input(world: world)
         )
     }
 
@@ -73,7 +73,7 @@ final class WorldEditItemViewModel: ObservableObject {
 //                let seed = try await GetSeed2UseCaseImpl().execute(image: image)
                 uiState.input.seed = seed
 
-            case let .setSeedd(seed: seed):
+            case let .setSeed(seed: seed):
                 uiState.input.seed = seed
 
             case .onRegisterButtonClick:
@@ -81,7 +81,7 @@ final class WorldEditItemViewModel: ObservableObject {
 
             case .onRegister:
                 guard case .add = uiState.editMode else { fatalError() }
-                try await ItemRepository().insert(item: uiState.editItem)
+                try await WorldsRepository().insert(world: uiState.editItem)
                 uiState.event = .updated
                 await send(.onAlertDismiss)
 
@@ -90,7 +90,7 @@ final class WorldEditItemViewModel: ObservableObject {
 
             case .onUpdate:
                 guard case .update = uiState.editMode else { fatalError() }
-                try await ItemRepository().update(item: uiState.editItem)
+                try await WorldsRepository().update(world: uiState.editItem)
                 uiState.event = .updated
                 await send(.onAlertDismiss)
 
@@ -101,17 +101,13 @@ final class WorldEditItemViewModel: ObservableObject {
                 uiState.confirmationAlert = .confirmDeletion(.onDelete)
 
             case .onDelete:
-                guard case .update = uiState.editMode, let item = uiState.editMode.item else { return }
+                guard case .update = uiState.editMode, let world = uiState.editMode.world else { return }
 
-                try await ItemRepository().delete(item: item)
+                try await WorldsRepository().delete(world: world)
                 uiState.event = .deleted
 
             case .onCloseButtonTap:
-                if uiState.editItem.seed == uiState.editMode.item?.seed,
-                   uiState.editItem.coordinates == uiState.editMode.item?.coordinates,
-                   uiState.editItem.coordinatesImageName == uiState.editMode.item?.coordinatesImageName,
-                   uiState.editItem.seedImageName == uiState.editMode.item?.seedImageName
-                {
+                if uiState.editItem.seed == uiState.editMode.world?.seed {
                     uiState.event = .dismiss
                 } else {
                     uiState.confirmationAlert = .confirmDismiss(.onDismiss)

@@ -28,16 +28,19 @@ struct EditItemView: View {
 
                         HStack {
                             NavigationLink {
-                                WorldSelectionView(items: viewModel.uiState.worlds, selected: viewModel.uiState.editMode.item?.seed) { seed in
+                                WorldSelectionView(
+                                    worlds: viewModel.uiState.worlds,
+                                    selected: viewModel.uiState.editMode.item?.world
+                                ) { world in
                                     Task {
-                                        await viewModel.send(.setSeed(seed: seed))
+                                        await viewModel.send(.set(world: world))
                                     }
                                 }
                             } label: {
                                 HStack {
                                     Label("seed", systemImage: "globe.desk")
                                     Spacer()
-                                    Text(viewModel.uiState.editItem.seed?.text ?? "未登録")
+                                    Text(viewModel.uiState.editItem.world?.seed?.text ?? "未登録")
                                     Image(systemName: "chevron.right")
                                 }
                                 .padding(.horizontal)
@@ -193,7 +196,7 @@ private extension View {
         Item(
             id: "",
             coordinates: Coordinates(x: 100, y: 20, z: 300),
-            seed: Seed(rawValue: 500),
+            world: nil,
             createdAt: Date(),
             updatedAt: Date()
         )

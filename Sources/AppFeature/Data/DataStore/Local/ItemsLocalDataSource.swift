@@ -6,31 +6,8 @@ import CoreData
 import Foundation
 
 struct ItemsLocalDataSource {
-    let container: NSPersistentContainer
-
-    init() {
-        let modelURL = Bundle.module.url(forResource: "Model", withExtension: "momd")! // swiftlint:disable:this force_unwrapping
-        let model = NSManagedObjectModel(contentsOf: modelURL)! // swiftlint:disable:this force_unwrapping
-        container = NSPersistentCloudKitContainer(name: "Model", managedObjectModel: model)
-        container.loadPersistentStores { _, error in
-            if error != nil {
-                fatalError("Cannot Load Core Data Model")
-            }
-        }
-    }
-
-    private func getEntityById(_ id: UUID) async throws -> ItemEntity? {
-        let request = ItemEntity.fetchRequest()
-        request.fetchLimit = 1
-        request.predicate = NSPredicate(
-            format: "id = %@", id.uuidString
-        )
-        let context = container.viewContext
-        var itemEntity: ItemEntity?
-        try await context.perform { [context] in
-            itemEntity = try context.fetch(request)[0]
-        }
-        return itemEntity
+    private var context: NSManagedObjectContext {
+        CoreDataManager.shared.viewContext
     }
 
     func save(items: [Item]) async throws {
@@ -41,14 +18,15 @@ struct ItemsLocalDataSource {
     func load() async throws -> [Item] {
         let request = ItemEntity.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(keyPath: \ItemEntity.createdAt, ascending: false)]
-        guard let result = try? container.viewContext.fetch(request)
+        guard let result = try? context.fetch(request)
         else { fatalError() }
 
-        return result.map { itemEntity in
+        var values = [Item]()
+        for entity in result {
             let coordinates: Coordinates?
-            if let entityCoordinatesX = itemEntity.coordinatesX,
-               let entityCoordinatesY = itemEntity.coordinatesY,
-               let entityCoordinatesZ = itemEntity.coordinatesZ,
+            if let entityCoordinatesX = entity.coordinatesX,
+               let entityCoordinatesY = entity.coordinatesY,
+               let entityCoordinatesZ = entity.coordinatesZ,
                let coordinatesX = Int(entityCoordinatesX),
                let coordinatesY = Int(entityCoordinatesY),
                let coordinatesZ = Int(entityCoordinatesZ)
@@ -61,125 +39,63 @@ struct ItemsLocalDataSource {
             } else {
                 coordinates = nil
             }
-            let seed: Seed?
-            if let entitySeedValue = itemEntity.seed,
-               let seedValue = Int(entitySeedValue)
-            {
-                seed = Seed(rawValue: seedValue)
-            } else {
-                seed = nil
+            var world: World?
+            if let worldId = entity.world {
+                world = try await WorldsLocalDataSource().getById(worldId)
             }
-            return Item(
-                id: itemEntity.id!.uuidString,
-                coordinates: coordinates,
-                seed: seed,
-                coordinatesImageName: itemEntity.coordinatesImageName,
-                seedImageName: itemEntity.seedImageName,
-                createdAt: itemEntity.createdAt ?? Date(),
-                updatedAt: itemEntity.updatedAt ?? Date()
+            values.append(
+                Item(
+                    id: entity.id!.uuidString,
+                    coordinates: coordinates,
+                    world: world,
+                    coordinatesImageName: entity.spotImageName,
+                    createdAt: entity.createdAt ?? Date(),
+                    updatedAt: entity.updatedAt ?? Date()
+                )
             )
         }
+        return values
     }
 
     func insert(item: Item) async throws {
-        let itemEntity = ItemEntity(context: container.viewContext)
-        itemEntity.id = UUID(uuidString: item.id)
+        let entity = ItemEntity(context: context)
+        entity.id = UUID(uuidString: item.id)
         if let coordinates = item.coordinates {
-            itemEntity.coordinatesX = String(coordinates.x)
-            itemEntity.coordinatesY = String(coordinates.y)
-            itemEntity.coordinatesZ = String(coordinates.z)
+            entity.coordinatesX = String(coordinates.x)
+            entity.coordinatesY = String(coordinates.y)
+            entity.coordinatesZ = String(coordinates.z)
         }
-        if let seed = item.seed?.rawValue {
-            itemEntity.seed = String(seed)
+        if let world = item.world {
+            entity.world = UUID(uuidString: world.id)
         }
-        itemEntity.coordinatesImageName = item.coordinatesImageName
-        itemEntity.seedImageName = item.seedImageName
-        itemEntity.createdAt = Date()
-        itemEntity.updatedAt = Date()
-        saveContext()
+        entity.spotImageName = item.coordinatesImageName
+        entity.createdAt = Date()
+        entity.updatedAt = Date()
+        CoreDataManager.shared.saveContext()
     }
 
     func update(item: Item) async throws {
         guard let id = UUID(uuidString: item.id),
-              let itemEntity = try? await getEntityById(id)
+              let entity = try? await CoreDataDataSource<ItemEntity>.read(id: id)
         else { fatalError() }
-        itemEntity.id = UUID(uuidString: item.id)
+        entity.id = UUID(uuidString: item.id)
         if let coordinates = item.coordinates {
-            itemEntity.coordinatesX = String(coordinates.x)
-            itemEntity.coordinatesY = String(coordinates.y)
-            itemEntity.coordinatesZ = String(coordinates.z)
+            entity.coordinatesX = String(coordinates.x)
+            entity.coordinatesY = String(coordinates.y)
+            entity.coordinatesZ = String(coordinates.z)
         }
-        if let seed = item.seed?.rawValue {
-            itemEntity.seed = String(seed)
+        if let world = item.world {
+            entity.world = UUID(uuidString: world.id)
         }
-        itemEntity.coordinatesImageName = item.coordinatesImageName
-        itemEntity.seedImageName = item.seedImageName
-        itemEntity.createdAt = item.createdAt
-        itemEntity.updatedAt = Date()
-        saveContext()
+        entity.spotImageName = item.coordinatesImageName
+        entity.createdAt = item.createdAt
+        entity.updatedAt = Date()
+        CoreDataManager.shared.saveContext()
     }
 
     func delete(item: Item) async throws {
-        guard let id = UUID(uuidString: item.id),
-              let itemEntity = try? await getEntityById(id)
+        guard let id = UUID(uuidString: item.id)
         else { fatalError() }
-        let context = container.viewContext
-        context.delete(itemEntity)
-        do {
-            try context.save()
-        } catch {
-            context.rollback()
-            fatalError("Error: \(error.localizedDescription)")
-        }
-    }
-
-    private func saveContext() {
-        let context = container.viewContext
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                fatalError("Error: \(error.localizedDescription)")
-            }
-        }
+        try await CoreDataDataSource<ItemEntity>.delete(id: id)
     }
 }
-
-// import Foundation
-// import CoreData
-//
-// struct ItemsLocalDataSource: ItemsDataSource {
-//    private static let key = "ItemsDataStoreInStorage"
-//
-//    func save(items: [Item]) async throws {
-//        guard let data = try? JSONEncoder().encode(items) else { fatalError() }
-//        UserDefaults.standard.set(data, forKey: Self.key)
-//    }
-//
-//    func load() async throws -> [Item] {
-//        guard let data = UserDefaults.standard.object(forKey: Self.key) as? Data,
-//              let items = try? JSONDecoder().decode([Item].self, from: data)
-//        else { return [] }
-//        return items.sorted(by: { $0.createdAt < $1.createdAt })
-//    }
-//
-//    func insert(item: Item) async throws {
-//        // TODO:
-//        fatalError()
-//    }
-//
-//    func update(item: Item) async throws {
-//        var items = try await load()
-//        if let index = items.firstIndex(where: { $0.id == item.id }) {
-//            items[index] = item
-//        } else {
-//            items.append(item)
-//        }
-//        try await save(items: items)
-//    }
-//
-//    func delete(item: Item) async throws {
-//        // TODO:
-//        fatalError()
-//    }
-// }

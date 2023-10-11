@@ -64,7 +64,7 @@ struct WorldEditItemUiState: Equatable {
 
     enum EditMode: Equatable {
         case add
-        case update(Item)
+        case update(World)
 
         var title: String {
             switch self {
@@ -80,18 +80,18 @@ struct WorldEditItemUiState: Equatable {
             }
         }
 
-        init(item: Item?) {
-            if let item {
-                self = .update(item)
+        init(world: World?) {
+            if let world {
+                self = .update(world)
             } else {
                 self = .add
             }
         }
 
-        var item: Item? {
+        var world: World? {
             switch self {
             case .add: return nil
-            case let .update(item): return item
+            case let .update(world): return world
             }
         }
     }
@@ -101,12 +101,9 @@ struct WorldEditItemUiState: Equatable {
         var seed: Seed?
         var seedImageName: String?
 
-        init(item: Item?) {
-            id = item?.id
-            if let seed = item?.seed {
-                self.seed = seed
-            }
-            seedImageName = item?.seedImageName
+        init(world: World?) {
+            id = world?.id
+            seed = world?.seed
         }
     }
 
@@ -116,26 +113,20 @@ struct WorldEditItemUiState: Equatable {
     var event: Event?
     var input: Input
     var seedImage: UIImage?
-    var worlds: [Seed] = []
+    var seed: [World] = []
 
-    var editItem: Item {
-        Item(
+    var editItem: World {
+        World(
             id: input.id ?? UUID().uuidString,
-            coordinates: nil,
+            name: "",
             seed: input.seed,
-            coordinatesImageName: nil,
-            seedImageName: input.seedImageName,
-            createdAt: editMode.item?.createdAt ?? Date(),
-            updatedAt: editMode.item?.updatedAt ?? Date()
+            createdAt: editMode.world?.createdAt ?? Date(),
+            updatedAt: editMode.world?.updatedAt ?? Date()
         )
     }
 
     var isChanged: Bool {
-        if editItem.seed == editMode.item?.seed,
-           editItem.coordinates == editMode.item?.coordinates,
-           editItem.coordinatesImageName == editMode.item?.coordinatesImageName,
-           editItem.seedImageName == editMode.item?.seedImageName
-        {
+        if editItem.seed == editMode.world?.seed {
             false
         } else {
             true

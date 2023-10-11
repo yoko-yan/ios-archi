@@ -29,22 +29,22 @@ final class WorldListViewModel: ObservableObject {
         switch action {
         case .load:
             Task {
-                uiState.items = try await ItemRepository().allSeeds()
+                uiState.worlds = try await WorldsRepository().load()
             }
 
         case .reload:
             send(.load)
 
         case let .onDeleteButtonClick(offsets: offsets):
-            print(offsets.map { uiState.items[$0] })
-            uiState.deleteItems = offsets.map { uiState.items[$0] }
+            print(offsets.map { uiState.worlds[$0] })
+            uiState.deleteWorlds = offsets.map { uiState.worlds[$0] }
             uiState.deleteAlertMessage = "削除しますか？"
 
         case .onDelete:
-            if let deleteItems = uiState.deleteItems {
-                deleteItems.forEach { _ in
+            if let deleteWorlds = uiState.deleteWorlds {
+                deleteWorlds.forEach { world in
                     Task {
-//                        try await ItemRepository().delete(item: item)
+                        try await WorldsRepository().delete(world: world)
                         send(.reload)
                     }
                 }
@@ -55,9 +55,5 @@ final class WorldListViewModel: ObservableObject {
         case .onDeleteAlertDismiss:
             uiState.deleteAlertMessage = nil
         }
-    }
-
-    func loadImage(fileName: String?) -> UIImage? {
-        ImageRepository().load(fileName: fileName)
     }
 }

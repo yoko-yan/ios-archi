@@ -7,8 +7,8 @@ import SwiftUI
 struct WorldEditItemView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject private var viewModel: WorldEditItemViewModel
-    private let onTapDelete: ((Item) -> Void)?
-    private let onTapDismiss: ((Item) -> Void)?
+    private let onTapDelete: ((World) -> Void)?
+    private let onTapDismiss: ((World) -> Void)?
 
     var body: some View {
         NavigationStack {
@@ -125,8 +125,8 @@ struct WorldEditItemView: View {
         .interactiveDismissDisabled(viewModel.uiState.isChanged)
     }
 
-    init(item: Item? = nil, onTapDelete: ((Item) -> Void)? = nil, onTapDismiss: ((Item) -> Void)? = nil) {
-        _viewModel = StateObject(wrappedValue: WorldEditItemViewModel(item: item))
+    init(world: World? = nil, onTapDelete: ((World) -> Void)? = nil, onTapDismiss: ((World) -> Void)? = nil) {
+        _viewModel = StateObject(wrappedValue: WorldEditItemViewModel(world: world))
         self.onTapDelete = onTapDelete
         self.onTapDismiss = onTapDismiss
     }
@@ -159,11 +159,10 @@ private extension View {
 
 #Preview {
     WorldEditItemView(
-        item:
-        Item(
+        world: World(
             id: "",
-            coordinates: Coordinates(x: 100, y: 20, z: 300),
-            seed: Seed(rawValue: 500),
+            name: "自分の世界",
+            seed: Seed("111111"),
             createdAt: Date(),
             updatedAt: Date()
         )

@@ -39,7 +39,7 @@ struct SpotCell: View {
         Item(
             id: UUID().uuidString,
             coordinates: Coordinates(x: 100, y: 20, z: 300),
-            seed: Seed(rawValue: 500),
+            world: nil,
             createdAt: Date(),
             updatedAt: Date()
         ),
@@ -53,7 +53,7 @@ struct SpotCell: View {
         Item(
             id: UUID().uuidString,
             coordinates: Coordinates(x: 100, y: 20, z: 300),
-            seed: Seed(rawValue: 500),
+            world: nil,
             createdAt: Date(),
             updatedAt: Date()
         ),
