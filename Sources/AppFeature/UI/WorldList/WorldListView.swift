@@ -69,11 +69,10 @@ private extension View {
     ) -> some View {
         alert(
             "確認",
-            isPresented: .init(get: {
-                message != nil
-            }, set: { _ in
-                onDismiss()
-            }),
+            isPresented: .init(
+                get: { message != nil },
+                set: { _ in onDismiss() }
+            ),
             presenting: message
         ) { _ in
             Button("削除する", role: .destructive, action: {

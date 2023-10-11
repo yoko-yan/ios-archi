@@ -141,11 +141,10 @@ private extension View {
     ) -> some View {
         confirmationDialog(
             "確認",
-            isPresented: .init(get: {
-                alertType?.message != nil
-            }, set: { _ in
-                onDismiss()
-            }),
+            isPresented: .init(
+                get: { alertType?.message != nil },
+                set: { _ in onDismiss() }
+            ),
             presenting: alertType
         ) { _ in
             Button("キャンセル", role: .cancel, action: {})

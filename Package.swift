@@ -19,8 +19,17 @@ let package = Package(
     ],
     targets: [
         .target(
+            name: "Core",
+            swiftSettings: [
+                .unsafeFlags([
+                    "-strict-concurrency=complete"
+                ])
+            ]
+        ),
+        .target(
             name: "AppFeature",
             dependencies: [
+                "Core",
                 .product(name: "Dependencies", package: "swift-dependencies")
             ],
             swiftSettings: [
