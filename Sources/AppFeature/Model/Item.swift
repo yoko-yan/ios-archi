@@ -9,7 +9,6 @@ struct Item: Identifiable, Hashable, Codable {
     var coordinates: Coordinates?
     var world: World?
     var spotImageName: String?
-    var seedImageName: String?
     var createdAt: Date
     var updatedAt: Date
 }

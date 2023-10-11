@@ -4,9 +4,9 @@
 
 import SwiftUI
 
-struct DetailView: View {
+struct ItemDetailView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject private var viewModel: DetailViewModel
+    @StateObject private var viewModel: ItemDetailViewModel
     @State private var isEditView = false
     @State private var isBiomeFinderView = false
 
@@ -87,7 +87,7 @@ struct DetailView: View {
             )
         }
         .sheet(isPresented: $isEditView) {
-            EditItemView(
+            ItemEditView(
                 item: viewModel.uiState.item,
                 onTapDelete: { _ in
                     dismiss()
@@ -99,12 +99,12 @@ struct DetailView: View {
     }
 
     init(item: Item) {
-        _viewModel = StateObject(wrappedValue: DetailViewModel(item: item))
+        _viewModel = StateObject(wrappedValue: ItemDetailViewModel(item: item))
     }
 }
 
 #Preview {
-    DetailView(
+    ItemDetailView(
         item: Item(
             id: UUID().uuidString,
             coordinates: .zero,
@@ -116,7 +116,7 @@ struct DetailView: View {
 }
 
 #Preview {
-    DetailView(
+    ItemDetailView(
         item: Item(
             id: UUID().uuidString,
             coordinates: nil,
@@ -128,7 +128,7 @@ struct DetailView: View {
 }
 
 #Preview {
-    DetailView(
+    ItemDetailView(
         item: Item(
             id: UUID().uuidString,
             coordinates: Coordinates(x: 100, y: 20, z: 300),

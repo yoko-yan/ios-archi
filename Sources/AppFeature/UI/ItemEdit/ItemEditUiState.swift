@@ -6,11 +6,11 @@ import Foundation
 import SwiftUI
 import UIKit
 
-struct EditItemUiState: Equatable {
+struct ItemEditUiState: Equatable {
     enum AlertType: Equatable {
-        case confirmUpdate(EditViewAction)
-        case confirmDeletion(EditViewAction)
-        case confirmDismiss(EditViewAction)
+        case confirmUpdate(ItemEditViewAction)
+        case confirmDeletion(ItemEditViewAction)
+        case confirmDismiss(ItemEditViewAction)
 
         var message: String {
             switch self {
@@ -48,7 +48,7 @@ struct EditItemUiState: Equatable {
             }
         }
 
-        var action: EditViewAction {
+        var action: ItemEditViewAction {
             switch self {
             case let .confirmUpdate(action), let .confirmDismiss(action), let .confirmDeletion(action):
                 return action
@@ -126,7 +126,6 @@ struct EditItemUiState: Equatable {
             coordinates: Coordinates(input.coordinates ?? ""),
             world: input.world,
             spotImageName: input.spotImageName,
-            seedImageName: nil,
             createdAt: editMode.item?.createdAt ?? Date(),
             updatedAt: editMode.item?.updatedAt ?? Date()
         )
@@ -135,8 +134,7 @@ struct EditItemUiState: Equatable {
     var isChanged: Bool {
         if editItem.world == editMode.item?.world,
            editItem.coordinates == editMode.item?.coordinates,
-           editItem.spotImageName == editMode.item?.spotImageName,
-           editItem.seedImageName == editMode.item?.seedImageName
+           editItem.spotImageName == editMode.item?.spotImageName
         {
             false
         } else {

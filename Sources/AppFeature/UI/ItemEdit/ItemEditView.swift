@@ -4,9 +4,9 @@
 
 import SwiftUI
 
-struct EditItemView: View {
+struct ItemEditView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject private var viewModel: EditItemViewModel
+    @StateObject private var viewModel: ItemEditViewModel
     private let onTapDelete: ((Item) -> Void)?
     private let onTapDismiss: ((Item) -> Void)?
 
@@ -158,7 +158,7 @@ struct EditItemView: View {
     }
 
     init(item: Item? = nil, onTapDelete: ((Item) -> Void)? = nil, onTapDismiss: ((Item) -> Void)? = nil) {
-        _viewModel = StateObject(wrappedValue: EditItemViewModel(item: item))
+        _viewModel = StateObject(wrappedValue: ItemEditViewModel(item: item))
         self.onTapDelete = onTapDelete
         self.onTapDismiss = onTapDismiss
     }
@@ -166,7 +166,7 @@ struct EditItemView: View {
 
 private extension View {
     func confirmationAlert(
-        alertType: EditItemUiState.AlertType?,
+        alertType: ItemEditUiState.AlertType?,
         onConfirmed: @escaping () -> Void,
         onDismiss: @escaping () -> Void
     ) -> some View {
@@ -191,7 +191,7 @@ private extension View {
 }
 
 #Preview {
-    EditItemView(
+    ItemEditView(
         item:
         Item(
             id: "",
@@ -204,5 +204,5 @@ private extension View {
 }
 
 #Preview {
-    EditItemView()
+    ItemEditView()
 }

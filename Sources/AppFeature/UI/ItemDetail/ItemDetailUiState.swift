@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-struct DetailUiState: Equatable {
+struct ItemDetailUiState: Equatable {
     var item: Item
     var spotImageName: UIImage?
 }

@@ -33,7 +33,7 @@ struct TimeLineView: View {
                 viewModel.send(.load)
             }
             .navigationDestination(for: Item.self) { item in
-                DetailView(item: item)
+                ItemDetailView(item: item)
             }
 
             FloatingButton(action: {
@@ -48,7 +48,7 @@ struct TimeLineView: View {
         .navigationBarTitle(Text("ホーム"))
         .toolbarBackground(.visible, for: .navigationBar)
         .sheet(isPresented: $isShowDetailView) {
-            EditItemView(
+            ItemEditView(
                 onTapDismiss: { _ in
                     viewModel.send(.reload)
                 }

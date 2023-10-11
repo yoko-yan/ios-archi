@@ -8,7 +8,7 @@ import UIKit
 
 // MARK: - Action
 
-enum EditViewAction: Equatable {
+enum ItemEditViewAction: Equatable {
     case clearSeed
     case clearCoordinates
     case getCoordinates(image: UIImage)
@@ -30,12 +30,12 @@ enum EditViewAction: Equatable {
 // MARK: - View model
 
 @MainActor
-final class EditItemViewModel: ObservableObject {
-    @Published private(set) var uiState: EditItemUiState
+final class ItemEditViewModel: ObservableObject {
+    @Published private(set) var uiState: ItemEditUiState
 
     private var cancellables: Set<AnyCancellable> = []
 
-    var input: Binding<EditItemUiState.Input> {
+    var input: Binding<ItemEditUiState.Input> {
         Binding(
             get: { self.uiState.input },
             set: { newValue in
@@ -54,9 +54,9 @@ final class EditItemViewModel: ObservableObject {
     }
 
     init(item: Item?) {
-        uiState = EditItemUiState(
-            editMode: EditItemUiState.EditMode(item: item),
-            input: EditItemUiState.Input(item: item)
+        uiState = ItemEditUiState(
+            editMode: ItemEditUiState.EditMode(item: item),
+            input: ItemEditUiState.Input(item: item)
         )
     }
 
@@ -66,7 +66,7 @@ final class EditItemViewModel: ObservableObject {
 
     // FIXME:
     // swiftlint:disable:next cyclomatic_complexity
-    func send(_ action: EditViewAction) async {
+    func send(_ action: ItemEditViewAction) async {
         do {
             switch action {
             case .clearSeed:
@@ -95,7 +95,9 @@ final class EditItemViewModel: ObservableObject {
                 }
 
             case .loadImage:
-                uiState.spotImage = ImageRepository().load(fileName: uiState.input.spotImageName)
+                if uiState.spotImage == nil {
+                    uiState.spotImage = ImageRepository().load(fileName: uiState.input.spotImageName)
+                }
 
             case .onRegisterButtonClick:
                 await send(.onRegister)

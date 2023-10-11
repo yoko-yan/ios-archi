@@ -9,11 +9,11 @@ import UIKit
 // MARK: - View model
 
 @MainActor
-final class DetailViewModel: ObservableObject {
-    @Published private(set) var uiState: DetailUiState
+final class ItemDetailViewModel: ObservableObject {
+    @Published private(set) var uiState: ItemDetailUiState
 
     init(item: Item) {
-        uiState = DetailUiState(item: item)
+        uiState = ItemDetailUiState(item: item)
     }
 
     func loadImage() {

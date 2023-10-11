@@ -25,7 +25,7 @@ struct SpotListView: View {
             .padding(.horizontal)
             .padding(.top)
             .navigationDestination(for: Item.self) { item in
-                DetailView(item: item)
+                ItemDetailView(item: item)
             }
         }
         .task {
