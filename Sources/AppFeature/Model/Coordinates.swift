@@ -6,7 +6,7 @@ import Foundation
 import RegexBuilder
 
 struct Coordinates: Hashable, Codable {
-    public static var zero: Self { .init(x: 0, y: 0, z: 0)! }
+    public static var zero: Self { .init(x: 0, y: 0, z: 0)! } // swiftlint:disable:this force_unwrapping
     public static let regex = Regex {
         TryCapture {
             Optionally("-")
@@ -53,7 +53,7 @@ struct Coordinates: Hashable, Codable {
     }
 
     init?(_ value: String) {
-        if let match = value.firstMatch(of: Coordinates.regex) {
+        if let match = value.firstMatch(of: Self.regex) {
             let (_, x, y, z) = match.output
             self.x = x
             self.y = y

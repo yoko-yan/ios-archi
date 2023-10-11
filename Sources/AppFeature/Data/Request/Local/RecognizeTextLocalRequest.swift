@@ -69,6 +69,7 @@ struct RecognizeTextLocalRequest {
                 switch result {
                 case let .success(texts):
                     continuation.resume(returning: texts)
+
                 case let .failure(error):
                     continuation.resume(throwing: error)
                 }

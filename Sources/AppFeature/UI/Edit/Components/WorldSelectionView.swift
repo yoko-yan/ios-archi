@@ -8,8 +8,8 @@ struct WorldSelectionView: View {
     @Environment(\.dismiss) var dismiss
 
     let items: [Seed]
-    var selected: Seed? = nil
-    var selectedAction: ((_ selected: Seed) -> Void)? = nil
+    var selected: Seed?
+    var selectedAction: ((_ selected: Seed) -> Void)?
 
     var body: some View {
         ZStack {

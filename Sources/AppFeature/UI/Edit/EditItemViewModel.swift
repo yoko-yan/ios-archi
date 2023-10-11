@@ -65,6 +65,8 @@ final class EditItemViewModel: ObservableObject {
         uiState.event = nil
     }
 
+    // FIXME:
+    // swiftlint:disable:next cyclomatic_complexity
     func send(_ action: EditViewAction) async {
         do {
             switch action {

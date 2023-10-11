@@ -6,6 +6,10 @@ disabled_rules:
   - empty_enum_arguments # enumの引数を省略したいため
 
   # opt-inルールの中で無効にするルール
+  - accessibility_label_for_image #いまはアクセシビリティ対応はしないため
+  - accessibility_trait_for_button #いまはアクセシビリティ対応はしないため
+  - anonymous_argument_in_multiline_closure # Closureの引数を省略したいため
+  - attributes # property wrapper は1行で書きたいため
   - conditional_returns_on_newline # ガード文などは簡潔に一行で記述したいため
   - discouraged_optional_collection # PHImageManagerの既存仕様のため
   - explicit_acl # できる限りACLを省略したいため
@@ -14,6 +18,7 @@ disabled_rules:
   - explicit_type_interface # 型推論を利用したいため
   - fatal_error_message # メッセージは不要なため
   - file_header # ヘッダには特に決まりがないため
+  - file_types_order # なぜか指摘されることがあるため
   - indentation_width # SwiftFormatと競合するため
   - lower_acl_than_parent # 対応不可のため
   - no_extension_access_modifier # extension_access_modifierを優先するため
@@ -26,6 +31,7 @@ disabled_rules:
   - strict_fileprivate # fileprivateを利用したいため
   - switch_case_on_newline # caseと同じ行に記述したいため
   - trailing_closure # RxSwiftのOnNextでwarningが出るため
+  - vertical_parameter_alignment_on_call # なぜか指摘されることがあるため
 
 # defaultルール以外にopt-inから採用するルール
 # Pods/SwiftLint/swiftlint rules | awk -F "|" '$3 ~ "yes" && $7 ~ "no" { print $2 }' | tr -d ' ' | sed 's/^/  - /' | pbcopy
@@ -166,6 +172,9 @@ analyzer_rules:
   # - typesafe_array_init
   # - unused_declaration
   # - unused_import
+
+included:
+  - Sources
 
 excluded:
   - Pods

@@ -5,7 +5,7 @@
 import Foundation
 
 struct Seed: RawRepresentable, Hashable, Codable {
-    public static var zero: Self { .init(rawValue: 0)! }
+    public static var zero: Self { .init(rawValue: 0)! } // swiftlint:disable:this force_unwrapping
 
     var rawValue: Int
 

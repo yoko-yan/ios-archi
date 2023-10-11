@@ -21,5 +21,5 @@ struct WorldListCell: View {
 }
 
 #Preview {
-    WorldListCell(seed: Seed(rawValue: 500)!)
+    WorldListCell(seed: Seed(rawValue: 500)!) // swiftlint:disable:this force_unwrapping
 }

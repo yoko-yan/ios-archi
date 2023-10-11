@@ -69,7 +69,7 @@ struct SpotImageView: View {
 
 #Preview {
     SpotImageView(
-        image: .constant(UIImage(named: "sample-coordinates", in: Bundle.module, with: nil)!)
+        image: .constant(UIImage(named: "sample-coordinates", in: Bundle.module, with: nil)!) // swiftlint:disable:this force_unwrapping
     )
 }
 

@@ -9,7 +9,7 @@ struct WorldListView: View {
     @State private var isShowDetailView = false
 
     @Binding var navigatePath: NavigationPath
-    var selectedAction: ((_ selected: Seed) -> Void)? = nil
+    var selectedAction: ((_ selected: Seed) -> Void)?
 
     var body: some View {
         ZStack {

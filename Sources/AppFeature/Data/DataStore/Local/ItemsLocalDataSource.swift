@@ -9,8 +9,8 @@ struct ItemsLocalDataSource {
     let container: NSPersistentContainer
 
     init() {
-        let modelURL = Bundle.module.url(forResource: "Model", withExtension: "momd")!
-        let model = NSManagedObjectModel(contentsOf: modelURL)!
+        let modelURL = Bundle.module.url(forResource: "Model", withExtension: "momd")! // swiftlint:disable:this force_unwrapping
+        let model = NSManagedObjectModel(contentsOf: modelURL)! // swiftlint:disable:this force_unwrapping
         container = NSPersistentCloudKitContainer(name: "Model", managedObjectModel: model)
         container.loadPersistentStores { _, error in
             if error != nil {

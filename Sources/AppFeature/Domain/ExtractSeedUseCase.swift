@@ -17,7 +17,9 @@ struct ExtractSeedUseCaseImpl: ExtractSeedUseCase {
             Capture {
                 Optionally("-")
                 OneOrMore(.digit)
-            } transform: { String($0) }
+            } transform: {
+                String($0)
+            }
         }
 
         // シード値に余計な文字がついてしまったケースを考慮し、読み取れた文字を１つの文字列にして、シード値の形式にマッチするものをSeedにする

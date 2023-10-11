@@ -2,8 +2,6 @@
 //  Created by takayuki.yokoda on 2023/07/03.
 //
 
-import SwiftUI
-
 import Combine
 import SwiftUI
 

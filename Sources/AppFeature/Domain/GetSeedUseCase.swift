@@ -15,6 +15,7 @@ protocol GetSeedUseCase {
 struct GetSeedUseCaseImpl: GetSeedUseCase {
     private let recognizedTextsRepository: RecognizedTextsRepository
     private let extractSeedUseCase: ExtractSeedUseCase
+
     init(
         recognizedTextsRepository: RecognizedTextsRepository = RecognizedTextsRepositoryImpl(),
         extractSeedUseCase: ExtractSeedUseCase = ExtractSeedUseCaseImpl()

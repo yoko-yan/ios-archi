@@ -6,6 +6,7 @@ import Foundation
 
 final class ItemRepository {
     private let dataSource: ItemsLocalDataSource
+
     init(dataSource: ItemsLocalDataSource = ItemsLocalDataSource()) {
         self.dataSource = dataSource
     }

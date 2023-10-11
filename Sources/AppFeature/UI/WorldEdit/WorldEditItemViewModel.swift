@@ -60,6 +60,8 @@ final class WorldEditItemViewModel: ObservableObject {
         uiState.event = nil
     }
 
+    // FIXME:
+    // swiftlint:disable:next cyclomatic_complexity
     func send(_ action: WorldEditViewAction) async {
         do {
             switch action {

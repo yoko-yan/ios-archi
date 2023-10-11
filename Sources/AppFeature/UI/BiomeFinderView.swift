@@ -56,6 +56,6 @@ struct BiomeFinderView: UIViewRepresentable {
 #Preview {
     BiomeFinderView(
         seed: 132431431,
-        coordinates: Coordinates(x: 1500, y: 500, z: -1500)!
+        coordinates: Coordinates(x: 1500, y: 500, z: -1500)! // swiftlint:disable:this force_unwrapping
     )
 }

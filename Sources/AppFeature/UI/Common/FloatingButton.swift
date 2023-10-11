@@ -6,7 +6,7 @@ import Foundation
 import SwiftUI
 
 struct FloatingButton<Content: View>: View {
-    var action: (() -> Void)? = nil
+    var action: (() -> Void)?
     @ViewBuilder var label: () -> Content
 
     var body: some View {

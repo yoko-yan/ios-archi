@@ -11,7 +11,8 @@ struct EditItemView: View {
     private let onTapDismiss: ((Item) -> Void)?
 
     var body: some View {
-        NavigationStack {
+        // FIXME:
+        NavigationStack { // swiftlint:disable:this closure_body_length
             ZStack {
                 ScrollView {
                     VStack(spacing: 10) {

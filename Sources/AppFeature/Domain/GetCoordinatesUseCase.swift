@@ -9,6 +9,7 @@ import UIKit
 
 struct GetCoordinatesUseCaseImpl {
     private let recognizeTextRepository: RecognizedTextsRepository
+
     init(recognizeTextRepository: RecognizedTextsRepository = RecognizedTextsRepositoryImpl()) {
         self.recognizeTextRepository = recognizeTextRepository
     }

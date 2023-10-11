@@ -35,9 +35,9 @@ struct ImagePicker: UIViewControllerRepresentable {
     @Binding var show: Bool
     @Binding var image: UIImage?
     var sourceType: SourceType
-    var allowsEditing: Bool = false
+    var allowsEditing = false
 
-    func makeCoordinator() -> ImagePicker.Coordinator {
+    func makeCoordinator() -> Self.Coordinator {
         Self.Coordinator(parent: self)
     }
 
@@ -47,6 +47,7 @@ struct ImagePicker: UIViewControllerRepresentable {
         switch sourceType {
         case .camera:
             controller.sourceType = UIImagePickerController.SourceType.camera
+
         case .library:
             controller.sourceType = UIImagePickerController.SourceType.photoLibrary
         }
