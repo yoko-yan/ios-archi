@@ -72,6 +72,7 @@ struct SeedEditView: View {
                 }, set: { newValue in
                     seed = Seed(newValue)
                 }))
+                .keyboardType(.numbersAndPunctuation)
                 .multilineTextAlignment(TextAlignment.trailing)
             }
             .padding(.horizontal)
