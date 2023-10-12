@@ -32,24 +32,25 @@ struct TimeLineCell: View {
                         Spacer()
                         Color.black
                             .frame(width: .infinity)
-                            .frame(maxHeight: 50)
+                            .frame(maxHeight: 70)
                             .opacity(0.5)
                     }
-                    HStack {
+                    VStack {
+                        Spacer()
                         HStack {
                             Image(systemName: "location.circle")
                             Text(item.coordinates?.text ?? "-")
+                            Spacer()
                         }
-                        Spacer()
                         HStack {
                             Image(systemName: "globe.desk")
                             Text(item.world?.seed?.text ?? "-")
+                            Spacer()
                         }
                     }
                     .foregroundColor(.white)
                     .padding()
                 }
-                .frame(maxHeight: 40)
             }
         }
         .modifier(CardStyle())

@@ -29,6 +29,25 @@ struct SpotListCell: View {
                             .stroke(Color.gray, lineWidth: 0.5)
                     )
             }
+            VStack {
+                Spacer()
+                ZStack {
+                    VStack {
+                        Spacer()
+                        Color.black
+                            .frame(width: .infinity)
+                            .frame(maxHeight: 14)
+                            .opacity(0.5)
+                    }
+                    VStack(alignment: .leading) {
+                        Spacer()
+                        Text(item.coordinates?.text ?? "-")
+                            .font(.caption2)
+                    }
+                    .foregroundColor(.white)
+                }
+            }
+            .padding(.bottom)
         }
     }
 }
