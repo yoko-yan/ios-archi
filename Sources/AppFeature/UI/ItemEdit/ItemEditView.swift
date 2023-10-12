@@ -95,6 +95,7 @@ struct ItemEditView: View {
                 }
                 .padding()
             }
+            .ignoresSafeArea(.keyboard, edges: .bottom)
             .task {
                 Task {
                     await viewModel.send(.loadImage)

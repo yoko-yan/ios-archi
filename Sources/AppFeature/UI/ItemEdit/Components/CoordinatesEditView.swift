@@ -8,18 +8,21 @@ import SwiftUI
 struct CoordinatesEditView: View {
     @Binding var coordinates: String?
 
+    @FocusState var isInputActive: Bool
+
     var body: some View {
-        VStack {
-            HStack {
-                Label("coordinates", systemImage: "location.circle")
-                Spacer()
-                TextField("未登録", text: .init(get: {
-                    coordinates ?? ""
-                }, set: { newValue in
-                    coordinates = newValue
-                }))
-                .multilineTextAlignment(TextAlignment.trailing)
-            }
+        HStack {
+            Label("coordinates", systemImage: "location.circle")
+            Spacer()
+            TextField(
+                "未登録",
+                text: .init(
+                    get: { coordinates ?? "" },
+                    set: { newValue in coordinates = newValue }
+                )
+            )
+            .keyboardType(.numbersAndPunctuation)
+            .multilineTextAlignment(TextAlignment.trailing)
         }
         .padding(.horizontal)
         .accentColor(.gray)

@@ -70,6 +70,7 @@ struct WorldEditItemView: View {
                 }
                 .padding()
             }
+            .ignoresSafeArea(.keyboard, edges: .bottom)
             .onChange(of: viewModel.uiState) { [oldState = viewModel.uiState] newState in
                 if let seedImage = newState.seedImage, oldState.seedImage != seedImage {
                     Task {
