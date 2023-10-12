@@ -48,4 +48,4 @@
 <br>
 <br>
 
-<img src="docs/res/AppIcon.png" width="100">
+<img src="App/ios-archi/Assets.xcassets/AppIcon.appiconset/AppIcon.png" width="100">
