@@ -103,6 +103,8 @@ struct ItemDetailView: View {
     }
 }
 
+// MARK: - Previews
+
 #Preview {
     ItemDetailView(
         item: Item(

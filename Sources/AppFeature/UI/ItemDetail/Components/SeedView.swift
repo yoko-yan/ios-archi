@@ -19,6 +19,8 @@ struct SeedView: View {
     }
 }
 
+// MARK: - Previews
+
 #Preview {
     SeedView(
         seed: Seed(rawValue: 1234567890)

@@ -29,6 +29,8 @@ struct CoordinatesEditView: View {
     }
 }
 
+// MARK: - Previews
+
 #Preview {
     CoordinatesEditView(
         coordinates: .constant(.init("200,0,-100"))

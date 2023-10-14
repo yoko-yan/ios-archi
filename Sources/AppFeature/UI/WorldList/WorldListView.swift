@@ -84,6 +84,8 @@ private extension View {
     }
 }
 
+// MARK: - Previews
+
 #Preview {
     WorldListView(navigatePath: .constant(NavigationPath()))
 }

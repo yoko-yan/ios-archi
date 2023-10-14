@@ -158,6 +158,8 @@ private extension View {
     }
 }
 
+// MARK: - Previews
+
 #Preview {
     WorldEditItemView(
         world: World(

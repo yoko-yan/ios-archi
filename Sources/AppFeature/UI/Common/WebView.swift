@@ -18,6 +18,8 @@ struct WebView: UIViewRepresentable {
     }
 }
 
+// MARK: - Previews
+
 #Preview {
     WebView(loadUrl: "https://www.chunkbase.com")
 }

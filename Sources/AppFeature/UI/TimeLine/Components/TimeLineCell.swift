@@ -57,6 +57,8 @@ struct TimeLineCell: View {
     }
 }
 
+// MARK: - Previews
+
 #Preview {
     TimeLineCell(
         item:

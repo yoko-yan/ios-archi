@@ -55,6 +55,8 @@ struct SpotListCell: View {
     }
 }
 
+// MARK: - Previews
+
 #Preview {
     SpotListCell(
         item: Item(

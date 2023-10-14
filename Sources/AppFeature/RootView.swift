@@ -67,6 +67,8 @@ public struct RootView: View {
     public init() {}
 }
 
+// MARK: - Previews
+
 #Preview {
     RootView()
 }

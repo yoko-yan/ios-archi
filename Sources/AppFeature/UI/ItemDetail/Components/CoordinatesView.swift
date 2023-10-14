@@ -17,6 +17,8 @@ struct CoordinatesView: View {
     }
 }
 
+// MARK: - Previews
+
 #Preview {
     CoordinatesView(
         coordinates: .init(x: 200, y: 0, z: -100)

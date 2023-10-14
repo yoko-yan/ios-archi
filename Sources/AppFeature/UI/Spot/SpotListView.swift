@@ -46,6 +46,8 @@ struct SpotListView: View {
     }
 }
 
+// MARK: - Previews
+
 #Preview {
     SpotListView(
         viewModel: SpotListViewModel(

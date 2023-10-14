@@ -65,6 +65,8 @@ struct TimeLineView: View {
     }
 }
 
+// MARK: - Previews
+
 #Preview {
     TimeLineView()
 }
