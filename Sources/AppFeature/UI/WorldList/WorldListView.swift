@@ -6,7 +6,7 @@ import SwiftUI
 
 struct WorldListView: View {
     @StateObject private var viewModel: WorldListViewModel = .init()
-    @State private var isShowDetailView = false
+    @State private var isShowEditView = false
 
     @Binding var navigatePath: NavigationPath
     var selectedAction: ((_ selected: World) -> Void)?
@@ -33,7 +33,7 @@ struct WorldListView: View {
             }
 
             FloatingButton(action: {
-                isShowDetailView.toggle()
+                isShowEditView.toggle()
             }, label: {
                 Image(systemName: "plus")
                     .foregroundColor(.white)
@@ -44,7 +44,7 @@ struct WorldListView: View {
         .navigationBarTitle(Text("ワールド一覧"))
 //        .navigationBarItems(trailing: EditButton())
         .toolbarBackground(.visible, for: .navigationBar)
-        .sheet(isPresented: $isShowDetailView) {
+        .sheet(isPresented: $isShowEditView) {
             WorldEditItemView(
                 onTapDismiss: { _ in
                     viewModel.send(.reload)

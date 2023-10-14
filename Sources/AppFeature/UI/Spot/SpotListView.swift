@@ -6,25 +6,36 @@ import SwiftUI
 
 struct SpotListView: View {
     @StateObject private var viewModel: SpotListViewModel
+    @State private var isShowEditView = false
 
     private let columns = [
         GridItem(.adaptive(minimum: 80))
     ]
 
     var body: some View {
-        ScrollView {
-            LazyVGrid(columns: columns, spacing: 8) {
-                ForEach(viewModel.uiState.items, id: \.self) { item in
-                    NavigationLink(value: item) {
-                        let image = viewModel.loadImage(fileName: item.spotImageName)
-                        SpotListCell(item: item, image: image)
+        ZStack {
+            ScrollView {
+                LazyVGrid(columns: columns, spacing: 8) {
+                    ForEach(viewModel.uiState.items, id: \.self) { item in
+                        NavigationLink(value: item) {
+                            let image = viewModel.loadImage(fileName: item.spotImageName)
+                            SpotListCell(item: item, image: image)
+                        }
                     }
                 }
+                .padding(8)
+                .navigationDestination(for: Item.self) { item in
+                    ItemDetailView(item: item)
+                }
             }
-            .padding(8)
-            .navigationDestination(for: Item.self) { item in
-                ItemDetailView(item: item)
-            }
+
+            FloatingButton(action: {
+                isShowEditView.toggle()
+            }, label: {
+                Image(systemName: "plus")
+                    .foregroundColor(.white)
+                    .font(.system(size: 24))
+            })
         }
         .task {
             viewModel.send(.load)
@@ -35,6 +46,13 @@ struct SpotListView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarTitle(Text("スポット一覧"))
         .toolbarBackground(.visible, for: .navigationBar)
+        .sheet(isPresented: $isShowEditView) {
+            ItemEditView(
+                onTapDismiss: { _ in
+                    viewModel.send(.reload)
+                }
+            )
+        }
     }
 
     init() {

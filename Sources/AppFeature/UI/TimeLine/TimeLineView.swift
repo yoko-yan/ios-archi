@@ -6,7 +6,7 @@ import SwiftUI
 
 struct TimeLineView: View {
     @StateObject private var viewModel: TimeLineViewModel
-    @State private var isShowDetailView = false
+    @State private var isShowEditView = false
 
     var body: some View {
         ZStack {
@@ -37,7 +37,7 @@ struct TimeLineView: View {
             }
 
             FloatingButton(action: {
-                isShowDetailView.toggle()
+                isShowEditView.toggle()
             }, label: {
                 Image(systemName: "plus")
                     .foregroundColor(.white)
@@ -47,7 +47,7 @@ struct TimeLineView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarTitle(Text("ホーム"))
         .toolbarBackground(.visible, for: .navigationBar)
-        .sheet(isPresented: $isShowDetailView) {
+        .sheet(isPresented: $isShowEditView) {
             ItemEditView(
                 onTapDismiss: { _ in
                     viewModel.send(.reload)
