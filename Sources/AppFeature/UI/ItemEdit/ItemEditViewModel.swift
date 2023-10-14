@@ -11,9 +11,10 @@ import UIKit
 enum ItemEditViewAction: Equatable {
     case clearSeed
     case clearCoordinates
+    case setCoordinates(String?)
     case getCoordinates(image: UIImage)
     case getWorlds
-    case set(world: World)
+    case setWorld(World)
     case saveImage
     case loadImage
     case onRegisterButtonClick
@@ -34,15 +35,6 @@ final class ItemEditViewModel: ObservableObject {
     @Published private(set) var uiState: ItemEditUiState
 
     private var cancellables: Set<AnyCancellable> = []
-
-    var input: Binding<ItemEditUiState.Input> {
-        Binding(
-            get: { self.uiState.input },
-            set: { newValue in
-                self.uiState.input = newValue
-            }
-        )
-    }
 
     var spotImage: Binding<UIImage?> {
         Binding(
@@ -75,6 +67,9 @@ final class ItemEditViewModel: ObservableObject {
             case .clearCoordinates:
                 uiState.input.coordinates = nil
 
+            case let .setCoordinates(coordinates):
+                uiState.input.coordinates = coordinates
+
             case let .getCoordinates(image):
                 let coordinates = try await GetCoordinatesUseCase().execute(image: image)
                 if let coordinates = coordinates?.text {
@@ -84,7 +79,7 @@ final class ItemEditViewModel: ObservableObject {
             case .getWorlds:
                 uiState.worlds = try await WorldsRepository().load()
 
-            case let .set(world):
+            case let .setWorld(world):
                 uiState.input.world = world
 
             case .saveImage:

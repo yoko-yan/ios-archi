@@ -4,7 +4,7 @@
 
 import SwiftUI
 
-struct SpotImageView: View {
+struct SpotImageEditCell: View {
     @Binding var image: UIImage?
     @State private var isImagePicker = false
     @State private var imageSourceType: ImagePicker.SourceType = .library
@@ -72,13 +72,13 @@ struct SpotImageView: View {
 // MARK: - Previews
 
 #Preview {
-    SpotImageView(
+    SpotImageEditCell(
         image: .constant(UIImage(named: "sample-coordinates", in: Bundle.module, with: nil)!) // swiftlint:disable:this force_unwrapping
     )
 }
 
 #Preview {
-    SpotImageView(
+    SpotImageEditCell(
         image: .constant(nil)
     )
 }

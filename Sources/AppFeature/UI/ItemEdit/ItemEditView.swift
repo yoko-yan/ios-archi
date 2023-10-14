@@ -11,90 +11,27 @@ struct ItemEditView: View {
     private let onTapDismiss: ((Item) -> Void)?
 
     var body: some View {
-        // FIXME:
-        NavigationStack { // swiftlint:disable:this closure_body_length
+        NavigationStack {
             ZStack {
                 ScrollView {
                     VStack(spacing: 10) {
-                        SpotImageView(
+                        SpotImageEditCell(
                             image: viewModel.spotImage
                         )
 
-                        CoordinatesEditView(
-                            coordinates: viewModel.input.coordinates
-                        )
+                        coordinatesEditCell
 
                         Divider()
 
-                        HStack {
-                            NavigationLink {
-                                WorldSelectionView(
-                                    worlds: viewModel.uiState.worlds,
-                                    selected: viewModel.uiState.editMode.item?.world
-                                ) { world in
-                                    Task {
-                                        await viewModel.send(.set(world: world))
-                                    }
-                                }
-                            } label: {
-                                HStack {
-                                    Label("seed", systemImage: "globe.desk")
-                                    Spacer()
-                                    Text(viewModel.uiState.editItem.world?.seed?.text ?? "未登録")
-                                    Image(systemName: "chevron.right")
-                                }
-                                .padding(.horizontal)
-                                .accentColor(.gray)
-                            }
-                        }
+                        worldEditCell
 
                         Color.clear
                             .frame(height: 100)
                     }
                 }
 
-                VStack {
-                    Spacer()
-                    HStack {
-                        if case .update = viewModel.uiState.editMode {
-                            Button(action: {
-                                Task {
-                                    await viewModel.send(.onDeleteButtonClick)
-                                }
-                            }) {
-                                Text("削除する")
-                                    .bold()
-                                    .frame(height: 50)
-                                    .padding(.horizontal)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 8)
-                                            .stroke(Color.red, lineWidth: 1)
-                                    )
-                            }
-                            .foregroundColor(.red)
-                        }
-
-                        Button(action: {
-                            Task {
-                                switch viewModel.uiState.editMode {
-                                case .add:
-                                    await viewModel.send(.onRegisterButtonClick)
-
-                                case .update:
-                                    await viewModel.send(.onUpdateButtonClick)
-                                }
-                            }
-                        }) {
-                            Text(viewModel.uiState.editMode.button)
-                                .bold()
-                                .frame(height: 50)
-                                .frame(maxWidth: .infinity)
-                        }
-                        .buttonStyle(RoundedButtonStyle(color: .red))
-                    }
-                }
-                .padding()
-                .ignoresSafeArea(.keyboard, edges: .bottom)
+                footer
+                    .ignoresSafeArea(.keyboard, edges: .bottom)
             }
             .task {
                 Task {
@@ -162,6 +99,104 @@ struct ItemEditView: View {
         _viewModel = StateObject(wrappedValue: ItemEditViewModel(item: item))
         self.onTapDelete = onTapDelete
         self.onTapDismiss = onTapDismiss
+    }
+}
+
+// MARK: - Privates
+
+private extension ItemEditView {
+    var coordinatesEditCell: some View {
+        HStack {
+            Label("coordinates", systemImage: "location.circle")
+            Spacer()
+            TextField(
+                "未登録",
+                text: .init(
+                    get: { viewModel.uiState.input.coordinates ?? "" },
+                    set: { newValue in
+                        Task {
+                            await viewModel.send(.setCoordinates(newValue))
+                        }
+                    }
+                )
+            )
+            .keyboardType(.numbersAndPunctuation)
+            .multilineTextAlignment(TextAlignment.trailing)
+        }
+        .padding(.horizontal)
+        .accentColor(.gray)
+    }
+
+    var worldEditCell: some View {
+        HStack {
+            NavigationLink {
+                WorldSelectionView(
+                    worlds: viewModel.uiState.worlds,
+                    selected: .init(
+                        get: { viewModel.uiState.input.world },
+                        set: { world in
+                            guard let world else { return }
+                            Task {
+                                await viewModel.send(.setWorld(world))
+                            }
+                        }
+                    )
+                )
+            } label: {
+                HStack {
+                    Label("seed", systemImage: "globe.desk")
+                    Spacer()
+                    Text(viewModel.uiState.input.world?.seed?.text ?? "未登録")
+                    Image(systemName: "chevron.right")
+                }
+                .padding(.horizontal)
+                .accentColor(.gray)
+            }
+        }
+    }
+
+    var footer: some View {
+        VStack {
+            Spacer()
+            HStack {
+                if case .update = viewModel.uiState.editMode {
+                    Button(action: {
+                        Task {
+                            await viewModel.send(.onDeleteButtonClick)
+                        }
+                    }) {
+                        Text("削除する")
+                            .bold()
+                            .frame(height: 50)
+                            .padding(.horizontal)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(Color.red, lineWidth: 1)
+                            )
+                    }
+                    .foregroundColor(.red)
+                }
+
+                Button(action: {
+                    Task {
+                        switch viewModel.uiState.editMode {
+                        case .add:
+                            await viewModel.send(.onRegisterButtonClick)
+
+                        case .update:
+                            await viewModel.send(.onUpdateButtonClick)
+                        }
+                    }
+                }) {
+                    Text(viewModel.uiState.editMode.button)
+                        .bold()
+                        .frame(height: 50)
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(RoundedButtonStyle(color: .red))
+            }
+        }
+        .padding()
     }
 }
 

@@ -13,7 +13,7 @@ struct ItemDetailView: View {
     var body: some View {
         ZStack {
             ScrollView {
-                if let image = viewModel.uiState.spotImageName {
+                if let image = viewModel.uiState.spotImage {
                     Image(uiImage: image)
                         .resizable()
                         .scaledToFit()

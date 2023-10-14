@@ -10,6 +10,7 @@ disabled_rules:
   - accessibility_trait_for_button #いまはアクセシビリティ対応はしないため
   - anonymous_argument_in_multiline_closure # Closureの引数を省略したいため
   - attributes # property wrapper は1行で書きたいため
+  - closure_body_length # SwiftUIのViewで長くなることがあるため
   - conditional_returns_on_newline # ガード文などは簡潔に一行で記述したいため
   - discouraged_optional_collection # PHImageManagerの既存仕様のため
   - explicit_acl # できる限りACLを省略したいため
@@ -181,6 +182,10 @@ excluded:
 
 file_name:
   suffix_pattern: "Extensions?|\\+.*"
+
+line_length:
+  warning: 300
+  error: 500
 
 identifier_name:
   min_length:

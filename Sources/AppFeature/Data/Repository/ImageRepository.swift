@@ -7,7 +7,8 @@ import UIKit
 
 final class ImageRepository {
     private func getFileURL(fileName: String) -> URL {
-        let docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first! // swiftlint:disable:this force_unwrapping
+        // swiftlint:disable:next force_unwrapping
+        let docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         return docDir.appendingPathComponent(fileName)
     }
 

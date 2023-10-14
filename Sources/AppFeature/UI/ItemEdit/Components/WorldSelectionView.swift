@@ -8,8 +8,7 @@ struct WorldSelectionView: View {
     @Environment(\.dismiss) var dismiss
 
     let worlds: [World]
-    var selected: World?
-    var selectedAction: ((_ selected: World) -> Void)?
+    @Binding var selected: World?
 
     var body: some View {
         ZStack {
@@ -17,9 +16,7 @@ struct WorldSelectionView: View {
                 ForEach(worlds, id: \.self) { world in
                     WorldListCell(world: world)
                         .onTapGesture {
-                            if let selectedAction {
-                                selectedAction(world)
-                            }
+                            selected = world
                             dismiss()
                         }
                 }
@@ -35,5 +32,31 @@ struct WorldSelectionView: View {
 // MARK: - Previews
 
 #Preview {
-    WorldSelectionView(worlds: [])
+    WorldSelectionView(
+        worlds: [
+            World(
+                id: "1",
+                name: "自分の世界",
+                seed: .zero,
+                createdAt: Date(),
+                updatedAt: Date()
+            ),
+            World(
+                id: "2",
+                name: "自分の世界",
+                seed: .zero,
+                createdAt: Date(),
+                updatedAt: Date()
+            )
+        ],
+        selected: .constant(
+            World(
+                id: "1",
+                name: "自分の世界",
+                seed: .zero,
+                createdAt: Date(),
+                updatedAt: Date()
+            )
+        )
+    )
 }
