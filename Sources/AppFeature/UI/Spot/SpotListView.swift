@@ -5,7 +5,7 @@
 import SwiftUI
 
 struct SpotListView: View {
-    @StateObject private var viewModel = SpotListViewModel()
+    @StateObject private var viewModel: SpotListViewModel
 
     private let columns = [
         GridItem(.adaptive(minimum: 80))
@@ -13,17 +13,15 @@ struct SpotListView: View {
 
     var body: some View {
         ScrollView {
-            LazyVGrid(columns: columns, spacing: 4) {
+            LazyVGrid(columns: columns, spacing: 8) {
                 ForEach(viewModel.uiState.items, id: \.self) { item in
                     NavigationLink(value: item) {
                         let image = viewModel.loadImage(fileName: item.spotImageName)
                         SpotListCell(item: item, image: image)
-                            .padding(.bottom, 4)
                     }
                 }
             }
-            .padding(.horizontal)
-            .padding(.top)
+            .padding(8)
             .navigationDestination(for: Item.self) { item in
                 ItemDetailView(item: item)
             }
@@ -38,8 +36,37 @@ struct SpotListView: View {
         .navigationBarTitle(Text("スポット一覧"))
         .toolbarBackground(.visible, for: .navigationBar)
     }
+
+    init() {
+        self.init(viewModel: SpotListViewModel())
+    }
+
+    init(viewModel: SpotListViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
 }
 
 #Preview {
-    SpotListView()
+    SpotListView(
+        viewModel: SpotListViewModel(
+            uiState: SpotListUiState(
+                items: [
+                    Item(
+                        id: "",
+                        coordinates: Coordinates(x: 100, y: 20, z: 300),
+                        world: nil,
+                        createdAt: Date(),
+                        updatedAt: Date()
+                    ),
+                    Item(
+                        id: "",
+                        coordinates: Coordinates(x: 100, y: 20, z: 300),
+                        world: nil,
+                        createdAt: Date(),
+                        updatedAt: Date()
+                    )
+                ]
+            )
+        )
+    )
 }

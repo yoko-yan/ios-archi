@@ -193,8 +193,7 @@ private extension View {
 
 #Preview {
     ItemEditView(
-        item:
-        Item(
+        item: Item(
             id: "",
             coordinates: Coordinates(x: 100, y: 20, z: 300),
             world: nil,

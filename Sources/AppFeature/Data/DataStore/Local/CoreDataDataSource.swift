@@ -24,7 +24,7 @@ enum CoreDataDataSource<T: NSManagedObject> {
     }
 
     static func delete(id: UUID) async throws {
-        guard let entity = try? await CoreDataDataSource<WorldEntity>.read(id: id)
+        guard let entity = try? await CoreDataDataSource<T>.read(id: id)
         else { fatalError() }
         context.delete(entity)
         try context.save()

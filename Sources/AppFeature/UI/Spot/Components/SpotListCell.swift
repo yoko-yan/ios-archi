@@ -14,10 +14,14 @@ struct SpotListCell: View {
             if let image {
                 Image(uiImage: image)
                     .resizable()
-                    .aspectRatio(1, contentMode: .fill)
                     .cornerRadius(8.0)
+                    .aspectRatio(contentMode: .fit)
             } else {
+                Rectangle()
+                    .fill(colorScheme == .dark ? Color.black : Color.white)
+                    .aspectRatio(contentMode: .fit)
                 Text("画像なし")
+                    .font(.caption2)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(
                         colorScheme == .dark ? Color.black : Color.white
@@ -35,19 +39,18 @@ struct SpotListCell: View {
                     VStack {
                         Spacer()
                         Color.black
-                            .frame(width: .infinity)
                             .frame(maxHeight: 14)
                             .opacity(0.5)
                     }
                     VStack(alignment: .leading) {
                         Spacer()
-                        Text(item.coordinates?.text ?? "-")
+                        Text(item.coordinates?.text ?? "")
                             .font(.caption2)
                     }
                     .foregroundColor(.white)
                 }
             }
-            .padding(.bottom)
+            .padding(.bottom, 8)
         }
     }
 }
