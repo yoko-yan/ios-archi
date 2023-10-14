@@ -29,8 +29,6 @@ enum WorldEditViewAction: Equatable {
 final class WorldEditItemViewModel: ObservableObject {
     @Published private(set) var uiState: WorldEditItemUiState
 
-    private var cancellables: Set<AnyCancellable> = []
-
     var input: Binding<WorldEditItemUiState.Input> {
         Binding(
             get: { self.uiState.input },

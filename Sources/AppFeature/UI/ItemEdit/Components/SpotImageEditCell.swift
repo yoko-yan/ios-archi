@@ -5,9 +5,9 @@
 import SwiftUI
 
 struct SpotImageEditCell: View {
-    @Binding var image: UIImage?
-    @State private var isImagePicker = false
-    @State private var imageSourceType: ImagePicker.SourceType = .library
+    let image: UIImage?
+    @Binding var isImagePicker: Bool
+    @Binding var imageSourceType: ImagePicker.SourceType
 
     var body: some View {
         VStack {
@@ -58,14 +58,6 @@ struct SpotImageEditCell: View {
             .padding(.horizontal)
             .accentColor(.gray)
         }
-        .sheet(isPresented: $isImagePicker) {
-            ImagePicker(
-                show: $isImagePicker,
-                image: $image,
-                sourceType: imageSourceType,
-                allowsEditing: true
-            )
-        }
     }
 }
 
@@ -73,12 +65,16 @@ struct SpotImageEditCell: View {
 
 #Preview {
     SpotImageEditCell(
-        image: .constant(UIImage(named: "sample-coordinates", in: Bundle.module, with: nil)!) // swiftlint:disable:this force_unwrapping
+        image: UIImage(named: "sample-coordinates", in: Bundle.module, with: nil)!,
+        isImagePicker: .constant(false),
+        imageSourceType: .constant(.library)
     )
 }
 
 #Preview {
     SpotImageEditCell(
-        image: .constant(nil)
+        image: nil,
+        isImagePicker: .constant(false),
+        imageSourceType: .constant(.library)
     )
 }

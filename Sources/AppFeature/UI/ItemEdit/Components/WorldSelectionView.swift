@@ -24,7 +24,7 @@ struct WorldSelectionView: View {
             .listStyle(.plain)
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarTitle(Text("ワールド一覧"))
+        .navigationBarTitle(Text("ワールドを選択する"))
         .toolbarBackground(.visible, for: .navigationBar)
     }
 }

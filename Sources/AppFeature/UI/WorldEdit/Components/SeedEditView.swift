@@ -24,7 +24,7 @@ struct SeedEditView: View {
                         imageSourceType = .library
                         isImagePicker.toggle()
                     } label: {
-                        Text("写真からシード値を登録")
+                        Text("写真からシード値を取得")
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                     .contentShape(Rectangle())

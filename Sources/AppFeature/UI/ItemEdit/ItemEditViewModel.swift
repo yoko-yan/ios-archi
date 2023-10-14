@@ -3,16 +3,16 @@
 //
 
 import Combine
-import SwiftUI
 import UIKit
 
 // MARK: - Action
 
 enum ItemEditViewAction: Equatable {
-    case clearSeed
+    case setSpotImage(UIImage?)
+    case setCoordinatesImage(UIImage?)
     case clearCoordinates
     case setCoordinates(String?)
-    case getCoordinates(image: UIImage)
+    case getCoordinates(from: UIImage)
     case getWorlds
     case setWorld(World)
     case saveImage
@@ -34,17 +34,6 @@ enum ItemEditViewAction: Equatable {
 final class ItemEditViewModel: ObservableObject {
     @Published private(set) var uiState: ItemEditUiState
 
-    private var cancellables: Set<AnyCancellable> = []
-
-    var spotImage: Binding<UIImage?> {
-        Binding(
-            get: { self.uiState.spotImage },
-            set: { newValue in
-                self.uiState.spotImage = newValue
-            }
-        )
-    }
-
     init(item: Item?) {
         uiState = ItemEditUiState(
             editMode: ItemEditUiState.EditMode(item: item),
@@ -61,8 +50,11 @@ final class ItemEditViewModel: ObservableObject {
     func send(_ action: ItemEditViewAction) async {
         do {
             switch action {
-            case .clearSeed:
-                uiState.input.world = nil
+            case let .setSpotImage(image):
+                uiState.spotImage = image
+
+            case let .setCoordinatesImage(image):
+                uiState.coordinatesImage = image
 
             case .clearCoordinates:
                 uiState.input.coordinates = nil

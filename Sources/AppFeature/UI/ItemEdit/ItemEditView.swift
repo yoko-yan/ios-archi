@@ -10,13 +10,18 @@ struct ItemEditView: View {
     private let onTapDelete: ((Item) -> Void)?
     private let onTapDismiss: ((Item) -> Void)?
 
+    @State private var isImagePicker = false
+    @State private var imageSourceType = ImagePicker.SourceType.library
+
     var body: some View {
         NavigationStack {
             ZStack {
                 ScrollView {
                     VStack(spacing: 10) {
                         SpotImageEditCell(
-                            image: viewModel.spotImage
+                            image: viewModel.uiState.spotImage,
+                            isImagePicker: $isImagePicker,
+                            imageSourceType: $imageSourceType
                         )
 
                         coordinatesEditCell
@@ -33,6 +38,23 @@ struct ItemEditView: View {
                 footer
                     .ignoresSafeArea(.keyboard, edges: .bottom)
             }
+            .sheet(isPresented: $isImagePicker) {
+                ImagePicker(
+                    show: $isImagePicker,
+                    image: .init(
+                        get: { viewModel.uiState.spotImage },
+                        set: { newValue in
+                            guard let newValue else { return }
+                            Task {
+                                await viewModel.send(.setSpotImage(newValue))
+                                await viewModel.send(.getCoordinates(from: newValue))
+                            }
+                        }
+                    ),
+                    sourceType: imageSourceType,
+                    allowsEditing: true
+                )
+            }
             .task {
                 Task {
                     await viewModel.send(.loadImage)
@@ -40,11 +62,6 @@ struct ItemEditView: View {
                 }
             }
             .onChange(of: viewModel.uiState) { [oldState = viewModel.uiState] newState in
-                if let spotImage = newState.spotImage, oldState.spotImage != spotImage {
-                    Task {
-                        await viewModel.send(.getCoordinates(image: spotImage))
-                    }
-                }
 
                 if let event = newState.event {
                     switch event {
@@ -106,25 +123,24 @@ struct ItemEditView: View {
 
 private extension ItemEditView {
     var coordinatesEditCell: some View {
-        HStack {
-            Label("coordinates", systemImage: "location.circle")
-            Spacer()
-            TextField(
-                "未登録",
-                text: .init(
-                    get: { viewModel.uiState.input.coordinates ?? "" },
-                    set: { newValue in
-                        Task {
-                            await viewModel.send(.setCoordinates(newValue))
-                        }
-                    }
-                )
-            )
-            .keyboardType(.numbersAndPunctuation)
-            .multilineTextAlignment(TextAlignment.trailing)
+        NavigationLink {
+            CoordinatesEditView(
+                coordinates: viewModel.uiState.input.coordinates ?? ""
+            ) { coordinates in
+                Task {
+                    await viewModel.send(.setCoordinates(coordinates))
+                }
+            }
+        } label: {
+            HStack {
+                Label("coordinates", systemImage: "location.circle")
+                Spacer()
+                Text(viewModel.uiState.input.coordinates ?? "未登録")
+                Image(systemName: "chevron.right")
+            }
+            .padding(.horizontal)
+            .accentColor(.gray)
         }
-        .padding(.horizontal)
-        .accentColor(.gray)
     }
 
     var worldEditCell: some View {
@@ -134,10 +150,10 @@ private extension ItemEditView {
                     worlds: viewModel.uiState.worlds,
                     selected: .init(
                         get: { viewModel.uiState.input.world },
-                        set: { world in
-                            guard let world else { return }
+                        set: { newValue in
+                            guard let newValue else { return }
                             Task {
-                                await viewModel.send(.setWorld(world))
+                                await viewModel.send(.setWorld(newValue))
                             }
                         }
                     )

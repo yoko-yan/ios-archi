@@ -98,9 +98,9 @@ struct ItemEditUiState: Equatable {
 
     struct Input: Equatable {
         var id: String?
+        var spotImageName: String?
         var coordinates: String?
         var world: World?
-        var spotImageName: String?
 
         init(item: Item?) {
             id = item?.id
