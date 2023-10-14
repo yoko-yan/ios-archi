@@ -9,7 +9,6 @@ import UIKit
 
 enum ItemEditViewAction: Equatable {
     case setSpotImage(UIImage?)
-    case setCoordinatesImage(UIImage?)
     case clearCoordinates
     case setCoordinates(String?)
     case getCoordinates(from: UIImage)
@@ -52,9 +51,6 @@ final class ItemEditViewModel: ObservableObject {
             switch action {
             case let .setSpotImage(image):
                 uiState.spotImage = image
-
-            case let .setCoordinatesImage(image):
-                uiState.coordinatesImage = image
 
             case .clearCoordinates:
                 uiState.input.coordinates = nil

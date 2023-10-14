@@ -7,12 +7,14 @@ import SwiftUI
 struct WorldSelectionView: View {
     @Environment(\.dismiss) var dismiss
 
-    let worlds: [World]
+    @State var worlds: [World]
     @Binding var selected: World?
+
+    @State private var isShowDetailView = false
 
     var body: some View {
         ZStack {
-            List {
+            List(selection: $selected) {
                 ForEach(worlds, id: \.self) { world in
                     WorldListCell(world: world)
                         .onTapGesture {
@@ -22,10 +24,25 @@ struct WorldSelectionView: View {
                 }
             }
             .listStyle(.plain)
+
+            FloatingButton(action: {
+                isShowDetailView.toggle()
+            }, label: {
+                Image(systemName: "plus")
+                    .foregroundColor(.white)
+                    .font(.system(size: 24))
+            })
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarTitle(Text("ワールドを選択する"))
         .toolbarBackground(.visible, for: .navigationBar)
+        .sheet(isPresented: $isShowDetailView) {
+            WorldEditItemView(
+                onTapDismiss: { newValue in
+                    worlds.append(newValue)
+                }
+            )
+        }
     }
 }
 
@@ -44,7 +61,7 @@ struct WorldSelectionView: View {
             World(
                 id: "2",
                 name: "自分の世界",
-                seed: .zero,
+                seed: Seed("8362488480127410877"),
                 createdAt: Date(),
                 updatedAt: Date()
             )
