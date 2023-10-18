@@ -12,10 +12,14 @@ struct SpotListCell: View {
     var body: some View {
         ZStack(alignment: .leading) {
             if let image {
-                Image(uiImage: image)
-                    .resizable()
+                Rectangle()
+                    .aspectRatio(1, contentMode: .fit)
+                    .overlay(
+                        Image(uiImage: image)
+                            .resizable()
+                    )
                     .cornerRadius(8.0)
-                    .aspectRatio(contentMode: .fit)
+                    .clipped()
             } else {
                 Rectangle()
                     .fill(colorScheme == .dark ? Color.black : Color.white)
