@@ -19,11 +19,10 @@ final class CoreDataManager {
         let model = NSManagedObjectModel(contentsOf: modelURL)!
         container = NSPersistentCloudKitContainer(name: "Model", managedObjectModel: model)
         container.loadPersistentStores { _, error in
-            if error != nil {
-                fatalError(error.debugDescription)
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         }
-
         return container
     }()
 
