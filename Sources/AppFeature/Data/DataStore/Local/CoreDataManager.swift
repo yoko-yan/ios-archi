@@ -20,7 +20,7 @@ final class CoreDataManager {
         container = NSPersistentCloudKitContainer(name: "Model", managedObjectModel: model)
         container.loadPersistentStores { _, error in
             if error != nil {
-                fatalError("Cannot Load Core Data Model")
+                fatalError(error.debugDescription)
             }
         }
 
