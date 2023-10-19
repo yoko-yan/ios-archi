@@ -10,55 +10,52 @@ struct SpotListCell: View {
     let image: UIImage?
 
     var body: some View {
-        ZStack(alignment: .leading) {
-            if let image {
-                Rectangle()
-                    .aspectRatio(1, contentMode: .fit)
-                    .overlay(
+        Rectangle()
+            .aspectRatio(1, contentMode: .fit)
+            .overlay(
+                ZStack(alignment: .leading) {
+                    if let image {
                         Image(uiImage: image)
                             .resizable()
-                    )
-                    .cornerRadius(8.0)
-                    .clipped()
-            } else {
-                Rectangle()
-                    .fill(colorScheme == .dark ? Color.black : Color.white)
-                    .aspectRatio(contentMode: .fit)
-                Text("画像なし")
-                    .font(.caption2)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(
-                        colorScheme == .dark ? Color.black : Color.white
-                    )
-                    .foregroundColor(.gray)
-                    .cornerRadius(8.0)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8.0)
-                            .stroke(Color.gray, lineWidth: 0.5)
-                    )
-            }
+                            .scaledToFit()
 
-            if let coordinates = item.coordinates {
-                VStack {
-                    Spacer()
-                    ZStack {
+                    } else {
+                        Rectangle()
+                            .fill(colorScheme == .dark ? Color.black : Color.white)
+                            .aspectRatio(contentMode: .fit)
+                        Text("画像なし")
+                            .font(.caption2)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .foregroundColor(.gray)
+                            .overlay(
+                                Rectangle()
+                                    .stroke(Color.gray, lineWidth: 0.5)
+                            )
+                    }
+
+                    if let coordinates = item.coordinates {
                         VStack {
                             Spacer()
-                            Color.black
-                                .frame(maxHeight: 14)
-                                .opacity(0.5)
+                            ZStack {
+                                VStack {
+                                    Spacer()
+                                    Color.black
+                                        .frame(maxHeight: 14)
+                                        .opacity(0.5)
+                                }
+                                VStack(alignment: .leading) {
+                                    Spacer()
+                                    Text(coordinates.text)
+                                        .font(.caption2)
+                                }
+                                .foregroundColor(.white)
+                            }
                         }
-                        VStack(alignment: .leading) {
-                            Spacer()
-                            Text(coordinates.text)
-                                .font(.caption2)
-                        }
-                        .foregroundColor(.white)
+                        .padding(.bottom, 8)
                     }
                 }
-                .padding(.bottom, 8)
-            }
-        }
+            )
+            .clipped()
     }
 }
 

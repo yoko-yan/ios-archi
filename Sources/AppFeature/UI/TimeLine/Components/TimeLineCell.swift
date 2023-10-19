@@ -10,50 +10,52 @@ struct TimeLineCell: View {
     let image: UIImage?
 
     var body: some View {
-        ZStack(alignment: .leading) {
-            if let image {
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(1, contentMode: /*@START_MENU_TOKEN@*/ .fill/*@END_MENU_TOKEN@*/)
-            } else {
-                Text("画像なし")
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(
-                        colorScheme == .dark ? Color.black : Color.white
-                    )
-                    .foregroundColor(.gray)
-                    .aspectRatio(1, contentMode: /*@START_MENU_TOKEN@*/ .fill/*@END_MENU_TOKEN@*/)
-            }
-
-            VStack {
-                Spacer()
+        Rectangle()
+            .aspectRatio(1, contentMode: .fit)
+            .overlay(
                 ZStack {
+                    if let image {
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFit()
+                    } else {
+                        Rectangle()
+                            .fill(colorScheme == .dark ? Color.black : Color.white)
+                            .aspectRatio(contentMode: .fit)
+                        Text("画像なし")
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .foregroundColor(.gray)
+                    }
+
                     VStack {
                         Spacer()
-                        Color.black
-                            .frame(width: .infinity)
-                            .frame(maxHeight: 70)
-                            .opacity(0.5)
-                    }
-                    VStack {
-                        Spacer()
-                        HStack {
-                            Image(systemName: "location.circle")
-                            Text(item.coordinates?.text ?? "-")
-                            Spacer()
+                        ZStack {
+                            VStack {
+                                Spacer()
+                                Color.black
+                                    .frame(maxHeight: 70)
+                                    .opacity(0.5)
+                            }
+                            VStack {
+                                Spacer()
+                                HStack {
+                                    Image(systemName: "location.circle")
+                                    Text(item.coordinates?.text ?? "-")
+                                    Spacer()
+                                }
+                                HStack {
+                                    Image(systemName: "globe.desk")
+                                    Text(item.world?.seed?.text ?? "-")
+                                    Spacer()
+                                }
+                            }
+                            .foregroundColor(.white)
+                            .padding()
                         }
-                        HStack {
-                            Image(systemName: "globe.desk")
-                            Text(item.world?.seed?.text ?? "-")
-                            Spacer()
-                        }
                     }
-                    .foregroundColor(.white)
-                    .padding()
                 }
-            }
-        }
-        .modifier(CardStyle())
+            )
+            .modifier(CardStyle())
     }
 }
 
