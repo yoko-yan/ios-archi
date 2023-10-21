@@ -37,4 +37,14 @@ final class TimeLineViewModel: ObservableObject {
     func loadImage(fileName: String?) -> UIImage? {
         ImageRepository().load(fileName: fileName)
     }
+
+    func syncImage(fileName: String?) -> UIImage {
+        Task {
+            let image = try await RemoteImageRepository().load(fileName: fileName)
+            Task { @MainActor in
+                image
+            }
+        }
+        return UIImage(systemName: "icloud.and.arrow.down")!
+    }
 }

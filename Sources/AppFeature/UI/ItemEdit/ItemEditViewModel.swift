@@ -74,12 +74,14 @@ final class ItemEditViewModel: ObservableObject {
                 if let spotImage = uiState.spotImage {
                     let spotImageName = uiState.input.spotImageName ?? UUID().uuidString
                     uiState.input.spotImageName = spotImageName
-                    try ImageRepository().save(spotImage, fileName: spotImageName)
+//                    try ImageRepository().save(spotImage, fileName: spotImageName)
+                    try RemoteImageRepository().save(spotImage, fileName: spotImageName)
                 }
 
             case .loadImage:
                 if uiState.spotImage == nil {
-                    uiState.spotImage = ImageRepository().load(fileName: uiState.input.spotImageName)
+//                    uiState.spotImage = ImageRepository().load(fileName: uiState.input.spotImageName)
+                    uiState.spotImage = try await RemoteImageRepository().load(fileName: uiState.input.spotImageName)
                 }
 
             case .onRegisterButtonClick:

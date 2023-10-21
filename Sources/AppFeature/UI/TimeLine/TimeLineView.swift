@@ -13,8 +13,9 @@ struct TimeLineView: View {
             List {
                 ForEach(viewModel.uiState.items, id: \.self) { item in
                     HStack {
-                        let image = viewModel.loadImage(fileName: item.spotImageName)
-                        TimeLineCell(item: item, image: image)
+//                        let image = viewModel.loadImage(fileName: item.spotImageName)
+//                        TimeLineCell(item: item, image: image)
+                        TimeLineCell(item: item)
                         NavigationLink(value: item) {
                             EmptyView()
                         }

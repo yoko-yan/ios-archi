@@ -7,24 +7,37 @@ import SwiftUI
 struct TimeLineCell: View {
     @Environment(\.colorScheme) var colorScheme
     let item: Item
-    let image: UIImage?
+//    let image: UIImage?
 
     var body: some View {
         Rectangle()
             .aspectRatio(1, contentMode: .fit)
             .overlay(
                 ZStack {
-                    if let image {
-                        Image(uiImage: image)
-                            .resizable()
-                            .scaledToFit()
-                    } else {
-                        Rectangle()
-                            .fill(colorScheme == .dark ? Color.black : Color.white)
-                            .aspectRatio(contentMode: .fit)
-                        Text("画像なし")
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .foregroundColor(.gray)
+                    LazyVStack {
+                        if let spotImageName = item.spotImageName {
+                            //                        Image(uiImage: image)
+                            //                            .resizable()
+                            //                            .scaledToFit()
+                            //                        SyncImage(fileName: spotImageName)
+                            let url = FileManager.default.url(forUbiquityContainerIdentifier: nil)!
+                                .appendingPathComponent("Documents")
+                                .appendingPathComponent(spotImageName)
+                            AsyncImage(url: url) { image in
+                                image
+                                    .resizable()
+                                    .scaledToFit()
+                            } placeholder: {
+                                ProgressView()
+                            }
+                        } else {
+                            Rectangle()
+                                .fill(colorScheme == .dark ? Color.black : Color.white)
+                                .aspectRatio(contentMode: .fit)
+                            Text("画像なし")
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .foregroundColor(.gray)
+                        }
                     }
 
                     VStack {
@@ -61,30 +74,30 @@ struct TimeLineCell: View {
 
 // MARK: - Previews
 
-#Preview {
-    TimeLineCell(
-        item:
-        Item(
-            id: UUID().uuidString,
-            coordinates: Coordinates(x: 100, y: 20, z: 300),
-            world: nil,
-            createdAt: Date(),
-            updatedAt: Date()
-        ),
-        image: UIImage(named: "sample-coordinates", in: Bundle.module, with: nil)
-    )
-}
-
-#Preview {
-    TimeLineCell(
-        item:
-        Item(
-            id: UUID().uuidString,
-            coordinates: Coordinates(x: 100, y: 20, z: 300),
-            world: nil,
-            createdAt: Date(),
-            updatedAt: Date()
-        ),
-        image: nil
-    )
-}
+// #Preview {
+//    TimeLineCell(
+//        item:
+//        Item(
+//            id: UUID().uuidString,
+//            coordinates: Coordinates(x: 100, y: 20, z: 300),
+//            world: nil,
+//            createdAt: Date(),
+//            updatedAt: Date()
+//        ),
+//        image: UIImage(named: "sample-coordinates", in: Bundle.module, with: nil)
+//    )
+// }
+//
+// #Preview {
+//    TimeLineCell(
+//        item:
+//        Item(
+//            id: UUID().uuidString,
+//            coordinates: Coordinates(x: 100, y: 20, z: 300),
+//            world: nil,
+//            createdAt: Date(),
+//            updatedAt: Date()
+//        ),
+//        image: nil
+//    )
+// }
