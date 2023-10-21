@@ -18,8 +18,7 @@ struct SpotListView: View {
                 LazyVGrid(columns: columns, spacing: 8) {
                     ForEach(viewModel.uiState.items, id: \.self) { item in
                         NavigationLink(value: item) {
-                            let image = viewModel.loadImage(fileName: item.spotImageName)
-                            SpotListCell(item: item, image: image)
+                            SpotListCell(item: item)
                         }
                     }
                 }

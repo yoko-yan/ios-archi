@@ -17,7 +17,12 @@ final class ItemDetailViewModel: ObservableObject {
     }
 
     func loadImage() {
-        uiState.spotImage = ImageRepository().load(fileName: uiState.item.spotImageName)
+//        uiState.spotImage = ImageRepository().load(fileName: uiState.item.spotImageName)
+        let url = FileManager.default.url(forUbiquityContainerIdentifier: nil)!
+            .appendingPathComponent("Documents")
+            .appendingPathComponent(uiState.item.spotImageName ?? "")
+        guard let data = try? Data(contentsOf: url) else { return }
+        uiState.spotImage = UIImage(data: data)
     }
 
     func reload(item: Item) {

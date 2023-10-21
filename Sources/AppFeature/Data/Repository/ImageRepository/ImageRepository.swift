@@ -30,9 +30,9 @@ final class ImageRepository {
 
     func load(fileName: String?) -> UIImage? {
         guard let fileName else { return nil }
-        let path = getFileURL(fileName: fileName).path
-        if FileManager.default.fileExists(atPath: path) {
-            if let image = UIImage(contentsOfFile: path) {
+        let filePath = getFileURL(fileName: fileName).path
+        if FileManager.default.fileExists(atPath: filePath) {
+            if let image = UIImage(contentsOfFile: filePath) {
                 return image
             } else {
                 print("Failed to load the image.")

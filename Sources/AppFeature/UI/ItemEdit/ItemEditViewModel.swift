@@ -74,12 +74,18 @@ final class ItemEditViewModel: ObservableObject {
                 if let spotImage = uiState.spotImage {
                     let spotImageName = uiState.input.spotImageName ?? UUID().uuidString
                     uiState.input.spotImageName = spotImageName
-                    try ImageRepository().save(spotImage, fileName: spotImageName)
+//                    try ImageRepository().save(spotImage, fileName: spotImageName)
+                    try RemoteImageRepository().save(spotImage, fileName: spotImageName)
                 }
 
             case .loadImage:
                 if uiState.spotImage == nil {
                     uiState.spotImage = ImageRepository().load(fileName: uiState.input.spotImageName)
+                    let url = FileManager.default.url(forUbiquityContainerIdentifier: nil)!
+                        .appendingPathComponent("Documents")
+                        .appendingPathComponent(uiState.input.spotImageName ?? "")
+                    guard let data = try? Data(contentsOf: url) else { return }
+                    uiState.spotImage = UIImage(data: data)
                 }
 
             case .onRegisterButtonClick:

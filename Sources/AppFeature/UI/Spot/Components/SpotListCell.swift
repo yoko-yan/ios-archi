@@ -7,19 +7,20 @@ import SwiftUI
 struct SpotListCell: View {
     @Environment(\.colorScheme) var colorScheme
     let item: Item
-    let image: UIImage?
 
     var body: some View {
         Rectangle()
             .aspectRatio(1, contentMode: .fit)
             .overlay(
                 ZStack(alignment: .leading) {
-                    if let image {
-                        Image(uiImage: image)
+                    let url = FileManager.default.url(forUbiquityContainerIdentifier: nil)!
+                        .appendingPathComponent("Documents")
+                        .appendingPathComponent(item.spotImageName ?? "")
+                    AsyncImage(url: url) { image in
+                        image
                             .resizable()
                             .scaledToFit()
-
-                    } else {
+                    } placeholder: {
                         Rectangle()
                             .fill(colorScheme == .dark ? Color.black : Color.white)
                             .aspectRatio(contentMode: .fit)
@@ -69,8 +70,7 @@ struct SpotListCell: View {
             world: nil,
             createdAt: Date(),
             updatedAt: Date()
-        ),
-        image: UIImage(named: "sample-coordinates", in: Bundle.module, with: nil)
+        )
     )
 }
 
@@ -82,7 +82,6 @@ struct SpotListCell: View {
             world: nil,
             createdAt: Date(),
             updatedAt: Date()
-        ),
-        image: nil
+        )
     )
 }

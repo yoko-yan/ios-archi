@@ -33,8 +33,4 @@ final class TimeLineViewModel: ObservableObject {
             send(.load)
         }
     }
-
-    func loadImage(fileName: String?) -> UIImage? {
-        ImageRepository().load(fileName: fileName)
-    }
 }
