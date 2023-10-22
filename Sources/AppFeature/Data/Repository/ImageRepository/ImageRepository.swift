@@ -1,5 +1,5 @@
 //
-//  Created by takayuki.yokoda on 2023/07/02.
+//  Created by yoko-yan on 2023/07/02.
 //
 
 import Foundation

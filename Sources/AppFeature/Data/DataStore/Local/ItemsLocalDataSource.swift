@@ -1,5 +1,5 @@
 //
-//  Created by takayuki.yokoda on 2023/07/01.
+//  Created by yoko-yan on 2023/07/01.
 //
 
 import CoreData

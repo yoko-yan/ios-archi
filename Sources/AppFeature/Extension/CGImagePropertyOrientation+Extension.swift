@@ -1,5 +1,5 @@
 //
-//  Created by takayuki.yokoda on 2023/01/26.
+//  Created by yoko-yan on 2023/01/26.
 //
 
 import UIKit
