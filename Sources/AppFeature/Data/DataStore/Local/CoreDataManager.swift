@@ -23,6 +23,10 @@ final class CoreDataManager {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         }
+        // データが重複しないよう外部変更はメモリ内を置き換える
+        container.viewContext.mergePolicy = NSMergePolicy(merge: .mergeByPropertyObjectTrumpMergePolicyType)
+        // クラウドからの変更を自動取得して適用する
+        container.viewContext.automaticallyMergesChangesFromParent = true
         return container
     }()
 

@@ -7,8 +7,8 @@ import SwiftUI
 struct ItemEditView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject private var viewModel: ItemEditViewModel
-    private let onTapDelete: ((Item) -> Void)?
-    private let onTapDismiss: ((Item) -> Void)?
+    private let onDelete: ((Item) -> Void)?
+    private let onChange: ((Item) -> Void)?
 
     @State private var isImagePicker = false
     @State private var imageSourceType = ImagePicker.SourceType.library
@@ -66,12 +66,10 @@ struct ItemEditView: View {
                 if let event = newState.event {
                     switch event {
                     case .updated:
-                        onTapDismiss?(viewModel.uiState.editItem)
-                        dismiss()
+                        onChange?(viewModel.uiState.editItem)
 
                     case .deleted:
-                        onTapDelete?(viewModel.uiState.editItem)
-                        dismiss()
+                        onDelete?(viewModel.uiState.editItem)
 
                     case .dismiss:
                         dismiss()
@@ -112,10 +110,10 @@ struct ItemEditView: View {
         .interactiveDismissDisabled(viewModel.uiState.isChanged)
     }
 
-    init(item: Item? = nil, onTapDelete: ((Item) -> Void)? = nil, onTapDismiss: ((Item) -> Void)? = nil) {
+    init(item: Item? = nil, onDelete: ((Item) -> Void)? = nil, onChange: ((Item) -> Void)? = nil) {
         _viewModel = StateObject(wrappedValue: ItemEditViewModel(item: item))
-        self.onTapDelete = onTapDelete
-        self.onTapDismiss = onTapDismiss
+        self.onDelete = onDelete
+        self.onChange = onChange
     }
 }
 

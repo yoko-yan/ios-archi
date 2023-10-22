@@ -48,7 +48,7 @@ struct TimeLineView: View {
         .toolbarBackground(.visible, for: .navigationBar)
         .sheet(isPresented: $isShowEditView) {
             ItemEditView(
-                onTapDismiss: { _ in
+                onChange: { _ in
                     viewModel.send(.reload)
                 }
             )

@@ -5,9 +5,8 @@
 import Foundation
 import UIKit
 
+@MainActor
 final class RemoteImageRepository {
-    private var metadata: NSMetadataQuery!
-
     private func getFileURL(fileName: String) -> URL {
         // swiftlint:disable:next force_unwrapping
         FileManager.default.url(forUbiquityContainerIdentifier: nil)!
@@ -15,16 +14,25 @@ final class RemoteImageRepository {
             .appendingPathComponent(fileName)
     }
 
-    @MainActor
-    func save(_ image: UIImage, fileName: String) throws {
+    func save(_ image: UIImage, fileName: String) async throws {
         let fileUrl = getFileURL(fileName: fileName)
         print("save path: \(fileUrl.path)")
 
         let document = Document(fileURL: fileUrl)
         document.image = image
-        document.save(to: fileUrl, for: .forOverwriting) { success in
-            print("ファイル保存\(success ? "成功" : "失敗")")
-        }
+        await document.save(to: fileUrl, for: .forOverwriting)
+        document.updateChangeCount(.done)
+    }
+
+    func load(fileName: String) async throws -> UIImage? {
+        let fileUrl = getFileURL(fileName: fileName)
+        print("save path: \(fileUrl.path)")
+
+        let document = Document(fileURL: fileUrl)
+        await document.open()
+        let image = document.image
+        await document.close()
+        return image
     }
 }
 

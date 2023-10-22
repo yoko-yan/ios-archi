@@ -17,13 +17,13 @@ enum ItemEditViewAction: Equatable {
     case saveImage
     case loadImage
     case onRegisterButtonClick
-    case onRegister
     case onUpdateButtonClick
-    case onUpdate
     case onDeleteButtonClick
+    case onCloseButtonTap
+    case onRegister
+    case onUpdate
     case onDelete
     case onAlertDismiss
-    case onCloseButtonTap
     case onDismiss
 }
 
@@ -75,7 +75,7 @@ final class ItemEditViewModel: ObservableObject {
                     let spotImageName = uiState.input.spotImageName ?? UUID().uuidString
                     uiState.input.spotImageName = spotImageName
 //                    try ImageRepository().save(spotImage, fileName: spotImageName)
-                    try RemoteImageRepository().save(spotImage, fileName: spotImageName)
+                    try await RemoteImageRepository().save(spotImage, fileName: spotImageName)
                 }
 
             case .loadImage:
@@ -91,34 +91,11 @@ final class ItemEditViewModel: ObservableObject {
             case .onRegisterButtonClick:
                 await send(.onRegister)
 
-            case .onRegister:
-                guard case .add = uiState.editMode else { fatalError() }
-                await send(.saveImage)
-                try await ItemsRepository().insert(item: uiState.editItem)
-                uiState.event = .updated
-                await send(.onAlertDismiss)
-
             case .onUpdateButtonClick:
                 uiState.confirmationAlert = .confirmUpdate(.onUpdate)
 
-            case .onUpdate:
-                guard case .update = uiState.editMode else { fatalError() }
-                await send(.saveImage)
-                try await ItemsRepository().update(item: uiState.editItem)
-                uiState.event = .updated
-                await send(.onAlertDismiss)
-
-            case .onAlertDismiss:
-                uiState.confirmationAlert = nil
-
             case .onDeleteButtonClick:
                 uiState.confirmationAlert = .confirmDeletion(.onDelete)
-
-            case .onDelete:
-                guard case .update = uiState.editMode, let item = uiState.editMode.item else { return }
-
-                try await ItemsRepository().delete(item: item)
-                uiState.event = .deleted
 
             case .onCloseButtonTap:
                 if uiState.isChanged {
@@ -126,6 +103,31 @@ final class ItemEditViewModel: ObservableObject {
                 } else {
                     uiState.event = .dismiss
                 }
+
+            case .onRegister:
+                await send(.onAlertDismiss)
+                guard case .add = uiState.editMode else { fatalError() }
+                await send(.saveImage)
+                try await ItemsRepository().insert(item: uiState.editItem)
+                uiState.event = .updated
+                await send(.onDismiss)
+
+            case .onUpdate:
+                await send(.onAlertDismiss)
+                guard case .update = uiState.editMode else { fatalError() }
+                await send(.saveImage)
+                try await ItemsRepository().update(item: uiState.editItem)
+                uiState.event = .updated
+                await send(.onDismiss)
+
+            case .onDelete:
+                guard case .update = uiState.editMode, let item = uiState.editMode.item else { return }
+                try await ItemsRepository().delete(item: item)
+                uiState.event = .deleted
+                await send(.onDismiss)
+
+            case .onAlertDismiss:
+                uiState.confirmationAlert = nil
 
             case .onDismiss:
                 uiState.event = .dismiss

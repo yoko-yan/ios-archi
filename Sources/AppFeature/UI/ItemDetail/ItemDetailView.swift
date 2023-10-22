@@ -89,9 +89,9 @@ struct ItemDetailView: View {
         .sheet(isPresented: $isEditView) {
             ItemEditView(
                 item: viewModel.uiState.item,
-                onTapDelete: { _ in
+                onDelete: { _ in
                     dismiss()
-                }, onTapDismiss: { item in
+                }, onChange: { item in
                     viewModel.reload(item: item)
                 }
             )
