@@ -18,11 +18,11 @@ enum SpotViewAction {
 final class SpotListViewModel: ObservableObject {
     @Published private(set) var uiState = SpotListUiState()
 
-    init(uiState: SpotListUiState = SpotListUiState()) {
-        self.uiState = uiState
+    init() {
+        uiState = SpotListUiState()
     }
 
-    func send(_ action: SpotViewAction) {
+    func send(action: SpotViewAction) {
         switch action {
         case .load:
             Task {
@@ -30,11 +30,14 @@ final class SpotListViewModel: ObservableObject {
             }
 
         case .reload:
-            send(.load)
+            send(action: .load)
         }
     }
 
-    func loadImage(fileName: String?) -> UIImage? {
-        ImageRepository().load(fileName: fileName)
+    func loadImage(item: Item) {
+        guard let imageName = item.spotImageName else { return }
+        Task {
+            uiState.spotImages[item.id] = try await RemoteImageRepository().load(fileName: imageName).map { SpotImage(imageName: nil, image: $0) }
+        }
     }
 }

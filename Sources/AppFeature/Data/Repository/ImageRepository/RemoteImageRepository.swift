@@ -12,6 +12,7 @@ final class RemoteImageRepository {
         FileManager.default.url(forUbiquityContainerIdentifier: nil)!
             .appendingPathComponent("Documents")
             .appendingPathComponent(fileName)
+            .appendingPathExtension(".png")
     }
 
     func save(_ image: UIImage, fileName: String) async throws {
@@ -21,7 +22,7 @@ final class RemoteImageRepository {
         let document = Document(fileURL: fileUrl)
         document.image = image
         await document.save(to: fileUrl, for: .forOverwriting)
-        document.updateChangeCount(.done)
+        await document.close()
     }
 
     func load(fileName: String) async throws -> UIImage? {

@@ -5,7 +5,7 @@
 import SwiftUI
 
 struct WorldListCell: View {
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
     let world: World
 
     var body: some View {

@@ -33,7 +33,7 @@ struct WorldEditItemView: View {
                         if case .update = viewModel.uiState.editMode {
                             Button(action: {
                                 Task {
-                                    await viewModel.send(.onDeleteButtonClick)
+                                    await viewModel.send(action: .onDeleteButtonTap)
                                 }
                             }) {
                                 Text("削除する")
@@ -52,10 +52,10 @@ struct WorldEditItemView: View {
                             Task {
                                 switch viewModel.uiState.editMode {
                                 case .add:
-                                    await viewModel.send(.onRegisterButtonClick)
+                                    await viewModel.send(action: .onRegisterButtonTap)
 
                                 case .update:
-                                    await viewModel.send(.onUpdateButtonClick)
+                                    await viewModel.send(action: .onUpdateButtonTap)
                                 }
                             }
                         }) {
@@ -70,28 +70,31 @@ struct WorldEditItemView: View {
                 .padding()
                 .ignoresSafeArea(.keyboard, edges: .bottom)
             }
-            .onChange(of: viewModel.uiState) { [oldState = viewModel.uiState] newState in
-                if let seedImage = newState.seedImage, oldState.seedImage != seedImage {
+            .onChange(of: viewModel.uiState.seedImage) { [old = viewModel.uiState.seedImage] new in
+                if old == new { return }
+                if let new {
                     Task {
-                        await viewModel.send(.getSeed(image: seedImage))
+                        await viewModel.send(action: .getSeed(image: new))
                     }
                 }
-
-                if let event = newState.event {
+            }
+            .onChange(of: viewModel.uiState.event) { [old = viewModel.uiState.event] new in
+                if old == new { return }
+                if let event = new.first {
                     switch event {
-                    case .updated:
+                    case .onChanged:
                         onTapDismiss?(viewModel.uiState.editItem)
                         dismiss()
 
-                    case .deleted:
+                    case .onDeleted:
                         onTapDelete?(viewModel.uiState.editItem)
                         dismiss()
 
-                    case .dismiss:
+                    case .onDismiss:
                         dismiss()
                     }
 
-                    viewModel.consumeEvent()
+                    viewModel.consumeEvent(event)
                 }
             }
             .navigationBarTitle(viewModel.uiState.editMode.title, displayMode: .inline)
@@ -99,7 +102,7 @@ struct WorldEditItemView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
                         Task {
-                            await viewModel.send(.onCloseButtonTap)
+                            await viewModel.send(action: .onCloseButtonTap)
                         }
                     }) {
                         Image(systemName: "xmark")
@@ -112,13 +115,13 @@ struct WorldEditItemView: View {
                 onConfirmed: {
                     Task {
                         if let action = viewModel.uiState.confirmationAlert?.action {
-                            await viewModel.send(action)
+                            await viewModel.send(action: action)
                         }
                     }
                 },
                 onDismiss: {
                     Task {
-                        await viewModel.send(.onAlertDismiss)
+                        await viewModel.send(action: .onAlertDismiss)
                     }
                 }
             )

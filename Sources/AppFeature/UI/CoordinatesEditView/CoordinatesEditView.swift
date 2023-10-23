@@ -5,7 +5,7 @@
 import SwiftUI
 
 struct CoordinatesEditView: View {
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) var dismiss
     @StateObject private var viewModel: CoordinatesEditViewModel
 
@@ -24,8 +24,8 @@ struct CoordinatesEditView: View {
                         set: { newValue in
                             guard let newValue else { return }
                             Task {
-                                await viewModel.send(.setCoordinatesImage(newValue))
-                                await viewModel.send(.getCoordinates(from: newValue))
+                                await viewModel.send(action: .setCoordinatesImage(newValue))
+                                await viewModel.send(action: .getCoordinates(from: newValue))
                             }
                         }
                     ),
@@ -104,7 +104,7 @@ private extension CoordinatesEditView {
                                 get: { viewModel.uiState.coordinates ?? "" },
                                 set: { newValue in
                                     Task {
-                                        await viewModel.send(.setCoordinates(newValue))
+                                        await viewModel.send(action: .setCoordinates(newValue))
                                     }
                                 }
                             )
@@ -132,7 +132,7 @@ private extension CoordinatesEditView {
                     Button(action: {
                         Task {
                             await
-                                viewModel.send(.setCoordinates(nil))
+                                viewModel.send(action: .setCoordinates(nil))
                             onChanged?(nil)
                             dismiss()
                         }

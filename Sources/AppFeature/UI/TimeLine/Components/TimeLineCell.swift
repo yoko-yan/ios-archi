@@ -5,23 +5,23 @@
 import SwiftUI
 
 struct TimeLineCell: View {
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
+
     let item: Item
+    let spotImage: SpotImage?
+    let onLoadImage: ((Item) -> Void)?
 
     var body: some View {
-        Rectangle()
-            .aspectRatio(1, contentMode: .fit)
-            .overlay(
-                ZStack {
-                    LazyVStack {
-                        let url = FileManager.default.url(forUbiquityContainerIdentifier: nil)!
-                            .appendingPathComponent("Documents")
-                            .appendingPathComponent(item.spotImageName ?? "")
-                        AsyncImage(url: url) { image in
-                            image
+        LazyVStack {
+            Rectangle()
+                .aspectRatio(1, contentMode: .fit)
+                .overlay(
+                    ZStack {
+                        if let uiImage = spotImage?.image {
+                            Image(uiImage: uiImage)
                                 .resizable()
                                 .scaledToFit()
-                        } placeholder: {
+                        } else {
                             Rectangle()
                                 .fill(colorScheme == .dark ? Color.black : Color.white)
                                 .aspectRatio(contentMode: .fit)
@@ -29,37 +29,40 @@ struct TimeLineCell: View {
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .foregroundColor(.gray)
                         }
-                    }
 
-                    VStack {
-                        Spacer()
-                        ZStack {
-                            VStack {
-                                Spacer()
-                                Color.black
-                                    .frame(maxHeight: 70)
-                                    .opacity(0.5)
-                            }
-                            VStack {
-                                Spacer()
-                                HStack {
-                                    Image(systemName: "location.circle")
-                                    Text(item.coordinates?.text ?? "-")
+                        VStack {
+                            Spacer()
+                            ZStack {
+                                VStack {
                                     Spacer()
+                                    Color.black
+                                        .frame(maxHeight: 70)
+                                        .opacity(0.5)
                                 }
-                                HStack {
-                                    Image(systemName: "globe.desk")
-                                    Text(item.world?.seed?.text ?? "-")
+                                VStack {
                                     Spacer()
+                                    HStack {
+                                        Image(systemName: "location.circle")
+                                        Text(item.coordinates?.text ?? "-")
+                                        Spacer()
+                                    }
+                                    HStack {
+                                        Image(systemName: "globe.desk")
+                                        Text(item.world?.seed?.text ?? "-")
+                                        Spacer()
+                                    }
                                 }
+                                .foregroundColor(.white)
+                                .padding()
                             }
-                            .foregroundColor(.white)
-                            .padding()
                         }
                     }
+                )
+                .modifier(CardStyle())
+                .task {
+                    onLoadImage?(item)
                 }
-            )
-            .modifier(CardStyle())
+        }
     }
 }
 
@@ -74,7 +77,9 @@ struct TimeLineCell: View {
             world: nil,
             createdAt: Date(),
             updatedAt: Date()
-        )
+        ),
+        spotImage: nil,
+        onLoadImage: nil
     )
 }
 
@@ -87,6 +92,8 @@ struct TimeLineCell: View {
             world: nil,
             createdAt: Date(),
             updatedAt: Date()
-        )
+        ),
+        spotImage: nil,
+        onLoadImage: nil
     )
 }

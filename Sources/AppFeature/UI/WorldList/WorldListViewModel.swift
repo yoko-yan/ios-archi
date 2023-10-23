@@ -21,11 +21,11 @@ enum WorldListViewAction {
 final class WorldListViewModel: ObservableObject {
     @Published private(set) var uiState = WorldListUiState()
 
-    init(uiState: WorldListUiState = WorldListUiState()) {
-        self.uiState = uiState
+    init() {
+        uiState = WorldListUiState()
     }
 
-    func send(_ action: WorldListViewAction) {
+    func send(action: WorldListViewAction) {
         switch action {
         case .load:
             Task {
@@ -33,7 +33,7 @@ final class WorldListViewModel: ObservableObject {
             }
 
         case .reload:
-            send(.load)
+            send(action: .load)
 
         case let .onDeleteButtonClick(offsets: offsets):
             print(offsets.map { uiState.worlds[$0] })
@@ -45,7 +45,7 @@ final class WorldListViewModel: ObservableObject {
                 deleteWorlds.forEach { world in
                     Task {
                         try await WorldsRepository().delete(world: world)
-                        send(.reload)
+                        send(action: .reload)
                     }
                 }
             } else {

@@ -46,8 +46,8 @@ struct ItemEditView: View {
                         set: { newValue in
                             guard let newValue else { return }
                             Task {
-                                await viewModel.send(.setSpotImage(newValue))
-                                await viewModel.send(.getCoordinates(from: newValue))
+                                await viewModel.send(action: .setSpotImage(newValue))
+                                await viewModel.send(action: .getCoordinates(from: newValue))
                             }
                         }
                     ),
@@ -57,25 +57,25 @@ struct ItemEditView: View {
             }
             .task {
                 Task {
-                    await viewModel.send(.loadImage)
-                    await viewModel.send(.getWorlds)
+                    await viewModel.send(action: .loadImage)
+                    await viewModel.send(action: .getWorlds)
                 }
             }
-            .onChange(of: viewModel.uiState) { [oldState = viewModel.uiState] newState in
-
-                if let event = newState.event {
+            .onChange(of: viewModel.uiState.event) { [old = viewModel.uiState.event] new in
+                if old == new { return }
+                if let event = new.first {
                     switch event {
-                    case .updated:
+                    case .onChanged:
                         onChange?(viewModel.uiState.editItem)
 
-                    case .deleted:
+                    case .onDeleted:
                         onDelete?(viewModel.uiState.editItem)
 
-                    case .dismiss:
+                    case .onDismiss:
                         dismiss()
                     }
 
-                    viewModel.consumeEvent()
+                    viewModel.consumeEvent(event)
                 }
             }
             .navigationBarTitle(viewModel.uiState.editMode.title, displayMode: .inline)
@@ -83,7 +83,7 @@ struct ItemEditView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
                         Task {
-                            await viewModel.send(.onCloseButtonTap)
+                            await viewModel.send(action: .onCloseButtonTap)
                         }
                     }) {
                         Image(systemName: "xmark")
@@ -96,13 +96,13 @@ struct ItemEditView: View {
                 onConfirmed: {
                     Task {
                         if let action = viewModel.uiState.confirmationAlert?.action {
-                            await viewModel.send(action)
+                            await viewModel.send(action: action)
                         }
                     }
                 },
                 onDismiss: {
                     Task {
-                        await viewModel.send(.onAlertDismiss)
+                        await viewModel.send(action: .onAlertDismiss)
                     }
                 }
             )
@@ -126,7 +126,7 @@ private extension ItemEditView {
                 coordinates: viewModel.uiState.input.coordinates ?? ""
             ) { coordinates in
                 Task {
-                    await viewModel.send(.setCoordinates(coordinates))
+                    await viewModel.send(action: .setCoordinates(coordinates))
                 }
             }
         } label: {
@@ -151,7 +151,7 @@ private extension ItemEditView {
                         set: { newValue in
                             guard let newValue else { return }
                             Task {
-                                await viewModel.send(.setWorld(newValue))
+                                await viewModel.send(action: .setWorld(newValue))
                             }
                         }
                     )
@@ -176,7 +176,7 @@ private extension ItemEditView {
                 if case .update = viewModel.uiState.editMode {
                     Button(action: {
                         Task {
-                            await viewModel.send(.onDeleteButtonClick)
+                            await viewModel.send(action: .onDeleteButtonTap)
                         }
                     }) {
                         Text("削除する")
@@ -195,10 +195,10 @@ private extension ItemEditView {
                     Task {
                         switch viewModel.uiState.editMode {
                         case .add:
-                            await viewModel.send(.onRegisterButtonClick)
+                            await viewModel.send(action: .onRegisterButtonTap)
 
                         case .update:
-                            await viewModel.send(.onUpdateButtonClick)
+                            await viewModel.send(action: .onUpdateButtonTap)
                         }
                     }
                 }) {

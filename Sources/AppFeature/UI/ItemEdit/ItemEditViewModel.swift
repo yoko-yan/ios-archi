@@ -16,9 +16,9 @@ enum ItemEditViewAction: Equatable {
     case setWorld(World)
     case saveImage
     case loadImage
-    case onRegisterButtonClick
-    case onUpdateButtonClick
-    case onDeleteButtonClick
+    case onRegisterButtonTap
+    case onUpdateButtonTap
+    case onDeleteButtonTap
     case onCloseButtonTap
     case onRegister
     case onUpdate
@@ -40,13 +40,17 @@ final class ItemEditViewModel: ObservableObject {
         )
     }
 
-    func consumeEvent() {
-        uiState.event = nil
+    func consumeEvent(_ event: ItemEditUiState.Event) {
+        uiState.event.removeAll(where: { $0 == event })
+    }
+
+    func send(event: ItemEditUiState.Event) {
+        uiState.event.append(event)
     }
 
     // FIXME:
     // swiftlint:disable:next cyclomatic_complexity
-    func send(_ action: ItemEditViewAction) async {
+    func send(action: ItemEditViewAction) async {
         do {
             switch action {
             case let .setSpotImage(image):
@@ -79,58 +83,54 @@ final class ItemEditViewModel: ObservableObject {
                 }
 
             case .loadImage:
-                if uiState.spotImage == nil {
-                    uiState.spotImage = ImageRepository().load(fileName: uiState.input.spotImageName)
-                    let url = FileManager.default.url(forUbiquityContainerIdentifier: nil)!
-                        .appendingPathComponent("Documents")
-                        .appendingPathComponent(uiState.input.spotImageName ?? "")
-                    guard let data = try? Data(contentsOf: url) else { return }
-                    uiState.spotImage = UIImage(data: data)
+                if uiState.spotImage == nil, let spotImageName = uiState.input.spotImageName {
+//                    uiState.spotImage = ImageRepository().load(fileName: uiState.input.spotImageName)
+                    uiState.spotImage = try await RemoteImageRepository().load(fileName: spotImageName)
                 }
 
-            case .onRegisterButtonClick:
-                await send(.onRegister)
+            case .onRegisterButtonTap:
+                await send(action: .onRegister)
 
-            case .onUpdateButtonClick:
+            case .onUpdateButtonTap:
                 uiState.confirmationAlert = .confirmUpdate(.onUpdate)
 
-            case .onDeleteButtonClick:
+            case .onDeleteButtonTap:
                 uiState.confirmationAlert = .confirmDeletion(.onDelete)
 
             case .onCloseButtonTap:
                 if uiState.isChanged {
                     uiState.confirmationAlert = .confirmDismiss(.onDismiss)
                 } else {
-                    uiState.event = .dismiss
+                    send(event: .onDismiss)
                 }
 
             case .onRegister:
-                await send(.onAlertDismiss)
+                await send(action: .onAlertDismiss)
                 guard case .add = uiState.editMode else { fatalError() }
-                await send(.saveImage)
+                await send(action: .saveImage)
                 try await ItemsRepository().insert(item: uiState.editItem)
-                uiState.event = .updated
-                await send(.onDismiss)
+                send(event: .onChanged)
+                send(event: .onDismiss)
 
             case .onUpdate:
-                await send(.onAlertDismiss)
+                await send(action: .onAlertDismiss)
                 guard case .update = uiState.editMode else { fatalError() }
-                await send(.saveImage)
+                await send(action: .saveImage)
                 try await ItemsRepository().update(item: uiState.editItem)
-                uiState.event = .updated
-                await send(.onDismiss)
+                send(event: .onChanged)
+                send(event: .onDismiss)
 
             case .onDelete:
                 guard case .update = uiState.editMode, let item = uiState.editMode.item else { return }
                 try await ItemsRepository().delete(item: item)
-                uiState.event = .deleted
-                await send(.onDismiss)
+                send(event: .onDeleted)
+                send(event: .onDismiss)
 
             case .onAlertDismiss:
                 uiState.confirmationAlert = nil
 
             case .onDismiss:
-                uiState.event = .dismiss
+                send(event: .onDismiss)
             }
         } catch {
             print(error)

@@ -13,7 +13,12 @@ struct TimeLineView: View {
             List {
                 ForEach(viewModel.uiState.items, id: \.self) { item in
                     HStack {
-                        TimeLineCell(item: item)
+                        TimeLineCell(
+                            item: item,
+                            spotImage: viewModel.uiState.spotImages[item.id] as? SpotImage
+                        ) { item in
+                            viewModel.loadImage(item: item)
+                        }
                         NavigationLink(value: item) {
                             EmptyView()
                         }
@@ -26,10 +31,10 @@ struct TimeLineView: View {
             .padding(.top, 8)
             .listStyle(.plain)
             .task {
-                viewModel.send(.load)
+                viewModel.send(action: .load)
             }
             .refreshable {
-                viewModel.send(.load)
+                viewModel.send(action: .load)
             }
             .navigationDestination(for: Item.self) { item in
                 ItemDetailView(item: item)
@@ -49,7 +54,7 @@ struct TimeLineView: View {
         .sheet(isPresented: $isShowEditView) {
             ItemEditView(
                 onChange: { _ in
-                    viewModel.send(.reload)
+                    viewModel.send(action: .reload)
                 }
             )
         }

@@ -26,7 +26,7 @@ final class CoordinatesEditViewModel: ObservableObject {
         )
     }
 
-    func send(_ action: CoordinatesEditViewAction) async {
+    func send(action: CoordinatesEditViewAction) async {
         do {
             switch action {
             case let .setCoordinatesImage(image):

@@ -22,7 +22,7 @@ final class TimeLineViewModel: ObservableObject {
         self.uiState = uiState
     }
 
-    func send(_ action: TimeLineViewAction) {
+    func send(action: TimeLineViewAction) {
         switch action {
         case .load:
             Task {
@@ -30,7 +30,14 @@ final class TimeLineViewModel: ObservableObject {
             }
 
         case .reload:
-            send(.load)
+            send(action: .load)
+        }
+    }
+
+    func loadImage(item: Item) {
+        guard let imageName = item.spotImageName else { return }
+        Task {
+            uiState.spotImages[item.id] = try await RemoteImageRepository().load(fileName: imageName).map { SpotImage(imageName: nil, image: $0) }
         }
     }
 }

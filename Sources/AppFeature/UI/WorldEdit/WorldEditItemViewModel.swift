@@ -12,14 +12,14 @@ enum WorldEditViewAction: Equatable {
     case clearSeed
     case getSeed(image: UIImage)
     case setSeed(seed: Seed)
-    case onRegisterButtonClick
+    case onRegisterButtonTap
+    case onUpdateButtonTap
+    case onDeleteButtonTap
+    case onCloseButtonTap
     case onRegister
-    case onUpdateButtonClick
     case onUpdate
-    case onDeleteButtonClick
     case onDelete
     case onAlertDismiss
-    case onCloseButtonTap
     case onDismiss
 }
 
@@ -54,13 +54,17 @@ final class WorldEditItemViewModel: ObservableObject {
         )
     }
 
-    func consumeEvent() {
-        uiState.event = nil
+    func consumeEvent(_ event: WorldEditItemUiState.Event) {
+        uiState.event.removeAll(where: { $0 == event })
+    }
+
+    func send(event: WorldEditItemUiState.Event) {
+        uiState.event.append(event)
     }
 
     // FIXME:
     // swiftlint:disable:next cyclomatic_complexity
-    func send(_ action: WorldEditViewAction) async {
+    func send(action: WorldEditViewAction) async {
         do {
             switch action {
             case .clearSeed:
@@ -74,45 +78,45 @@ final class WorldEditItemViewModel: ObservableObject {
             case let .setSeed(seed: seed):
                 uiState.input.seed = seed
 
-            case .onRegisterButtonClick:
-                await send(.onRegister)
+            case .onRegisterButtonTap:
+                await send(action: .onRegister)
+
+            case .onDeleteButtonTap:
+                uiState.confirmationAlert = .confirmDeletion(.onDelete)
+
+            case .onCloseButtonTap:
+                if uiState.editItem.seed == uiState.editMode.world?.seed {
+                    send(event: .onDismiss)
+                } else {
+                    uiState.confirmationAlert = .confirmDismiss(.onDismiss)
+                }
 
             case .onRegister:
                 guard case .add = uiState.editMode else { fatalError() }
                 try await WorldsRepository().insert(world: uiState.editItem)
-                uiState.event = .updated
-                await send(.onAlertDismiss)
+                send(event: .onChanged)
+                await send(action: .onAlertDismiss)
 
-            case .onUpdateButtonClick:
+            case .onUpdateButtonTap:
                 uiState.confirmationAlert = .confirmUpdate(.onUpdate)
 
             case .onUpdate:
                 guard case .update = uiState.editMode else { fatalError() }
                 try await WorldsRepository().update(world: uiState.editItem)
-                uiState.event = .updated
-                await send(.onAlertDismiss)
-
-            case .onAlertDismiss:
-                uiState.confirmationAlert = nil
-
-            case .onDeleteButtonClick:
-                uiState.confirmationAlert = .confirmDeletion(.onDelete)
+                send(event: .onChanged)
+                await send(action: .onAlertDismiss)
 
             case .onDelete:
                 guard case .update = uiState.editMode, let world = uiState.editMode.world else { return }
 
                 try await WorldsRepository().delete(world: world)
-                uiState.event = .deleted
+                send(event: .onDeleted)
 
-            case .onCloseButtonTap:
-                if uiState.editItem.seed == uiState.editMode.world?.seed {
-                    uiState.event = .dismiss
-                } else {
-                    uiState.confirmationAlert = .confirmDismiss(.onDismiss)
-                }
+            case .onAlertDismiss:
+                uiState.confirmationAlert = nil
 
             case .onDismiss:
-                uiState.event = .dismiss
+                send(event: .onDismiss)
             }
         } catch {
             print(error)

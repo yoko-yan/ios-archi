@@ -5,22 +5,22 @@
 import SwiftUI
 
 struct SpotListCell: View {
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
+
     let item: Item
+    let spotImage: SpotImage?
+    let onLoadImage: ((Item) -> Void)?
 
     var body: some View {
         Rectangle()
             .aspectRatio(1, contentMode: .fit)
             .overlay(
                 ZStack(alignment: .leading) {
-                    let url = FileManager.default.url(forUbiquityContainerIdentifier: nil)!
-                        .appendingPathComponent("Documents")
-                        .appendingPathComponent(item.spotImageName ?? "")
-                    AsyncImage(url: url) { image in
-                        image
+                    if let uiImage = spotImage?.image {
+                        Image(uiImage: uiImage)
                             .resizable()
                             .scaledToFit()
-                    } placeholder: {
+                    } else {
                         Rectangle()
                             .fill(colorScheme == .dark ? Color.black : Color.white)
                             .aspectRatio(contentMode: .fit)
@@ -56,7 +56,32 @@ struct SpotListCell: View {
                     }
                 }
             )
+            .task {
+                onLoadImage?(item)
+            }
             .clipped()
+    }
+}
+
+struct SpotListCellUiState {
+    let item: Item
+    var image: UIImage?
+}
+
+@MainActor
+final class SpotListCellViewModel: ObservableObject {
+    @Published private(set) var uiState: SpotListCellUiState
+
+    init(item: Item) {
+        uiState = SpotListCellUiState(item: item)
+        loadImage()
+    }
+
+    private func loadImage() {
+        guard let imageName = uiState.item.spotImageName else { return }
+        Task {
+            uiState.image = try await RemoteImageRepository().load(fileName: imageName)
+        }
     }
 }
 
@@ -70,7 +95,9 @@ struct SpotListCell: View {
             world: nil,
             createdAt: Date(),
             updatedAt: Date()
-        )
+        ),
+        spotImage: nil,
+        onLoadImage: nil
     )
 }
 
@@ -82,6 +109,8 @@ struct SpotListCell: View {
             world: nil,
             createdAt: Date(),
             updatedAt: Date()
-        )
+        ),
+        spotImage: nil,
+        onLoadImage: nil
     )
 }

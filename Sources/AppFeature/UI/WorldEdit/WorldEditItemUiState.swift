@@ -57,9 +57,9 @@ struct WorldEditItemUiState: Equatable {
     }
 
     enum Event: Equatable {
-        case updated
-        case deleted
-        case dismiss
+        case onChanged
+        case onDeleted
+        case onDismiss
     }
 
     enum EditMode: Equatable {
@@ -110,7 +110,7 @@ struct WorldEditItemUiState: Equatable {
     let editMode: EditMode
 
     var confirmationAlert: AlertType?
-    var event: Event?
+    var event: [Event] = []
     var input: Input
     var seedImage: UIImage?
     var seed: [World] = []

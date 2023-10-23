@@ -18,11 +18,6 @@ final class ItemDetailViewModel: ObservableObject {
 
     func loadImage() {
 //        uiState.spotImage = ImageRepository().load(fileName: uiState.item.spotImageName)
-//        let url = FileManager.default.url(forUbiquityContainerIdentifier: nil)!
-//            .appendingPathComponent("Documents")
-//            .appendingPathComponent(uiState.item.spotImageName ?? "")
-//        guard let data = try? Data(contentsOf: url) else { return }
-//        uiState.spotImage = UIImage(data: data)
         Task {
             uiState.spotImage = try await RemoteImageRepository().load(fileName: uiState.item.spotImageName ?? "")
         }

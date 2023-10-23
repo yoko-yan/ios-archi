@@ -18,7 +18,12 @@ struct SpotListView: View {
                 LazyVGrid(columns: columns, spacing: 8) {
                     ForEach(viewModel.uiState.items, id: \.self) { item in
                         NavigationLink(value: item) {
-                            SpotListCell(item: item)
+                            SpotListCell(
+                                item: item,
+                                spotImage: viewModel.uiState.spotImages[item.id] as? SpotImage
+                            ) { item in
+                                viewModel.loadImage(item: item)
+                            }
                         }
                     }
                 }
@@ -37,10 +42,10 @@ struct SpotListView: View {
             })
         }
         .task {
-            viewModel.send(.load)
+            viewModel.send(action: .load)
         }
         .refreshable {
-            viewModel.send(.load)
+            viewModel.send(action: .load)
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarTitle(Text("スポット一覧"))
@@ -48,7 +53,7 @@ struct SpotListView: View {
         .sheet(isPresented: $isShowEditView) {
             ItemEditView(
                 onChange: { _ in
-                    viewModel.send(.reload)
+                    viewModel.send(action: .reload)
                 }
             )
         }
@@ -65,27 +70,27 @@ struct SpotListView: View {
 
 // MARK: - Previews
 
-#Preview {
-    SpotListView(
-        viewModel: SpotListViewModel(
-            uiState: SpotListUiState(
-                items: [
-                    Item(
-                        id: "",
-                        coordinates: Coordinates(x: 100, y: 20, z: 300),
-                        world: nil,
-                        createdAt: Date(),
-                        updatedAt: Date()
-                    ),
-                    Item(
-                        id: "",
-                        coordinates: Coordinates(x: 100, y: 20, z: 300),
-                        world: nil,
-                        createdAt: Date(),
-                        updatedAt: Date()
-                    )
-                ]
-            )
-        )
-    )
-}
+// #Preview {
+//    SpotListView(
+//        viewModel: SpotListViewModel(
+//            uiState: SpotListUiState(
+//                items: [
+//                    Item(
+//                        id: "",
+//                        coordinates: Coordinates(x: 100, y: 20, z: 300),
+//                        world: nil,
+//                        createdAt: Date(),
+//                        updatedAt: Date()
+//                    ),
+//                    Item(
+//                        id: "",
+//                        coordinates: Coordinates(x: 100, y: 20, z: 300),
+//                        world: nil,
+//                        createdAt: Date(),
+//                        updatedAt: Date()
+//                    )
+//                ]
+//            )
+//        )
+//    )
+// }
