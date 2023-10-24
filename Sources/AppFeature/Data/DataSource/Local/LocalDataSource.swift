@@ -5,7 +5,7 @@
 import CoreData
 import Foundation
 
-enum CoreDataDataSource<T: NSManagedObject> {
+enum LocalDataSource<T: NSManagedObject> {
     static var context: NSManagedObjectContext {
         CoreDataManager.shared.viewContext
     }
@@ -24,7 +24,7 @@ enum CoreDataDataSource<T: NSManagedObject> {
     }
 
     static func delete(id: UUID) async throws {
-        guard let entity = try? await CoreDataDataSource<T>.read(id: id)
+        guard let entity = try? await Self<T>.read(id: id)
         else { fatalError() }
         context.delete(entity)
         try context.save()

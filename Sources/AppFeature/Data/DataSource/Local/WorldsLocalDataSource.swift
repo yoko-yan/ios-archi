@@ -11,7 +11,7 @@ struct WorldsLocalDataSource {
     }
 
     func getById(_ id: UUID) async throws -> World? {
-        guard let entity = try await CoreDataDataSource<WorldEntity>.read(id: id)
+        guard let entity = try await LocalDataSource<WorldEntity>.read(id: id)
         else { return nil }
         return World(
             id: entity.id!.uuidString,
@@ -56,7 +56,7 @@ struct WorldsLocalDataSource {
 
     func update(world: World) async throws {
         guard let id = UUID(uuidString: world.id),
-              let entity = try? await CoreDataDataSource<WorldEntity>.read(id: id)
+              let entity = try? await LocalDataSource<WorldEntity>.read(id: id)
         else { fatalError() }
         entity.id = UUID(uuidString: world.id)
         entity.name = world.name
@@ -69,6 +69,6 @@ struct WorldsLocalDataSource {
     func delete(world: World) async throws {
         guard let id = UUID(uuidString: world.id)
         else { fatalError() }
-        try await CoreDataDataSource<WorldEntity>.delete(id: id)
+        try await LocalDataSource<WorldEntity>.delete(id: id)
     }
 }

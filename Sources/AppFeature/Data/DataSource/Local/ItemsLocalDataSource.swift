@@ -76,7 +76,7 @@ struct ItemsLocalDataSource {
 
     func update(item: Item) async throws {
         guard let id = UUID(uuidString: item.id),
-              let entity = try? await CoreDataDataSource<ItemEntity>.read(id: id)
+              let entity = try? await LocalDataSource<ItemEntity>.read(id: id)
         else { fatalError() }
         entity.id = UUID(uuidString: item.id)
         if let coordinates = item.coordinates {
@@ -96,6 +96,6 @@ struct ItemsLocalDataSource {
     func delete(item: Item) async throws {
         guard let id = UUID(uuidString: item.id)
         else { fatalError() }
-        try await CoreDataDataSource<ItemEntity>.delete(id: id)
+        try await LocalDataSource<ItemEntity>.delete(id: id)
     }
 }
