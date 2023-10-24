@@ -7,9 +7,24 @@ import UIKit
 
 final class RemoteImageRepository {
     private func getFileURL(fileName: String) -> URL {
+        let fileManager = FileManager.default
         // swiftlint:disable:next force_unwrapping
-        FileManager.default.url(forUbiquityContainerIdentifier: nil)!
+        let dirUrl = fileManager.url(forUbiquityContainerIdentifier: nil)!
             .appendingPathComponent("Documents")
+            .appendingPathComponent("Image")
+            .appendingPathComponent("Spot")
+
+        // ディレクトリが存在しない場合
+        if !fileManager.fileExists(atPath: dirUrl.path) {
+            do {
+                // ディレクトリ作成（エラーが出る可能性あり）
+                try fileManager.createDirectory(at: dirUrl, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print(error)
+//                throw error
+            }
+        }
+        return dirUrl
             .appendingPathComponent(fileName)
             .appendingPathExtension("png")
     }
@@ -39,7 +54,7 @@ final class RemoteImageRepository {
 
     func load(fileName: String) async throws -> UIImage? {
         let fileUrl = getFileURL(fileName: fileName)
-        print("save path: \(fileUrl.path)")
+        print("load path: \(fileUrl.path)")
 
         let document = await Document(fileURL: fileUrl)
         await document.loadImage()

@@ -37,8 +37,7 @@ final class TimeLineViewModel: ObservableObject {
     func loadImage(item: Item) {
         guard let imageName = item.spotImageName else { return }
         Task {
-//            uiState.spotImages[item.id] = try await LocalImageRepository().load(fileName: imageName)
-            uiState.spotImages[item.id] = try await RemoteImageRepository().load(fileName: imageName)
+            uiState.spotImages[item.id] = try await ImageRepository().load(fileName: imageName)
                 .map { SpotImage(imageName: nil, image: $0) }
         }
     }

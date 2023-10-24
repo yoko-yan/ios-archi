@@ -63,28 +63,6 @@ struct SpotListCell: View {
     }
 }
 
-struct SpotListCellUiState {
-    let item: Item
-    var image: UIImage?
-}
-
-@MainActor
-final class SpotListCellViewModel: ObservableObject {
-    @Published private(set) var uiState: SpotListCellUiState
-
-    init(item: Item) {
-        uiState = SpotListCellUiState(item: item)
-        loadImage()
-    }
-
-    private func loadImage() {
-        guard let imageName = uiState.item.spotImageName else { return }
-        Task {
-            uiState.image = try await RemoteImageRepository().load(fileName: imageName)
-        }
-    }
-}
-
 // MARK: - Previews
 
 #Preview {

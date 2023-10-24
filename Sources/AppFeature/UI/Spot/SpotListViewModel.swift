@@ -37,7 +37,7 @@ final class SpotListViewModel: ObservableObject {
     func loadImage(item: Item) {
         guard let imageName = item.spotImageName else { return }
         Task {
-            uiState.spotImages[item.id] = try await RemoteImageRepository().load(fileName: imageName).map { SpotImage(imageName: nil, image: $0) }
+            uiState.spotImages[item.id] = try await ImageRepository().load(fileName: imageName).map { SpotImage(imageName: nil, image: $0) }
         }
     }
 }

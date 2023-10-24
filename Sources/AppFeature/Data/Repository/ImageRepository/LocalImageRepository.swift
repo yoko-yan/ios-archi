@@ -8,8 +8,23 @@ import UIKit
 final class LocalImageRepository {
     private func getFileURL(fileName: String) -> URL {
         // swiftlint:disable:next force_unwrapping
-        FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-            .appendingPathComponent("Documents")
+        let fileManager = FileManager.default
+        // swiftlint:disable:next force_unwrapping
+        let dirUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+            .appendingPathComponent("Image")
+            .appendingPathComponent("Spot")
+
+        // ディレクトリが存在しない場合
+        if !fileManager.fileExists(atPath: dirUrl.path) {
+            do {
+                // ディレクトリ作成（エラーが出る可能性あり）
+                try fileManager.createDirectory(at: dirUrl, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print(error)
+//                throw error
+            }
+        }
+        return dirUrl
             .appendingPathComponent(fileName)
             .appendingPathExtension("png")
     }
@@ -30,7 +45,7 @@ final class LocalImageRepository {
         }
     }
 
-    func load(fileName: String?) async -> UIImage? {
+    func load(fileName: String?) async throws -> UIImage? {
         guard let fileName else { return nil }
         let filePath = getFileURL(fileName: fileName).path
         if FileManager.default.fileExists(atPath: filePath) {
