@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-final class ImageRepository {
+final class LocalImageRepository {
     private func getFileURL(fileName: String) -> URL {
         // swiftlint:disable:next force_unwrapping
         FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
