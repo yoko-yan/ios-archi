@@ -78,7 +78,7 @@ final class ItemEditViewModel: ObservableObject {
                 if let spotImage = uiState.spotImage {
                     let spotImageName = uiState.input.spotImageName ?? UUID().uuidString
                     uiState.input.spotImageName = spotImageName
-//                    try ImageRepository().save(spotImage, fileName: spotImageName)
+//                    try await ImageRepository().save(spotImage, fileName: spotImageName)
                     try await RemoteImageRepository().save(spotImage, fileName: spotImageName)
                 }
 

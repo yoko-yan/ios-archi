@@ -10,15 +10,15 @@
 	</array>
 	<key>NSUbiquitousContainers</key>
 	<dict>
-	    <key>iCloud.$(PRODUCT_BUNDLE_IDENTIFIER)</key>
-	    <dict>
-	        <key>NSUbiquitousContainerIsDocumentScopePublic</key>
-	        <true/>
-	        <key>NSUbiquitousContainerName</key>
-	        <string>Documents</string>
-	        <key>NSUbiquitousContainerSupportedFolderLevels</key>
-	        <string>Any</string>
-	    </dict>
+		<key>iCloud.$(PRODUCT_BUNDLE_IDENTIFIER)</key>
+		<dict>
+			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
+			<true/>
+			<key>NSUbiquitousContainerName</key>
+			<string>$(INFOPLIST_KEY_CFBundleDisplayName)</string>
+			<key>NSUbiquitousContainerSupportedFolderLevels</key>
+			<string>ANY</string>
+		</dict>
 	</dict>
 </dict>
 </plist>

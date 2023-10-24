@@ -8,11 +8,13 @@ import UIKit
 final class ImageRepository {
     private func getFileURL(fileName: String) -> URL {
         // swiftlint:disable:next force_unwrapping
-        let docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        return docDir.appendingPathComponent(fileName)
+        FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            .appendingPathComponent("Documents")
+            .appendingPathComponent(fileName)
+            .appendingPathExtension("png")
     }
 
-    func save(_ image: UIImage, fileName: String) throws {
+    func save(_ image: UIImage, fileName: String) async throws {
         let fileUrl = getFileURL(fileName: fileName)
         print("save path: \(fileUrl.path)")
         guard let imageData = image.pngData() else {
@@ -28,7 +30,7 @@ final class ImageRepository {
         }
     }
 
-    func load(fileName: String?) -> UIImage? {
+    func load(fileName: String?) async -> UIImage? {
         guard let fileName else { return nil }
         let filePath = getFileURL(fileName: fileName).path
         if FileManager.default.fileExists(atPath: filePath) {

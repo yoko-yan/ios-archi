@@ -5,35 +5,45 @@
 import Foundation
 import UIKit
 
-@MainActor
 final class RemoteImageRepository {
     private func getFileURL(fileName: String) -> URL {
         // swiftlint:disable:next force_unwrapping
         FileManager.default.url(forUbiquityContainerIdentifier: nil)!
             .appendingPathComponent("Documents")
             .appendingPathComponent(fileName)
-            .appendingPathExtension(".png")
+            .appendingPathExtension("png")
     }
 
     func save(_ image: UIImage, fileName: String) async throws {
         let fileUrl = getFileURL(fileName: fileName)
         print("save path: \(fileUrl.path)")
 
-        let document = Document(fileURL: fileUrl)
-        document.image = image
+        let document = await Document(fileURL: fileUrl)
+        Task { @MainActor in
+            document.image = image
+        }
         await document.save(to: fileUrl, for: .forOverwriting)
         await document.close()
     }
+
+//    func load(fileName: String) async throws -> UIImage? {
+//        let fileUrl = getFileURL(fileName: fileName)
+//        print("save path: \(fileUrl.path)")
+//
+//        let document = Document(fileURL: fileUrl)
+//        await document.open()
+//        let image = document.image
+//        await document.close()
+//        return image
+//    }
 
     func load(fileName: String) async throws -> UIImage? {
         let fileUrl = getFileURL(fileName: fileName)
         print("save path: \(fileUrl.path)")
 
-        let document = Document(fileURL: fileUrl)
-        await document.open()
-        let image = document.image
-        await document.close()
-        return image
+        let document = await Document(fileURL: fileUrl)
+        await document.loadImage()
+        return await document.image
     }
 }
 
@@ -47,5 +57,23 @@ private class Document: UIDocument {
     override func load(fromContents contents: Any, ofType typeName: String?) throws {
         guard let contents = contents as? Data else { return }
         image = UIImage(data: contents)
+    }
+}
+
+private extension Document {
+    func loadImage() async -> Bool {
+        await withCheckedContinuation { continuation in
+            performAsynchronousFileAccess {
+                let fileCoordinator = NSFileCoordinator(filePresenter: self)
+                fileCoordinator.coordinate(readingItemAt: self.fileURL, options: .withoutChanges, error: nil) { newURL in
+                    if let imageData = try? Data(contentsOf: newURL), let image = UIImage(data: imageData) {
+                        self.image = image
+                        continuation.resume(returning: true)
+                    } else {
+                        continuation.resume(returning: false)
+                    }
+                }
+            }
+        }
     }
 }
