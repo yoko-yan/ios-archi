@@ -22,16 +22,19 @@ struct WorldSelectionView: View {
                             dismiss()
                         }
                 }
+                VStack {
+                    Button(action: {
+                        isShowDetailView.toggle()
+                    }) {
+                        Text("ワールドを新規に追加する")
+                            .bold()
+                            .frame(height: 50)
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(RoundedButtonStyle(color: .black))
+                }
             }
             .listStyle(.plain)
-
-            FloatingButton(action: {
-                isShowDetailView.toggle()
-            }, label: {
-                Image(systemName: "plus")
-                    .foregroundColor(.white)
-                    .font(.system(size: 24))
-            })
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarTitle(Text("ワールドを選択する"))
