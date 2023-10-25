@@ -111,6 +111,16 @@ private extension CoordinatesEditView {
                         )
                         .keyboardType(.numbersAndPunctuation)
                         .multilineTextAlignment(TextAlignment.trailing)
+                        .modifier(
+                            TextFieldClearButton(
+                                text: viewModel.uiState.coordinates
+                            ) {
+                                Task {
+                                    await viewModel.send(action: .setCoordinates(nil))
+                                }
+                            }
+                        )
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
                     }
                     .padding(.horizontal)
                     .accentColor(.gray)
@@ -118,36 +128,6 @@ private extension CoordinatesEditView {
                     Spacer()
                 }
                 .navigationBarTitle("座標を変更する", displayMode: .inline)
-
-                footer
-            }
-        }
-    }
-
-    var footer: some View {
-        VStack {
-            Spacer()
-            HStack {
-                if (viewModel.uiState.coordinates?.isEmpty) != nil {
-                    Button(action: {
-                        Task {
-                            await
-                                viewModel.send(action: .setCoordinates(nil))
-                            onChanged?(nil)
-                            dismiss()
-                        }
-                    }) {
-                        Text("クリアする")
-                            .bold()
-                            .frame(height: 50)
-                            .padding(.horizontal)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color.black, lineWidth: 1)
-                            )
-                    }
-                    .foregroundColor(colorScheme == .dark ? .white : .black)
-                }
 
                 Button(action: {
                     onChanged?(viewModel.uiState.coordinates)
@@ -159,9 +139,9 @@ private extension CoordinatesEditView {
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(RoundedButtonStyle(color: .black))
+                .padding()
             }
         }
-        .padding()
     }
 }
 
