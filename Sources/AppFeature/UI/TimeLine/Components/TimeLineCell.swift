@@ -97,3 +97,21 @@ struct TimeLineCell: View {
         onLoadImage: nil
     )
 }
+
+struct TimeLineCell_Previews: PreviewProvider {
+    static var previews: some View {
+        TimeLineCell(
+            item:
+            Item(
+                id: UUID().uuidString,
+                coordinates: Coordinates(x: 100, y: 20, z: 300),
+                world: nil,
+                createdAt: Date(),
+                updatedAt: Date()
+            ),
+            spotImage: nil,
+            onLoadImage: nil
+        )
+        .previewLayout(.sizeThatFits)
+    }
+}

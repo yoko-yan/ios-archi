@@ -91,4 +91,22 @@ struct SpotListCell: View {
         spotImage: nil,
         onLoadImage: nil
     )
+    .previewLayout(.fixed(width: 375, height: 100))
+}
+
+struct SpotListCell_Previews: PreviewProvider {
+    static var previews: some View {
+        SpotListCell(
+            item: Item(
+                id: UUID().uuidString,
+                coordinates: Coordinates(x: 100, y: 20, z: 300),
+                world: nil,
+                createdAt: Date(),
+                updatedAt: Date()
+            ),
+            spotImage: nil,
+            onLoadImage: nil
+        )
+        .previewLayout(.sizeThatFits)
+    }
 }

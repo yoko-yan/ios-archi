@@ -32,3 +32,18 @@ struct WorldListCell: View {
         )
     )
 }
+
+struct WorldListCell_Previews: PreviewProvider {
+    static var previews: some View {
+        WorldListCell(
+            world: World(
+                id: "",
+                name: "aaa",
+                seed: nil,
+                createdAt: Date(),
+                updatedAt: Date()
+            )
+        )
+        .previewLayout(.fixed(width: 375, height: 40))
+    }
+}
