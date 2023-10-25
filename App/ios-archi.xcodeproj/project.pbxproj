@@ -10,6 +10,7 @@
 		83E74B2B292E315600FA1F46 /* ios_archiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E74B2A292E315600FA1F46 /* ios_archiApp.swift */; };
 		83E74B32292E315D00FA1F46 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83E74B31292E315D00FA1F46 /* Preview Assets.xcassets */; };
 		97B0E22E2A4F6551003581A1 /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 97B0E22D2A4F6551003581A1 /* AppFeature */; };
+		CD32A3E62AE97CC70057F3A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD32A3E52AE97CC70057F3A9 /* AppDelegate.swift */; };
 		CD430D132A55D0AC00AB8EFA /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD430D0F2A55D0AC00AB8EFA /* Debug.xcconfig */; };
 		CD430D142A55D0AC00AB8EFA /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD430D102A55D0AC00AB8EFA /* Release.xcconfig */; };
 		CD430D162A55D0AC00AB8EFA /* Base.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD430D122A55D0AC00AB8EFA /* Base.xcconfig */; };
@@ -23,9 +24,11 @@
 		83E74B31292E315D00FA1F46 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9EA0AD020CD2636DAEC60268 /* Pods-ios-archi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-archi.release.xcconfig"; path = "Target Support Files/Pods-ios-archi/Pods-ios-archi.release.xcconfig"; sourceTree = "<group>"; };
 		B137D1DEF9A121B7DFC6ED73 /* Pods-ios-archi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-archi.debug.xcconfig"; path = "Target Support Files/Pods-ios-archi/Pods-ios-archi.debug.xcconfig"; sourceTree = "<group>"; };
+		CD32A3E52AE97CC70057F3A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CD430D0F2A55D0AC00AB8EFA /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		CD430D102A55D0AC00AB8EFA /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		CD430D122A55D0AC00AB8EFA /* Base.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
+		CD47DCAC2AE98DFA00026887 /* Configs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Configs; sourceTree = "<group>"; };
 		CD6878DF2AE0557D00C4B14F /* Debug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Debug.entitlements; sourceTree = "<group>"; };
 		CD73EEE92A59B6930028B068 /* ios-archi.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "ios-archi.xctestplan"; sourceTree = "<group>"; };
 		CDC4704F2AE51DC60030F3B1 /* Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Release.entitlements; sourceTree = "<group>"; };
@@ -82,10 +85,12 @@
 				CD6878DF2AE0557D00C4B14F /* Debug.entitlements */,
 				CDC4704F2AE51DC60030F3B1 /* Release.entitlements */,
 				CDE7E6232A59CA3F00EFDC11 /* Info.plist */,
+				CD32A3E52AE97CC70057F3A9 /* AppDelegate.swift */,
 				83E74B2A292E315600FA1F46 /* ios_archiApp.swift */,
 				CDCC38572A59E5B100679A35 /* Assets.xcassets */,
 				83E74B30292E315D00FA1F46 /* Preview Content */,
-				CD430D0E2A55D0AC00AB8EFA /* XCConfig */,
+				CD47DCAC2AE98DFA00026887 /* Configs */,
+				CD430D0E2A55D0AC00AB8EFA /* XCConfigs */,
 			);
 			path = "ios-archi";
 			sourceTree = "<group>";
@@ -98,14 +103,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		CD430D0E2A55D0AC00AB8EFA /* XCConfig */ = {
+		CD430D0E2A55D0AC00AB8EFA /* XCConfigs */ = {
 			isa = PBXGroup;
 			children = (
 				CD430D0F2A55D0AC00AB8EFA /* Debug.xcconfig */,
 				CD430D102A55D0AC00AB8EFA /* Release.xcconfig */,
 				CD430D122A55D0AC00AB8EFA /* Base.xcconfig */,
 			);
-			path = XCConfig;
+			path = XCConfigs;
 			sourceTree = "<group>";
 		};
 		DF99ECBECFE82D436A431575 /* Frameworks */ = {
@@ -129,7 +134,9 @@
 				83E74B23292E315600FA1F46 /* Sources */,
 				83E74B24292E315600FA1F46 /* Frameworks */,
 				83E74B25292E315600FA1F46 /* Resources */,
+				CD32A3EA2AE982A30057F3A9 /* GoogleService-Info.plist */,
 				97B0E22F2A4F6BBE003581A1 /* create env.txt */,
+				CD47DCAD2AE98E6000026887 /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -271,6 +278,44 @@
 			shellPath = /bin/sh;
 			shellScript = "#env > env.txt\n";
 		};
+		CD32A3EA2AE982A30057F3A9 /* GoogleService-Info.plist */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "GoogleService-Info.plist";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp \"${PROJECT_DIR}/${PROJECT_NAME}/Configs/GoogleService-Info-${CONFIGURATION}.plist\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\"\n";
+		};
+		CD47DCAD2AE98E6000026887 /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = Crashlytics;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -278,6 +323,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD32A3E62AE97CC70057F3A9 /* AppDelegate.swift in Sources */,
 				83E74B2B292E315600FA1F46 /* ios_archiApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -413,6 +459,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "ios-archi/Debug.entitlements";
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"ios-archi/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -429,6 +476,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.1.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -462,6 +510,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.1.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
