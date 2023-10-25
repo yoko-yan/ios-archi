@@ -6,14 +6,15 @@ import Foundation
 import SwiftUI
 
 struct TextFieldClearButton: ViewModifier {
-    let text: String?
-    var action: (() -> Void)?
+    @Binding var text: String
 
     func body(content: Content) -> some View {
         HStack {
             content
-            if let text, !text.isEmpty {
-                Button(action: { action?() }) {
+            if !text.isEmpty {
+                Button(
+                    action: { text = "" }
+                ) {
                     Image(systemName: "delete.left")
                         .foregroundColor(Color(UIColor.opaqueSeparator))
                 }

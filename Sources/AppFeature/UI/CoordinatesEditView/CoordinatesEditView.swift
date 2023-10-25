@@ -113,12 +113,15 @@ private extension CoordinatesEditView {
                         .multilineTextAlignment(TextAlignment.trailing)
                         .modifier(
                             TextFieldClearButton(
-                                text: viewModel.uiState.coordinates
-                            ) {
-                                Task {
-                                    await viewModel.send(action: .setCoordinates(nil))
-                                }
-                            }
+                                text: .init(
+                                    get: { viewModel.uiState.coordinates ?? "" },
+                                    set: { newValue in
+                                        Task {
+                                            await viewModel.send(action: .setCoordinates(newValue))
+                                        }
+                                    }
+                                )
+                            )
                         )
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     }

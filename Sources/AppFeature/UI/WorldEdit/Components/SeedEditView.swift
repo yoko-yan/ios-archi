@@ -67,19 +67,22 @@ struct SeedEditView: View {
             HStack {
                 Label("seed", systemImage: "globe.desk")
                 Spacer()
-                TextField("未登録", text: .init(get: {
-                    seed?.text ?? ""
-                }, set: { newValue in
-                    seed = Seed(newValue)
-                }))
+                TextField(
+                    "未登録",
+                    text: .init(
+                        get: { seed?.text ?? "" },
+                        set: { newValue in seed = Seed(newValue) }
+                    )
+                )
                 .keyboardType(.numbersAndPunctuation)
                 .multilineTextAlignment(TextAlignment.trailing)
                 .modifier(
                     TextFieldClearButton(
-                        text: seed?.text
-                    ) {
-                        seed = nil
-                    }
+                        text: .init(
+                            get: { seed?.text ?? "" },
+                            set: { newValue in seed = Seed(newValue) }
+                        )
+                    )
                 )
                 .textFieldStyle(RoundedBorderTextFieldStyle())
             }
