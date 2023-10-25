@@ -14,9 +14,9 @@ final class RecognizeTextRepositorySpec: AsyncSpec {
         describe("get(image:)") {
             context("読み取り可能な画像の場合") {
                 it("テキストを取得できる") {
-                    let image = UIImage(named: "seed_1541822036", in: Bundle.module, with: nil)
+                    let image = UIImage(resource: .seed1541822036)
 
-                    let texts = try await RecognizedTextsRepositoryImpl().get(image: image!)
+                    let texts = try await RecognizedTextsRepositoryImpl().get(image: image)
                     expect(texts.first).to(equal("世界のタイプ"))
                 }
             }
@@ -30,9 +30,9 @@ final class RecognizeTextRepositorySpec: AsyncSpec {
 //
 //        context("読み取り可能な画像の場合") {
 //            it("シード値を取得できる") {
-//                let image = UIImage(named: "seed_1541822036", in: Bundle.module, with: nil)
+//                let image = UIImage(resource: .seed1541822036)
 //
-//                RecognizeTextRepository().get(image: image!)
+//                RecognizedTextsRepositoryImpl().get(image: image)
 //                    .receive(on: DispatchQueue.main)
 //                    .sink(receiveCompletion: { _ in
 //                    }, receiveValue: { seed in

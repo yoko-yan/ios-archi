@@ -14,7 +14,7 @@ class GetCoordinatesUseCaseSpec: AsyncSpec {
     override class func spec() {
         var recognizedTextsRepositoryMock: RecognizedTextsRepositoryMock!
         var useCase: GetCoordinatesUseCase!
-        let image = UIImage(named: "coordinates_318_63_1143", in: Bundle.module, with: nil)!
+        let image = UIImage(resource: .coordinates318631143)
         let expectedError = NSError(domain: "VNRecognizeTextRequest Error", code: -10001, userInfo: nil)
 
         describe("execute") {

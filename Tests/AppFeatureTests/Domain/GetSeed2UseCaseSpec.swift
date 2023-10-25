@@ -15,7 +15,7 @@ class GetSeed2UseCaseSpec: AsyncSpec {
     override class func spec() {
         var newRecognizedTextsRepositoryMock: NewRecognizedTextsRepositoryMock!
         var useCase: GetSeed2UseCaseImpl!
-        let image = UIImage(named: "seed_1541822036", in: Bundle.module, with: nil)!
+        let image = UIImage(resource: .seed1541822036)
         let expectedError = NSError(domain: "VNRecognizeTextRequest Error", code: -10001, userInfo: nil)
 
         describe("execute") {

@@ -65,7 +65,7 @@ struct SpotImageEditCell: View {
 
 #Preview {
     SpotImageEditCell(
-        image: UIImage(named: "sample-coordinates", in: Bundle.module, with: nil)!,
+        image: UIImage(resource: .sampleCoordinates),
         isImagePicker: .constant(false),
         imageSourceType: .constant(.library)
     )

@@ -98,16 +98,16 @@ struct SeedEditView: View {
 
 // MARK: - Previews
 
-// #Preview {
-//    SeedEditView(
-//        world: .constant(nil),
-//        image: .constant(UIImage(named: "sample-seed", in: Bundle.module, with: nil)!) // swiftlint:disable:this force_unwrapping
-//    )
-// }
-//
-// #Preview {
-//    SeedEditView(
-//        world: .constant(nil),
-//        image: .constant(nil)
-//    )
-// }
+#Preview {
+    SeedEditView(
+        seed: .constant(nil),
+        image: .constant(UIImage(resource: .sampleSeed))
+    )
+}
+
+#Preview {
+    SeedEditView(
+        seed: .constant(nil),
+        image: .constant(nil)
+    )
+}
