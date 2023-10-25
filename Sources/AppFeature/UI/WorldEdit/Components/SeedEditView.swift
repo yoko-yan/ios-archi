@@ -74,6 +74,14 @@ struct SeedEditView: View {
                 }))
                 .keyboardType(.numbersAndPunctuation)
                 .multilineTextAlignment(TextAlignment.trailing)
+                .modifier(
+                    TextFieldClearButton(
+                        text: seed?.text
+                    ) {
+                        seed = nil
+                    }
+                )
+                .textFieldStyle(RoundedBorderTextFieldStyle())
             }
             .padding(.horizontal)
         }
