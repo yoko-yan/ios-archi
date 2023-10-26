@@ -3,6 +3,7 @@
 //
 
 import Combine
+import Core
 import CoreData
 import Foundation
 
@@ -12,30 +13,25 @@ import Foundation
 final class RootViewModel: ObservableObject {
     @Published private(set) var uiState = RootUiState()
 
-    init() {
-        Task.detached {
-            _ = try await ItemsRepository().load()
+    private let isiCloudUseCase: IsiCloudUseCase
 
-            let notifications = NotificationCenter.default
-                .notifications(named: NSPersistentCloudKitContainer.eventChangedNotification, object: nil)
-            for await notification in notifications {
-                print("CloudKit Notification: \(notification)")
+    init(
+        isiCloudUseCase: IsiCloudUseCase = IsiCloudUseCaseImpl()
+    ) {
+        self.isiCloudUseCase = isiCloudUseCase
+    }
 
-                let event = notification.userInfo?[NSPersistentCloudKitContainer.eventNotificationUserInfoKey] as? NSPersistentCloudKitContainer.Event
+    // FIXME:
+    func load() async {
+        if !isiCloudUseCase.execute() {
+            uiState.isLaunching = false
+            return
+        }
 
-                if let event {
-                    if let error = event.error {
-                        print(error)
-                        return
-                    }
-
-                    if event.type == .export, event.succeeded {
-                        await MainActor.run {
-                            self.uiState.isLaunching = false
-                        }
-                    }
-                }
-            }
+        do {
+            uiState.isLaunching = try await IsiCloudSyncingUseCaseImpl().execute()
+        } catch {
+            print(error)
         }
     }
 }

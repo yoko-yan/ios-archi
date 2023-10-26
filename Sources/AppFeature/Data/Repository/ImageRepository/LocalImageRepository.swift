@@ -29,7 +29,7 @@ final class LocalImageRepository {
             .appendingPathExtension("png")
     }
 
-    func save(_ image: UIImage, fileName: String) async throws {
+    func saveImage(_ image: UIImage, fileName: String) async throws {
         let fileUrl = getFileURL(fileName: fileName)
         print("save path: \(fileUrl.path)")
         guard let imageData = image.pngData() else {
@@ -45,7 +45,7 @@ final class LocalImageRepository {
         }
     }
 
-    func load(fileName: String?) async throws -> UIImage? {
+    func loadImage(fileName: String?) async throws -> UIImage? {
         guard let fileName else { return nil }
         let filePath = getFileURL(fileName: fileName).path
         if FileManager.default.fileExists(atPath: filePath) {

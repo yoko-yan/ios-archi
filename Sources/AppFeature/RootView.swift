@@ -8,17 +8,22 @@ public struct RootView: View {
     @StateObject private var viewModel = RootViewModel()
 
     public var body: some View {
-        if viewModel.uiState.isLaunching {
-            ZStack {
-                Color("Primary")
-                    .ignoresSafeArea() // ステータスバーまで塗り潰すために必要
-                Image(.icon)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .padding()
+        Group {
+            if viewModel.uiState.isLaunching {
+                ZStack {
+                    Color("Primary")
+                        .ignoresSafeArea() // ステータスバーまで塗り潰すために必要
+                    Image(.icon)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .padding()
+                }
+            } else {
+                ContentView()
             }
-        } else {
-            ContentView()
+        }
+        .task {
+            await viewModel.load()
         }
     }
 

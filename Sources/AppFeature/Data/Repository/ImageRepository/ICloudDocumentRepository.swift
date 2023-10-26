@@ -2,10 +2,11 @@
 //  Created by yoko-yan on 2023/10/22
 //
 
+import Core
 import Foundation
 import UIKit
 
-final class RemoteImageRepository {
+final class ICloudDocumentRepository {
     private func getFileURL(fileName: String) -> URL {
         let fileManager = FileManager.default
         // swiftlint:disable:next force_unwrapping
@@ -29,7 +30,7 @@ final class RemoteImageRepository {
             .appendingPathExtension("png")
     }
 
-    func save(_ image: UIImage, fileName: String) async throws {
+    func saveImage(_ image: UIImage, fileName: String) async throws {
         let fileUrl = getFileURL(fileName: fileName)
         print("save path: \(fileUrl.path)")
 
@@ -52,7 +53,7 @@ final class RemoteImageRepository {
 //        return image
 //    }
 
-    func load(fileName: String) async throws -> UIImage? {
+    func loadImage(fileName: String) async throws -> UIImage? {
         let fileUrl = getFileURL(fileName: fileName)
         print("load path: \(fileUrl.path)")
 

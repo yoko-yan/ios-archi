@@ -11,16 +11,8 @@ final class ItemsRepository {
         self.dataSource = dataSource
     }
 
-    func create(items: [Item]) async throws {
-        try await save(items: items)
-    }
-
-    func load() async throws -> [Item] {
-        try await dataSource.load()
-    }
-
-    func save(items: [Item]) async throws {
-        try await dataSource.save(items: items)
+    func getAll() async throws -> [Item] {
+        try await dataSource.getAll()
     }
 
     func insert(item: Item) async throws {

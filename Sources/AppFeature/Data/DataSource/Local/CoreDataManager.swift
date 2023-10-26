@@ -10,8 +10,8 @@ final class CoreDataManager {
 
     private(set) lazy var viewContext = container.viewContext
 
-    lazy var container: NSPersistentContainer = {
-        let container: NSPersistentContainer
+    lazy var container: NSPersistentCloudKitContainer = {
+        let container: NSPersistentCloudKitContainer
 
         // swiftlint:disable:next force_unwrapping
         let modelURL = Bundle.module.url(forResource: "Model", withExtension: "momd")!

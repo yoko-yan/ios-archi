@@ -18,7 +18,7 @@ final class ItemDetailViewModel: ObservableObject {
 
     func loadImage() {
         Task {
-            uiState.spotImage = try await ImageRepository().load(fileName: uiState.item.spotImageName ?? "")
+            uiState.spotImage = try await LoadSpotImageUseCaseImpl().execute(fileName: uiState.item.spotImageName ?? "")
         }
     }
 

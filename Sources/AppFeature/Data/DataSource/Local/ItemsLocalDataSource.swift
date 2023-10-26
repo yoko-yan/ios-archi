@@ -10,12 +10,7 @@ struct ItemsLocalDataSource {
         CoreDataManager.shared.viewContext
     }
 
-    func save(items: [Item]) async throws {
-        // TODO:
-        fatalError()
-    }
-
-    func load() async throws -> [Item] {
+    func getAll() async throws -> [Item] {
         let request = ItemEntity.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(keyPath: \ItemEntity.createdAt, ascending: false)]
         guard let result = try? context.fetch(request)

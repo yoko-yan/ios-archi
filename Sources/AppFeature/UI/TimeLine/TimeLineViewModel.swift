@@ -26,7 +26,7 @@ final class TimeLineViewModel: ObservableObject {
         switch action {
         case .load:
             Task {
-                uiState.items = try await ItemsRepository().load()
+                uiState.items = try await ItemsRepository().getAll()
             }
 
         case .reload:
@@ -37,7 +37,7 @@ final class TimeLineViewModel: ObservableObject {
     func loadImage(item: Item) {
         guard let imageName = item.spotImageName else { return }
         Task {
-            uiState.spotImages[item.id] = try await ImageRepository().load(fileName: imageName)
+            uiState.spotImages[item.id] = try await LoadSpotImageUseCaseImpl().execute(fileName: imageName)
                 .map { SpotImage(imageName: nil, image: $0) }
         }
     }
