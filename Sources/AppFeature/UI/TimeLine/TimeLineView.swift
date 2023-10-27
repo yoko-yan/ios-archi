@@ -31,10 +31,10 @@ struct TimeLineView: View {
             .padding(.top, 8)
             .listStyle(.plain)
             .task {
-                viewModel.send(action: .load)
+                await viewModel.send(action: .load)
             }
             .refreshable {
-                viewModel.send(action: .load)
+                await viewModel.send(action: .load)
             }
             .navigationDestination(for: Item.self) { item in
                 ItemDetailView(item: item)
@@ -54,7 +54,9 @@ struct TimeLineView: View {
         .sheet(isPresented: $isShowEditView) {
             ItemEditView(
                 onChange: { _ in
-                    viewModel.send(action: .reload)
+                    Task {
+                        await viewModel.send(action: .reload)
+                    }
                 }
             )
         }

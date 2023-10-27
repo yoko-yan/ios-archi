@@ -22,15 +22,17 @@ final class SpotListViewModel: ObservableObject {
         uiState = SpotListUiState()
     }
 
-    func send(action: SpotViewAction) {
+    func send(action: SpotViewAction) async {
         switch action {
         case .load:
-            Task {
+            do {
                 uiState.items = try await ItemsRepository().getAll()
+            } catch {
+                print(error)
             }
 
         case .reload:
-            send(action: .load)
+            await send(action: .load)
         }
     }
 

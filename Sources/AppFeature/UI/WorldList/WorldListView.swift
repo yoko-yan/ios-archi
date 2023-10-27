@@ -19,14 +19,18 @@ struct WorldListView: View {
                         WorldListCell(world: world)
                     }
                 }
-                .onDelete { viewModel.send(action: .onDeleteButtonClick(offsets: $0)) }
+                .onDelete { offsets in
+                    Task {
+                        await viewModel.send(action: .onDeleteButtonClick(offsets: offsets))
+                    }
+                }
             }
             .listStyle(.plain)
             .task {
-                viewModel.send(action: .load)
+                await viewModel.send(action: .load)
             }
             .refreshable {
-                viewModel.send(action: .load)
+                await viewModel.send(action: .load)
             }
             .navigationDestination(for: World.self) { world in
                 WorldDetailView(world: world)
@@ -47,14 +51,24 @@ struct WorldListView: View {
         .sheet(isPresented: $isShowEditView) {
             WorldEditItemView(
                 onTapDismiss: { _ in
-                    viewModel.send(action: .reload)
+                    Task {
+                        await viewModel.send(action: .reload)
+                    }
                 }
             )
         }
         .deleteAlert(
             message: viewModel.uiState.deleteAlertMessage,
-            onDelete: { viewModel.send(action: .onDelete) },
-            onDismiss: { viewModel.send(action: .onDeleteAlertDismiss) }
+            onDelete: {
+                Task {
+                    await viewModel.send(action: .onDelete)
+                }
+            },
+            onDismiss: {
+                Task {
+                    await viewModel.send(action: .onDeleteAlertDismiss)
+                }
+            }
         )
     }
 }

@@ -23,8 +23,10 @@ struct CoordinatesEditView: View {
                         get: { viewModel.uiState.coordinatesImage },
                         set: { newValue in
                             guard let newValue else { return }
-                            viewModel.send(action: .setCoordinatesImage(newValue))
-                            viewModel.send(action: .getCoordinates(from: newValue))
+                            Task {
+                                await viewModel.send(action: .setCoordinatesImage(newValue))
+                                await viewModel.send(action: .getCoordinates(from: newValue))
+                            }
                         }
                     ),
                     sourceType: imageSourceType,
@@ -107,7 +109,9 @@ private extension CoordinatesEditView {
                             text: .init(
                                 get: { viewModel.uiState.coordinatesX },
                                 set: { newValue in
-                                    viewModel.send(action: .setCoordinatesX(newValue))
+                                    Task {
+                                        await viewModel.send(action: .setCoordinatesX(newValue))
+                                    }
                                 }
                             )
                         )
@@ -118,7 +122,9 @@ private extension CoordinatesEditView {
                                 text: .init(
                                     get: { viewModel.uiState.coordinatesX },
                                     set: { newValue in
-                                        viewModel.send(action: .setCoordinatesX(newValue))
+                                        Task {
+                                            await viewModel.send(action: .setCoordinatesX(newValue))
+                                        }
                                     }
                                 )
                             )
@@ -131,7 +137,9 @@ private extension CoordinatesEditView {
                             text: .init(
                                 get: { viewModel.uiState.coordinatesY },
                                 set: { newValue in
-                                    viewModel.send(action: .setCoordinatesY(newValue))
+                                    Task {
+                                        await viewModel.send(action: .setCoordinatesY(newValue))
+                                    }
                                 }
                             )
                         )
@@ -142,7 +150,9 @@ private extension CoordinatesEditView {
                                 text: .init(
                                     get: { viewModel.uiState.coordinatesY },
                                     set: { newValue in
-                                        viewModel.send(action: .setCoordinatesY(newValue))
+                                        Task {
+                                            await viewModel.send(action: .setCoordinatesY(newValue))
+                                        }
                                     }
                                 )
                             )
@@ -155,7 +165,9 @@ private extension CoordinatesEditView {
                             text: .init(
                                 get: { viewModel.uiState.coordinatesZ },
                                 set: { newValue in
-                                    viewModel.send(action: .setCoordinatesZ(newValue))
+                                    Task {
+                                        await viewModel.send(action: .setCoordinatesZ(newValue))
+                                    }
                                 }
                             )
                         )
@@ -166,7 +178,9 @@ private extension CoordinatesEditView {
                                 text: .init(
                                     get: { viewModel.uiState.coordinatesZ },
                                     set: { newValue in
-                                        viewModel.send(action: .setCoordinatesZ(newValue))
+                                        Task {
+                                            await viewModel.send(action: .setCoordinatesZ(newValue))
+                                        }
                                     }
                                 )
                             )
@@ -184,9 +198,11 @@ private extension CoordinatesEditView {
                 HStack {
                     if viewModel.uiState.coordinates != nil {
                         Button(action: {
-                            viewModel.send(action: .setCoordinatesX(""))
-                            viewModel.send(action: .setCoordinatesY(""))
-                            viewModel.send(action: .setCoordinatesZ(""))
+                            Task {
+                                await viewModel.send(action: .setCoordinatesX(""))
+                                await viewModel.send(action: .setCoordinatesY(""))
+                                await viewModel.send(action: .setCoordinatesZ(""))
+                            }
                         }) {
                             Text("クリアする")
                                 .bold()

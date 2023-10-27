@@ -45,8 +45,10 @@ struct ItemEditView: View {
                         get: { viewModel.uiState.spotImage },
                         set: { newValue in
                             guard let newValue else { return }
-                            viewModel.send(action: .setSpotImage(newValue))
-                            viewModel.send(action: .getCoordinates(from: newValue))
+                            Task {
+                                await viewModel.send(action: .setSpotImage(newValue))
+                                await viewModel.send(action: .getCoordinates(from: newValue))
+                            }
                         }
                     ),
                     sourceType: imageSourceType,
@@ -54,8 +56,8 @@ struct ItemEditView: View {
                 )
             }
             .task {
-                viewModel.send(action: .loadImage)
-                viewModel.send(action: .getWorlds)
+                await viewModel.send(action: .loadImage)
+                await viewModel.send(action: .getWorlds)
             }
             .onChange(of: viewModel.uiState.event) { [old = viewModel.uiState.event] new in
                 if old == new { return }
@@ -78,7 +80,9 @@ struct ItemEditView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
-                        viewModel.send(action: .onCloseButtonTap)
+                        Task {
+                            await viewModel.send(action: .onCloseButtonTap)
+                        }
                     }) {
                         Image(systemName: "xmark")
                     }
@@ -88,12 +92,18 @@ struct ItemEditView: View {
             .confirmationAlert(
                 alertType: viewModel.uiState.confirmationAlert,
                 onConfirmed: {
-                    if let action = viewModel.uiState.confirmationAlert?.action {
-                        viewModel.send(action: action)
+                    if let action =
+                        viewModel.uiState.confirmationAlert?.action
+                    {
+                        Task {
+                            await viewModel.send(action: action)
+                        }
                     }
                 },
                 onDismiss: {
-                    viewModel.send(action: .onAlertDismiss)
+                    Task {
+                        await viewModel.send(action: .onAlertDismiss)
+                    }
                 }
             )
         }
@@ -112,20 +122,12 @@ struct ItemEditView: View {
 private extension ItemEditView {
     var coordinatesEditCell: some View {
         NavigationLink {
-//            CoordinatesEditView(
-//                coordinates: .init(
-//                    get: { viewModel.uiState.input.coordinates },
-//                    set: { newValue in
-//                        Task {
-//                            await viewModel.send(action: .setCoordinates(newValue))
-//                        }
-//                    }
-//                )
-//            )
             CoordinatesEditView(
                 coordinates: viewModel.uiState.input.coordinates
             ) { coordinates in
-                viewModel.send(action: .setCoordinates(coordinates))
+                Task {
+                    await viewModel.send(action: .setCoordinates(coordinates))
+                }
                 return true
             }
         } label: {
@@ -149,7 +151,9 @@ private extension ItemEditView {
                         get: { viewModel.uiState.input.world },
                         set: { newValue in
                             guard let newValue else { return }
-                            viewModel.send(action: .setWorld(newValue))
+                            Task {
+                                await viewModel.send(action: .setWorld(newValue))
+                            }
                         }
                     )
                 )
@@ -172,7 +176,9 @@ private extension ItemEditView {
             HStack {
                 if case .update = viewModel.uiState.editMode {
                     Button(action: {
-                        viewModel.send(action: .onDeleteButtonTap)
+                        Task {
+                            await viewModel.send(action: .onDeleteButtonTap)
+                        }
                     }) {
                         Text("削除する")
                             .bold()
@@ -190,10 +196,14 @@ private extension ItemEditView {
                     Task {
                         switch viewModel.uiState.editMode {
                         case .add:
-                            viewModel.send(action: .onRegisterButtonTap)
+                            Task {
+                                await viewModel.send(action: .onRegisterButtonTap)
+                            }
 
                         case .update:
-                            viewModel.send(action: .onUpdateButtonTap)
+                            Task {
+                                await viewModel.send(action: .onUpdateButtonTap)
+                            }
                         }
                     }
                 }) {

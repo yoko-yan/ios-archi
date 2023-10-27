@@ -22,15 +22,17 @@ final class TimeLineViewModel: ObservableObject {
         self.uiState = uiState
     }
 
-    func send(action: TimeLineViewAction) {
+    func send(action: TimeLineViewAction) async {
         switch action {
         case .load:
-            Task {
+            do {
                 uiState.items = try await ItemsRepository().getAll()
+            } catch {
+                print(error)
             }
 
         case .reload:
-            send(action: .load)
+            await send(action: .load)
         }
     }
 

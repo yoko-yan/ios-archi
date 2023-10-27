@@ -48,6 +48,7 @@ final class LocalImageRepository {
     func loadImage(fileName: String?) async throws -> UIImage? {
         guard let fileName else { return nil }
         let filePath = getFileURL(fileName: fileName).path
+        print("load path: \(filePath)")
         if FileManager.default.fileExists(atPath: filePath) {
             if let image = UIImage(contentsOfFile: filePath) {
                 return image

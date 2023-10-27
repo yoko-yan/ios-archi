@@ -24,8 +24,10 @@ struct LoadSpotImageUseCaseImpl: LoadSpotImageUseCase {
             let image = try await ICloudDocumentRepository().loadImage(fileName: fileName)
             if let image {
                 try await LocalImageRepository().saveImage(image, fileName: fileName)
+                return image
+            } else {
+                return try await LocalImageRepository().loadImage(fileName: fileName)
             }
-            return image
         } else {
             return try await LocalImageRepository().loadImage(fileName: fileName)
         }

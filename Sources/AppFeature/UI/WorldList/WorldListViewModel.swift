@@ -25,15 +25,17 @@ final class WorldListViewModel: ObservableObject {
         uiState = WorldListUiState()
     }
 
-    func send(action: WorldListViewAction) {
+    func send(action: WorldListViewAction) async {
         switch action {
         case .load:
-            Task {
+            do {
                 uiState.worlds = try await WorldsRepository().load()
+            } catch {
+                print(error)
             }
 
         case .reload:
-            send(action: .load)
+            await send(action: .load)
 
         case let .onDeleteButtonClick(offsets: offsets):
             print(offsets.map { uiState.worlds[$0] })
@@ -42,12 +44,14 @@ final class WorldListViewModel: ObservableObject {
 
         case .onDelete:
             if let deleteWorlds = uiState.deleteWorlds {
-                deleteWorlds.forEach { world in
-                    Task {
-                        try await WorldsRepository().delete(world: world)
-                        send(action: .reload)
-                    }
-                }
+//                for await world in deleteWorlds {
+//                    do {
+//                        try await WorldsRepository().delete(world: world)
+//                        await send(action: .reload)
+//                    } catch {
+//                        print(error)
+//                    }
+//                }
             } else {
                 fatalError("no deleteItems")
             }

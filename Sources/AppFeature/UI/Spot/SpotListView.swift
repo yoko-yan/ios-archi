@@ -42,10 +42,10 @@ struct SpotListView: View {
             })
         }
         .task {
-            viewModel.send(action: .load)
+            await viewModel.send(action: .load)
         }
         .refreshable {
-            viewModel.send(action: .load)
+            await viewModel.send(action: .load)
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarTitle(Text("スポット一覧"))
@@ -53,7 +53,9 @@ struct SpotListView: View {
         .sheet(isPresented: $isShowEditView) {
             ItemEditView(
                 onChange: { _ in
-                    viewModel.send(action: .reload)
+                    Task {
+                        await viewModel.send(action: .reload)
+                    }
                 }
             )
         }

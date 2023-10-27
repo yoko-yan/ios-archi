@@ -50,7 +50,7 @@ final class ItemEditViewModel: ObservableObject {
 
     // FIXME:
     // swiftlint:disable:next cyclomatic_complexity
-    func send(action: ItemEditViewAction) {
+    func send(action: ItemEditViewAction) async {
         switch action {
         case let .setSpotImage(image):
             uiState.spotImage = image
@@ -62,39 +62,47 @@ final class ItemEditViewModel: ObservableObject {
             uiState.input.coordinates = coordinates
 
         case let .getCoordinates(image):
-            Task {
+            do {
                 let coordinates = try await GetCoordinatesUseCase().execute(image: image)
                 if let coordinates {
                     uiState.input.coordinates = coordinates
                 }
+            } catch {
+                print(error)
             }
 
         case .getWorlds:
-            Task {
+            do {
                 uiState.worlds = try await WorldsRepository().load()
+            } catch {
+                print(error)
             }
 
         case let .setWorld(world):
             uiState.input.world = world
 
         case .saveImage:
-            Task {
+            do {
                 if let spotImage = uiState.spotImage {
                     let spotImageName = uiState.input.spotImageName ?? UUID().uuidString
                     uiState.input.spotImageName = spotImageName
                     try await SaveSpotImageUseCaseImpl().execute(image: spotImage, fileName: spotImageName)
                 }
+            } catch {
+                print(error)
             }
 
         case .loadImage:
-            Task {
+            do {
                 if uiState.spotImage == nil, let spotImageName = uiState.input.spotImageName {
                     uiState.spotImage = try await LoadSpotImageUseCaseImpl().execute(fileName: spotImageName)
                 }
+            } catch {
+                print(error)
             }
 
         case .onRegisterButtonTap:
-            send(action: .onRegister)
+            await send(action: .onRegister)
 
         case .onUpdateButtonTap:
             uiState.confirmationAlert = .confirmUpdate(.onUpdate)
@@ -110,31 +118,37 @@ final class ItemEditViewModel: ObservableObject {
             }
 
         case .onRegister:
-            Task {
-                send(action: .onAlertDismiss)
+            do {
+                await send(action: .onAlertDismiss)
                 guard case .add = uiState.editMode else { fatalError() }
-                send(action: .saveImage)
+                await send(action: .saveImage)
                 try await ItemsRepository().insert(item: uiState.editItem)
                 send(event: .onChanged)
                 send(event: .onDismiss)
+            } catch {
+                print(error)
             }
 
         case .onUpdate:
-            Task {
-                send(action: .onAlertDismiss)
+            do {
+                await send(action: .onAlertDismiss)
                 guard case .update = uiState.editMode else { fatalError() }
-                send(action: .saveImage)
+                await send(action: .saveImage)
                 try await ItemsRepository().update(item: uiState.editItem)
                 send(event: .onChanged)
                 send(event: .onDismiss)
+            } catch {
+                print(error)
             }
 
         case .onDelete:
-            Task {
+            do {
                 guard case .update = uiState.editMode, let item = uiState.editMode.item else { return }
                 try await ItemsRepository().delete(item: item)
                 send(event: .onDeleted)
                 send(event: .onDismiss)
+            } catch {
+                print(error)
             }
 
         case .onAlertDismiss:
