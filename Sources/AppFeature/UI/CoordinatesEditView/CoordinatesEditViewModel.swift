@@ -10,9 +10,9 @@ import UIKit
 enum CoordinatesEditViewAction: Equatable {
     case setCoordinatesImage(UIImage?)
     case clearCoordinates
-    case setCoordinatesX(String?)
-    case setCoordinatesY(String?)
-    case setCoordinatesZ(String?)
+    case setCoordinatesX(String)
+    case setCoordinatesY(String)
+    case setCoordinatesZ(String)
     case getCoordinates(from: UIImage)
 }
 
@@ -22,7 +22,19 @@ enum CoordinatesEditViewAction: Equatable {
 final class CoordinatesEditViewModel: ObservableObject {
     @Published private(set) var uiState: CoordinatesEditUiState
 
-    init(coordinatesX: String?, coordinatesY: String?, coordinatesZ: String?) {
+    init(coordinates: Coordinates?) {
+        var coordinatesX: String
+        var coordinatesY: String
+        var coordinatesZ: String
+        if let coordinates {
+            coordinatesX = "\(coordinates.x)"
+            coordinatesY = "\(coordinates.y)"
+            coordinatesZ = "\(coordinates.z)"
+        } else {
+            coordinatesX = ""
+            coordinatesY = ""
+            coordinatesZ = ""
+        }
         uiState = CoordinatesEditUiState(
             coordinatesX: coordinatesX,
             coordinatesY: coordinatesY,
@@ -30,27 +42,27 @@ final class CoordinatesEditViewModel: ObservableObject {
         )
     }
 
-    func send(action: CoordinatesEditViewAction) async {
-        do {
-            switch action {
-            case let .setCoordinatesImage(image):
-                uiState.coordinatesImage = image
+    func send(action: CoordinatesEditViewAction) {
+        switch action {
+        case let .setCoordinatesImage(image):
+            uiState.coordinatesImage = image
 
-            case .clearCoordinates:
-                uiState.coordinatesX = nil
-                uiState.coordinatesY = nil
-                uiState.coordinatesZ = nil
+        case .clearCoordinates:
+            uiState.coordinatesX = ""
+            uiState.coordinatesY = ""
+            uiState.coordinatesZ = ""
 
-            case let .setCoordinatesX(x):
-                uiState.coordinatesX = x
+        case let .setCoordinatesX(x):
+            uiState.coordinatesX = x
 
-            case let .setCoordinatesY(y):
-                uiState.coordinatesY = y
+        case let .setCoordinatesY(y):
+            uiState.coordinatesY = y
 
-            case let .setCoordinatesZ(z):
-                uiState.coordinatesZ = z
+        case let .setCoordinatesZ(z):
+            uiState.coordinatesZ = z
 
-            case let .getCoordinates(image):
+        case let .getCoordinates(image):
+            Task {
                 let coordinates = try await GetCoordinatesUseCase().execute(image: image)
                 if let coordinates {
                     uiState.coordinatesX = "\(coordinates.x)"
@@ -58,8 +70,6 @@ final class CoordinatesEditViewModel: ObservableObject {
                     uiState.coordinatesZ = "\(coordinates.z)"
                 }
             }
-        } catch {
-            print(error)
         }
     }
 }

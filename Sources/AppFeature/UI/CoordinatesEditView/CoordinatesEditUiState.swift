@@ -7,8 +7,22 @@ import SwiftUI
 import UIKit
 
 struct CoordinatesEditUiState: Equatable {
-    var coordinatesX: String?
-    var coordinatesY: String?
-    var coordinatesZ: String?
+    var coordinatesX: String
+    var coordinatesY: String
+    var coordinatesZ: String
+    var coordinates: Coordinates? {
+        if coordinatesX == "", // swiftlint:disable:this empty_string
+           coordinatesY == "", // swiftlint:disable:this empty_string
+           coordinatesZ == "" // swiftlint:disable:this empty_string
+        {
+            return nil
+        }
+        return Coordinates(
+            x: Int(coordinatesX) ?? 0,
+            y: Int(coordinatesY) ?? 0,
+            z: Int(coordinatesZ) ?? 0
+        )
+    }
+
     var coordinatesImage: UIImage?
 }

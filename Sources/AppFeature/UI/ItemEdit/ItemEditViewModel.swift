@@ -50,88 +50,98 @@ final class ItemEditViewModel: ObservableObject {
 
     // FIXME:
     // swiftlint:disable:next cyclomatic_complexity
-    func send(action: ItemEditViewAction) async {
-        do {
-            switch action {
-            case let .setSpotImage(image):
-                uiState.spotImage = image
+    func send(action: ItemEditViewAction) {
+        switch action {
+        case let .setSpotImage(image):
+            uiState.spotImage = image
 
-            case .clearCoordinates:
-                uiState.input.coordinates = nil
+        case .clearCoordinates:
+            uiState.input.coordinates = nil
 
-            case let .setCoordinates(coordinates):
-                uiState.input.coordinates = coordinates
+        case let .setCoordinates(coordinates):
+            uiState.input.coordinates = coordinates
 
-            case let .getCoordinates(image):
+        case let .getCoordinates(image):
+            Task {
                 let coordinates = try await GetCoordinatesUseCase().execute(image: image)
                 if let coordinates {
                     uiState.input.coordinates = coordinates
                 }
+            }
 
-            case .getWorlds:
+        case .getWorlds:
+            Task {
                 uiState.worlds = try await WorldsRepository().load()
+            }
 
-            case let .setWorld(world):
-                uiState.input.world = world
+        case let .setWorld(world):
+            uiState.input.world = world
 
-            case .saveImage:
+        case .saveImage:
+            Task {
                 if let spotImage = uiState.spotImage {
                     let spotImageName = uiState.input.spotImageName ?? UUID().uuidString
                     uiState.input.spotImageName = spotImageName
                     try await SaveSpotImageUseCaseImpl().execute(image: spotImage, fileName: spotImageName)
                 }
+            }
 
-            case .loadImage:
+        case .loadImage:
+            Task {
                 if uiState.spotImage == nil, let spotImageName = uiState.input.spotImageName {
                     uiState.spotImage = try await LoadSpotImageUseCaseImpl().execute(fileName: spotImageName)
                 }
+            }
 
-            case .onRegisterButtonTap:
-                await send(action: .onRegister)
+        case .onRegisterButtonTap:
+            send(action: .onRegister)
 
-            case .onUpdateButtonTap:
-                uiState.confirmationAlert = .confirmUpdate(.onUpdate)
+        case .onUpdateButtonTap:
+            uiState.confirmationAlert = .confirmUpdate(.onUpdate)
 
-            case .onDeleteButtonTap:
-                uiState.confirmationAlert = .confirmDeletion(.onDelete)
+        case .onDeleteButtonTap:
+            uiState.confirmationAlert = .confirmDeletion(.onDelete)
 
-            case .onCloseButtonTap:
-                if uiState.isChanged {
-                    uiState.confirmationAlert = .confirmDismiss(.onDismiss)
-                } else {
-                    send(event: .onDismiss)
-                }
+        case .onCloseButtonTap:
+            if uiState.isChanged {
+                uiState.confirmationAlert = .confirmDismiss(.onDismiss)
+            } else {
+                send(event: .onDismiss)
+            }
 
-            case .onRegister:
-                await send(action: .onAlertDismiss)
+        case .onRegister:
+            Task {
+                send(action: .onAlertDismiss)
                 guard case .add = uiState.editMode else { fatalError() }
-                await send(action: .saveImage)
+                send(action: .saveImage)
                 try await ItemsRepository().insert(item: uiState.editItem)
                 send(event: .onChanged)
                 send(event: .onDismiss)
+            }
 
-            case .onUpdate:
-                await send(action: .onAlertDismiss)
+        case .onUpdate:
+            Task {
+                send(action: .onAlertDismiss)
                 guard case .update = uiState.editMode else { fatalError() }
-                await send(action: .saveImage)
+                send(action: .saveImage)
                 try await ItemsRepository().update(item: uiState.editItem)
                 send(event: .onChanged)
                 send(event: .onDismiss)
+            }
 
-            case .onDelete:
+        case .onDelete:
+            Task {
                 guard case .update = uiState.editMode, let item = uiState.editMode.item else { return }
                 try await ItemsRepository().delete(item: item)
                 send(event: .onDeleted)
                 send(event: .onDismiss)
-
-            case .onAlertDismiss:
-                uiState.confirmationAlert = nil
-
-            case .onDismiss:
-                send(event: .onDismiss)
             }
-        } catch {
-            print(error)
+
+        case .onAlertDismiss:
+            uiState.confirmationAlert = nil
+
+        case .onDismiss:
+            send(event: .onDismiss)
         }
     }
 }

@@ -74,7 +74,7 @@ struct SeedEditView: View {
                         set: { newValue in seed = Seed(newValue) }
                     )
                 )
-                .keyboardType(.numbersAndPunctuation)
+                .keyboardType(.numberPad)
                 .multilineTextAlignment(TextAlignment.trailing)
                 .modifier(
                     TextFieldClearButton(
