@@ -99,12 +99,12 @@ struct ItemEditUiState: Equatable {
     struct Input: Equatable {
         var id: String?
         var spotImageName: String?
-        var coordinates: String?
+        var coordinates: Coordinates?
         var world: World?
 
         init(item: Item?) {
             id = item?.id
-            coordinates = item?.coordinates?.text
+            coordinates = item?.coordinates
             if let world = item?.world {
                 self.world = world
             }
@@ -123,7 +123,7 @@ struct ItemEditUiState: Equatable {
     var editItem: Item {
         Item(
             id: input.id ?? UUID().uuidString,
-            coordinates: Coordinates(input.coordinates ?? ""),
+            coordinates: input.coordinates,
             world: input.world,
             spotImageName: input.spotImageName,
             createdAt: editMode.item?.createdAt ?? Date(),

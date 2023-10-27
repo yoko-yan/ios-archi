@@ -10,7 +10,6 @@ import UIKit
 enum CoordinatesEditViewAction: Equatable {
     case setCoordinatesImage(UIImage?)
     case clearCoordinates
-    case setCoordinates(String?)
     case setCoordinatesX(String?)
     case setCoordinatesY(String?)
     case setCoordinatesZ(String?)
@@ -23,9 +22,11 @@ enum CoordinatesEditViewAction: Equatable {
 final class CoordinatesEditViewModel: ObservableObject {
     @Published private(set) var uiState: CoordinatesEditUiState
 
-    init(coordinates: String?) {
+    init(coordinatesX: String?, coordinatesY: String?, coordinatesZ: String?) {
         uiState = CoordinatesEditUiState(
-            coordinates: coordinates
+            coordinatesX: coordinatesX,
+            coordinatesY: coordinatesY,
+            coordinatesZ: coordinatesZ
         )
     }
 
@@ -36,24 +37,25 @@ final class CoordinatesEditViewModel: ObservableObject {
                 uiState.coordinatesImage = image
 
             case .clearCoordinates:
-                uiState.coordinates = nil
+                uiState.coordinatesX = nil
+                uiState.coordinatesY = nil
+                uiState.coordinatesZ = nil
 
-            case let .setCoordinates(x):
-                uiState.coordinates = [x ?? "", uiState.coordinatesY ?? "", uiState.coordinatesZ ?? ""].joined(separator: ",")
+            case let .setCoordinatesX(x):
+                uiState.coordinatesX = x
 
-            case let .setCoordinatesX(y):
-                uiState.coordinates = [uiState.coordinatesX ?? "", y ?? "", uiState.coordinatesZ ?? ""].joined(separator: ",")
+            case let .setCoordinatesY(y):
+                uiState.coordinatesY = y
 
-            case let .setCoordinatesY(z):
-                uiState.coordinates = [uiState.coordinatesX ?? "", uiState.coordinatesY ?? "", z ?? ""].joined(separator: ",")
-
-            case let .setCoordinatesZ(coordinates):
-                uiState.coordinates = coordinates
+            case let .setCoordinatesZ(z):
+                uiState.coordinatesZ = z
 
             case let .getCoordinates(image):
                 let coordinates = try await GetCoordinatesUseCase().execute(image: image)
-                if let coordinates = coordinates?.text {
-                    uiState.coordinates = coordinates
+                if let coordinates {
+                    uiState.coordinatesX = "\(coordinates.x)"
+                    uiState.coordinatesY = "\(coordinates.y)"
+                    uiState.coordinatesZ = "\(coordinates.z)"
                 }
             }
         } catch {

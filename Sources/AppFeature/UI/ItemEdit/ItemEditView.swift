@@ -123,7 +123,7 @@ private extension ItemEditView {
     var coordinatesEditCell: some View {
         NavigationLink {
             CoordinatesEditView(
-                coordinates: viewModel.uiState.input.coordinates ?? ""
+                coordinates: viewModel.uiState.input.coordinates
             ) { coordinates in
                 Task {
                     await viewModel.send(action: .setCoordinates(coordinates))
@@ -133,7 +133,7 @@ private extension ItemEditView {
             HStack {
                 Label("coordinates", systemImage: "location.circle")
                 Spacer()
-                Text(viewModel.uiState.input.coordinates ?? "未登録")
+                Text(viewModel.uiState.input.coordinates?.text ?? "未登録")
                 Image(systemName: "chevron.right")
             }
             .padding(.horizontal)

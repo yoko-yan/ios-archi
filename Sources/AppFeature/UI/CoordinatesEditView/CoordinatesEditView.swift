@@ -12,7 +12,7 @@ struct CoordinatesEditView: View {
     @State private var isImagePicker = false
     @State private var imageSourceType = ImagePicker.SourceType.library
 
-    private let onChanged: ((String?) -> Void)?
+    private let onChanged: ((Coordinates?) -> Void)?
 
     var body: some View {
         coordinatesEditCell
@@ -35,10 +35,27 @@ struct CoordinatesEditView: View {
             }
     }
 
-    init(coordinates: String? = nil, onChanged: ((String?) -> Void)? = nil) {
-        _viewModel = StateObject(wrappedValue: CoordinatesEditViewModel(coordinates: coordinates))
+    init(coordinates: Coordinates? = nil, onChanged: ((Coordinates?) -> Void)? = nil) {
+        _viewModel = StateObject(
+            wrappedValue: CoordinatesEditViewModel(
+                coordinatesX: coordinates?.text.components(separatedBy: ",")[0],
+                coordinatesY: coordinates?.text.components(separatedBy: ",")[1],
+                coordinatesZ: coordinates?.text.components(separatedBy: ",")[2]
+            )
+        )
         self.onChanged = onChanged
     }
+
+//    init(coordinatesX: String?, coordinatesY: String?, coordinatesZ: String?, onChanged: ((String?) -> Void)? = nil) {
+//        _viewModel = StateObject(
+//            wrappedValue: CoordinatesEditViewModel(
+//                coordinatesX: coordinatesX,
+//                coordinatesY: coordinatesY,
+//                coordinatesZ: coordinatesZ
+//            )
+//        )
+//        self.onChanged = onChanged
+//    }
 }
 
 // MARK: - Privates
@@ -98,17 +115,6 @@ private extension CoordinatesEditView {
                     HStack {
                         Label("coordinates", systemImage: "location.circle")
                         Spacer()
-//                        TextField(
-//                            "X",
-//                            text: .init(
-//                                get: { viewModel.uiState.coordinatesX ?? "" },
-//                                set: { newValue in
-//                                    Task {
-//                                        await viewModel.send(action: .setCoordinatesX(newValue))
-//                                    }
-//                                }
-//                            )
-//                        )
                     }
                     .padding(.horizontal)
 
@@ -129,10 +135,10 @@ private extension CoordinatesEditView {
                         .modifier(
                             TextFieldClearButton(
                                 text: .init(
-                                    get: { viewModel.uiState.coordinates ?? "" },
+                                    get: { viewModel.uiState.coordinatesX ?? "" },
                                     set: { newValue in
                                         Task {
-                                            await viewModel.send(action: .setCoordinates(newValue))
+                                            await viewModel.send(action: .setCoordinatesX(newValue))
                                         }
                                     }
                                 )
@@ -156,10 +162,10 @@ private extension CoordinatesEditView {
                         .modifier(
                             TextFieldClearButton(
                                 text: .init(
-                                    get: { viewModel.uiState.coordinates ?? "" },
+                                    get: { viewModel.uiState.coordinatesY ?? "" },
                                     set: { newValue in
                                         Task {
-                                            await viewModel.send(action: .setCoordinates(newValue))
+                                            await viewModel.send(action: .setCoordinatesY(newValue))
                                         }
                                     }
                                 )
@@ -183,10 +189,10 @@ private extension CoordinatesEditView {
                         .modifier(
                             TextFieldClearButton(
                                 text: .init(
-                                    get: { viewModel.uiState.coordinates ?? "" },
+                                    get: { viewModel.uiState.coordinatesZ ?? "" },
                                     set: { newValue in
                                         Task {
-                                            await viewModel.send(action: .setCoordinates(newValue))
+                                            await viewModel.send(action: .setCoordinatesZ(newValue))
                                         }
                                     }
                                 )
@@ -202,7 +208,14 @@ private extension CoordinatesEditView {
                 .navigationBarTitle("座標を変更する", displayMode: .inline)
 
                 Button(action: {
-                    onChanged?(viewModel.uiState.coordinates)
+                    let uiState = viewModel.uiState
+                    onChanged?(
+                        Coordinates(
+                            x: Int(uiState.coordinatesX ?? "0") ?? 0,
+                            y: Int(uiState.coordinatesY ?? "0") ?? 0,
+                            z: Int(uiState.coordinatesZ ?? "0") ?? 0
+                        )
+                    )
                     dismiss()
                 }) {
                     Text("変更する")
@@ -219,14 +232,14 @@ private extension CoordinatesEditView {
 
 // MARK: - Previews
 
-#Preview {
-    CoordinatesEditView(
-        coordinates: "318, 63, 1143"
-    )
-}
-
-#Preview {
-    CoordinatesEditView(
-        coordinates: nil
-    )
-}
+// #Preview {
+//    CoordinatesEditView(
+//        coordinates: "318, 63, 1143"
+//    )
+// }
+//
+// #Preview {
+//    CoordinatesEditView(
+//        coordinates: nil
+//    )
+// }

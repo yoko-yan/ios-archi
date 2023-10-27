@@ -10,7 +10,7 @@ import UIKit
 enum ItemEditViewAction: Equatable {
     case setSpotImage(UIImage?)
     case clearCoordinates
-    case setCoordinates(String?)
+    case setCoordinates(Coordinates?)
     case getCoordinates(from: UIImage)
     case getWorlds
     case setWorld(World)
@@ -64,7 +64,7 @@ final class ItemEditViewModel: ObservableObject {
 
             case let .getCoordinates(image):
                 let coordinates = try await GetCoordinatesUseCase().execute(image: image)
-                if let coordinates = coordinates?.text {
+                if let coordinates {
                     uiState.input.coordinates = coordinates
                 }
 
