@@ -98,13 +98,82 @@ private extension CoordinatesEditView {
                     HStack {
                         Label("coordinates", systemImage: "location.circle")
                         Spacer()
+//                        TextField(
+//                            "X",
+//                            text: .init(
+//                                get: { viewModel.uiState.coordinatesX ?? "" },
+//                                set: { newValue in
+//                                    Task {
+//                                        await viewModel.send(action: .setCoordinatesX(newValue))
+//                                    }
+//                                }
+//                            )
+//                        )
+                    }
+                    .padding(.horizontal)
+
+                    HStack {
                         TextField(
-                            "未登録",
+                            "X",
                             text: .init(
-                                get: { viewModel.uiState.coordinates ?? "" },
+                                get: { viewModel.uiState.coordinatesX ?? "" },
                                 set: { newValue in
                                     Task {
-                                        await viewModel.send(action: .setCoordinates(newValue))
+                                        await viewModel.send(action: .setCoordinatesX(newValue))
+                                    }
+                                }
+                            )
+                        )
+                        .keyboardType(.numbersAndPunctuation)
+                        .multilineTextAlignment(TextAlignment.trailing)
+                        .modifier(
+                            TextFieldClearButton(
+                                text: .init(
+                                    get: { viewModel.uiState.coordinates ?? "" },
+                                    set: { newValue in
+                                        Task {
+                                            await viewModel.send(action: .setCoordinates(newValue))
+                                        }
+                                    }
+                                )
+                            )
+                        )
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+
+                        TextField(
+                            "Y",
+                            text: .init(
+                                get: { viewModel.uiState.coordinatesY ?? "" },
+                                set: { newValue in
+                                    Task {
+                                        await viewModel.send(action: .setCoordinatesY(newValue))
+                                    }
+                                }
+                            )
+                        )
+                        .keyboardType(.numbersAndPunctuation)
+                        .multilineTextAlignment(TextAlignment.trailing)
+                        .modifier(
+                            TextFieldClearButton(
+                                text: .init(
+                                    get: { viewModel.uiState.coordinates ?? "" },
+                                    set: { newValue in
+                                        Task {
+                                            await viewModel.send(action: .setCoordinates(newValue))
+                                        }
+                                    }
+                                )
+                            )
+                        )
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+
+                        TextField(
+                            "Z",
+                            text: .init(
+                                get: { viewModel.uiState.coordinatesZ ?? "" },
+                                set: { newValue in
+                                    Task {
+                                        await viewModel.send(action: .setCoordinatesZ(newValue))
                                     }
                                 }
                             )

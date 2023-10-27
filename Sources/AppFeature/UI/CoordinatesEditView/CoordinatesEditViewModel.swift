@@ -11,6 +11,9 @@ enum CoordinatesEditViewAction: Equatable {
     case setCoordinatesImage(UIImage?)
     case clearCoordinates
     case setCoordinates(String?)
+    case setCoordinatesX(String?)
+    case setCoordinatesY(String?)
+    case setCoordinatesZ(String?)
     case getCoordinates(from: UIImage)
 }
 
@@ -35,7 +38,16 @@ final class CoordinatesEditViewModel: ObservableObject {
             case .clearCoordinates:
                 uiState.coordinates = nil
 
-            case let .setCoordinates(coordinates):
+            case let .setCoordinates(x):
+                uiState.coordinates = [x ?? "", uiState.coordinatesY ?? "", uiState.coordinatesZ ?? ""].joined(separator: ",")
+
+            case let .setCoordinatesX(y):
+                uiState.coordinates = [uiState.coordinatesX ?? "", y ?? "", uiState.coordinatesZ ?? ""].joined(separator: ",")
+
+            case let .setCoordinatesY(z):
+                uiState.coordinates = [uiState.coordinatesX ?? "", uiState.coordinatesY ?? "", z ?? ""].joined(separator: ",")
+
+            case let .setCoordinatesZ(coordinates):
                 uiState.coordinates = coordinates
 
             case let .getCoordinates(image):
