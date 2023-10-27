@@ -134,9 +134,9 @@
 				83E74B23292E315600FA1F46 /* Sources */,
 				83E74B24292E315600FA1F46 /* Frameworks */,
 				83E74B25292E315600FA1F46 /* Resources */,
-				CD32A3EA2AE982A30057F3A9 /* GoogleService-Info.plist */,
-				97B0E22F2A4F6BBE003581A1 /* create env.txt */,
+				CD32A3EA2AE982A30057F3A9 /* Copy GoogleService-Info.plist */,
 				CD47DCAD2AE98E6000026887 /* Crashlytics */,
+				97B0E22F2A4F6BBE003581A1 /* create env.txt */,
 			);
 			buildRules = (
 			);
@@ -278,7 +278,7 @@
 			shellPath = /bin/sh;
 			shellScript = "#env > env.txt\n";
 		};
-		CD32A3EA2AE982A30057F3A9 /* GoogleService-Info.plist */ = {
+		CD32A3EA2AE982A30057F3A9 /* Copy GoogleService-Info.plist */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -287,14 +287,14 @@
 			);
 			inputPaths = (
 			);
-			name = "GoogleService-Info.plist";
+			name = "Copy GoogleService-Info.plist";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp \"${PROJECT_DIR}/${PROJECT_NAME}/Configs/GoogleService-Info-${CONFIGURATION}.plist\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\"\n";
+			shellScript = "GOOGLE_SERVICE_INFO_FILE=\"${PROJECT_DIR}/${PROJECT_NAME}/Configs/GoogleService-Info-${CONFIGURATION}.plist\"\nif [[ -f $GOOGLE_SERVICE_INFO_FILE ]]; then\n    cp $GOOGLE_SERVICE_INFO_FILE \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\"\nfi\n";
 		};
 		CD47DCAD2AE98E6000026887 /* Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -314,7 +314,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+			shellScript = "GOOGLE_SERVICE_INFO_FILE=\"${PROJECT_DIR}/${PROJECT_NAME}/Configs/GoogleService-Info-${CONFIGURATION}.plist\"\nif [[ -f $GOOGLE_SERVICE_INFO_FILE ]]; then\n    \"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
