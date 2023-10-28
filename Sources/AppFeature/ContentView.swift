@@ -38,6 +38,7 @@ enum TabItem: String, CaseIterable {
 
 struct ContentView: View {
     @State private var selected: TabItem = .home
+    @State private var fadeInOut = true
 
     var body: some View {
         ZStack {
@@ -60,6 +61,15 @@ struct ContentView: View {
                     }
                     .tag(TabItem.list)
             }
+            SplashView()
+                .onAppear {
+                    withAnimation(
+                        Animation.easeIn(duration: 0.3)
+                    ) {
+                        fadeInOut.toggle()
+                    }
+                }
+                .opacity(fadeInOut ? 1 : 0)
         }
         .tint(.primary)
     }

@@ -10,14 +10,7 @@ public struct RootView: View {
     public var body: some View {
         Group {
             if viewModel.uiState.isLaunching {
-                ZStack {
-                    Color("Primary")
-                        .ignoresSafeArea() // ステータスバーまで塗り潰すために必要
-                    Image(.icon)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .padding()
-                }
+                SplashView()
             } else {
                 ContentView()
             }
