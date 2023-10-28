@@ -32,7 +32,7 @@ final class ItemsLocalDataSourceImpl: ItemsLocalDataSource {
         )
         var entity: ItemEntity?
         try await coreDataManager.viewContext.perform { [context = coreDataManager.viewContext] in
-            entity = try context.fetch(request).first as? ItemEntity
+            entity = try context.fetch(request).first
         }
         return entity
     }
