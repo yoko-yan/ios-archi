@@ -15,6 +15,16 @@ struct WorldSelectionView: View {
     var body: some View {
         ZStack {
             List(selection: $selected) {
+                HStack {
+                    Spacer()
+                    Text("未選択")
+                    Spacer()
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    selected = nil
+                    dismiss()
+                }
                 ForEach(worlds, id: \.self) { world in
                     WorldListCell(world: world)
                         .onTapGesture {

@@ -9,13 +9,12 @@ struct WorldListCell: View {
     let world: World
 
     var body: some View {
-        VStack {
-            HStack {
-                Label("seed", systemImage: "globe.desk")
-                Spacer()
-                Text(world.seed?.text ?? "")
-            }
+        HStack {
+            Label("seed", systemImage: "globe.desk")
+            Spacer()
+            Text(world.seed?.text ?? "")
         }
+        .contentShape(Rectangle())
     }
 }
 

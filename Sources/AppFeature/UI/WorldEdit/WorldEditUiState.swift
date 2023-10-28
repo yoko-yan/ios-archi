@@ -114,7 +114,6 @@ struct WorldEditUiState {
     var event: [Event] = []
     var input: Input
     var seedImage: UIImage?
-    var seed: [World] = []
 
     var editItem: World {
         World(

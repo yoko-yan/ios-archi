@@ -13,7 +13,7 @@ enum ItemEditViewAction: Equatable {
     case setCoordinates(Coordinates?)
     case getCoordinates(from: UIImage)
     case getWorlds
-    case setWorld(World)
+    case setWorld(World?)
     case saveImage
     case loadImage
     case onRegisterButtonTap

@@ -155,7 +155,6 @@ private extension ItemEditView {
                     selected: .init(
                         get: { viewModel.uiState.input.world },
                         set: { newValue in
-                            guard let newValue else { return }
                             Task {
                                 await viewModel.send(action: .setWorld(newValue))
                             }
@@ -166,7 +165,7 @@ private extension ItemEditView {
                 HStack {
                     Label("seed", systemImage: "globe.desk")
                     Spacer()
-                    Text(viewModel.uiState.input.world?.seed?.text ?? "未登録")
+                    Text(viewModel.uiState.input.world?.seed?.text ?? "未選択")
                     Image(systemName: "chevron.right")
                 }
                 .padding(.horizontal)
