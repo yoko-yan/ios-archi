@@ -7,7 +7,7 @@ import Foundation
 final class ItemsRepository {
     private let dataSource: ItemsLocalDataSource
 
-    init(dataSource: ItemsLocalDataSource = ItemsLocalDataSource()) {
+    init(dataSource: some ItemsLocalDataSource = ItemsLocalDataSourceImpl()) {
         self.dataSource = dataSource
     }
 
@@ -16,14 +16,14 @@ final class ItemsRepository {
     }
 
     func insert(item: Item) async throws {
-        try await dataSource.insert(item: item)
+        try await dataSource.insert(item)
     }
 
     func update(item: Item) async throws {
-        try await dataSource.update(item: item)
+        try await dataSource.update(item)
     }
 
     func delete(item: Item) async throws {
-        try await dataSource.delete(item: item)
+        try await dataSource.delete(item)
     }
 }

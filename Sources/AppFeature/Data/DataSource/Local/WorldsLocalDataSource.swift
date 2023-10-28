@@ -5,13 +5,38 @@
 import CoreData
 import Foundation
 
-struct WorldsLocalDataSource {
-    private var context: NSManagedObjectContext {
-        CoreDataManager.shared.viewContext
+protocol WorldsLocalDataSource {
+    func getById(_ id: UUID) async throws -> World?
+    func load() async throws -> [World]
+    func insert(_ world: World) async throws
+    func update(_ world: World) async throws
+    func delete(_ world: World) async throws
+}
+
+final class WorldsLocalDataSourceImpl: WorldsLocalDataSource {
+    private let coreDataManager: CoreDataManager
+
+    init(
+        coreDataManager: some CoreDataManager = CoreDataManager.shared
+    ) {
+        self.coreDataManager = coreDataManager
+    }
+
+    private func getEntty(id: UUID) async throws -> WorldEntity? {
+        let request = WorldEntity.fetchRequest()
+        request.fetchLimit = 1
+        request.predicate = NSPredicate(
+            format: "id = %@", id.uuidString
+        )
+        var entity: WorldEntity?
+        try await coreDataManager.viewContext.perform { [context = coreDataManager.viewContext] in
+            entity = try context.fetch(request).first
+        }
+        return entity
     }
 
     func getById(_ id: UUID) async throws -> World? {
-        guard let entity = try await LocalDataSource<WorldEntity>.read(id: id)
+        guard let entity = try await getEntty(id: id)
         else { return nil }
         return World(
             id: entity.id!.uuidString,
@@ -22,15 +47,10 @@ struct WorldsLocalDataSource {
         )
     }
 
-    func save(worlds: [World]) async throws {
-        // TODO:
-        fatalError()
-    }
-
     func load() async throws -> [World] {
         let request = WorldEntity.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(keyPath: \WorldEntity.createdAt, ascending: false)]
-        guard let result = try? context.fetch(request)
+        guard let result = try? coreDataManager.viewContext.fetch(request)
         else { return [] }
 
         return result.map { entity in
@@ -44,8 +64,8 @@ struct WorldsLocalDataSource {
         }
     }
 
-    func insert(world: World) async throws {
-        let entity = WorldEntity(context: context)
+    func insert(_ world: World) async throws {
+        let entity = WorldEntity(context: coreDataManager.viewContext)
         entity.id = UUID(uuidString: world.id)
         entity.name = world.name
         entity.seed = world.seed?.text
@@ -54,21 +74,23 @@ struct WorldsLocalDataSource {
         CoreDataManager.shared.saveContext()
     }
 
-    func update(world: World) async throws {
+    func update(_ world: World) async throws {
         guard let id = UUID(uuidString: world.id),
-              let entity = try? await LocalDataSource<WorldEntity>.read(id: id)
+              let entity = try? await getEntty(id: id)
         else { fatalError() }
         entity.id = UUID(uuidString: world.id)
         entity.name = world.name
         entity.seed = world.seed?.text
         entity.createdAt = world.createdAt
         entity.updatedAt = Date()
-        CoreDataManager.shared.saveContext()
+        coreDataManager.saveContext()
     }
 
-    func delete(world: World) async throws {
-        guard let id = UUID(uuidString: world.id)
+    func delete(_ world: World) async throws {
+        guard let id = UUID(uuidString: world.id) else { fatalError() }
+        guard let entity = try? await getEntty(id: id)
         else { fatalError() }
-        try await LocalDataSource<WorldEntity>.delete(id: id)
+        coreDataManager.viewContext.delete(entity)
+        try coreDataManager.viewContext.save()
     }
 }
