@@ -40,7 +40,7 @@ struct WorldSelectionView: View {
         .navigationBarTitle(Text("ワールドを選択する"))
         .toolbarBackground(.visible, for: .navigationBar)
         .sheet(isPresented: $isShowDetailView) {
-            WorldEditItemView(
+            WorldEditView(
                 onTapDismiss: { newValue in
                     worlds.append(newValue)
                 }

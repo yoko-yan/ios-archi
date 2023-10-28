@@ -34,7 +34,8 @@ enum ItemEditError: Error {
     case registerFailed
     case updateFailed
     case deleteFailed
-    case error(AppError)
+    case error(Error)
+    case appError(AppError)
 }
 
 extension ItemEditError: LocalizedError {
@@ -43,7 +44,8 @@ extension ItemEditError: LocalizedError {
         case .registerFailed: "データの登録に失敗しました"
         case .updateFailed: "データの更新に失敗しました"
         case .deleteFailed: "データの削除に失敗しました"
-        case let .error(appError): appError.errorDescription
+        case let .error(error): error.localizedDescription
+        case let .appError(appError): appError.localizedDescription
         }
     }
 
@@ -52,7 +54,8 @@ extension ItemEditError: LocalizedError {
         case .registerFailed: nil
         case .updateFailed: nil
         case .deleteFailed: nil
-        case let .error(appError): appError.failureReason
+        case .error: nil
+        case let .appError(appError): appError.failureReason
         }
     }
 
@@ -61,7 +64,8 @@ extension ItemEditError: LocalizedError {
         case .registerFailed: nil
         case .updateFailed: nil
         case .deleteFailed: nil
-        case let .error(appError): appError.recoverySuggestion
+        case .error: nil
+        case let .appError(appError): appError.recoverySuggestion
         }
     }
 }
@@ -108,6 +112,7 @@ final class ItemEditViewModel: ObservableObject {
                 }
             } catch {
                 print(error)
+                uiState.error = .error(error)
             }
 
         case .getWorlds:
@@ -115,6 +120,7 @@ final class ItemEditViewModel: ObservableObject {
                 uiState.worlds = try await WorldsRepository().load()
             } catch {
                 print(error)
+                uiState.error = .error(error)
             }
 
         case let .setWorld(world):
@@ -129,6 +135,7 @@ final class ItemEditViewModel: ObservableObject {
                 }
             } catch {
                 print(error)
+                uiState.error = .error(error)
             }
 
         case .loadImage:
@@ -138,6 +145,7 @@ final class ItemEditViewModel: ObservableObject {
                 }
             } catch {
                 print(error)
+                uiState.error = .error(error)
             }
 
         case .onRegisterButtonTap:
@@ -165,7 +173,7 @@ final class ItemEditViewModel: ObservableObject {
                 send(event: .onChanged)
                 send(event: .onDismiss)
             } catch {
-                uiState.error = checkCommonError(error, type: .registerFailed)
+                uiState.error = .error(error)
             }
 
         case .onUpdate:
@@ -177,7 +185,7 @@ final class ItemEditViewModel: ObservableObject {
                 send(event: .onChanged)
                 send(event: .onDismiss)
             } catch {
-                uiState.error = checkCommonError(error, type: .updateFailed)
+                uiState.error = .error(error)
             }
 
         case .onDelete:
@@ -188,7 +196,7 @@ final class ItemEditViewModel: ObservableObject {
                 send(event: .onDismiss)
             } catch {
                 print(error)
-                uiState.error = checkCommonError(error, type: .deleteFailed)
+                uiState.error = .error(error)
             }
 
         case .onAlertDismiss:

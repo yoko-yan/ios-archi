@@ -49,7 +49,7 @@ struct WorldListView: View {
 //        .navigationBarItems(trailing: EditButton())
         .toolbarBackground(.visible, for: .navigationBar)
         .sheet(isPresented: $isShowEditView) {
-            WorldEditItemView(
+            WorldEditView(
                 onTapDismiss: { _ in
                     Task {
                         await viewModel.send(action: .reload)

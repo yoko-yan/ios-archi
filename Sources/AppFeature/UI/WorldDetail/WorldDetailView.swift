@@ -63,7 +63,7 @@ struct WorldDetailView: View {
             )
         }
         .sheet(isPresented: $isEditView) {
-            WorldEditItemView(
+            WorldEditView(
                 world: viewModel.uiState.world,
                 onTapDelete: { _ in
                     dismiss()

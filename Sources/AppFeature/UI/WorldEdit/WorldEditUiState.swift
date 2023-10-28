@@ -6,7 +6,7 @@ import Foundation
 import SwiftUI
 import UIKit
 
-struct WorldEditItemUiState: Equatable {
+struct WorldEditUiState {
     enum AlertType: Equatable {
         case confirmUpdate(WorldEditViewAction)
         case confirmDeletion(WorldEditViewAction)
@@ -110,6 +110,7 @@ struct WorldEditItemUiState: Equatable {
     let editMode: EditMode
 
     var confirmationAlert: AlertType?
+    var error: WorldEditError?
     var event: [Event] = []
     var input: Input
     var seedImage: UIImage?

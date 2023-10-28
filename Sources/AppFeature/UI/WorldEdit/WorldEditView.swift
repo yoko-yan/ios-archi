@@ -4,9 +4,9 @@
 
 import SwiftUI
 
-struct WorldEditItemView: View {
+struct WorldEditView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject private var viewModel: WorldEditItemViewModel
+    @StateObject private var viewModel: WorldEditViewModel
     private let onTapDelete: ((World) -> Void)?
     private let onTapDismiss: ((World) -> Void)?
 
@@ -127,10 +127,15 @@ struct WorldEditItemView: View {
             )
         }
         .interactiveDismissDisabled(viewModel.uiState.isChanged)
+        .errorAlert(error: viewModel.uiState.error) {
+            Task {
+                await viewModel.send(action: .onErrorAlertDismiss)
+            }
+        }
     }
 
     init(world: World? = nil, onTapDelete: ((World) -> Void)? = nil, onTapDismiss: ((World) -> Void)? = nil) {
-        _viewModel = StateObject(wrappedValue: WorldEditItemViewModel(world: world))
+        _viewModel = StateObject(wrappedValue: WorldEditViewModel(world: world))
         self.onTapDelete = onTapDelete
         self.onTapDismiss = onTapDismiss
     }
@@ -138,7 +143,7 @@ struct WorldEditItemView: View {
 
 private extension View {
     func confirmationAlert(
-        alertType: WorldEditItemUiState.AlertType?,
+        alertType: WorldEditUiState.AlertType?,
         onConfirmed: @escaping () -> Void,
         onDismiss: @escaping () -> Void
     ) -> some View {
@@ -163,7 +168,7 @@ private extension View {
 // MARK: - Previews
 
 #Preview {
-    WorldEditItemView(
+    WorldEditView(
         world: World(
             id: "",
             name: "自分の世界",
@@ -175,5 +180,5 @@ private extension View {
 }
 
 #Preview {
-    WorldEditItemView()
+    WorldEditView()
 }

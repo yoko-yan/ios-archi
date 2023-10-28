@@ -12,6 +12,13 @@ protocol ItemsLocalDataSource {
     func delete(_ item: Item) async throws
 }
 
+// MARK: - Error
+
+enum ItemsLocalDataSourceError: Error {
+    case updateFailed
+    case deleteFailed
+}
+
 final class ItemsLocalDataSourceImpl: ItemsLocalDataSource {
     private let coreDataManager: CoreDataManager
     private let worldsLocalDataSource: any WorldsLocalDataSource
@@ -99,7 +106,7 @@ final class ItemsLocalDataSourceImpl: ItemsLocalDataSource {
     func update(_ item: Item) async throws {
         guard let id = UUID(uuidString: item.id),
               let entity = try? await getEntty(id: id)
-        else { fatalError() }
+        else { throw ItemsLocalDataSourceError.updateFailed }
         entity.id = UUID(uuidString: item.id)
         if let coordinates = item.coordinates {
             entity.coordinatesX = String(coordinates.x)
@@ -116,9 +123,10 @@ final class ItemsLocalDataSourceImpl: ItemsLocalDataSource {
     }
 
     func delete(_ item: Item) async throws {
-        guard let id = UUID(uuidString: item.id) else { fatalError() }
+        guard let id = UUID(uuidString: item.id)
+        else { throw ItemsLocalDataSourceError.deleteFailed }
         guard let entity = try? await getEntty(id: id)
-        else { fatalError() }
+        else { throw ItemsLocalDataSourceError.deleteFailed }
         coreDataManager.viewContext.delete(entity)
         try coreDataManager.viewContext.save()
     }

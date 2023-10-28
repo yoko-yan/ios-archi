@@ -6,8 +6,15 @@ import Core
 import Foundation
 import UIKit
 
+// MARK: - Error
+
+enum ICloudDocumentRepositoryError: Error {
+    case loadImageFailed
+    case saveImageFailed
+}
+
 final class ICloudDocumentRepository {
-    private func getFileURL(fileName: String) -> URL {
+    private func getFileURL(fileName: String) throws -> URL {
         let fileManager = FileManager.default
         // swiftlint:disable:next force_unwrapping
         let dirUrl = fileManager.url(forUbiquityContainerIdentifier: nil)!
@@ -22,7 +29,7 @@ final class ICloudDocumentRepository {
                 try fileManager.createDirectory(at: dirUrl, withIntermediateDirectories: true, attributes: nil)
             } catch {
                 print(error)
-//                throw error
+                throw error
             }
         }
         return dirUrl
@@ -31,7 +38,7 @@ final class ICloudDocumentRepository {
     }
 
     func saveImage(_ image: UIImage, fileName: String) async throws {
-        let fileUrl = getFileURL(fileName: fileName)
+        let fileUrl = try getFileURL(fileName: fileName)
         print("save path: \(fileUrl.path)")
 
         let document = await Document(fileURL: fileUrl)
@@ -54,11 +61,13 @@ final class ICloudDocumentRepository {
 //    }
 
     func loadImage(fileName: String) async throws -> UIImage? {
-        let fileUrl = getFileURL(fileName: fileName)
+        let fileUrl = try getFileURL(fileName: fileName)
         print("load path: \(fileUrl.path)")
 
         let document = await Document(fileURL: fileUrl)
-        await document.loadImage()
+        guard try await document.loadImage() else {
+            throw ICloudDocumentRepositoryError.loadImageFailed
+        }
         return await document.image
     }
 }
@@ -77,8 +86,8 @@ private class Document: UIDocument {
 }
 
 private extension Document {
-    func loadImage() async -> Bool {
-        await withCheckedContinuation { continuation in
+    func loadImage() async throws -> Bool {
+        try await withCheckedThrowingContinuation { continuation in
             performAsynchronousFileAccess {
                 let fileCoordinator = NSFileCoordinator(filePresenter: self)
                 fileCoordinator.coordinate(readingItemAt: self.fileURL, options: .withoutChanges, error: nil) { newURL in

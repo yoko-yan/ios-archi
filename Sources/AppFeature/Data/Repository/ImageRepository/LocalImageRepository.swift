@@ -5,9 +5,15 @@
 import Foundation
 import UIKit
 
+enum LocalImageRepositoryError: Error {
+    case loadImageFailed
+    case saveImageFailed
+    case failedToLoadImage
+    case imageFileNotFound
+}
+
 final class LocalImageRepository {
-    private func getFileURL(fileName: String) -> URL {
-        // swiftlint:disable:next force_unwrapping
+    private func getFileURL(fileName: String) throws -> URL {
         let fileManager = FileManager.default
         // swiftlint:disable:next force_unwrapping
         let dirUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -21,7 +27,7 @@ final class LocalImageRepository {
                 try fileManager.createDirectory(at: dirUrl, withIntermediateDirectories: true, attributes: nil)
             } catch {
                 print(error)
-//                throw error
+                throw error
             }
         }
         return dirUrl
@@ -30,11 +36,11 @@ final class LocalImageRepository {
     }
 
     func saveImage(_ image: UIImage, fileName: String) async throws {
-        let fileUrl = getFileURL(fileName: fileName)
+        let fileUrl = try getFileURL(fileName: fileName)
         print("save path: \(fileUrl.path)")
         guard let imageData = image.pngData() else {
             print("if image has no CGImageRef or invalid bitmap format")
-            throw NSError(domain: "save image error", code: -1, userInfo: nil)
+            throw LocalImageRepositoryError.saveImageFailed
         }
 
         do {
@@ -47,18 +53,18 @@ final class LocalImageRepository {
 
     func loadImage(fileName: String?) async throws -> UIImage? {
         guard let fileName else { return nil }
-        let filePath = getFileURL(fileName: fileName).path
+        let filePath = try getFileURL(fileName: fileName).path
         print("load path: \(filePath)")
         if FileManager.default.fileExists(atPath: filePath) {
             if let image = UIImage(contentsOfFile: filePath) {
                 return image
             } else {
                 print("Failed to load the image.")
-                return nil
+                throw LocalImageRepositoryError.failedToLoadImage
             }
         } else {
             print("Image file not found.")
-            return nil
+            throw LocalImageRepositoryError.imageFileNotFound
         }
     }
 }

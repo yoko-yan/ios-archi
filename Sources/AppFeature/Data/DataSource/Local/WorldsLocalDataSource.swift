@@ -13,6 +13,13 @@ protocol WorldsLocalDataSource {
     func delete(_ world: World) async throws
 }
 
+// MARK: - Error
+
+enum WorldsLocalDataSourceError: Error {
+    case updateFailed
+    case deleteFailed
+}
+
 final class WorldsLocalDataSourceImpl: WorldsLocalDataSource {
     private let coreDataManager: CoreDataManager
 
@@ -36,8 +43,7 @@ final class WorldsLocalDataSourceImpl: WorldsLocalDataSource {
     }
 
     func getById(_ id: UUID) async throws -> World? {
-        guard let entity = try await getEntty(id: id)
-        else { return nil }
+        guard let entity = try await getEntty(id: id) else { return nil }
         return World(
             id: entity.id!.uuidString,
             name: entity.name,
@@ -77,7 +83,7 @@ final class WorldsLocalDataSourceImpl: WorldsLocalDataSource {
     func update(_ world: World) async throws {
         guard let id = UUID(uuidString: world.id),
               let entity = try? await getEntty(id: id)
-        else { fatalError() }
+        else { throw ItemsLocalDataSourceError.updateFailed }
         entity.id = UUID(uuidString: world.id)
         entity.name = world.name
         entity.seed = world.seed?.text
@@ -87,9 +93,10 @@ final class WorldsLocalDataSourceImpl: WorldsLocalDataSource {
     }
 
     func delete(_ world: World) async throws {
-        guard let id = UUID(uuidString: world.id) else { fatalError() }
+        guard let id = UUID(uuidString: world.id)
+        else { throw ItemsLocalDataSourceError.deleteFailed }
         guard let entity = try? await getEntty(id: id)
-        else { fatalError() }
+        else { throw ItemsLocalDataSourceError.deleteFailed }
         coreDataManager.viewContext.delete(entity)
         try coreDataManager.viewContext.save()
     }
