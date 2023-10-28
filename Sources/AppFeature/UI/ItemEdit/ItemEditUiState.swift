@@ -6,7 +6,7 @@ import Foundation
 import SwiftUI
 import UIKit
 
-struct ItemEditUiState: Equatable {
+struct ItemEditUiState {
     enum AlertType: Equatable {
         case confirmUpdate(ItemEditViewAction)
         case confirmDeletion(ItemEditViewAction)
@@ -115,6 +115,7 @@ struct ItemEditUiState: Equatable {
     let editMode: EditMode
 
     var confirmationAlert: AlertType?
+    var error: ItemEditError?
     var event: [Event] = []
     var input: Input
     var spotImage: UIImage?

@@ -108,6 +108,11 @@ struct ItemEditView: View {
             )
         }
         .interactiveDismissDisabled(viewModel.uiState.isChanged)
+        .errorAlert(error: viewModel.uiState.error) {
+            Task {
+                await viewModel.send(action: .onErrorAlertDismiss)
+            }
+        }
     }
 
     init(item: Item? = nil, onDelete: ((Item) -> Void)? = nil, onChange: ((Item) -> Void)? = nil) {

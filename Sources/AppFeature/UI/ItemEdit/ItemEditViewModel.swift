@@ -24,7 +24,46 @@ enum ItemEditViewAction: Equatable {
     case onUpdate
     case onDelete
     case onAlertDismiss
+    case onErrorAlertDismiss
     case onDismiss
+}
+
+// MARK: - Error
+
+enum ItemEditError: Error {
+    case registerFailed
+    case updateFailed
+    case deleteFailed
+    case error(AppError)
+}
+
+extension ItemEditError: LocalizedError {
+    var errorDescription: String? {
+        switch self {
+        case .registerFailed: "データの登録に失敗しました"
+        case .updateFailed: "データの更新に失敗しました"
+        case .deleteFailed: "データの削除に失敗しました"
+        case let .error(appError): appError.errorDescription
+        }
+    }
+
+    var failureReason: String? {
+        switch self {
+        case .registerFailed: nil
+        case .updateFailed: nil
+        case .deleteFailed: nil
+        case let .error(appError): appError.failureReason
+        }
+    }
+
+    var recoverySuggestion: String? {
+        switch self {
+        case .registerFailed: nil
+        case .updateFailed: nil
+        case .deleteFailed: nil
+        case let .error(appError): appError.recoverySuggestion
+        }
+    }
 }
 
 // MARK: - View model
@@ -44,7 +83,7 @@ final class ItemEditViewModel: ObservableObject {
         uiState.event.removeAll(where: { $0 == event })
     }
 
-    func send(event: ItemEditUiState.Event) {
+    private func send(event: ItemEditUiState.Event) {
         uiState.event.append(event)
     }
 
@@ -126,7 +165,7 @@ final class ItemEditViewModel: ObservableObject {
                 send(event: .onChanged)
                 send(event: .onDismiss)
             } catch {
-                print(error)
+                uiState.error = checkCommonError(error, type: .registerFailed)
             }
 
         case .onUpdate:
@@ -138,7 +177,7 @@ final class ItemEditViewModel: ObservableObject {
                 send(event: .onChanged)
                 send(event: .onDismiss)
             } catch {
-                print(error)
+                uiState.error = checkCommonError(error, type: .updateFailed)
             }
 
         case .onDelete:
@@ -149,13 +188,30 @@ final class ItemEditViewModel: ObservableObject {
                 send(event: .onDismiss)
             } catch {
                 print(error)
+                uiState.error = checkCommonError(error, type: .deleteFailed)
             }
 
         case .onAlertDismiss:
             uiState.confirmationAlert = nil
 
+        case .onErrorAlertDismiss:
+            uiState.error = nil
+
         case .onDismiss:
             send(event: .onDismiss)
+        }
+    }
+}
+
+private extension ItemEditViewModel {
+    // FIXME:
+    func checkCommonError(_ error: Error, type: ItemEditError) -> ItemEditError {
+        print(error)
+        let appError = AppError(error)
+        if appError.isCommonError {
+            return .error(appError)
+        } else {
+            return type
         }
     }
 }
