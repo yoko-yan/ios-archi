@@ -13,14 +13,14 @@ import UIKit
 class GetCoordinatesUseCaseSpec: AsyncSpec {
     override class func spec() {
         var recognizedTextsRepositoryMock: RecognizedTextsRepositoryMock!
-        var useCase: GetCoordinatesUseCase!
+        var useCase: GetCoordinatesFromImageUseCase!
         let image = UIImage(resource: .coordinates318631143)
         let expectedError = NSError(domain: "VNRecognizeTextRequest Error", code: -10001, userInfo: nil)
 
         describe("execute") {
             beforeEach {
                 recognizedTextsRepositoryMock = RecognizedTextsRepositoryMock()
-                useCase = GetCoordinatesUseCase(recognizeTextRepository: recognizedTextsRepositoryMock)
+                useCase = GetCoordinatesFromImageUseCase(recognizeTextRepository: recognizedTextsRepositoryMock)
             }
 
             context("画像から正しい形式で取得できた場合") {

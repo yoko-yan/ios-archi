@@ -14,7 +14,7 @@ import UIKit
 class GetSeed2UseCaseSpec: AsyncSpec {
     override class func spec() {
         var newRecognizedTextsRepositoryMock: NewRecognizedTextsRepositoryMock!
-        var useCase: GetSeed2UseCaseImpl!
+        var useCase: GetSeedFromImage2UseCaseImpl!
         let image = UIImage(resource: .seed1541822036)
         let expectedError = NSError(domain: "VNRecognizeTextRequest Error", code: -10001, userInfo: nil)
 
@@ -23,9 +23,9 @@ class GetSeed2UseCaseSpec: AsyncSpec {
                 newRecognizedTextsRepositoryMock = NewRecognizedTextsRepositoryMock()
                 withDependencies {
                     $0.newRecognizedTextsRepository = newRecognizedTextsRepositoryMock
-                    $0.extractSeedUseCase = ExtractSeedUseCaseImpl()
+                    $0.extractSeedUseCase = GetSeedFromTextUseCaseImpl()
                 } operation: {
-                    useCase = GetSeed2UseCaseImpl()
+                    useCase = GetSeedFromImage2UseCaseImpl()
                 }
             }
 

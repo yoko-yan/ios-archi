@@ -7,25 +7,25 @@ import Foundation
 import RegexBuilder
 import UIKit
 
-protocol GetSeedUseCase {
+protocol GetSeedFromImageUseCase {
     func execute(image: UIImage) async throws -> Seed?
 //    func execute(image: UIImage) -> AnyPublisher<Seed?, RecognizeTextLocalRequestError>
 }
 
-struct GetSeedUseCaseImpl: GetSeedUseCase {
+struct GetSeedFromImageUseCaseImpl: GetSeedFromImageUseCase {
     private let recognizedTextsRepository: RecognizedTextsRepository
-    private let extractSeedUseCase: ExtractSeedUseCase
+    private let getSeedFromTextUseCase: GetSeedFromTextUseCase
 
     init(
         recognizedTextsRepository: RecognizedTextsRepository = RecognizedTextsRepositoryImpl(),
-        extractSeedUseCase: ExtractSeedUseCase = ExtractSeedUseCaseImpl()
+        getSeedFromTextUseCase: GetSeedFromTextUseCase = GetSeedFromTextUseCaseImpl()
     ) {
         self.recognizedTextsRepository = recognizedTextsRepository
-        self.extractSeedUseCase = extractSeedUseCase
+        self.getSeedFromTextUseCase = getSeedFromTextUseCase
     }
 
     func execute(image: UIImage) async throws -> Seed? {
         let texts = try await recognizedTextsRepository.get(image: image)
-        return await extractSeedUseCase.execute(texts: texts)
+        return await getSeedFromTextUseCase.execute(texts: texts)
     }
 }

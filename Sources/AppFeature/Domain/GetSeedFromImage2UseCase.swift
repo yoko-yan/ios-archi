@@ -7,16 +7,16 @@ import Dependencies
 import Foundation
 import UIKit
 
-protocol GetSeed2UseCase {
+protocol GetSeedFromImage2UseCase {
     func execute(image: UIImage) async throws -> Seed?
 }
 
-struct GetSeed2UseCaseImpl: GetSeed2UseCase {
+struct GetSeedFromImage2UseCaseImpl: GetSeedFromImage2UseCase {
     @Dependency(\.newRecognizedTextsRepository) var newRecognizedTextsRepository
-    @Dependency(\.extractSeedUseCase) var extractSeedUseCase
+    @Dependency(\.getSeedFromTextUseCase) var getSeedFromTextUseCase
 
     func execute(image: UIImage) async throws -> Seed? {
         let texts = try await newRecognizedTextsRepository.get(image: image)
-        return await extractSeedUseCase.execute(texts: texts)
+        return await getSeedFromTextUseCase.execute(texts: texts)
     }
 }

@@ -118,7 +118,7 @@ final class WorldEditViewModel: ObservableObject {
 
         case let .getSeed(image):
             do {
-                let seed = try await GetSeedUseCaseImpl().execute(image: image)
+                let seed = try await GetSeedFromImageUseCaseImpl().execute(image: image)
 //                let seed = try await GetSeed2UseCaseImpl().execute(image: image)
                 uiState.input.seed = seed
             } catch {

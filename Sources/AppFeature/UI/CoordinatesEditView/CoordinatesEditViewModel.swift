@@ -63,7 +63,7 @@ final class CoordinatesEditViewModel: ObservableObject {
 
         case let .getCoordinates(image):
             Task {
-                let coordinates = try await GetCoordinatesUseCase().execute(image: image)
+                let coordinates = try await GetCoordinatesFromImageUseCase().execute(image: image)
                 if let coordinates {
                     uiState.coordinatesX = "\(coordinates.x)"
                     uiState.coordinatesY = "\(coordinates.y)"

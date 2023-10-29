@@ -10,17 +10,17 @@ import UIKit
 
 @testable import AppFeature
 
-class GetSeedUseCaseSpec: AsyncSpec {
+class GetSeedFromImageUseCaseSpec: AsyncSpec {
     override class func spec() {
         var recognizedTextsRepositoryMock: RecognizedTextsRepositoryMock!
-        var useCase: GetSeedUseCaseImpl!
+        var useCase: GetSeedFromImageUseCaseImpl!
         let image = UIImage(resource: .seed1541822036)
         let expectedError = NSError(domain: "VNRecognizeTextRequest Error", code: -10001, userInfo: nil)
 
         describe("execute") {
             beforeEach {
                 recognizedTextsRepositoryMock = RecognizedTextsRepositoryMock()
-                useCase = GetSeedUseCaseImpl(recognizedTextsRepository: recognizedTextsRepositoryMock)
+                useCase = GetSeedFromImageUseCaseImpl(recognizedTextsRepository: recognizedTextsRepositoryMock)
             }
 
             context("画像から文字が1つ以上取得できた場合") {

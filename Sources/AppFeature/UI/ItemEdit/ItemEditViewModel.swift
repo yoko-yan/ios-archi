@@ -106,7 +106,7 @@ final class ItemEditViewModel: ObservableObject {
 
         case let .getCoordinates(image):
             do {
-                let coordinates = try await GetCoordinatesUseCase().execute(image: image)
+                let coordinates = try await GetCoordinatesFromImageUseCase().execute(image: image)
                 if let coordinates {
                     uiState.input.coordinates = coordinates
                 }

@@ -7,11 +7,11 @@ import Dependencies
 import Foundation
 import RegexBuilder
 
-protocol ExtractSeedUseCase: Sendable {
+protocol GetSeedFromTextUseCase: Sendable {
     func execute(texts: [String]) async -> Seed?
 }
 
-struct ExtractSeedUseCaseImpl: ExtractSeedUseCase {
+struct GetSeedFromTextUseCaseImpl: GetSeedFromTextUseCase {
     func execute(texts: [String]) async -> Seed? {
         let regex = Regex {
             Capture {
@@ -35,13 +35,13 @@ struct ExtractSeedUseCaseImpl: ExtractSeedUseCase {
     }
 }
 
-struct ExtractSeedUseCaseKey: DependencyKey {
-    static let liveValue: any ExtractSeedUseCase = ExtractSeedUseCaseImpl()
+struct GetSeedFromTextUseCaseKey: DependencyKey {
+    static let liveValue: any GetSeedFromTextUseCase = GetSeedFromTextUseCaseImpl()
 }
 
 extension DependencyValues {
-    var extractSeedUseCase: any ExtractSeedUseCase {
-        get { self[ExtractSeedUseCaseKey.self] }
-        set { self[ExtractSeedUseCaseKey.self] = newValue }
+    var getSeedFromTextUseCase: any GetSeedFromTextUseCase {
+        get { self[GetSeedFromTextUseCaseKey.self] }
+        set { self[GetSeedFromTextUseCaseKey.self] = newValue }
     }
 }
