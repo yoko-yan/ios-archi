@@ -8,11 +8,11 @@ import Foundation
 import RegexBuilder
 
 protocol GetSeedFromTextUseCase: Sendable {
-    func execute(texts: [String]) async -> Seed?
+    func execute(text: String) async -> Seed?
 }
 
 struct GetSeedFromTextUseCaseImpl: GetSeedFromTextUseCase {
-    func execute(texts: [String]) async -> Seed? {
+    func execute(text: String) async -> Seed? {
         let regex = Regex {
             Capture {
                 Optionally("-")
@@ -21,9 +21,6 @@ struct GetSeedFromTextUseCaseImpl: GetSeedFromTextUseCase {
                 String($0)
             }
         }
-
-        // シード値に余計な文字がついてしまったケースを考慮し、読み取れた文字を１つの文字列にして、シード値の形式にマッチするものをSeedにする
-        let text = texts.joined(separator: " ")
 
         // シードに変換可能（取りうる値の範囲内）のみの数字に絞って抽出
         let matches = text.matches(of: regex).compactMap { Seed($0.output.1) }

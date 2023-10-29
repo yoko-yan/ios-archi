@@ -139,7 +139,7 @@ private extension ItemEditView {
             HStack {
                 Label("coordinates", systemImage: "location.circle")
                 Spacer()
-                Text(viewModel.uiState.input.coordinates?.text ?? "未登録")
+                Text(viewModel.uiState.input.coordinates?.textWitWhitespaces ?? "未登録")
                 Image(systemName: "chevron.right")
             }
             .padding(.horizontal)

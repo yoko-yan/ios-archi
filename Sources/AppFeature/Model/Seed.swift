@@ -26,8 +26,8 @@ struct Seed: RawRepresentable, Hashable {
         return nil
     }
 
-    init?(_ value: String) {
-        guard let value = Int(value) else { return nil }
+    init?(_ text: String) {
+        guard let value = Int(text) else { return nil }
         self.init(rawValue: value)
     }
 }

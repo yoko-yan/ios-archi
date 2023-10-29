@@ -46,7 +46,7 @@ struct SpotListCell: View {
                                 }
                                 VStack(alignment: .leading) {
                                     Spacer()
-                                    Text(coordinates.text)
+                                    Text(coordinates.textWitWhitespaces)
                                         .font(.caption2)
                                 }
                                 .foregroundColor(.white)

@@ -20,7 +20,7 @@ class GetCoordinatesUseCaseSpec: AsyncSpec {
         describe("execute") {
             beforeEach {
                 recognizedTextsRepositoryMock = RecognizedTextsRepositoryMock()
-                useCase = GetCoordinatesFromImageUseCase(recognizeTextRepository: recognizedTextsRepositoryMock)
+                useCase = GetCoordinatesFromImageUseCase(recognizedTextsRepository: recognizedTextsRepositoryMock)
             }
 
             context("画像から正しい形式で取得できた場合") {

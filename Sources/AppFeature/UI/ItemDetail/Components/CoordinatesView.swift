@@ -12,7 +12,7 @@ struct CoordinatesView: View {
         HStack {
             Label("coordinates", systemImage: "location.circle")
             Spacer()
-            Text(coordinates?.text ?? "未登録")
+            Text(coordinates?.textWitWhitespaces ?? "未登録")
         }
     }
 }

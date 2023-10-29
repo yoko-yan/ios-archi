@@ -7,40 +7,12 @@ import RegexBuilder
 
 struct Coordinates: Hashable {
     public static var zero: Self { .init(x: 0, y: 0, z: 0)! } // swiftlint:disable:this force_unwrapping
-    public static let regex = Regex {
-        TryCapture {
-            Optionally("-")
-            Repeat(.digit, 1...4)
-        } transform: {
-            Int($0)
-        }
-        Repeat(Optionally(.whitespace), 1...2)
-        ChoiceOf {
-            ","
-            "."
-        }
-        Repeat(Optionally(.whitespace), 1...2)
-        TryCapture {
-            Optionally("-")
-            Repeat(.digit, 1...4)
-        } transform: {
-            Int($0)
-        }
-        Repeat(Optionally(.whitespace), 1...2)
-        ChoiceOf {
-            ","
-            "."
-        }
-        Repeat(Optionally(.whitespace), 1...2)
-        TryCapture {
-            Optionally("-")
-            Repeat(.digit, 1...4)
-        } transform: {
-            Int($0)
-        }
-    }
 
     var text: String {
+        "\(x),\(y),\(z)"
+    }
+
+    var textWitWhitespaces: String {
         "\(x), \(y), \(z)"
     }
 
@@ -49,16 +21,25 @@ struct Coordinates: Hashable {
     let z: Int
 
     init?(x: Int, y: Int, z: Int) {
-        self.init("\(x),\(y),\(z)")
+        guard case -30000000...30000000 = x else { return nil }
+        guard case -64...320 = y else { return nil }
+        guard case -30000000...30000000 = z else { return nil }
+        self.x = x
+        self.y = y
+        self.z = z
     }
 
-    init?(_ value: String) {
-        if let match = value.firstMatch(of: Self.regex) {
-            let (_, x, y, z) = match.output
-            self.x = x
-            self.y = y
-            self.z = z
-            return
+    init?(_ text: String) {
+        let xyz = text.components(separatedBy: ",")
+        guard xyz.count >= 3 else { return nil }
+        let x = xyz[0].trimmingCharacters(in: .whitespaces)
+        let y = xyz[1].trimmingCharacters(in: .whitespaces)
+        let z = xyz[2].trimmingCharacters(in: .whitespaces)
+        if let ix = Int(x),
+           let iy = Int(y),
+           let iz = Int(z)
+        {
+            self.init(x: ix, y: iy, z: iz)
         }
         return nil
     }

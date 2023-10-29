@@ -8,16 +8,21 @@ import RegexBuilder
 import UIKit
 
 struct GetCoordinatesFromImageUseCase {
-    private let recognizeTextRepository: RecognizedTextsRepository
+    private let recognizedTextsRepository: RecognizedTextsRepository
+    private let getCoordinatesFromTextUseCase: GetCoordinatesFromTextUseCase
 
-    init(recognizeTextRepository: RecognizedTextsRepository = RecognizedTextsRepositoryImpl()) {
-        self.recognizeTextRepository = recognizeTextRepository
+    init(
+        recognizedTextsRepository: RecognizedTextsRepository = RecognizedTextsRepositoryImpl(),
+        getCoordinatesFromTextUseCase: GetCoordinatesFromTextUseCase = GetCoordinatesFromTextUseCaseImpl()
+    ) {
+        self.recognizedTextsRepository = recognizedTextsRepository
+        self.getCoordinatesFromTextUseCase = getCoordinatesFromTextUseCase
     }
 
     func execute(image: UIImage) async throws -> Coordinates? {
-        let texts = try await recognizeTextRepository.get(image: image)
-        // 座標が分割して認識されてしまったケースを考慮し、読み取れた文字を１つの文字列にして、座標の形式にマッチするものをCoordinatesにする
+        let texts = try await recognizedTextsRepository.get(image: image)
+        // シード値に余計な文字がついてしまったケースを考慮し、読み取れた文字を１つの文字列にして、シード値の形式にマッチするものをSeedにする
         let text = texts.joined(separator: " ")
-        return Coordinates(text)
+        return await getCoordinatesFromTextUseCase.execute(text: text)
     }
 }

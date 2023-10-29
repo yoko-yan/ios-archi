@@ -43,7 +43,7 @@ struct TimeLineCell: View {
                                     Spacer()
                                     HStack {
                                         Image(systemName: "location.circle")
-                                        Text(item.coordinates?.text ?? "-")
+                                        Text(item.coordinates?.textWitWhitespaces ?? "-")
                                         Spacer()
                                     }
                                     HStack {

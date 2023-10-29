@@ -23,7 +23,7 @@ class GetSeed2UseCaseSpec: AsyncSpec {
                 newRecognizedTextsRepositoryMock = NewRecognizedTextsRepositoryMock()
                 withDependencies {
                     $0.newRecognizedTextsRepository = newRecognizedTextsRepositoryMock
-                    $0.extractSeedUseCase = GetSeedFromTextUseCaseImpl()
+                    $0.getSeedFromTextUseCase = GetSeedFromTextUseCaseImpl()
                 } operation: {
                     useCase = GetSeedFromImage2UseCaseImpl()
                 }
