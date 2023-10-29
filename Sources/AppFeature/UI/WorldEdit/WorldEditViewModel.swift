@@ -169,7 +169,7 @@ final class WorldEditViewModel: ObservableObject {
 
         case .onDelete:
             do {
-                guard case .update = uiState.editMode, let world = uiState.editMode.world else { return }
+                guard case .edit = uiState.editMode, let world = uiState.editMode.world else { return }
 
                 try await WorldsRepository().delete(world: world)
                 send(event: .onDeleted)

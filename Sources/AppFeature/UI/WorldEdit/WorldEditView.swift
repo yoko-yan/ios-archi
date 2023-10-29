@@ -30,7 +30,7 @@ struct WorldEditView: View {
                 VStack {
                     Spacer()
                     HStack {
-                        if case .update = viewModel.uiState.editMode {
+                        if case .edit = viewModel.uiState.editMode {
                             Button(action: {
                                 Task {
                                     await viewModel.send(action: .onDeleteButtonTap)
@@ -51,10 +51,10 @@ struct WorldEditView: View {
                         Button(action: {
                             Task {
                                 switch viewModel.uiState.editMode {
-                                case .add:
+                                case .new:
                                     await viewModel.send(action: .onRegisterButtonTap)
 
-                                case .update:
+                                case .edit:
                                     await viewModel.send(action: .onUpdateButtonTap)
                                 }
                             }
