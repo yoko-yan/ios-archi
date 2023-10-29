@@ -111,6 +111,7 @@ struct ItemDetailView: View {
             id: UUID().uuidString,
             coordinates: .zero,
             world: nil,
+            spotImageName: nil,
             createdAt: Date(),
             updatedAt: Date()
         )
@@ -123,6 +124,7 @@ struct ItemDetailView: View {
             id: UUID().uuidString,
             coordinates: nil,
             world: nil,
+            spotImageName: nil,
             createdAt: Date(),
             updatedAt: Date()
         )
@@ -135,6 +137,7 @@ struct ItemDetailView: View {
             id: UUID().uuidString,
             coordinates: Coordinates(x: 100, y: 20, z: 300),
             world: nil,
+            spotImageName: nil,
             createdAt: Date(),
             updatedAt: Date()
         )

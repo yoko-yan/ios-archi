@@ -5,10 +5,10 @@
 import Foundation
 
 struct Item: Identifiable, Hashable {
-    var id: String
-    private(set) var coordinates: Coordinates?
-    var world: World?
-    var spotImageName: String?
-    var createdAt: Date
-    var updatedAt: Date
+    let id: String
+    let coordinates: Coordinates?
+    let world: World?
+    let spotImageName: String?
+    let createdAt: Date
+    let updatedAt: Date
 }

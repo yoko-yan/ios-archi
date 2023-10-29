@@ -257,6 +257,7 @@ private extension View {
             id: "",
             coordinates: Coordinates(x: 100, y: 20, z: 300),
             world: nil,
+            spotImageName: nil,
             createdAt: Date(),
             updatedAt: Date()
         )

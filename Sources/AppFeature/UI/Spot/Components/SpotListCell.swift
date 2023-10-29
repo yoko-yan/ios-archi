@@ -71,6 +71,7 @@ struct SpotListCell: View {
             id: UUID().uuidString,
             coordinates: Coordinates(x: 100, y: 20, z: 300),
             world: nil,
+            spotImageName: nil,
             createdAt: Date(),
             updatedAt: Date()
         ),
@@ -85,6 +86,7 @@ struct SpotListCell: View {
             id: UUID().uuidString,
             coordinates: Coordinates(x: 100, y: 20, z: 300),
             world: nil,
+            spotImageName: nil,
             createdAt: Date(),
             updatedAt: Date()
         ),
@@ -101,6 +103,7 @@ struct SpotListCell_Previews: PreviewProvider {
                 id: UUID().uuidString,
                 coordinates: Coordinates(x: 100, y: 20, z: 300),
                 world: nil,
+                spotImageName: nil,
                 createdAt: Date(),
                 updatedAt: Date()
             ),

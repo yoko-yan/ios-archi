@@ -5,9 +5,9 @@
 import Foundation
 
 struct World: Identifiable, Hashable {
-    var id: String
+    let id: String
     let name: String?
     let seed: Seed?
-    var createdAt: Date
-    var updatedAt: Date
+    let createdAt: Date
+    let updatedAt: Date
 }

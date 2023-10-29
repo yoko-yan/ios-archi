@@ -5,5 +5,5 @@
 import Foundation
 
 struct SpotImageName: RawRepresentable, Hashable {
-    var rawValue: String
+    let rawValue: String
 }
