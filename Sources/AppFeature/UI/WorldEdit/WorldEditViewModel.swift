@@ -144,7 +144,7 @@ final class WorldEditViewModel: ObservableObject {
 
         case .onRegister:
             do {
-                guard case .add = uiState.editMode else { fatalError() }
+                guard case .new = uiState.editMode else { fatalError() }
                 try await WorldsRepository().insert(world: uiState.editItem)
                 send(event: .onChanged)
                 await send(action: .onAlertDismiss)
@@ -158,7 +158,7 @@ final class WorldEditViewModel: ObservableObject {
 
         case .onUpdate:
             do {
-                guard case .update = uiState.editMode else { fatalError() }
+                guard case .edit = uiState.editMode else { fatalError() }
                 try await WorldsRepository().update(world: uiState.editItem)
                 send(event: .onChanged)
                 await send(action: .onAlertDismiss)

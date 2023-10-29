@@ -167,7 +167,7 @@ final class ItemEditViewModel: ObservableObject {
         case .onRegister:
             do {
                 await send(action: .onAlertDismiss)
-                guard case .add = uiState.editMode else { fatalError() }
+                guard case .new = uiState.editMode else { fatalError() }
                 await send(action: .saveImage)
                 try await ItemsRepository().insert(item: uiState.editItem)
                 send(event: .onChanged)
@@ -179,7 +179,7 @@ final class ItemEditViewModel: ObservableObject {
         case .onUpdate:
             do {
                 await send(action: .onAlertDismiss)
-                guard case .update = uiState.editMode else { fatalError() }
+                guard case .edit = uiState.editMode else { fatalError() }
                 await send(action: .saveImage)
                 try await ItemsRepository().update(item: uiState.editItem)
                 send(event: .onChanged)
@@ -190,7 +190,7 @@ final class ItemEditViewModel: ObservableObject {
 
         case .onDelete:
             do {
-                guard case .update = uiState.editMode, let item = uiState.editMode.item else { return }
+                guard case .edit = uiState.editMode, let item = uiState.editMode.item else { return }
                 try await ItemsRepository().delete(item: item)
                 send(event: .onDeleted)
                 send(event: .onDismiss)

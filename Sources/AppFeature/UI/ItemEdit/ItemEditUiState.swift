@@ -63,35 +63,35 @@ struct ItemEditUiState {
     }
 
     enum EditMode: Equatable {
-        case add
-        case update(Item)
+        case new
+        case edit(Item)
 
         var title: String {
             switch self {
-            case .add: return "スポットを新規に登録する"
-            case .update: return "スポット情報を変更する"
+            case .new: return "スポットを新規に登録する"
+            case .edit: return "スポット情報を変更する"
             }
         }
 
         var button: String {
             switch self {
-            case .add: return "登録する"
-            case .update: return "変更する"
+            case .new: return "登録する"
+            case .edit: return "変更する"
             }
         }
 
         init(item: Item?) {
             if let item {
-                self = .update(item)
+                self = .edit(item)
             } else {
-                self = .add
+                self = .new
             }
         }
 
         var item: Item? {
             switch self {
-            case .add: return nil
-            case let .update(item): return item
+            case .new: return nil
+            case let .edit(item): return item
             }
         }
     }

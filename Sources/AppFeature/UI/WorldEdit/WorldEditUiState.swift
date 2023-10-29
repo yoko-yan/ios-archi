@@ -63,35 +63,35 @@ struct WorldEditUiState {
     }
 
     enum EditMode: Equatable {
-        case add
-        case update(World)
+        case new
+        case edit(World)
 
         var title: String {
             switch self {
-            case .add: return "ワールドを新規に登録する"
-            case .update: return "ワールド情報を変更する"
+            case .new: return "ワールドを新規に登録する"
+            case .edit: return "ワールド情報を変更する"
             }
         }
 
         var button: String {
             switch self {
-            case .add: return "登録する"
-            case .update: return "変更する"
+            case .new: return "登録する"
+            case .edit: return "変更する"
             }
         }
 
         init(world: World?) {
             if let world {
-                self = .update(world)
+                self = .edit(world)
             } else {
-                self = .add
+                self = .new
             }
         }
 
         var world: World? {
             switch self {
-            case .add: return nil
-            case let .update(world): return world
+            case .new: return nil
+            case let .edit(world): return world
             }
         }
     }

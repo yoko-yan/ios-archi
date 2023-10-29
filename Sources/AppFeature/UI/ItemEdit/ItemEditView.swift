@@ -178,7 +178,7 @@ private extension ItemEditView {
         VStack {
             Spacer()
             HStack {
-                if case .update = viewModel.uiState.editMode {
+                if case .edit = viewModel.uiState.editMode {
                     Button(action: {
                         Task {
                             await viewModel.send(action: .onDeleteButtonTap)
@@ -199,12 +199,12 @@ private extension ItemEditView {
                 Button(action: {
                     Task {
                         switch viewModel.uiState.editMode {
-                        case .add:
+                        case .new:
                             Task {
                                 await viewModel.send(action: .onRegisterButtonTap)
                             }
 
-                        case .update:
+                        case .edit:
                             Task {
                                 await viewModel.send(action: .onUpdateButtonTap)
                             }
