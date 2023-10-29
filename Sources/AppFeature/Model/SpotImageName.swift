@@ -4,6 +4,6 @@
 
 import Foundation
 
-struct SpotImageName: RawRepresentable, Hashable, Codable {
+struct SpotImageName: RawRepresentable, Hashable {
     var rawValue: String
 }

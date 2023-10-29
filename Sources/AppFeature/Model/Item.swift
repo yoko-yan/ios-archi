@@ -4,9 +4,9 @@
 
 import Foundation
 
-struct Item: Identifiable, Hashable, Codable {
+struct Item: Identifiable, Hashable {
     var id: String
-    var coordinates: Coordinates?
+    private(set) var coordinates: Coordinates?
     var world: World?
     var spotImageName: String?
     var createdAt: Date

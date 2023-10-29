@@ -4,7 +4,7 @@
 //
 import Foundation
 
-struct World: Identifiable, Hashable, Codable {
+struct World: Identifiable, Hashable {
     var id: String
     let name: String?
     let seed: Seed?

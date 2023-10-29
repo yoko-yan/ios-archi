@@ -5,7 +5,7 @@
 import Foundation
 import RegexBuilder
 
-struct Coordinates: Hashable, Codable {
+struct Coordinates: Hashable {
     public static var zero: Self { .init(x: 0, y: 0, z: 0)! } // swiftlint:disable:this force_unwrapping
     public static let regex = Regex {
         TryCapture {
