@@ -30,7 +30,26 @@ final class CoreDataManager {
         return container
     }()
 
-    private init() {}
+    private var checkLightWeightMigration: NSMappingModel {
+        let subdirectory = "Model.momd"
+        // swiftlint:disable:next force_unwrapping
+        let sourceModel = NSManagedObjectModel(contentsOf: Bundle.module.url(forResource: "Model", withExtension: "mom", subdirectory: subdirectory)!)!
+        // swiftlint:disable:next force_unwrapping
+        let destinationModel = NSManagedObjectModel(contentsOf: Bundle.module.url(forResource: "Model 2", withExtension: "mom", subdirectory: subdirectory)!)!
+        do {
+            let mappingModel = try NSMappingModel.inferredMappingModel(forSourceModel: sourceModel, destinationModel: destinationModel)
+            print("migrationCheck: OK")
+            return mappingModel
+        } catch {
+            fatalError("migrationCheck: NG,  error \(error)")
+        }
+    }
+
+    private init() {
+        #if DEBUG
+            _ = checkLightWeightMigration
+        #endif
+    }
 
     func saveContext() {
         let context = container.viewContext
