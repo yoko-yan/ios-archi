@@ -31,3 +31,9 @@ struct Seed: RawRepresentable, Hashable {
         self.init(rawValue: value)
     }
 }
+
+#if DEBUG
+    extension Seed {
+        static var preview = Seed("1234567890")
+    }
+#endif

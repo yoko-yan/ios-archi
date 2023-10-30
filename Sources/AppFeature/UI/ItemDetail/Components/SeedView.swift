@@ -21,14 +21,12 @@ struct SeedView: View {
 
 // MARK: - Previews
 
-#Preview {
-    SeedView(
-        seed: Seed(rawValue: 1234567890)
-    )
-}
+#if DEBUG
+    #Preview {
+        SeedView(seed: .preview)
+    }
 
-#Preview {
-    SeedView(
-        seed: nil
-    )
-}
+    #Preview {
+        SeedView(seed: nil)
+    }
+#endif

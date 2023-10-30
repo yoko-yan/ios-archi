@@ -61,32 +61,34 @@ struct WorldSelectionView: View {
 
 // MARK: - Previews
 
-#Preview {
-    WorldSelectionView(
-        worlds: [
-            World(
-                id: "1",
-                name: "自分の世界",
-                seed: .zero,
-                createdAt: Date(),
-                updatedAt: Date()
-            ),
-            World(
-                id: "2",
-                name: "自分の世界",
-                seed: Seed("8362488480127410877"),
-                createdAt: Date(),
-                updatedAt: Date()
-            )
-        ],
-        selected: .constant(
-            World(
-                id: "1",
-                name: "自分の世界",
-                seed: .zero,
-                createdAt: Date(),
-                updatedAt: Date()
+#if DEBUG
+    #Preview {
+        WorldSelectionView(
+            worlds: [
+                World(
+                    id: "1",
+                    name: "自分の世界",
+                    seed: .zero,
+                    createdAt: Date(),
+                    updatedAt: Date()
+                ),
+                World(
+                    id: "2",
+                    name: "自分の世界",
+                    seed: .preview,
+                    createdAt: Date(),
+                    updatedAt: Date()
+                )
+            ],
+            selected: .constant(
+                World(
+                    id: "1",
+                    name: "自分の世界",
+                    seed: .zero,
+                    createdAt: Date(),
+                    updatedAt: Date()
+                )
             )
         )
-    )
-}
+    }
+#endif
