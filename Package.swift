@@ -23,7 +23,10 @@ let package = Package(
             name: "Core",
             dependencies: [
                 .product(name: "FirebaseCrashlytics", package: "firebase-ios-sdk"),
-                .product(name: "FirebaseAnalytics", package: "firebase-ios-sdk")
+                .product(name: "FirebaseAnalytics", package: "firebase-ios-sdk"),
+                .product(name: "FirebasePerformance", package: "firebase-ios-sdk"),
+                .product(name: "FirebaseInAppMessagingSwift-Beta", package: "firebase-ios-sdk"),
+                .product(name: "FirebaseMessaging", package: "firebase-ios-sdk")
             ],
             swiftSettings: [
                 .unsafeFlags([
