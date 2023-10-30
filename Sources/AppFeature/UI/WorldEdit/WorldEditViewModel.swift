@@ -11,7 +11,7 @@ import UIKit
 enum WorldEditViewAction: Equatable {
     case clearSeed
     case getSeed(image: UIImage)
-    case setSeed(seed: Seed)
+    case setSeed(String)
     case onRegisterButtonTap
     case onUpdateButtonTap
     case onDeleteButtonTap
@@ -26,7 +26,7 @@ enum WorldEditViewAction: Equatable {
 
 // MARK: - Error
 
-enum WorldEditError: Error {
+enum WorldEditError {
     case getSeedFailed
     case registerFailed
     case updateFailed
@@ -102,15 +102,14 @@ final class WorldEditViewModel: ObservableObject {
     }
 
     func consumeEvent(_ event: WorldEditUiState.Event) {
-        uiState.event.removeAll(where: { $0 == event })
+        uiState.events.removeAll(where: { $0 == event })
     }
 
     func send(event: WorldEditUiState.Event) {
-        uiState.event.append(event)
+        uiState.events.append(event)
     }
 
-    // FIXME:
-    // swiftlint:disable:next cyclomatic_complexity
+    // swiftlint:disable:next cyclomatic_complexity function_body_length
     func send(action: WorldEditViewAction) async {
         switch action {
         case .clearSeed:
@@ -126,8 +125,17 @@ final class WorldEditViewModel: ObservableObject {
                 uiState.error = .error(error)
             }
 
-        case let .setSeed(seed: seed):
-            uiState.input.seed = seed
+        case let .setSeed(text):
+            if !text.isEmpty, let validate = SeedValidator.validate(seed: text).validationError {
+                uiState.validationErrors = [validate]
+            } else {
+                uiState.validationErrors = []
+            }
+//            // 数字以外が入力された場合に自動的に修正する場合
+//            if let txt = convertibleInt(text: seed.text) {
+//                uiState.input.seed = Seed(txt)
+//            }
+            uiState.input.seed = Seed(text)
 
         case .onRegisterButtonTap:
             await send(action: .onRegister)
@@ -144,6 +152,8 @@ final class WorldEditViewModel: ObservableObject {
 
         case .onRegister:
             do {
+                validate()
+                guard uiState.valid else { return }
                 guard case .new = uiState.editMode else { fatalError() }
                 try await WorldsRepository().insert(world: uiState.editItem)
                 send(event: .onChanged)
@@ -158,6 +168,8 @@ final class WorldEditViewModel: ObservableObject {
 
         case .onUpdate:
             do {
+                validate()
+                guard uiState.valid else { return }
                 guard case .edit = uiState.editMode else { fatalError() }
                 try await WorldsRepository().update(world: uiState.editItem)
                 send(event: .onChanged)
@@ -190,6 +202,8 @@ final class WorldEditViewModel: ObservableObject {
     }
 }
 
+// MARK: - Privates
+
 private extension WorldEditViewModel {
     // FIXME:
     func checkCommonError(_ error: Error, type: WorldEditError) -> WorldEditError {
@@ -200,5 +214,21 @@ private extension WorldEditViewModel {
         } else {
             return type
         }
+    }
+
+    func convertibleInt(text: String) -> String? {
+        let str = text.withOutWhitespaces()
+        if let int = Int(str) {
+            return String(int)
+        }
+        return nil
+    }
+
+    func validate() {
+        var validationErrors: [SeedValidationError] = []
+        if let seed = uiState.editMode.world?.seed, let validateX = SeedValidator.validate(seed: seed.text).validationError {
+            validationErrors.append(validateX)
+        }
+        uiState.validationErrors = validationErrors
     }
 }

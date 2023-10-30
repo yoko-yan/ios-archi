@@ -111,7 +111,8 @@ struct WorldEditUiState {
 
     var confirmationAlert: AlertType?
     var error: WorldEditError?
-    var event: [Event] = []
+    var validationErrors: [SeedValidationError] = []
+    var events: [Event] = []
     var input: Input
     var seedImage: UIImage?
 
@@ -131,5 +132,9 @@ struct WorldEditUiState {
         } else {
             true
         }
+    }
+
+    var valid: Bool {
+        validationErrors.isEmpty
     }
 }

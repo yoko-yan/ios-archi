@@ -196,6 +196,7 @@ private extension CoordinatesEditView {
 
                 if !viewModel.uiState.validationErrors.isEmpty {
                     HStack {
+                        Spacer()
                         VStack {
                             ForEach(viewModel.uiState.validationErrors, id: \.self) { validationError in
                                 Text(validationError.localizedDescription)
@@ -204,7 +205,6 @@ private extension CoordinatesEditView {
                                     .foregroundColor(.red)
                             }
                         }
-                        Spacer()
                     }
                     .padding(.horizontal)
                 }

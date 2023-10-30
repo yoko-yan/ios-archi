@@ -6,7 +6,7 @@ import Combine
 import SwiftUI
 
 struct SeedEditView: View {
-    @Binding var seed: Seed?
+    @Binding var seed: String?
     @Binding var image: UIImage?
 
     @State private var isImagePicker = false
@@ -70,17 +70,17 @@ struct SeedEditView: View {
                 TextField(
                     "未登録",
                     text: .init(
-                        get: { seed?.text ?? "" },
-                        set: { newValue in seed = Seed(newValue) }
+                        get: { seed ?? "" },
+                        set: { newValue in seed = newValue }
                     )
                 )
                 .keyboardType(.numberPad)
-                .multilineTextAlignment(TextAlignment.trailing)
+                .multilineTextAlignment(TextAlignment.leading)
                 .modifier(
                     TextFieldClearButton(
                         text: .init(
-                            get: { seed?.text ?? "" },
-                            set: { newValue in seed = Seed(newValue) }
+                            get: { seed ?? "" },
+                            set: { newValue in seed = newValue }
                         )
                     )
                 )

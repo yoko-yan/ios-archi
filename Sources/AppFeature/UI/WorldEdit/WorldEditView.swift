@@ -16,11 +16,32 @@ struct WorldEditView: View {
                 ScrollView {
                     VStack(spacing: 10) {
                         SeedEditView(
-                            seed: viewModel.input.seed,
+                            seed: .init(
+                                get: { viewModel.uiState.input.seed?.text },
+                                set: { newValue in
+                                    guard let newValue else { return }
+                                    Task {
+                                        await viewModel.send(action: .setSeed(newValue))
+                                    }
+                                }
+                            ),
                             image: viewModel.seedImage
                         )
 
-                        Divider()
+                        if !viewModel.uiState.validationErrors.isEmpty {
+                            HStack {
+                                Spacer()
+                                VStack {
+                                    ForEach(viewModel.uiState.validationErrors, id: \.self) { validationError in
+                                        Text(validationError.localizedDescription)
+                                            .font(.caption2)
+                                            .bold()
+                                            .foregroundColor(.red)
+                                    }
+                                }
+                            }
+                            .padding(.horizontal)
+                        }
 
                         Color.clear
                             .frame(height: 100)
@@ -63,8 +84,10 @@ struct WorldEditView: View {
                                 .bold()
                                 .frame(height: 50)
                                 .frame(maxWidth: .infinity)
+                                .disabled(!viewModel.uiState.valid)
                         }
                         .buttonStyle(RoundedButtonStyle(color: .red))
+                        .disabled(!viewModel.uiState.valid)
                     }
                 }
                 .padding()
@@ -78,7 +101,7 @@ struct WorldEditView: View {
                     }
                 }
             }
-            .onChange(of: viewModel.uiState.event) { [old = viewModel.uiState.event] new in
+            .onChange(of: viewModel.uiState.events) { [old = viewModel.uiState.events] new in
                 if old == new { return }
                 if let event = new.first {
                     switch event {
