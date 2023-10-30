@@ -84,7 +84,6 @@ struct WorldEditView: View {
                                 .bold()
                                 .frame(height: 50)
                                 .frame(maxWidth: .infinity)
-                                .disabled(!viewModel.uiState.valid)
                         }
                         .buttonStyle(RoundedButtonStyle(color: .red))
                         .disabled(!viewModel.uiState.valid)

@@ -31,4 +31,8 @@ struct CoordinatesEditUiState {
     var coordinatesImage: UIImage?
     var validationErrors: [CoordinatesValidationError] = []
     var events: [Event] = []
+
+    var valid: Bool {
+        validationErrors.isEmpty
+    }
 }

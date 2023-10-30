@@ -239,6 +239,7 @@ private extension CoordinatesEditView {
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(RoundedButtonStyle(color: .black))
+                    .disabled(!viewModel.uiState.valid)
                 }
                 .padding()
             }

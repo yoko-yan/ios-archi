@@ -111,7 +111,8 @@ final class CoordinatesEditViewModel: ObservableObject {
             }
 
         case .onChangeButtonTap:
-            if validate() {
+            validate()
+            if uiState.valid {
                 send(event: .onChanged)
             }
         }
@@ -129,18 +130,17 @@ private extension CoordinatesEditViewModel {
         return nil
     }
 
-    func validate() -> Bool {
+    func validate() {
         var validationErrors: [CoordinatesValidationError] = []
-        if let validateX = CoordinatesValidator.validate(x: uiState.coordinatesX).validationError {
+        if !uiState.coordinatesX.isEmpty, let validateX = CoordinatesValidator.validate(x: uiState.coordinatesX).validationError {
             validationErrors.append(validateX)
         }
-        if let validateY = CoordinatesValidator.validate(y: uiState.coordinatesY).validationError {
+        if !uiState.coordinatesY.isEmpty, let validateY = CoordinatesValidator.validate(y: uiState.coordinatesY).validationError {
             validationErrors.append(validateY)
         }
-        if let validateZ = CoordinatesValidator.validate(z: uiState.coordinatesZ).validationError {
+        if !uiState.coordinatesZ.isEmpty, let validateZ = CoordinatesValidator.validate(z: uiState.coordinatesZ).validationError {
             validationErrors.append(validateZ)
         }
         uiState.validationErrors = validationErrors
-        return uiState.validationErrors.isEmpty
     }
 }
