@@ -22,7 +22,8 @@ let package = Package(
         .target(
             name: "Core",
             dependencies: [
-                .product(name: "FirebaseCrashlytics", package: "firebase-ios-sdk")
+                .product(name: "FirebaseCrashlytics", package: "firebase-ios-sdk"),
+                .product(name: "FirebaseAnalytics", package: "firebase-ios-sdk")
             ],
             swiftSettings: [
                 .unsafeFlags([
