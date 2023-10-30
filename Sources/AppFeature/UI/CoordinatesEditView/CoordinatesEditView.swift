@@ -2,6 +2,7 @@
 //  Created by yoko-yan on 2023/10/15
 //
 
+import Core
 import SwiftUI
 
 struct CoordinatesEditView: View {
@@ -33,6 +34,7 @@ struct CoordinatesEditView: View {
                     allowsEditing: true
                 )
             }
+            .analyticsScreen(name: "CoordinatesEditView", class: String(describing: type(of: self)))
     }
 
     init(coordinates: Coordinates?, onChanged: ((Coordinates?) -> Bool)? = nil) {

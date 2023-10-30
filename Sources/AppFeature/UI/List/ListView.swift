@@ -2,6 +2,7 @@
 //  Created by yoko-yan on 2023/07/01.
 //
 
+import Core
 import SwiftUI
 
 struct ListView: View {
@@ -11,6 +12,7 @@ struct ListView: View {
         NavigationStack(path: $navigatePath) {
             WorldListView(navigatePath: $navigatePath)
         }
+        .analyticsScreen(name: "ListView", class: String(describing: type(of: self)))
     }
 }
 

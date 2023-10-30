@@ -2,6 +2,7 @@
 //  Created by yoko-yan on 2023/10/08
 //
 
+import Core
 import SwiftUI
 
 struct WorldEditView: View {
@@ -154,6 +155,7 @@ struct WorldEditView: View {
                 await viewModel.send(action: .onErrorAlertDismiss)
             }
         }
+        .analyticsScreen(name: "WorldEditView", class: String(describing: type(of: self)))
     }
 
     init(world: World? = nil, onTapDelete: ((World) -> Void)? = nil, onTapDismiss: ((World) -> Void)? = nil) {

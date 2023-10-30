@@ -2,6 +2,7 @@
 //  Created by yoko-yan on 2023/01/26.
 //
 
+import Core
 import SwiftUI
 import WebKit
 
@@ -18,6 +19,8 @@ struct BiomeFinderView: UIViewRepresentable {
     var coordinates: Coordinates
 
     func makeUIView(context: Context) -> WKWebView {
+        AnalyticsDI.screenEvent(name: "BiomeFinderView", class: String(describing: type(of: self)))
+
         let webView: WKWebView
         let userScript1 = WKUserScript(
             source:

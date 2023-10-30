@@ -2,6 +2,7 @@
 //  Created by yoko-yan on 2023/10/08
 //
 
+import Core
 import SwiftUI
 
 struct SpotListView: View {
@@ -59,6 +60,7 @@ struct SpotListView: View {
                 }
             )
         }
+        .analyticsScreen(name: "SpotListView", class: String(describing: type(of: self)))
     }
 
     init() {

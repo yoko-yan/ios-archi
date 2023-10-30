@@ -2,6 +2,7 @@
 //  Created by yoko-yan on 2023/10/08
 //
 
+import Core
 import SwiftUI
 
 struct WorldDetailView: View {
@@ -72,6 +73,7 @@ struct WorldDetailView: View {
                 }
             )
         }
+        .analyticsScreen(name: "WorldDetailView", class: String(describing: type(of: self)))
     }
 
     init(world: World) {

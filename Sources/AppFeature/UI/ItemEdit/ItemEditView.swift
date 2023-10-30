@@ -2,6 +2,7 @@
 //  Created by yoko-yan on 2023/07/03.
 //
 
+import Core
 import SwiftUI
 
 struct ItemEditView: View {
@@ -113,6 +114,7 @@ struct ItemEditView: View {
                 await viewModel.send(action: .onErrorAlertDismiss)
             }
         }
+        .analyticsScreen(name: "ItemEditView", class: String(describing: type(of: self)))
     }
 
     init(item: Item? = nil, onDelete: ((Item) -> Void)? = nil, onChange: ((Item) -> Void)? = nil) {

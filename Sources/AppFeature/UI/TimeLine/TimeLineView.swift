@@ -2,6 +2,7 @@
 //  Created by yoko-yan on 2023/10/07
 //
 
+import Core
 import SwiftUI
 
 struct TimeLineView: View {
@@ -60,6 +61,7 @@ struct TimeLineView: View {
                 }
             )
         }
+        .analyticsScreen(name: "TimeLineView", class: String(describing: type(of: self)))
     }
 
     init() {

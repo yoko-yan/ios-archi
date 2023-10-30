@@ -2,6 +2,7 @@
 //  Created by yokoda.takayuki on 2023/01/25.
 //
 
+import Core
 import SwiftUI
 
 struct HomeView: View {
@@ -9,6 +10,7 @@ struct HomeView: View {
         NavigationStack {
             TimeLineView()
         }
+        .analyticsScreen(name: "HomeView", class: String(describing: type(of: self)))
     }
 }
 

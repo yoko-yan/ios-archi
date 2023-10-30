@@ -11,14 +11,13 @@ public protocol FirebaseAppProtocol: AnyObject {
 
 extension FirebaseApp: FirebaseAppProtocol {}
 
-public class FirebaseAppDI: FirebaseAppProtocol {
-    private static var canUseFirebase: Bool {
+public final class FirebaseAppDI: FirebaseAppProtocol {
+    static var canUseFirebase: Bool {
         Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") != nil
     }
 
     public static func configure() {
-        if canUseFirebase {
-            FirebaseApp.configure()
-        }
+        if !FirebaseAppDI.canUseFirebase { return }
+        FirebaseApp.configure()
     }
 }
