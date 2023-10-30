@@ -32,7 +32,7 @@ final class CoreDataManager {
 
     private init() {
         #if DEBUG
-            checkLightWeightMigration()
+        checkLightWeightMigration()
         #endif
     }
 

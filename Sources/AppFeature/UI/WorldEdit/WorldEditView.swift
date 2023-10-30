@@ -192,19 +192,19 @@ private extension View {
 // MARK: - Previews
 
 #if DEBUG
-    #Preview {
-        WorldEditView(
-            world: World(
-                id: "",
-                name: "自分の世界",
-                seed: .preview,
-                createdAt: Date(),
-                updatedAt: Date()
-            )
+#Preview {
+    WorldEditView(
+        world: World(
+            id: "",
+            name: "自分の世界",
+            seed: .preview,
+            createdAt: Date(),
+            updatedAt: Date()
         )
-    }
+    )
+}
 
-    #Preview {
-        WorldEditView()
-    }
+#Preview {
+    WorldEditView()
+}
 #endif

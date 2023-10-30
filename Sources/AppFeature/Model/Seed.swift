@@ -33,7 +33,7 @@ struct Seed: RawRepresentable, Hashable {
 }
 
 #if DEBUG
-    extension Seed {
-        static var preview = Seed("1234567890")
-    }
+extension Seed {
+    static var preview = Seed("1234567890")
+}
 #endif

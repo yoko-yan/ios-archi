@@ -22,11 +22,11 @@ struct SeedView: View {
 // MARK: - Previews
 
 #if DEBUG
-    #Preview {
-        SeedView(seed: .preview)
-    }
+#Preview {
+    SeedView(seed: .preview)
+}
 
-    #Preview {
-        SeedView(seed: nil)
-    }
+#Preview {
+    SeedView(seed: nil)
+}
 #endif
