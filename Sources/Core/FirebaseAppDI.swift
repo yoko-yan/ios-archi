@@ -17,7 +17,7 @@ public final class FirebaseAppDI: FirebaseAppProtocol {
     }
 
     public static func configure() {
-        if !FirebaseAppDI.canUseFirebase { return }
+        if !canUseFirebase { return }
         FirebaseApp.configure()
     }
 }

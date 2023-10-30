@@ -43,7 +43,7 @@ final class CoreDataManager {
         // swiftlint:disable:next force_unwrapping
         let destinationModel = NSManagedObjectModel(contentsOf: Bundle.module.url(forResource: "Model 2", withExtension: "mom", subdirectory: subdirectory)!)!
         do {
-            let mappingModel = try NSMappingModel.inferredMappingModel(forSourceModel: sourceModel, destinationModel: destinationModel)
+            try NSMappingModel.inferredMappingModel(forSourceModel: sourceModel, destinationModel: destinationModel)
             print("migrationCheck: OK")
         } catch {
             fatalError("migrationCheck: NG,  error \(error)")
