@@ -6,7 +6,11 @@ import Foundation
 import SwiftUI
 import UIKit
 
-struct CoordinatesEditUiState: Equatable {
+struct CoordinatesEditUiState {
+    enum Event: Equatable {
+        case onChanged
+    }
+
     var coordinatesX: String
     var coordinatesY: String
     var coordinatesZ: String
@@ -25,4 +29,6 @@ struct CoordinatesEditUiState: Equatable {
     }
 
     var coordinatesImage: UIImage?
+    var validationErrors: [CoordinatesValidationError] = []
+    var events: [Event] = []
 }

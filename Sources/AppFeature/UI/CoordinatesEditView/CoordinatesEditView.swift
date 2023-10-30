@@ -116,7 +116,7 @@ private extension CoordinatesEditView {
                             )
                         )
                         .keyboardType(.numbersAndPunctuation)
-                        .multilineTextAlignment(TextAlignment.trailing)
+                        .multilineTextAlignment(TextAlignment.leading)
                         .modifier(
                             TextFieldClearButton(
                                 text: .init(
@@ -144,7 +144,7 @@ private extension CoordinatesEditView {
                             )
                         )
                         .keyboardType(.numbersAndPunctuation)
-                        .multilineTextAlignment(TextAlignment.trailing)
+                        .multilineTextAlignment(TextAlignment.leading)
                         .modifier(
                             TextFieldClearButton(
                                 text: .init(
@@ -172,7 +172,7 @@ private extension CoordinatesEditView {
                             )
                         )
                         .keyboardType(.numbersAndPunctuation)
-                        .multilineTextAlignment(TextAlignment.trailing)
+                        .multilineTextAlignment(TextAlignment.leading)
                         .modifier(
                             TextFieldClearButton(
                                 text: .init(
@@ -193,15 +193,27 @@ private extension CoordinatesEditView {
 
                     Spacer()
                 }
-                .navigationBarTitle("座標を変更する", displayMode: .inline)
+
+                if !viewModel.uiState.validationErrors.isEmpty {
+                    HStack {
+                        VStack {
+                            ForEach(viewModel.uiState.validationErrors, id: \.self) { validationError in
+                                Text(validationError.localizedDescription)
+                                    .font(.caption2)
+                                    .bold()
+                                    .foregroundColor(.red)
+                            }
+                        }
+                        Spacer()
+                    }
+                    .padding(.horizontal)
+                }
 
                 HStack {
                     if viewModel.uiState.coordinates != nil {
                         Button(action: {
                             Task {
-                                await viewModel.send(action: .setCoordinatesX(""))
-                                await viewModel.send(action: .setCoordinatesY(""))
-                                await viewModel.send(action: .setCoordinatesZ(""))
+                                await viewModel.send(action: .clearCoordinates)
                             }
                         }) {
                             Text("クリアする")
@@ -217,9 +229,8 @@ private extension CoordinatesEditView {
                     }
 
                     Button(action: {
-                        guard let onChanged else { return }
-                        if onChanged(viewModel.uiState.coordinates) {
-                            dismiss()
+                        Task {
+                            await viewModel.send(action: .onChangeButtonTap)
                         }
                     }) {
                         Text("変更する")
@@ -230,6 +241,21 @@ private extension CoordinatesEditView {
                     .buttonStyle(RoundedButtonStyle(color: .black))
                 }
                 .padding()
+            }
+        }
+        .navigationBarTitle("座標を変更する", displayMode: .inline)
+        .onChange(of: viewModel.uiState.events) { [old = viewModel.uiState.events] new in
+            if old == new { return }
+            if let event = new.first {
+                switch event {
+                case .onChanged:
+                    guard let onChanged else { return }
+                    if onChanged(viewModel.uiState.coordinates) {
+                        dismiss()
+                    }
+                }
+
+                viewModel.consumeEvent(event)
             }
         }
     }

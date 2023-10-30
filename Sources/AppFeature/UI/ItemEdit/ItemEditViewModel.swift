@@ -30,7 +30,7 @@ enum ItemEditViewAction: Equatable {
 
 // MARK: - Error
 
-enum ItemEditError: Error {
+enum ItemEditError {
     case registerFailed
     case updateFailed
     case deleteFailed
@@ -84,15 +84,14 @@ final class ItemEditViewModel: ObservableObject {
     }
 
     func consumeEvent(_ event: ItemEditUiState.Event) {
-        uiState.event.removeAll(where: { $0 == event })
+        uiState.events.removeAll(where: { $0 == event })
     }
 
     private func send(event: ItemEditUiState.Event) {
-        uiState.event.append(event)
+        uiState.events.append(event)
     }
 
-    // FIXME:
-    // swiftlint:disable:next cyclomatic_complexity
+    // swiftlint:disable:next cyclomatic_complexity function_body_length
     func send(action: ItemEditViewAction) async {
         switch action {
         case let .setSpotImage(image):
@@ -210,6 +209,8 @@ final class ItemEditViewModel: ObservableObject {
         }
     }
 }
+
+// MARK: - Privates
 
 private extension ItemEditViewModel {
     // FIXME:

@@ -59,7 +59,7 @@ struct ItemEditView: View {
                 await viewModel.send(action: .loadImage)
                 await viewModel.send(action: .getWorlds)
             }
-            .onChange(of: viewModel.uiState.event) { [old = viewModel.uiState.event] new in
+            .onChange(of: viewModel.uiState.events) { [old = viewModel.uiState.events] new in
                 if old == new { return }
                 if let event = new.first {
                     switch event {

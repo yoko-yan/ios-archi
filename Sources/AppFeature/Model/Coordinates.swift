@@ -22,7 +22,7 @@ struct Coordinates: Hashable {
 
     init?(x: Int, y: Int, z: Int) {
         guard case -30000000...30000000 = x else { return nil }
-        guard case -64...320 = y else { return nil }
+        guard case -64...3200 = y else { return nil }
         guard case -30000000...30000000 = z else { return nil }
         self.x = x
         self.y = y
@@ -32,14 +32,11 @@ struct Coordinates: Hashable {
     init?(_ text: String) {
         let xyz = text.components(separatedBy: ",")
         guard xyz.count >= 3 else { return nil }
-        let x = xyz[0].trimmingCharacters(in: .whitespaces)
-        let y = xyz[1].trimmingCharacters(in: .whitespaces)
-        let z = xyz[2].trimmingCharacters(in: .whitespaces)
-        if let ix = Int(x),
-           let iy = Int(y),
-           let iz = Int(z)
+        if let x = Int(xyz[0]),
+           let y = Int(xyz[1]),
+           let z = Int(xyz[2])
         {
-            self.init(x: ix, y: iy, z: iz)
+            self.init(x: x, y: y, z: z)
         }
         return nil
     }

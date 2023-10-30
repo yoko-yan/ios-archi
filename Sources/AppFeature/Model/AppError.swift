@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum AppError: Error {
+enum AppError {
     case network(errorDescription: String, failureReason: String, recoverySuggestion: String)
     case unknown(localizedDescription: String)
 

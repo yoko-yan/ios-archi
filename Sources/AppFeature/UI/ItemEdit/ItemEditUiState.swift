@@ -116,7 +116,7 @@ struct ItemEditUiState {
 
     var confirmationAlert: AlertType?
     var error: ItemEditError?
-    var event: [Event] = []
+    var events: [Event] = []
     var input: Input
     var spotImage: UIImage?
     var worlds: [World] = []
