@@ -33,15 +33,12 @@ final class WorldListViewModel: ObservableObject {
             } catch {
                 print(error)
             }
-
         case .reload:
             await send(action: .load)
-
         case let .onDeleteButtonClick(offsets: offsets):
             print(offsets.map { uiState.worlds[$0] })
             uiState.deleteWorlds = offsets.map { uiState.worlds[$0] }
             uiState.deleteAlertMessage = "削除しますか？"
-
         case .onDelete:
             if let deleteWorlds = uiState.deleteWorlds {
 //                for await world in deleteWorlds {
@@ -55,7 +52,6 @@ final class WorldListViewModel: ObservableObject {
             } else {
                 fatalError("no deleteItems")
             }
-
         case .onDeleteAlertDismiss:
             uiState.deleteAlertMessage = nil
         }

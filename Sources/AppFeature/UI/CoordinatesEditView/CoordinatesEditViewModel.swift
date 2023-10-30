@@ -56,12 +56,10 @@ final class CoordinatesEditViewModel: ObservableObject {
         switch action {
         case let .setCoordinatesImage(image):
             uiState.coordinatesImage = image
-
         case .clearCoordinates:
             uiState.coordinatesX = ""
             uiState.coordinatesY = ""
             uiState.coordinatesZ = ""
-
         case let .setCoordinatesX(text):
             if !text.isEmpty, let validate = CoordinatesValidator.validate(x: text).validationError {
                 uiState.validationErrors = [validate]
@@ -73,7 +71,6 @@ final class CoordinatesEditViewModel: ObservableObject {
 //                uiState.coordinatesX = txt
 //            }
             uiState.coordinatesX = text
-
         case let .setCoordinatesY(text):
             if !text.isEmpty, let validate = CoordinatesValidator.validate(y: text).validationError {
                 uiState.validationErrors = [validate]
@@ -85,7 +82,6 @@ final class CoordinatesEditViewModel: ObservableObject {
 //                uiState.coordinatesY = txt
 //            }
             uiState.coordinatesY = text
-
         case let .setCoordinatesZ(text):
             if !text.isEmpty, let validate = CoordinatesValidator.validate(z: text).validationError {
                 uiState.validationErrors = [validate]
@@ -97,7 +93,6 @@ final class CoordinatesEditViewModel: ObservableObject {
 //                uiState.coordinatesZ = txt
 //            }
             uiState.coordinatesZ = text
-
         case let .getCoordinates(image):
             do {
                 let coordinates = try await GetCoordinatesFromImageUseCase().execute(image: image)
@@ -109,7 +104,6 @@ final class CoordinatesEditViewModel: ObservableObject {
             } catch {
                 print(error)
             }
-
         case .onChangeButtonTap:
             validate()
             if uiState.valid {

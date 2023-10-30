@@ -30,7 +30,6 @@ final class TimeLineViewModel: ObservableObject {
             } catch {
                 print(error)
             }
-
         case .reload:
             await send(action: .load)
         }

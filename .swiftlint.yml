@@ -34,6 +34,7 @@ disabled_rules:
   - switch_case_on_newline # caseと同じ行に記述したいため
   - trailing_closure # RxSwiftのOnNextでwarningが出るため
   - vertical_parameter_alignment_on_call # なぜか指摘されることがあるため
+  - vertical_whitespace_between_cases # Switch文のケース間に空白行を設けたくないため
 
 # defaultルール以外にopt-inから採用するルール
 # Pods/SwiftLint/swiftlint rules | awk -F "|" '$3 ~ "yes" && $7 ~ "no" { print $2 }' | tr -d ' ' | sed 's/^/  - /' | pbcopy

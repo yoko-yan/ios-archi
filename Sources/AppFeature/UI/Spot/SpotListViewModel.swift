@@ -30,7 +30,6 @@ final class SpotListViewModel: ObservableObject {
             } catch {
                 print(error)
             }
-
         case .reload:
             await send(action: .load)
         }

@@ -49,7 +49,6 @@ struct ImagePicker: UIViewControllerRepresentable {
         switch sourceType {
         case .camera:
             controller.sourceType = UIImagePickerController.SourceType.camera
-
         case .library:
             controller.sourceType = UIImagePickerController.SourceType.photoLibrary
         }

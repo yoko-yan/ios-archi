@@ -16,10 +16,8 @@ struct WorldEditUiState {
             switch self {
             case .confirmUpdate:
                 return "変更してもいいですか？"
-
             case .confirmDeletion:
                 return "削除してもいいですか？"
-
             case .confirmDismiss:
                 return "編集中のデータがあります。\nデータを変更せずに閉じてもいいですか？"
             }
@@ -29,10 +27,8 @@ struct WorldEditUiState {
             switch self {
             case .confirmUpdate:
                 return "変更する"
-
             case .confirmDeletion:
                 return "削除する"
-
             case .confirmDismiss:
                 return "変更せずに戻る"
             }

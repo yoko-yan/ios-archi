@@ -75,7 +75,6 @@ struct WorldEditView: View {
                                 switch viewModel.uiState.editMode {
                                 case .new:
                                     await viewModel.send(action: .onRegisterButtonTap)
-
                                 case .edit:
                                     await viewModel.send(action: .onUpdateButtonTap)
                                 }
@@ -108,11 +107,9 @@ struct WorldEditView: View {
                     case .onChanged:
                         onTapDismiss?(viewModel.uiState.editItem)
                         dismiss()
-
                     case .onDeleted:
                         onTapDelete?(viewModel.uiState.editItem)
                         dismiss()
-
                     case .onDismiss:
                         dismiss()
                     }

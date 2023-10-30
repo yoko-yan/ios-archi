@@ -16,10 +16,8 @@ struct ItemEditUiState {
             switch self {
             case .confirmUpdate:
                 return "変更してもいいですか？"
-
             case .confirmDeletion:
                 return "変更してもいいですか？"
-
             case .confirmDismiss:
                 return "編集中のデータがあります。\nデータを変更せずに閉じてもいいですか？"
             }
@@ -29,10 +27,8 @@ struct ItemEditUiState {
             switch self {
             case .confirmUpdate:
                 return "変更する"
-
             case .confirmDeletion:
                 return "削除する"
-
             case .confirmDismiss:
                 return "変更せずに戻る"
             }
@@ -42,7 +38,6 @@ struct ItemEditUiState {
             switch self {
             case .confirmUpdate, .confirmDismiss:
                 return nil
-
             case .confirmDeletion:
                 return .destructive
             }

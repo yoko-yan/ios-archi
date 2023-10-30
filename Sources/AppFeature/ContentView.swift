@@ -13,10 +13,8 @@ enum TabItem: String, CaseIterable {
         switch self {
         case .home:
             return "ホーム"
-
         case .photo:
             return "スポット"
-
         case .list:
             return "ワールド"
         }
@@ -26,10 +24,8 @@ enum TabItem: String, CaseIterable {
         switch self {
         case .home:
             return "house"
-
         case .photo:
             return "photo.stack"
-
         case .list:
             return "list.bullet"
         }

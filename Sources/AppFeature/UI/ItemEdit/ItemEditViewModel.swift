@@ -96,13 +96,10 @@ final class ItemEditViewModel: ObservableObject {
         switch action {
         case let .setSpotImage(image):
             uiState.spotImage = image
-
         case .clearCoordinates:
             uiState.input.coordinates = nil
-
         case let .setCoordinates(coordinates):
             uiState.input.coordinates = coordinates
-
         case let .getCoordinates(image):
             do {
                 let coordinates = try await GetCoordinatesFromImageUseCase().execute(image: image)
@@ -113,7 +110,6 @@ final class ItemEditViewModel: ObservableObject {
                 print(error)
                 uiState.error = .error(error)
             }
-
         case .getWorlds:
             do {
                 uiState.worlds = try await WorldsRepository().load()
@@ -121,10 +117,8 @@ final class ItemEditViewModel: ObservableObject {
                 print(error)
                 uiState.error = .error(error)
             }
-
         case let .setWorld(world):
             uiState.input.world = world
-
         case .saveImage:
             do {
                 if let spotImage = uiState.spotImage {
@@ -136,7 +130,6 @@ final class ItemEditViewModel: ObservableObject {
                 print(error)
                 uiState.error = .error(error)
             }
-
         case .loadImage:
             do {
                 if uiState.spotImage == nil, let spotImageName = uiState.input.spotImageName {
@@ -146,23 +139,18 @@ final class ItemEditViewModel: ObservableObject {
                 print(error)
                 uiState.error = .error(error)
             }
-
         case .onRegisterButtonTap:
             await send(action: .onRegister)
-
         case .onUpdateButtonTap:
             uiState.confirmationAlert = .confirmUpdate(.onUpdate)
-
         case .onDeleteButtonTap:
             uiState.confirmationAlert = .confirmDeletion(.onDelete)
-
         case .onCloseButtonTap:
             if uiState.isChanged {
                 uiState.confirmationAlert = .confirmDismiss(.onDismiss)
             } else {
                 send(event: .onDismiss)
             }
-
         case .onRegister:
             do {
                 await send(action: .onAlertDismiss)
@@ -174,7 +162,6 @@ final class ItemEditViewModel: ObservableObject {
             } catch {
                 uiState.error = .error(error)
             }
-
         case .onUpdate:
             do {
                 await send(action: .onAlertDismiss)
@@ -186,7 +173,6 @@ final class ItemEditViewModel: ObservableObject {
             } catch {
                 uiState.error = .error(error)
             }
-
         case .onDelete:
             do {
                 guard case .edit = uiState.editMode, let item = uiState.editMode.item else { return }
@@ -197,13 +183,10 @@ final class ItemEditViewModel: ObservableObject {
                 print(error)
                 uiState.error = .error(error)
             }
-
         case .onAlertDismiss:
             uiState.confirmationAlert = nil
-
         case .onErrorAlertDismiss:
             uiState.error = nil
-
         case .onDismiss:
             send(event: .onDismiss)
         }

@@ -25,7 +25,6 @@ enum AppError {
                     failureReason: "ネットワーク接続がタイムアウトしました。",
                     recoverySuggestion: "インターネット接続がオフになっていないかご確認ください。"
                 )
-
             case .notConnectedToInternet:
                 // Handle not connected to internet
                 self = .network(
@@ -33,7 +32,6 @@ enum AppError {
                     failureReason: "ネットワーク接続にエラーが発生しました。",
                     recoverySuggestion: "少し時間をおいてから再度お試しください。"
                 )
-
             default:
                 self = .network(
                     errorDescription: "ネットワークエラー",

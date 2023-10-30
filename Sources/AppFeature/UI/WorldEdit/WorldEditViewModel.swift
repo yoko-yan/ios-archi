@@ -114,7 +114,6 @@ final class WorldEditViewModel: ObservableObject {
         switch action {
         case .clearSeed:
             uiState.input.seed = nil
-
         case let .getSeed(image):
             do {
                 let seed = try await GetSeedFromImageUseCaseImpl().execute(image: image)
@@ -124,7 +123,6 @@ final class WorldEditViewModel: ObservableObject {
                 print(error)
                 uiState.error = .error(error)
             }
-
         case let .setSeed(text):
             if !text.isEmpty, let validate = SeedValidator.validate(seed: text).validationError {
                 uiState.validationErrors = [validate]
@@ -136,20 +134,16 @@ final class WorldEditViewModel: ObservableObject {
 //                uiState.input.seed = Seed(txt)
 //            }
             uiState.input.seed = Seed(text)
-
         case .onRegisterButtonTap:
             await send(action: .onRegister)
-
         case .onDeleteButtonTap:
             uiState.confirmationAlert = .confirmDeletion(.onDelete)
-
         case .onCloseButtonTap:
             if uiState.editItem.seed == uiState.editMode.world?.seed {
                 send(event: .onDismiss)
             } else {
                 uiState.confirmationAlert = .confirmDismiss(.onDismiss)
             }
-
         case .onRegister:
             do {
                 validate()
@@ -162,10 +156,8 @@ final class WorldEditViewModel: ObservableObject {
                 print(error)
                 uiState.error = .error(error)
             }
-
         case .onUpdateButtonTap:
             uiState.confirmationAlert = .confirmUpdate(.onUpdate)
-
         case .onUpdate:
             do {
                 validate()
@@ -178,7 +170,6 @@ final class WorldEditViewModel: ObservableObject {
                 print(error)
                 uiState.error = .error(error)
             }
-
         case .onDelete:
             do {
                 guard case .edit = uiState.editMode, let world = uiState.editMode.world else { return }
@@ -189,13 +180,10 @@ final class WorldEditViewModel: ObservableObject {
                 print(error)
                 uiState.error = .error(error)
             }
-
         case .onAlertDismiss:
             uiState.confirmationAlert = nil
-
         case .onErrorAlertDismiss:
             uiState.error = nil
-
         case .onDismiss:
             send(event: .onDismiss)
         }

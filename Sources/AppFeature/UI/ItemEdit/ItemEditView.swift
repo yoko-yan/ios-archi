@@ -66,10 +66,8 @@ struct ItemEditView: View {
                     switch event {
                     case .onChanged:
                         onChange?(viewModel.uiState.editItem)
-
                     case .onDeleted:
                         onDelete?(viewModel.uiState.editItem)
-
                     case .onDismiss:
                         dismiss()
                     }
@@ -205,7 +203,6 @@ private extension ItemEditView {
                             Task {
                                 await viewModel.send(action: .onRegisterButtonTap)
                             }
-
                         case .edit:
                             Task {
                                 await viewModel.send(action: .onUpdateButtonTap)
