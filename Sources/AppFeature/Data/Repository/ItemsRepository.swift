@@ -5,7 +5,7 @@
 import Core
 import Foundation
 
-protocol ItemsRepository: Injectable {
+protocol ItemsRepository: AutoInjectable {
     func getAll() async throws -> [Item]
     func insert(item: Item) async throws
     func update(item: Item) async throws

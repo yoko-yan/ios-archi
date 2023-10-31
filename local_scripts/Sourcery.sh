@@ -1,1 +1,6 @@
-"Pods/Sourcery/bin/sourcery" --sources Sources/AppFeature --templates Templates/Injectable.stencil --output Sources/AppFeature/CodeGenerated/Injectable.swift
+# Xcode Preview のビルド時はスクリプトを実行しない
+if [ "$ENABLE_PREVIEWS" = "YES" ]; then
+  exit 0
+fi
+
+"Pods/Sourcery/bin/sourcery"

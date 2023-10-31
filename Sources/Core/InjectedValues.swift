@@ -49,6 +49,6 @@ public struct Injected<T> {
     }
 }
 
-// MARK: - View model
-
-public protocol Injectable {}
+// Using Sourcery to automatically generate code.
+public protocol AutoInjectable {}
+public protocol AutoMockable {}

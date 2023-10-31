@@ -6,7 +6,7 @@ import Core
 import CoreData
 import Foundation
 
-protocol SynchronizeWithCloudUseCase: Injectable {
+protocol SynchronizeWithCloudUseCase: AutoInjectable, AutoMockable {
     func execute() async throws -> Bool
 }
 

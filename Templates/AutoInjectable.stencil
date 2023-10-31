@@ -1,7 +1,7 @@
 import Core
 import Foundation
 
-{% for type in types.protocols where type.based.Injectable %}
+{% for type in types.protocols where type.based.AutoInjectable %}
 private struct {{ type.name }}Key: InjectionKey {
     static var currentValue: {{ type.name }} = {{ type.name }}Impl()
 }

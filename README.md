@@ -5,7 +5,7 @@
 > お試し用のプロジェクトなので、あえてレガシーな技術を使っていたり、悪いコードで書いていたりしています。  
 > レガシーな技術を使っていたり悪いコードで書いているところは、挙動を確認したりリファクタの方法を試したりするのが主な目的です。
 
-使用している技術スタック
+Using
 - MVVM + レイヤードアーキテクチャ
 - Combine
 - WebKit
@@ -17,7 +17,8 @@
 - Swift Package Manager
 - CocoaPods
 - SPMを用いたマルチモジュール構成
-- DIコンテナ（Swift-dependencies）
+- DIコンテナ
+- Swift-dependencies
 - ドメイン駆動設計 (DDD) 戦術的設計
 - テストコード（Swift-dependencies）
 - テストコード（Quick/Nimble）
@@ -27,20 +28,27 @@
 - bundler
 - rbenv
 - Xcode Preview
-
-使用する予定の技術スタック
-- TCA（マルチモジュール）
 - Sourcery（テストコードのボイラープレート自動生成）
+- Firebase Analytics
+- Firebase Crashlytics
+- etc
+
+Planning to use
+- APIKit
 - Renovate（ライブラリの自動生成）
-- MLKit
 - Cloud Vision API
 - エラーハンドラー
 - CloudKit or Firebase Realtime Database （端末間でのデータ同期）
 - PageObjectデザインパターン（UIテスト）
-- Firebase Analytics
 - Firebase Cloud Messaging
+- Firebase Remote Config
 - Github Actions
 - DangerSwift
+- etc
+
+Want to use
+- MLKit
+- TCA（マルチモジュール）
 - etc
 
 ※ 作りたいアプリのイメージをベースにリストアップしているが、それ以外にも使いたい技術はある
