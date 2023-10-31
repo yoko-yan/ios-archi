@@ -15,25 +15,26 @@ class RootViewModelSpec: AsyncSpec {
         var synchronizeWithCloudUseCaseMock: SynchronizeWithCloudUseCaseMock!
         var viewModel: RootViewModel!
 
-        describe("execute") {
+        describe("load") {
             beforeEach {
                 isiCloudUseCaseMock = IsiCloudUseCaseMock()
-                InjectedValues[\.isiCloudUseCaseMock] = isiCloudUseCaseMock
+                InjectedValues[\.isiCloudUseCase] = isiCloudUseCaseMock
                 synchronizeWithCloudUseCaseMock = SynchronizeWithCloudUseCaseMock()
-                InjectedValues[\.synchronizeWithCloudUseCaseMock] = synchronizeWithCloudUseCaseMock
-                viewModel = RootViewModel()
+                InjectedValues[\.synchronizeWithCloudUseCase] = synchronizeWithCloudUseCaseMock
+                viewModel = await RootViewModel()
             }
 
-            context("画像から文字が1つ以上取得できた場合") {
+            context("When iCloud is available and synchronization is successful.") {
                 beforeEach {
-                    isiCloudUseCaseMock.executeHandler = { _ in true }
-                    synchronizeWithCloudUseCaseMock.executeHandler = { _ in true }
+                    isiCloudUseCaseMock.executeHandler = { true }
+                    synchronizeWithCloudUseCaseMock.executeHandler = { true }
                 }
 
-                it("Seedに変換できる") {
-                    try await viewModel.load()
-                    expect(error).to(matchError(RecognizeTextLocalRequestError.error(expectedError)))
-                    expect(error).to(matchError(RecognizeTextLocalRequestError.error(expectedError)))
+                it("The app launches successfully.") { @MainActor in
+                    await viewModel.load()
+                    expect(isiCloudUseCaseMock.executeCallCount) == 1
+                    expect(synchronizeWithCloudUseCaseMock.executeCallCount) == 1
+                    expect(viewModel.uiState.isLaunching) == true
                 }
             }
         }

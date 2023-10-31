@@ -28,6 +28,7 @@ final class RootViewModel: ObservableObject {
             uiState.isLaunching = try await synchronizeWithCloudUseCase.execute()
         } catch {
             print(error)
+            uiState.isLaunching = false
         }
     }
 }

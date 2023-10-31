@@ -41,7 +41,7 @@ struct SynchronizeWithCloudUseCaseImpl: SynchronizeWithCloudUseCase {
 
 // MARK: - InjectedValues
 
-private struct SynchronizeWithCloudUseCaseKey: InjectionKey {
+struct SynchronizeWithCloudUseCaseKey: InjectionKey {
     static var currentValue: SynchronizeWithCloudUseCase = SynchronizeWithCloudUseCaseImpl()
 }
 

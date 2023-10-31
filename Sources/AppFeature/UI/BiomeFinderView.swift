@@ -21,7 +21,6 @@ struct BiomeFinderView: UIViewRepresentable {
     func makeUIView(context: Context) -> WKWebView {
         AnalyticsDI.screenEvent(name: "BiomeFinderView", class: String(describing: type(of: self)))
 
-        let webView: WKWebView
         let userScript1 = WKUserScript(
             source:
             """
@@ -39,7 +38,7 @@ struct BiomeFinderView: UIViewRepresentable {
         let configuration = WKWebViewConfiguration()
         configuration.userContentController = controller
 
-        webView = WKWebView(frame: .zero, configuration: configuration)
+        let webView = WKWebView(frame: .zero, configuration: configuration)
         webView.navigationDelegate = context.coordinator
         return webView
     }
