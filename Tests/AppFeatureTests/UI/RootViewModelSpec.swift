@@ -11,14 +11,14 @@ import Quick
 
 class RootViewModelSpec: AsyncSpec {
     override class func spec() {
-        var isiCloudUseCaseMock: IsiCloudUseCaseMock!
+        var isCloudKitContainerAvailableUseCaseMock: IsCloudKitContainerAvailableUseCaseMock!
         var synchronizeWithCloudUseCaseMock: SynchronizeWithCloudUseCaseMock!
         var viewModel: RootViewModel!
 
         describe("load") {
             beforeEach {
-                isiCloudUseCaseMock = IsiCloudUseCaseMock()
-                InjectedValues[\.isiCloudUseCase] = isiCloudUseCaseMock
+                isCloudKitContainerAvailableUseCaseMock = IsCloudKitContainerAvailableUseCaseMock()
+                InjectedValues[\.isCloudKitContainerAvailableUseCase] = isCloudKitContainerAvailableUseCaseMock
                 synchronizeWithCloudUseCaseMock = SynchronizeWithCloudUseCaseMock()
                 InjectedValues[\.synchronizeWithCloudUseCase] = synchronizeWithCloudUseCaseMock
                 viewModel = await RootViewModel()
@@ -26,13 +26,13 @@ class RootViewModelSpec: AsyncSpec {
 
             context("When iCloud is available and synchronization is successful.") {
                 beforeEach {
-                    isiCloudUseCaseMock.executeClosure = { true }
+                    isCloudKitContainerAvailableUseCaseMock.executeClosure = { true }
                     synchronizeWithCloudUseCaseMock.executeClosure = { true }
                 }
 
                 it("The app launches successfully.") { @MainActor in
                     await viewModel.load()
-                    expect(isiCloudUseCaseMock.executeCallsCount) == 1
+                    expect(isCloudKitContainerAvailableUseCaseMock.executeCallsCount) == 1
                     expect(synchronizeWithCloudUseCaseMock.executeCallsCount) == 1
                     expect(viewModel.uiState.isLaunching) == true
                 }

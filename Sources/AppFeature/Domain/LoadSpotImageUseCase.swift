@@ -2,6 +2,7 @@
 //  Created by yoko-yan on 2023/10/27
 //
 
+import Core
 import Foundation
 import UIKit
 
@@ -10,17 +11,11 @@ protocol LoadSpotImageUseCase {
 }
 
 struct LoadSpotImageUseCaseImpl: LoadSpotImageUseCase {
-    private let isiCloudUseCase: IsiCloudUseCase
-
-    init(
-        isiCloudUseCase: IsiCloudUseCase = IsiCloudUseCaseImpl()
-    ) {
-        self.isiCloudUseCase = isiCloudUseCase
-    }
+    @Injected(\.isCloudKitContainerAvailableUseCase) var isCloudKitContainerAvailable
 
     func execute(fileName: String?) async throws -> UIImage? {
         guard let fileName else { return nil }
-        if isiCloudUseCase.execute() {
+        if isCloudKitContainerAvailable.execute() {
             let image = try await ICloudDocumentRepository().loadImage(fileName: fileName)
             if let image {
                 try await LocalImageRepository().saveImage(image, fileName: fileName)

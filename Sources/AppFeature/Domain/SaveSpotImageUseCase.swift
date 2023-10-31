@@ -2,6 +2,7 @@
 //  Created by yoko-yan on 2023/10/27
 //
 
+import Core
 import Foundation
 import UIKit
 
@@ -10,16 +11,10 @@ protocol SaveSpotImageUseCase {
 }
 
 struct SaveSpotImageUseCaseImpl: SaveSpotImageUseCase {
-    private let isiCloudUseCase: IsiCloudUseCase
-
-    init(
-        isiCloudUseCase: IsiCloudUseCase = IsiCloudUseCaseImpl()
-    ) {
-        self.isiCloudUseCase = isiCloudUseCase
-    }
+    @Injected(\.isCloudKitContainerAvailableUseCase) var isCloudKitContainerAvailable
 
     func execute(image: UIImage, fileName: String) async throws {
-        if isiCloudUseCase.execute() {
+        if isCloudKitContainerAvailable.execute() {
             try await ICloudDocumentRepository().saveImage(image, fileName: fileName)
         }
         try await LocalImageRepository().saveImage(image, fileName: fileName)

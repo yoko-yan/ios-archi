@@ -5,11 +5,11 @@
 import Core
 import Foundation
 
-protocol IsiCloudUseCase: AutoInjectable, AutoMockable {
+protocol IsCloudKitContainerAvailableUseCase: AutoInjectable, AutoMockable {
     func execute() -> Bool
 }
 
-struct IsiCloudUseCaseImpl: IsiCloudUseCase {
+struct IsCloudKitContainerAvailableUseCaseImpl: IsCloudKitContainerAvailableUseCase {
     func execute() -> Bool {
         FileManager.default.ubiquityIdentityToken != nil
     }
