@@ -11,7 +11,7 @@ public protocol FirebaseAppProtocol {
 
 extension FirebaseApp: FirebaseAppProtocol {}
 
-public final class FirebaseAppDI: FirebaseAppProtocol {
+public final class FirebaseAppCore: FirebaseAppProtocol {
     static var canUseFirebase: Bool {
         Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") != nil
     }

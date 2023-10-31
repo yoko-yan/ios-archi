@@ -10,16 +10,16 @@ public protocol AnalyticsProtocol {
     static func logEvent(_ name: String, parameters: [String: Any]?)
 }
 
-public final class AnalyticsDI: AnalyticsProtocol {}
+public final class AnalyticsCore: AnalyticsProtocol {}
 
-public extension AnalyticsDI {
+public extension AnalyticsCore {
     static func logEvent(_ name: String, parameters: [String: Any]? = nil) {
-        if !FirebaseAppDI.canUseFirebase { return }
+        if !FirebaseAppCore.canUseFirebase { return }
         Analytics.logEvent(name, parameters: parameters)
     }
 
     static func screenEvent(name: String, class screenClass: String? = nil, extraParameters: [String: Any]? = nil) {
-        if !FirebaseAppDI.canUseFirebase { return }
+        if !FirebaseAppCore.canUseFirebase { return }
         var params: [String: Any] = [AnalyticsParameterScreenName: name]
         if let screenClass {
             params[AnalyticsParameterScreenClass] = screenClass
@@ -34,7 +34,7 @@ public extension AnalyticsDI {
 public extension View {
     func analyticsScreen(name: String, class screenClass: String? = nil, extraParameters: [String: Any]? = nil) -> some View {
         onAppear {
-            AnalyticsDI.screenEvent(name: name, class: screenClass, extraParameters: extraParameters)
+            AnalyticsCore.screenEvent(name: name, class: screenClass, extraParameters: extraParameters)
         }
     }
 }

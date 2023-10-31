@@ -8,4 +8,6 @@ bootstrap:
 	bundle install
 	# cocoapodsのライブラリをインストール
 	bundle exec pod install
+	# Generate Codes
+	local_scripts/Sourcery.sh
 	open ios-archi.xcworkspace

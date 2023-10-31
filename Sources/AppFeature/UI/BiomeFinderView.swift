@@ -19,7 +19,7 @@ struct BiomeFinderView: UIViewRepresentable {
     var coordinates: Coordinates
 
     func makeUIView(context: Context) -> WKWebView {
-        AnalyticsDI.screenEvent(name: "BiomeFinderView", class: String(describing: type(of: self)))
+        AnalyticsCore.screenEvent(name: "BiomeFinderView", class: String(describing: type(of: self)))
 
         let userScript1 = WKUserScript(
             source:

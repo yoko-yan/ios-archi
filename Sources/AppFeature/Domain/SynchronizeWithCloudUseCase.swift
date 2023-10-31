@@ -6,7 +6,7 @@ import Core
 import CoreData
 import Foundation
 
-protocol SynchronizeWithCloudUseCase {
+protocol SynchronizeWithCloudUseCase: UseCase {
     func execute() async throws -> Bool
 }
 
@@ -41,13 +41,13 @@ struct SynchronizeWithCloudUseCaseImpl: SynchronizeWithCloudUseCase {
 
 // MARK: - InjectedValues
 
-struct SynchronizeWithCloudUseCaseKey: InjectionKey {
-    static var currentValue: SynchronizeWithCloudUseCase = SynchronizeWithCloudUseCaseImpl()
-}
-
-extension InjectedValues {
-    var synchronizeWithCloudUseCase: SynchronizeWithCloudUseCase {
-        get { Self[SynchronizeWithCloudUseCaseKey.self] }
-        set { Self[SynchronizeWithCloudUseCaseKey.self] = newValue }
-    }
-}
+// struct SynchronizeWithCloudUseCaseKey: InjectionKey {
+//    static var currentValue: SynchronizeWithCloudUseCase = SynchronizeWithCloudUseCaseImpl()
+// }
+//
+// extension InjectedValues {
+//    var synchronizeWithCloudUseCase: SynchronizeWithCloudUseCase {
+//        get { Self[SynchronizeWithCloudUseCaseKey.self] }
+//        set { Self[SynchronizeWithCloudUseCaseKey.self] = newValue }
+//    }
+// }

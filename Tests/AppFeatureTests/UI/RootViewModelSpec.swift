@@ -41,7 +41,7 @@ class RootViewModelSpec: AsyncSpec {
     }
 }
 
-private final class IsiCloudUseCaseMock: IsiCloudUseCase {
+final class IsiCloudUseCaseMock: IsiCloudUseCase {
     private(set) var executeCallCount = 0
     var executeHandler: (() -> Bool)?
     func execute() -> Bool {
@@ -53,7 +53,7 @@ private final class IsiCloudUseCaseMock: IsiCloudUseCase {
     }
 }
 
-private final class SynchronizeWithCloudUseCaseMock: SynchronizeWithCloudUseCase {
+final class SynchronizeWithCloudUseCaseMock: SynchronizeWithCloudUseCase {
     private(set) var executeCallCount = 0
     var executeHandler: (() async throws -> Bool)?
     func execute() async throws -> Bool {

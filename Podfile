@@ -11,6 +11,7 @@ target 'ios-archi' do
   # Pods for ios-archi
   pod 'SwiftLint'
   pod 'SwiftFormat/CLI'
+  pod 'Sourcery'
 
 end
 

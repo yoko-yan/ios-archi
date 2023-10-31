@@ -1,0 +1,2 @@
+"mint/bin/mockolo" -s Sources/AppFeature -d Sources/AppFeature/CodeGenerated/OutputMocks.swift --exclude-imports AppFeature --enable-args-history
+"mint/bin/mockolo" -s Sources/Core -d Sources/Core/CodeGenerated/OutputMocks.swift --enable-args-history

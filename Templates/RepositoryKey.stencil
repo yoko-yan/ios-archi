@@ -1,0 +1,30 @@
+import Core
+import Foundation
+
+{% for type in types.protocols where type.based.Repository %}
+
+private struct {{ type.name }}Key: InjectionKey {
+    private final class Container {
+        var currentValue: {{ type.name }} = defaultValue()
+    }
+
+    private static let container = Container()
+
+    static let defaultValue = { {{ type.name }}Impl() }
+    static var currentValue: {{ type.name }} {
+        get { container.currentValue }
+        set { container.currentValue = newValue }
+    }
+}
+
+{{ type.accessLevel }} extension InjectedValues {
+    var {{ type.name|lowerFirstWord }}: {{ type.name }} {
+        get { Self[{{ type.name }}Key.self] }
+        set { Self[{{ type.name }}Key.self] = newValue }
+    }
+
+    static func reset{{ type.name }}() {
+        {{ type.name }}Key.currentValue = {{ type.name }}Key.defaultValue()
+    }
+}
+{% endfor %}
