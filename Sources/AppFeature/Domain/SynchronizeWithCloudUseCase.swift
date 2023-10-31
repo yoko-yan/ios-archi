@@ -24,12 +24,12 @@ struct SynchronizeWithCloudUseCaseImpl: SynchronizeWithCloudUseCase {
             if let event {
                 if let error = event.error {
                     print(error)
-                    try await Task.sleep(nanoseconds: 2500_000_000)
+                    try await Task.sleep(nanoseconds: 2_500_000_000)
                     return false // 同期がエラーになった場合、スプラッシュ解除
                 }
 
                 if event.type == .export, event.succeeded {
-                    try await Task.sleep(nanoseconds: 2500_000_000)
+                    try await Task.sleep(nanoseconds: 2_500_000_000)
                     return false // 正常に同期できた場合、スプラッシュ解除
                 }
             }
