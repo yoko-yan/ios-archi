@@ -6,7 +6,7 @@ import FirebaseAnalytics
 import Foundation
 import SwiftUI
 
-public protocol AnalyticsProtocol: AnyObject {
+public protocol AnalyticsProtocol {
     static func logEvent(_ name: String, parameters: [String: Any]?)
 }
 

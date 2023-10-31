@@ -2,14 +2,15 @@
 //  Created by apla on 2023/10/27
 //
 
+import Core
 import CoreData
 import Foundation
 
-protocol IsiCloudSyncingUseCase {
+protocol SynchronizeWithCloudUseCase {
     func execute() async throws -> Bool
 }
 
-struct IsiCloudSyncingUseCaseImpl: IsiCloudSyncingUseCase {
+struct SynchronizeWithCloudUseCaseImpl: SynchronizeWithCloudUseCase {
     func execute() async throws -> Bool {
         _ = try await ItemsRepository().getAll()
 
@@ -35,5 +36,18 @@ struct IsiCloudSyncingUseCaseImpl: IsiCloudSyncingUseCase {
         }
         try await Task.sleep(nanoseconds: 10 * 1000 * 1000 * 1000)
         return false // 万が一エラーも出なかった場合、スプラッシュ解除
+    }
+}
+
+// MARK: - InjectedValues
+
+private struct SynchronizeWithCloudUseCaseKey: InjectionKey {
+    static var currentValue: SynchronizeWithCloudUseCase = SynchronizeWithCloudUseCaseImpl()
+}
+
+extension InjectedValues {
+    var synchronizeWithCloudUseCase: SynchronizeWithCloudUseCase {
+        get { Self[SynchronizeWithCloudUseCaseKey.self] }
+        set { Self[SynchronizeWithCloudUseCaseKey.self] = newValue }
     }
 }

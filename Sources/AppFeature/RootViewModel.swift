@@ -2,7 +2,6 @@
 //  Created by yoko-yan on 2023/10/25
 //
 
-import Combine
 import Core
 import CoreData
 import Foundation
@@ -11,15 +10,12 @@ import Foundation
 
 @MainActor
 final class RootViewModel: ObservableObject {
+    @Injected(\.synchronizeWithCloudUseCase) var synchronizeWithCloudUseCase
+    @Injected(\.isiCloudUseCase) var isiCloudUseCase
+
     @Published private(set) var uiState = RootUiState()
 
-    private let isiCloudUseCase: IsiCloudUseCase
-
-    init(
-        isiCloudUseCase: IsiCloudUseCase = IsiCloudUseCaseImpl()
-    ) {
-        self.isiCloudUseCase = isiCloudUseCase
-    }
+    init() {}
 
     // FIXME:
     func load() async {
@@ -29,7 +25,7 @@ final class RootViewModel: ObservableObject {
         }
 
         do {
-            uiState.isLaunching = try await IsiCloudSyncingUseCaseImpl().execute()
+            uiState.isLaunching = try await synchronizeWithCloudUseCase.execute()
         } catch {
             print(error)
         }

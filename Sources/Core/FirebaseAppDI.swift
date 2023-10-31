@@ -5,7 +5,7 @@
 import FirebaseCore
 import Foundation
 
-public protocol FirebaseAppProtocol: AnyObject {
+public protocol FirebaseAppProtocol {
     static func configure()
 }
 
