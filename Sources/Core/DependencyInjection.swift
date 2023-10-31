@@ -48,3 +48,7 @@ public struct Injected<T> {
         self.keyPath = keyPath
     }
 }
+
+// MARK: - View model
+
+public protocol Injectable {}

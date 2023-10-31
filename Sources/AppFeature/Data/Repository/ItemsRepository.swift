@@ -2,9 +2,17 @@
 //  Created by yoko-yan on 2023/07/01.
 //
 
+import Core
 import Foundation
 
-final class ItemsRepository {
+protocol ItemsRepository: Injectable {
+    func getAll() async throws -> [Item]
+    func insert(item: Item) async throws
+    func update(item: Item) async throws
+    func delete(item: Item) async throws
+}
+
+struct ItemsRepositoryImpl: ItemsRepository {
     private let dataSource: ItemsLocalDataSource
 
     init(dataSource: some ItemsLocalDataSource = ItemsLocalDataSourceImpl()) {

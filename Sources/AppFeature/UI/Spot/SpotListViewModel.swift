@@ -26,7 +26,7 @@ final class SpotListViewModel: ObservableObject {
         switch action {
         case .load:
             do {
-                uiState.items = try await ItemsRepository().getAll()
+                uiState.items = try await ItemsRepositoryImpl().getAll()
             } catch {
                 print(error)
             }

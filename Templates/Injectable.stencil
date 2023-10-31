@@ -1,0 +1,15 @@
+import Core
+import Foundation
+
+{% for type in types.protocols where type.based.Injectable %}
+private struct {{ type.name }}Key: InjectionKey {
+    static var currentValue: {{ type.name }} = {{ type.name }}Impl()
+}
+
+{{ type.accessLevel }} extension InjectedValues {
+    var {{ type.name|lowerFirstWord }}: {{ type.name }} {
+        get { Self[{{ type.name }}Key.self] }
+        set { Self[{{ type.name }}Key.self] = newValue }
+    }
+}
+{% endfor %}

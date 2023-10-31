@@ -6,13 +6,13 @@ import Core
 import CoreData
 import Foundation
 
-protocol SynchronizeWithCloudUseCase: UseCase {
+protocol SynchronizeWithCloudUseCase: Injectable {
     func execute() async throws -> Bool
 }
 
 struct SynchronizeWithCloudUseCaseImpl: SynchronizeWithCloudUseCase {
     func execute() async throws -> Bool {
-        _ = try await ItemsRepository().getAll()
+        _ = try await ItemsRepositoryImpl().getAll()
 
         let notifications = NotificationCenter.default
             .notifications(named: NSPersistentCloudKitContainer.eventChangedNotification, object: nil)
@@ -38,16 +38,3 @@ struct SynchronizeWithCloudUseCaseImpl: SynchronizeWithCloudUseCase {
         return false // 万が一エラーも出なかった場合、スプラッシュ解除
     }
 }
-
-// MARK: - InjectedValues
-
-// struct SynchronizeWithCloudUseCaseKey: InjectionKey {
-//    static var currentValue: SynchronizeWithCloudUseCase = SynchronizeWithCloudUseCaseImpl()
-// }
-//
-// extension InjectedValues {
-//    var synchronizeWithCloudUseCase: SynchronizeWithCloudUseCase {
-//        get { Self[SynchronizeWithCloudUseCaseKey.self] }
-//        set { Self[SynchronizeWithCloudUseCaseKey.self] = newValue }
-//    }
-// }
