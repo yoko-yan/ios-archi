@@ -3,6 +3,7 @@
 //
 
 import Combine
+import Core
 import UIKit
 
 // MARK: - Action
@@ -74,6 +75,8 @@ extension ItemEditError: LocalizedError {
 
 @MainActor
 final class ItemEditViewModel: ObservableObject {
+    @Injected(\.itemsRepository) var itemsRepository
+
     @Published private(set) var uiState: ItemEditUiState
 
     init(item: Item?) {
@@ -156,7 +159,7 @@ final class ItemEditViewModel: ObservableObject {
                 await send(action: .onAlertDismiss)
                 guard case .new = uiState.editMode else { fatalError() }
                 await send(action: .saveImage)
-                try await ItemsRepositoryImpl().insert(item: uiState.editItem)
+                try await itemsRepository.insert(item: uiState.editItem)
                 send(event: .onChanged)
                 send(event: .onDismiss)
             } catch {
@@ -167,7 +170,7 @@ final class ItemEditViewModel: ObservableObject {
                 await send(action: .onAlertDismiss)
                 guard case .edit = uiState.editMode else { fatalError() }
                 await send(action: .saveImage)
-                try await ItemsRepositoryImpl().update(item: uiState.editItem)
+                try await itemsRepository.update(item: uiState.editItem)
                 send(event: .onChanged)
                 send(event: .onDismiss)
             } catch {
@@ -176,7 +179,7 @@ final class ItemEditViewModel: ObservableObject {
         case .onDelete:
             do {
                 guard case .edit = uiState.editMode, let item = uiState.editMode.item else { return }
-                try await ItemsRepositoryImpl().delete(item: item)
+                try await itemsRepository.delete(item: item)
                 send(event: .onDeleted)
                 send(event: .onDismiss)
             } catch {

@@ -2,6 +2,7 @@
 //  Created by yoko-yan on 2023/10/07
 //
 
+import Core
 import Foundation
 import UIKit
 
@@ -16,6 +17,8 @@ enum TimeLineViewAction {
 
 @MainActor
 final class TimeLineViewModel: ObservableObject {
+    @Injected(\.itemsRepository) var itemsRepository
+
     @Published private(set) var uiState = TimeLineUiState()
 
     init(uiState: TimeLineUiState = TimeLineUiState()) {
@@ -26,7 +29,7 @@ final class TimeLineViewModel: ObservableObject {
         switch action {
         case .load:
             do {
-                uiState.items = try await ItemsRepositoryImpl().fetchAll()
+                uiState.items = try await itemsRepository.fetchWithoutNoPhoto()
             } catch {
                 print(error)
             }

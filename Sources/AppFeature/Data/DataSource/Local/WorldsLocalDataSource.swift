@@ -13,13 +13,10 @@ protocol WorldsLocalDataSource {
     func delete(_ world: World) async throws
 }
 
-// MARK: - Error
-
 final class WorldsLocalDataSourceImpl: WorldsLocalDataSource {
     private let localDataSource: LocalDataSource<WorldEntity>
 
     init(
-        //        localDataSource: some LocalDataSource = LocalDataSourceImpl<WorldEntity>()
         localDataSource: LocalDataSource<WorldEntity> = LocalDataSource()
     ) {
         self.localDataSource = localDataSource
@@ -37,7 +34,7 @@ final class WorldsLocalDataSourceImpl: WorldsLocalDataSource {
                 ascending: false
             )
         ]
-        let entities = try await localDataSource.fetch(sortDescriptors)
+        let entities = try await localDataSource.fetch(predicate: nil, sortDescriptors: sortDescriptors)
 
         return entities.map { entity in
             convertToItem(from: entity)
@@ -46,9 +43,9 @@ final class WorldsLocalDataSourceImpl: WorldsLocalDataSource {
 
     func insert(_ world: World) async throws {
         let entity = localDataSource.getEntity()
-        let changedEntity = setEntity(entity: entity, from: world)
-        changedEntity.createdAt = Date()
-        changedEntity.updatedAt = Date()
+        let ent = setEntity(entity: entity, from: world)
+        ent.createdAt = Date()
+        ent.updatedAt = Date()
         try CoreDataManager.shared.saveContext()
     }
 
@@ -59,9 +56,9 @@ final class WorldsLocalDataSourceImpl: WorldsLocalDataSource {
         guard let entity = try? await localDataSource.read(id: id) else {
             fatalError("There was no matching data.")
         }
-        let changedEntity = setEntity(entity: entity, from: world)
-        entity.createdAt = world.createdAt
-        entity.updatedAt = Date()
+        let ent = setEntity(entity: entity, from: world)
+        ent.createdAt = world.createdAt
+        ent.updatedAt = Date()
         try localDataSource.saveContext()
     }
 

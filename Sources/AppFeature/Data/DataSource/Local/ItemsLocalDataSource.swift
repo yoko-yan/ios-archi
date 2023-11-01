@@ -7,19 +7,17 @@ import Foundation
 
 protocol ItemsLocalDataSource {
     func fetchAll() async throws -> [Item]
+    func fetchWithoutNoPhoto() async throws -> [Item]
     func insert(_ item: Item) async throws
     func update(_ item: Item) async throws
     func delete(_ item: Item) async throws
 }
-
-// MARK: - Error
 
 final class ItemsLocalDataSourceImpl: ItemsLocalDataSource {
     private let localDataSource: LocalDataSource<ItemEntity>
     private let worldsLocalDataSource: any WorldsLocalDataSource
 
     init(
-        //        localDataSource: some LocalDataSource = LocalDataSourceImpl<ItemEntity>(),
         localDataSource: LocalDataSource<ItemEntity> = LocalDataSource(),
         worldsLocalDataSource: some WorldsLocalDataSource = WorldsLocalDataSourceImpl()
     ) {
@@ -32,14 +30,20 @@ final class ItemsLocalDataSourceImpl: ItemsLocalDataSource {
         return try await convertToItem(from: entity)
     }
 
-    private func fetch(_ sortDescriptors: [NSSortDescriptor]) async throws -> [Item] {
-        let sortDescriptors = [
-            NSSortDescriptor(
-                keyPath: \ItemEntity.createdAt,
-                ascending: false
-            )
-        ]
-        let entities = try await localDataSource.fetch(sortDescriptors)
+    private func fetch(predicate: NSPredicate? = nil, sortDescriptors lSortDescriptors: [NSSortDescriptor]? = nil) async throws -> [Item] {
+        let sortDescriptors: [NSSortDescriptor]?
+        if let lSortDescriptors {
+            sortDescriptors = lSortDescriptors
+        } else {
+            sortDescriptors = [
+                NSSortDescriptor(
+                    keyPath: \ItemEntity.createdAt,
+                    ascending: false
+                )
+            ]
+        }
+
+        let entities = try await localDataSource.fetch(predicate: predicate, sortDescriptors: sortDescriptors)
         var values = [Item]()
         for entity in entities {
             try await values.append(
@@ -56,25 +60,26 @@ final class ItemsLocalDataSourceImpl: ItemsLocalDataSource {
                 ascending: false
             )
         ]
-        return try await fetch(sortDescriptors)
+        return try await fetch(predicate: nil, sortDescriptors: sortDescriptors)
     }
 
-    func fetchWith() async throws -> [Item] {
+    func fetchWithoutNoPhoto() async throws -> [Item] {
+        let predicate = NSPredicate(format: "spotImageName != nil OR spotImageName == %@", "")
         let sortDescriptors = [
             NSSortDescriptor(
                 keyPath: \ItemEntity.createdAt,
                 ascending: false
             )
         ]
-        return try await fetch(sortDescriptors)
+        return try await fetch(predicate: predicate, sortDescriptors: sortDescriptors)
     }
 
     func insert(_ item: Item) async throws {
         let entity = localDataSource.getEntity()
         entity.id = UUID(uuidString: item.id)
-        let changedEntity = setEntity(entity: entity, from: item)
-        changedEntity.createdAt = Date()
-        changedEntity.updatedAt = Date()
+        let ent = setEntity(entity: entity, from: item)
+        ent.createdAt = Date()
+        ent.updatedAt = Date()
         try localDataSource.saveContext()
     }
 
@@ -85,9 +90,9 @@ final class ItemsLocalDataSourceImpl: ItemsLocalDataSource {
         guard let entity = try? await localDataSource.read(id: id) else {
             fatalError("There was no matching data.")
         }
-        let changedEntity = setEntity(entity: entity, from: item)
-        changedEntity.createdAt = item.createdAt
-        changedEntity.updatedAt = Date()
+        let ent = setEntity(entity: entity, from: item)
+        ent.createdAt = item.createdAt
+        ent.updatedAt = Date()
         try localDataSource.saveContext()
     }
 

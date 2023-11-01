@@ -2,6 +2,7 @@
 //  Created by yoko-yan on 2023/10/08
 //
 
+import Core
 import Foundation
 import UIKit
 
@@ -16,6 +17,8 @@ enum SpotViewAction {
 
 @MainActor
 final class SpotListViewModel: ObservableObject {
+    @Injected(\.itemsRepository) var itemsRepository
+
     @Published private(set) var uiState = SpotListUiState()
 
     init() {
@@ -26,7 +29,7 @@ final class SpotListViewModel: ObservableObject {
         switch action {
         case .load:
             do {
-                uiState.items = try await ItemsRepositoryImpl().fetchAll()
+                uiState.items = try await itemsRepository.fetchAll()
             } catch {
                 print(error)
             }

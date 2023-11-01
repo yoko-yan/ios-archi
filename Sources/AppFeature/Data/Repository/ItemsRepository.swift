@@ -7,6 +7,7 @@ import Foundation
 
 protocol ItemsRepository: AutoInjectable {
     func fetchAll() async throws -> [Item]
+    func fetchWithoutNoPhoto() async throws -> [Item]
     func insert(item: Item) async throws
     func update(item: Item) async throws
     func delete(item: Item) async throws
@@ -21,6 +22,10 @@ struct ItemsRepositoryImpl: ItemsRepository {
 
     func fetchAll() async throws -> [Item] {
         try await dataSource.fetchAll()
+    }
+
+    func fetchWithoutNoPhoto() async throws -> [Item] {
+        try await dataSource.fetchWithoutNoPhoto()
     }
 
     func insert(item: Item) async throws {
