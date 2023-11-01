@@ -4,11 +4,98 @@
     "" : {
 
     },
+    "cancel" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キャンセル"
+          }
+        }
+      }
+    },
+    "Change the coordinates." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "座標を変更する"
+          }
+        }
+      }
+    },
+    "clear" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "クリアする"
+          }
+        }
+      }
+    },
+    "Confirmation" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "確認"
+          }
+        }
+      }
+    },
     "coordinates" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "座標"
+          }
+        }
+      }
+    },
+    "Delete" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "削除する"
+          }
+        }
+      }
+    },
+    "Details" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "詳細"
+          }
+        }
+      }
+    },
+    "Edit" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "編集する"
+          }
+        }
+      }
     },
     "home" : {
       "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ホーム"
+          }
+        }
+      }
+    },
+    "Home" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -18,89 +105,216 @@
         }
       }
     },
+    "If the coordinates are visible in the photo, they can be recognized." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "写真に座標が写っている場合、その座標を認識できます"
+          }
+        }
+      }
+    },
+    "If the seed value is visible in the photo, it can be recognized." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "写真にシード値が写っている場合、そのシード値を認識できます"
+          }
+        }
+      }
+    },
+    "List of Photos" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "写真一覧"
+          }
+        }
+      }
+    },
+    "List of Worlds" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ワールド一覧"
+          }
+        }
+      }
+    },
+    "Modify" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "変更"
+          }
+        }
+      }
+    },
     "name" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "名前"
+          }
+        }
+      }
+    },
+    "No photo available" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "写真がありません"
+          }
+        }
+      }
+    },
+    "paste" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ペースト"
+          }
+        }
+      }
+    },
+    "Recognize coordinate strings from a photo." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "写真から座標の文字列を認識する"
+          }
+        }
+      }
+    },
+    "Recognize the seed value string from a photo." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "写真からシード値の文字列を認識する"
+          }
+        }
+      }
+    },
+    "Register" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登録する"
+          }
+        }
+      }
+    },
+    "Register a photo." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "写真を登録"
+          }
+        }
+      }
+    },
+    "Register a world." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ワールドを登録する"
+          }
+        }
+      }
+    },
+    "Search for biomes from a seed value." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "シード値からバイオームを検索"
+          }
+        }
+      }
     },
     "seed" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "シード値"
+          }
+        }
+      }
+    },
+    "Select a world." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ワールドを選択する"
+          }
+        }
+      }
+    },
+    "Unregistered" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未登録"
+          }
+        }
+      }
+    },
+    "Unselected" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未選択"
+          }
+        }
+      }
     },
     "X" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "X"
+          }
+        }
+      }
     },
     "Y" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Y"
+          }
+        }
+      }
     },
     "Z" : {
-
-    },
-    "キャンセル" : {
-
-    },
-    "クリアする" : {
-
-    },
-    "シード値からバイオームを検索" : {
-
-    },
-    "ペースト" : {
-
-    },
-    "ワールドを新規に追加する" : {
-
-    },
-    "ワールドを選択する" : {
-
-    },
-    "ワールド一覧" : {
-
-    },
-    "写真からシード値を取得" : {
-
-    },
-    "写真から座標を取得" : {
-
-    },
-    "写真にシード値が写っている場合、そのシード値を取得できます" : {
-
-    },
-    "写真に座標が写っている場合、その座標を取得できます" : {
-
-    },
-    "写真を登録" : {
-
-    },
-    "写真一覧" : {
-
-    },
-    "削除する" : {
-
-    },
-    "変更する" : {
-
-    },
-    "座標とシード値からバイオームを検索" : {
-
-    },
-    "座標を変更する" : {
-
-    },
-    "未登録" : {
-
-    },
-    "未選択" : {
-
-    },
-    "画像なし" : {
-
-    },
-    "確認" : {
-
-    },
-    "編集する" : {
-
-    },
-    "詳細" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Z"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

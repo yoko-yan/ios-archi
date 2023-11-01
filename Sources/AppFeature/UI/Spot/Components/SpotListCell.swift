@@ -24,7 +24,7 @@ struct SpotListCell: View {
                         Rectangle()
                             .fill(colorScheme == .dark ? Color.black : Color.white)
                             .aspectRatio(contentMode: .fit)
-                        Text("画像なし")
+                        Text("No photo available")
                             .font(.caption2)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .foregroundColor(.gray)

@@ -46,7 +46,7 @@ struct WorldListView: View {
             })
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarTitle(Text("ワールド一覧"))
+        .navigationBarTitle(Text("List of Worlds"))
 //        .navigationBarItems(trailing: EditButton())
         .toolbarBackground(.visible, for: .navigationBar)
         .sheet(isPresented: $isShowEditView) {
@@ -84,14 +84,14 @@ private extension View {
         onDismiss: @escaping () -> Void
     ) -> some View {
         alert(
-            "確認",
+            "Confirmation",
             isPresented: .init(
                 get: { message != nil },
                 set: { _ in onDismiss() }
             ),
             presenting: message
         ) { _ in
-            Button("削除する", role: .destructive, action: {
+            Button("Delete", role: .destructive, action: {
                 onDelete()
             })
         } message: { message in

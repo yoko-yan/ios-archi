@@ -50,7 +50,7 @@ struct TimeLineView: View {
             })
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarTitle(Text("home"))
+        .navigationBarTitle(Text("Home"))
         .toolbarBackground(.visible, for: .navigationBar)
         .sheet(isPresented: $isShowEditView) {
             ItemEditView(

@@ -12,11 +12,11 @@ enum TabItem: String, CaseIterable {
     var name: String {
         switch self {
         case .home:
-            return "ホーム"
+            return "Home"
         case .photo:
-            return "写真"
+            return "Photo"
         case .list:
-            return "ワールド"
+            return "World"
         }
     }
 

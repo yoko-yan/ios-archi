@@ -17,7 +17,7 @@ struct WorldSelectionView: View {
             List(selection: $selected) {
                 HStack {
                     Spacer()
-                    Text("未選択")
+                    Text("Unselected")
                     Spacer()
                 }
                 .contentShape(Rectangle())
@@ -36,7 +36,7 @@ struct WorldSelectionView: View {
                     Button(action: {
                         isShowDetailView.toggle()
                     }) {
-                        Text("ワールドを新規に追加する")
+                        Text("Register a world.")
                             .bold()
                             .frame(height: 50)
                             .frame(maxWidth: .infinity)
@@ -47,7 +47,7 @@ struct WorldSelectionView: View {
             .listStyle(.plain)
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarTitle(Text("ワールドを選択する"))
+        .navigationBarTitle(Text("Select a world."))
         .toolbarBackground(.visible, for: .navigationBar)
         .sheet(isPresented: $isShowDetailView) {
             WorldEditView(

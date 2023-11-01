@@ -20,7 +20,7 @@ struct SpotImageEditCell: View {
                     imageSourceType = .library
                     isImagePicker.toggle()
                 } label: {
-                    Text("写真を登録")
+                    Text("Register a photo.")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
                 .contentShape(Rectangle())
@@ -32,7 +32,7 @@ struct SpotImageEditCell: View {
             }
 
             HStack {
-                Text("写真に座標が写っている場合、その座標を取得できます")
+                Text("If the coordinates are visible in the photo, they can be recognized.")
                     .font(.caption2)
                 Spacer()
                 Button(action: {

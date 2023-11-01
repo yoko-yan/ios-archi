@@ -139,7 +139,7 @@ private extension ItemEditView {
             HStack {
                 Label("coordinates", systemImage: "location.circle")
                 Spacer()
-                Text(viewModel.uiState.input.coordinates?.textWitWhitespaces ?? "未登録")
+                Text(viewModel.uiState.input.coordinates?.textWitWhitespaces ?? "Unregistered")
                 Image(systemName: "chevron.right")
             }
             .padding(.horizontal)
@@ -182,7 +182,7 @@ private extension ItemEditView {
                             await viewModel.send(action: .onDeleteButtonTap)
                         }
                     }) {
-                        Text("削除する")
+                        Text("Delete")
                             .bold()
                             .frame(height: 50)
                             .padding(.horizontal)
@@ -227,14 +227,14 @@ private extension View {
         onDismiss: @escaping () -> Void
     ) -> some View {
         confirmationDialog(
-            "確認",
+            "Confirmation",
             isPresented: .init(
                 get: { alertType?.message != nil },
                 set: { _ in onDismiss() }
             ),
             presenting: alertType
         ) { _ in
-            Button("キャンセル", role: .cancel, action: {})
+            Button("cancel", role: .cancel, action: {})
             Button(
                 alertType?.buttonLabel ?? "",
                 role: alertType?.buttonRole,

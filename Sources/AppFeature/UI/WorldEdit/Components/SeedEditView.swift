@@ -24,7 +24,7 @@ struct SeedEditView: View {
                         imageSourceType = .library
                         isImagePicker.toggle()
                     } label: {
-                        Text("写真からシード値を取得")
+                        Text("Recognize the seed value string from a photo.")
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                     .contentShape(Rectangle())
@@ -38,7 +38,7 @@ struct SeedEditView: View {
             .accentColor(.gray)
 
             HStack {
-                Text("写真にシード値が写っている場合、そのシード値を取得できます")
+                Text("If the seed value is visible in the photo, it can be recognized.")
                     .font(.caption2)
                 Spacer()
                 Button(action: {
@@ -68,7 +68,7 @@ struct SeedEditView: View {
                 Text("seed")
                 Spacer()
                 TextField(
-                    "未登録",
+                    "Unregistered",
                     text: .init(
                         get: { seed ?? "" },
                         set: { newValue in seed = newValue }

@@ -61,7 +61,7 @@ private extension CoordinatesEditView {
                             imageSourceType = .library
                             isImagePicker.toggle()
                         } label: {
-                            Text("写真から座標を取得")
+                            Text("Recognize coordinate strings from a photo.")
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
                         .contentShape(Rectangle())
@@ -73,7 +73,7 @@ private extension CoordinatesEditView {
                     }
 
                     HStack {
-                        Text("写真に座標が写っている場合、その座標を取得できます")
+                        Text("If the coordinates are visible in the photo, they can be recognized.")
                             .font(.caption2)
                         Spacer()
                         Button(action: {
@@ -218,7 +218,7 @@ private extension CoordinatesEditView {
                                 await viewModel.send(action: .clearCoordinates)
                             }
                         }) {
-                            Text("クリアする")
+                            Text("clear")
                                 .bold()
                                 .frame(height: 50)
                                 .padding(.horizontal)
@@ -235,7 +235,7 @@ private extension CoordinatesEditView {
                             await viewModel.send(action: .onChangeButtonTap)
                         }
                     }) {
-                        Text("変更する")
+                        Text("Modify")
                             .bold()
                             .frame(height: 50)
                             .frame(maxWidth: .infinity)
@@ -246,7 +246,7 @@ private extension CoordinatesEditView {
                 .padding()
             }
         }
-        .navigationBarTitle("座標を変更する", displayMode: .inline)
+        .navigationBarTitle("Change the coordinates.", displayMode: .inline)
         .toolbar {
             keyboardToolbarItem
         }

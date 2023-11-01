@@ -19,7 +19,7 @@ struct ItemDetailView: View {
                         .resizable()
                         .scaledToFit()
                 } else {
-                    Text("画像なし")
+                    Text("No photo available")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .contentShape(Rectangle())
                         .frame(height: 200)
@@ -32,7 +32,7 @@ struct ItemDetailView: View {
                 HStack {
                     Text("coordinates")
                     Spacer()
-                    Text(viewModel.uiState.item.coordinates?.textWitWhitespaces ?? "未登録")
+                    Text(viewModel.uiState.item.coordinates?.textWitWhitespaces ?? "Unregistered")
                 }
                 .padding()
 
@@ -59,7 +59,7 @@ struct ItemDetailView: View {
                 Button {
                     isBiomeFinderView.toggle()
                 } label: {
-                    Text("座標とシード値からバイオームを検索")
+                    Text("Search for biomes from a seed value.")
                         .bold()
                         .frame(height: 50)
                         .frame(maxWidth: .infinity)
@@ -70,7 +70,7 @@ struct ItemDetailView: View {
                 Button(action: {
                     isEditView.toggle()
                 }) {
-                    Text("編集する")
+                    Text("Edit")
                         .bold()
                         .frame(height: 50)
                         .frame(maxWidth: .infinity)
@@ -79,14 +79,14 @@ struct ItemDetailView: View {
                 .padding(.horizontal)
             }
         }
-        .navigationBarTitle("詳細", displayMode: .inline)
+        .navigationBarTitle("Details", displayMode: .inline)
 //        .toolbar {
 //            ToolbarItem(placement: .navigationBarTrailing) {
 //                Button(action: {
 //                    isEditView.toggle()
 //                }) {
 //                    HStack {
-//                        Text("編集")
+//                        Text("Edit")
 //                    }
 //                }
 //            }

@@ -33,7 +33,7 @@ struct WorldDetailView: View {
                 Button {
                     isBiomeFinderView.toggle()
                 } label: {
-                    Text("シード値からバイオームを検索")
+                    Text("Search for biomes from a seed value.")
                         .bold()
                         .frame(height: 50)
                         .frame(maxWidth: .infinity)
@@ -44,7 +44,7 @@ struct WorldDetailView: View {
                 Button(action: {
                     isEditView.toggle()
                 }) {
-                    Text("編集する")
+                    Text("Edit")
                         .bold()
                         .frame(height: 50)
                         .frame(maxWidth: .infinity)
@@ -53,14 +53,14 @@ struct WorldDetailView: View {
                 .padding(.horizontal)
             }
         }
-        .navigationBarTitle("詳細", displayMode: .inline)
+        .navigationBarTitle("Details", displayMode: .inline)
 //        .toolbar {
 //            ToolbarItem(placement: .navigationBarTrailing) {
 //                Button(action: {
 //                    isEditView.toggle()
 //                }) {
 //                    HStack {
-//                        Text("編集")
+//                        Text("Edit")
 //                    }
 //                }
 //            }

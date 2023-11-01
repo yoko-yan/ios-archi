@@ -15,12 +15,12 @@ struct WorldListCell: View {
                 HStack {
                     Text("name")
                     Spacer()
-                    Text(world?.name ?? "未登録")
+                    Text(world?.name ?? "Unregistered")
                 }
                 HStack {
                     Text("seed")
                     Spacer()
-                    Text(world?.seed?.text ?? "未登録")
+                    Text(world?.seed?.text ?? "Unregistered")
                 }
             }
         }

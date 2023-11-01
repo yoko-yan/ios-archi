@@ -48,7 +48,7 @@ struct WorldEditView: View {
                             Text("name")
                             Spacer()
                             TextField(
-                                "未登録",
+                                "Unregistered",
                                 text: .init(
                                     get: { viewModel.uiState.input.name ?? "" },
                                     set: { newValue in
@@ -89,7 +89,7 @@ struct WorldEditView: View {
                                     await viewModel.send(action: .onDeleteButtonTap)
                                 }
                             }) {
-                                Text("削除する")
+                                Text("Delete")
                                     .bold()
                                     .frame(height: 50)
                                     .padding(.horizontal)
@@ -168,7 +168,7 @@ struct WorldEditView: View {
                                 await viewModel.send(action: .setName(UIPasteboard.general.string ?? ""))
                             }
                         } label: {
-                            Text("ペースト")
+                            Text("paste")
                         }
 
                         Spacer()
@@ -227,14 +227,14 @@ private extension View {
         onDismiss: @escaping () -> Void
     ) -> some View {
         confirmationDialog(
-            "確認",
+            "Confirmation",
             isPresented: .init(
                 get: { alertType?.message != nil },
                 set: { _ in onDismiss() }
             ),
             presenting: alertType
         ) { _ in
-            Button("キャンセル", role: .cancel, action: {})
+            Button("cancel", role: .cancel, action: {})
             Button(alertType?.buttonLabel ?? "", role: alertType?.buttonRole, action: {
                 onConfirmed()
             })

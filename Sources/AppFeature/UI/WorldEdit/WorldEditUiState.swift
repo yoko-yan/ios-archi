@@ -15,22 +15,22 @@ struct WorldEditUiState {
         var message: String {
             switch self {
             case .confirmUpdate:
-                return "変更してもいいですか？"
+                return "May I make changes?"
             case .confirmDeletion:
-                return "削除してもいいですか？"
+                return "May I delete it?"
             case .confirmDismiss:
-                return "編集中のデータがあります。\nデータを変更せずに閉じてもいいですか？"
+                return "There is data being edited.\nIs it okay to close without making any changes?"
             }
         }
 
         var buttonLabel: String {
             switch self {
             case .confirmUpdate:
-                return "変更する"
+                return "Change"
             case .confirmDeletion:
-                return "削除する"
+                return "Delete"
             case .confirmDismiss:
-                return "変更せずに戻る"
+                return "Cancel changes"
             }
         }
 
@@ -64,15 +64,15 @@ struct WorldEditUiState {
 
         var title: String {
             switch self {
-            case .new: return "ワールドを新規に登録する"
-            case .edit: return "ワールド情報を変更する"
+            case .new: return "Register a world."
+            case .edit: return "Modify the world"
             }
         }
 
         var button: String {
             switch self {
-            case .new: return "登録する"
-            case .edit: return "変更する"
+            case .new: return "Register"
+            case .edit: return "Modify"
             }
         }
 

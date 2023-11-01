@@ -15,22 +15,22 @@ struct ItemEditUiState {
         var message: String {
             switch self {
             case .confirmUpdate:
-                return "変更してもいいですか？"
+                return "May I make changes?"
             case .confirmDeletion:
-                return "変更してもいいですか？"
+                return "May I delete it?"
             case .confirmDismiss:
-                return "編集中のデータがあります。\nデータを変更せずに閉じてもいいですか？"
+                return "There is data being edited.\nIs it okay to close without making any changes?"
             }
         }
 
         var buttonLabel: String {
             switch self {
             case .confirmUpdate:
-                return "変更する"
+                return "Modify"
             case .confirmDeletion:
-                return "削除する"
+                return "Delete"
             case .confirmDismiss:
-                return "変更せずに戻る"
+                return "Cancel changes"
             }
         }
 
@@ -63,15 +63,15 @@ struct ItemEditUiState {
 
         var title: String {
             switch self {
-            case .new: return "スポットを新規に登録する"
-            case .edit: return "スポット情報を変更する"
+            case .new: return "Register a spot."
+            case .edit: return "Modify the spot."
             }
         }
 
         var button: String {
             switch self {
-            case .new: return "登録する"
-            case .edit: return "変更する"
+            case .new: return "Register"
+            case .edit: return "Modify"
             }
         }
 
