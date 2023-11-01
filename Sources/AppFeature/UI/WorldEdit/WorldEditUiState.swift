@@ -94,11 +94,12 @@ struct WorldEditUiState {
 
     struct Input: Equatable {
         var id: String?
+        var name: String?
         var seed: Seed?
-        var seedImageName: String?
 
         init(world: World?) {
             id = world?.id
+            name = world?.name
             seed = world?.seed
         }
     }
@@ -115,7 +116,7 @@ struct WorldEditUiState {
     var editItem: World {
         World(
             id: input.id ?? UUID().uuidString,
-            name: "",
+            name: input.name,
             seed: input.seed,
             createdAt: editMode.world?.createdAt ?? Date(),
             updatedAt: editMode.world?.updatedAt ?? Date()

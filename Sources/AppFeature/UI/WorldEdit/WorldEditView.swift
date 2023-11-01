@@ -44,6 +44,38 @@ struct WorldEditView: View {
                             .padding(.horizontal)
                         }
 
+                        HStack {
+                            Text("name")
+                            Spacer()
+                            TextField(
+                                "未登録",
+                                text: .init(
+                                    get: { viewModel.uiState.input.name ?? "" },
+                                    set: { newValue in
+                                        Task {
+                                            await viewModel.send(action: .setName(newValue))
+                                        }
+                                    }
+                                )
+                            )
+                            .keyboardType(.numberPad)
+                            .multilineTextAlignment(TextAlignment.leading)
+                            .modifier(
+                                TextFieldClearButton(
+                                    text: .init(
+                                        get: { viewModel.uiState.input.name ?? "" },
+                                        set: { newValue in
+                                            Task {
+                                                await viewModel.send(action: .setName(newValue))
+                                            }
+                                        }
+                                    )
+                                )
+                            )
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        }
+                        .padding(.horizontal)
+
                         Color.clear
                             .frame(height: 100)
                     }

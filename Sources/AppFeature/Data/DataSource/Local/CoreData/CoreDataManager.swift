@@ -61,9 +61,9 @@ extension CoreDataManager {
     static func checkLightWeightMigration() {
         let subdirectory = "Model.momd"
         // swiftlint:disable:next force_unwrapping
-        let sourceModel = NSManagedObjectModel(contentsOf: Bundle.module.url(forResource: "Model", withExtension: "mom", subdirectory: subdirectory)!)!
+        let sourceModel = NSManagedObjectModel(contentsOf: Bundle.module.url(forResource: "Model 2", withExtension: "mom", subdirectory: subdirectory)!)!
         // swiftlint:disable:next force_unwrapping
-        let destinationModel = NSManagedObjectModel(contentsOf: Bundle.module.url(forResource: "Model 2", withExtension: "mom", subdirectory: subdirectory)!)!
+        let destinationModel = NSManagedObjectModel(contentsOf: Bundle.module.url(forResource: "Model 3", withExtension: "mom", subdirectory: subdirectory)!)!
         do {
             try NSMappingModel.inferredMappingModel(forSourceModel: sourceModel, destinationModel: destinationModel)
             print("migrationCheck: OK")

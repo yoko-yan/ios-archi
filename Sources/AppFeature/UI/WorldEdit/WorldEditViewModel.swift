@@ -10,6 +10,7 @@ import UIKit
 
 enum WorldEditViewAction: Equatable {
     case clearSeed
+    case setName(String)
     case getSeed(image: UIImage)
     case setSeed(String)
     case onRegisterButtonTap
@@ -114,6 +115,8 @@ final class WorldEditViewModel: ObservableObject {
         switch action {
         case .clearSeed:
             uiState.input.seed = nil
+        case let .setName(text):
+            uiState.input.name = text
         case let .getSeed(image):
             do {
                 let seed = try await GetSeedFromImageUseCaseImpl().execute(image: image)

@@ -65,7 +65,7 @@ struct SeedEditView: View {
             .accentColor(.gray)
 
             HStack {
-                Label("seed", systemImage: "globe.desk")
+                Text("seed")
                 Spacer()
                 TextField(
                     "未登録",

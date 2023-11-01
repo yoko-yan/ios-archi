@@ -29,16 +29,30 @@ struct ItemDetailView: View {
                         )
                 }
 
-                CoordinatesView(
-                    coordinates: viewModel.uiState.item.coordinates
-                )
-                .padding(.top, 4)
-                .padding(.horizontal)
+                HStack {
+                    Text("coordinates")
+                    Spacer()
+                    Text(viewModel.uiState.item.coordinates?.textWitWhitespaces ?? "未登録")
+                }
+                .padding()
 
-                SeedView(
-                    seed: viewModel.uiState.item.world?.seed
-                )
-                .padding(.horizontal)
+                Divider()
+
+                if let world = viewModel.uiState.item.world {
+                    HStack {
+                        Text("name")
+                        Spacer()
+                        Text(world.name ?? "")
+                    }
+                    .padding()
+
+                    HStack {
+                        Text("seed")
+                        Spacer()
+                        Text(world.seed?.text ?? "")
+                    }
+                    .padding()
+                }
 
                 Divider()
 

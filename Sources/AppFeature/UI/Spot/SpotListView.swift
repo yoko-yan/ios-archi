@@ -49,7 +49,7 @@ struct SpotListView: View {
             await viewModel.send(action: .load)
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarTitle(Text("スポット一覧"))
+        .navigationBarTitle(Text("写真一覧"))
         .toolbarBackground(.visible, for: .navigationBar)
         .sheet(isPresented: $isShowEditView) {
             ItemEditView(

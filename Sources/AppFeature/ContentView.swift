@@ -14,7 +14,7 @@ enum TabItem: String, CaseIterable {
         case .home:
             return "ホーム"
         case .photo:
-            return "スポット"
+            return "写真"
         case .list:
             return "ワールド"
         }
@@ -27,7 +27,7 @@ enum TabItem: String, CaseIterable {
         case .photo:
             return "photo.stack"
         case .list:
-            return "list.bullet"
+            return "globe.desk"
         }
     }
 }

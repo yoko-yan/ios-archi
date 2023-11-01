@@ -14,9 +14,18 @@ struct WorldDetailView: View {
     var body: some View {
         ZStack {
             ScrollView {
-                SeedView(
-                    seed: viewModel.uiState.world.seed
-                )
+                HStack {
+                    Text("name")
+                    Spacer()
+                    Text(viewModel.uiState.world.name ?? "")
+                }
+                .padding()
+
+                HStack {
+                    Text("seed")
+                    Spacer()
+                    Text(viewModel.uiState.world.seed?.text ?? "")
+                }
                 .padding()
 
                 Divider()

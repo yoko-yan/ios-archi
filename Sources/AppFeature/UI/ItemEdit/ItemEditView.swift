@@ -162,14 +162,14 @@ private extension ItemEditView {
                     )
                 )
             } label: {
-                HStack {
-                    Label("seed", systemImage: "globe.desk")
-                    Spacer()
-                    Text(viewModel.uiState.input.world?.seed?.text ?? "未選択")
-                    Image(systemName: "chevron.right")
+                if let world = viewModel.uiState.input.world {
+                    HStack {
+                        WorldListCell(world: world)
+                        Image(systemName: "chevron.right")
+                    }
+                    .padding(.horizontal)
+                    .accentColor(.gray)
                 }
-                .padding(.horizontal)
-                .accentColor(.gray)
             }
         }
     }
