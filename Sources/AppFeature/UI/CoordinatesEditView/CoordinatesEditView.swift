@@ -247,6 +247,9 @@ private extension CoordinatesEditView {
             }
         }
         .navigationBarTitle("座標を変更する", displayMode: .inline)
+        .toolbar {
+            keyboardToolbarItem
+        }
         .onChange(of: viewModel.uiState.events) { [old = viewModel.uiState.events] new in
             if old == new { return }
             if let event = new.first {
@@ -259,6 +262,26 @@ private extension CoordinatesEditView {
                 }
 
                 viewModel.consumeEvent(event)
+            }
+        }
+    }
+
+    var keyboardToolbarItem: ToolbarItem<Void, HStack<TupleView<(Spacer, Button<Text>)>>> {
+        ToolbarItem(placement: .keyboard) {
+            HStack {
+                Spacer()
+
+                Button {
+                    UIApplication.shared.sendAction(
+                        #selector(UIResponder.resignFirstResponder),
+                        to: nil,
+                        from: nil,
+                        for: nil
+                    )
+                } label: {
+                    Text(Image(systemName: "keyboard.chevron.compact.down"))
+                        .font(.system(size: 15))
+                }
             }
         }
     }

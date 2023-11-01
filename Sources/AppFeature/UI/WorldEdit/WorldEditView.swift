@@ -58,7 +58,6 @@ struct WorldEditView: View {
                                     }
                                 )
                             )
-                            .keyboardType(.numberPad)
                             .multilineTextAlignment(TextAlignment.leading)
                             .modifier(
                                 TextFieldClearButton(
@@ -158,6 +157,33 @@ struct WorldEditView: View {
                         }
                     }) {
                         Image(systemName: "xmark")
+                    }
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .keyboard) {
+                    HStack {
+                        Button {
+                            Task {
+                                await viewModel.send(action: .setName(UIPasteboard.general.string ?? ""))
+                            }
+                        } label: {
+                            Text("ペースト")
+                        }
+
+                        Spacer()
+
+                        Button {
+                            UIApplication.shared.sendAction(
+                                #selector(UIResponder.resignFirstResponder),
+                                to: nil,
+                                from: nil,
+                                for: nil
+                            )
+                        } label: {
+                            Text(Image(systemName: "keyboard.chevron.compact.down"))
+                                .font(.system(size: 15))
+                        }
                     }
                 }
             }
