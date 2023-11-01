@@ -5,6 +5,17 @@
 import CoreData
 import Foundation
 
+// protocol LocalDataSource {
+//    associatedtype T
+//    func getEntity() -> T
+//    func fetch(_ sortDescriptors: [NSSortDescriptor]) async throws -> [T]
+//    func read(id: UUID) async throws -> T?
+//    func delete(id: UUID) async throws
+//    func saveContext() throws
+// }
+
+// final class LocalDataSourceImpl: LocalDataSource {
+// typealias T = NSManagedObject
 final class LocalDataSource<T: NSManagedObject> {
     private let coreDataManager: CoreDataManager
     private var viewContext: NSManagedObjectContext {
@@ -22,8 +33,7 @@ final class LocalDataSource<T: NSManagedObject> {
     }
 
     func fetch(_ sortDescriptors: [NSSortDescriptor]) async throws -> [T] {
-        print(type(of: T()))
-        let request = ItemEntity.fetchRequest()
+        let request = T.fetchRequest()
         request.sortDescriptors = sortDescriptors
         return try viewContext.fetch(request) as? [T] ?? []
     }

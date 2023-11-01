@@ -17,7 +17,7 @@ public final class CoreDataManager {
 
     private(set) lazy var viewContext = container.viewContext
 
-    lazy var container: NSPersistentCloudKitContainer = {
+    var container: NSPersistentCloudKitContainer = {
         let container: NSPersistentCloudKitContainer
 
         // swiftlint:disable:next force_unwrapping
