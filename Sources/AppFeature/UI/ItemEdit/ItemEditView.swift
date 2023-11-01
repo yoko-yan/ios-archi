@@ -162,14 +162,12 @@ private extension ItemEditView {
                     )
                 )
             } label: {
-                if let world = viewModel.uiState.input.world {
-                    HStack {
-                        WorldListCell(world: world)
-                        Image(systemName: "chevron.right")
-                    }
-                    .padding(.horizontal)
-                    .accentColor(.gray)
+                HStack {
+                    WorldListCell(world: viewModel.uiState.input.world)
+                    Image(systemName: "chevron.right")
                 }
+                .padding(.horizontal)
+                .accentColor(.gray)
             }
         }
     }

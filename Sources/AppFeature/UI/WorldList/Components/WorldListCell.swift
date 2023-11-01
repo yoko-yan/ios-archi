@@ -6,7 +6,7 @@ import SwiftUI
 
 struct WorldListCell: View {
     @Environment(\.colorScheme) private var colorScheme
-    let world: World
+    let world: World?
 
     var body: some View {
         HStack {
@@ -15,12 +15,12 @@ struct WorldListCell: View {
                 HStack {
                     Text("name")
                     Spacer()
-                    Text(world.name ?? "")
+                    Text(world?.name ?? "未登録")
                 }
                 HStack {
                     Text("seed")
                     Spacer()
-                    Text(world.seed?.text ?? "")
+                    Text(world?.seed?.text ?? "未登録")
                 }
             }
         }

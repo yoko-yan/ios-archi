@@ -52,9 +52,9 @@ struct ItemDetailView: View {
                         Text(world.seed?.text ?? "")
                     }
                     .padding()
-                }
 
-                Divider()
+                    Divider()
+                }
 
                 Button {
                     isBiomeFinderView.toggle()
