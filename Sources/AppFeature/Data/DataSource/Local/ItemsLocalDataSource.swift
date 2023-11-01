@@ -6,7 +6,7 @@ import CoreData
 import Foundation
 
 protocol ItemsLocalDataSource {
-    func getAll() async throws -> [Item]
+    func fetchAll() async throws -> [Item]
     func insert(_ item: Item) async throws
     func update(_ item: Item) async throws
     func delete(_ item: Item) async throws
@@ -20,38 +20,28 @@ enum ItemsLocalDataSourceError: Error {
 }
 
 final class ItemsLocalDataSourceImpl: ItemsLocalDataSource {
-    private let coreDataManager: CoreDataManager
+    private let localDataSource: LocalDataSource<ItemEntity>
     private let worldsLocalDataSource: any WorldsLocalDataSource
 
     init(
-        coreDataManager: some CoreDataManager = CoreDataManager.shared,
+        localDataSource: some LocalDataSource<ItemEntity> = LocalDataSource(),
         worldsLocalDataSource: some WorldsLocalDataSource = WorldsLocalDataSourceImpl()
     ) {
-        self.coreDataManager = coreDataManager
+        self.localDataSource = localDataSource
         self.worldsLocalDataSource = worldsLocalDataSource
     }
 
-    private func getEntty(id: UUID) async throws -> ItemEntity? {
-        let request = ItemEntity.fetchRequest()
-        request.fetchLimit = 1
-        request.predicate = NSPredicate(
-            format: "id = %@", id.uuidString
-        )
-        var entity: ItemEntity?
-        try await coreDataManager.viewContext.perform { [context = coreDataManager.viewContext] in
-            entity = try context.fetch(request).first
-        }
-        return entity
-    }
-
-    func getAll() async throws -> [Item] {
-        let request = ItemEntity.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \ItemEntity.createdAt, ascending: false)]
-        guard let result = try? coreDataManager.viewContext.fetch(request)
-        else { return [] }
+    func fetchAll() async throws -> [Item] {
+        let sortDescriptors = [
+            NSSortDescriptor(
+                keyPath: \ItemEntity.createdAt,
+                ascending: false
+            )
+        ]
+        let entities = try await localDataSource.fetch(sortDescriptors)
 
         var values = [Item]()
-        for entity in result {
+        for entity in entities {
             let coordinates: Coordinates?
             if let entityCoordinatesX = entity.coordinatesX,
                let entityCoordinatesY = entity.coordinatesY,
@@ -87,7 +77,7 @@ final class ItemsLocalDataSourceImpl: ItemsLocalDataSource {
     }
 
     func insert(_ item: Item) async throws {
-        let entity = ItemEntity(context: coreDataManager.viewContext)
+        let entity = localDataSource.getEntity()
         entity.id = UUID(uuidString: item.id)
         if let coordinates = item.coordinates {
             entity.coordinatesX = String(coordinates.x)
@@ -100,13 +90,15 @@ final class ItemsLocalDataSourceImpl: ItemsLocalDataSource {
         entity.spotImageName = item.spotImageName
         entity.createdAt = Date()
         entity.updatedAt = Date()
-        CoreDataManager.shared.saveContext()
+        try localDataSource.saveContext()
     }
 
     func update(_ item: Item) async throws {
         guard let id = UUID(uuidString: item.id),
-              let entity = try? await getEntty(id: id)
-        else { throw ItemsLocalDataSourceError.updateFailed }
+              let entity = try? await localDataSource.read(id: id)
+        else {
+            throw ItemsLocalDataSourceError.updateFailed
+        }
         entity.id = UUID(uuidString: item.id)
         if let coordinates = item.coordinates {
             entity.coordinatesX = String(coordinates.x)
@@ -119,15 +111,13 @@ final class ItemsLocalDataSourceImpl: ItemsLocalDataSource {
         entity.spotImageName = item.spotImageName
         entity.createdAt = item.createdAt
         entity.updatedAt = Date()
-        coreDataManager.saveContext()
+        try localDataSource.saveContext()
     }
 
     func delete(_ item: Item) async throws {
-        guard let id = UUID(uuidString: item.id)
-        else { throw ItemsLocalDataSourceError.deleteFailed }
-        guard let entity = try? await getEntty(id: id)
-        else { throw ItemsLocalDataSourceError.deleteFailed }
-        coreDataManager.viewContext.delete(entity)
-        try coreDataManager.viewContext.save()
+        guard let id = UUID(uuidString: item.id) else {
+            throw ItemsLocalDataSourceError.deleteFailed
+        }
+        try await localDataSource.delete(id: id)
     }
 }

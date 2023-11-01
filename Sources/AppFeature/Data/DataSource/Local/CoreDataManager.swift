@@ -5,8 +5,15 @@
 import CoreData
 import Foundation
 
-final class CoreDataManager {
-    static let shared = CoreDataManager()
+// MARK: - Error
+
+enum CoreDataManagerError: Error {
+    case updateFailed
+    case deleteFailed
+}
+
+public final class CoreDataManager {
+    public static let shared = CoreDataManager()
 
     private(set) lazy var viewContext = container.viewContext
 
@@ -32,11 +39,26 @@ final class CoreDataManager {
 
     private init() {
         #if DEBUG
-        checkLightWeightMigration()
+        Self.checkLightWeightMigration()
         #endif
     }
 
-    private func checkLightWeightMigration() {
+    func saveContext() throws {
+        let context = container.viewContext
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                throw error
+            }
+        }
+    }
+}
+
+// MARK: - Migration
+
+extension CoreDataManager {
+    static func checkLightWeightMigration() {
         let subdirectory = "Model.momd"
         // swiftlint:disable:next force_unwrapping
         let sourceModel = NSManagedObjectModel(contentsOf: Bundle.module.url(forResource: "Model", withExtension: "mom", subdirectory: subdirectory)!)!
@@ -47,17 +69,6 @@ final class CoreDataManager {
             print("migrationCheck: OK")
         } catch {
             fatalError("migrationCheck: NG,  error \(error)")
-        }
-    }
-
-    func saveContext() {
-        let context = container.viewContext
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                fatalError("Error: \(error.localizedDescription)")
-            }
         }
     }
 }

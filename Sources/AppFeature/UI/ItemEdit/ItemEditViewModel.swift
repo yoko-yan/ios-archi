@@ -112,7 +112,7 @@ final class ItemEditViewModel: ObservableObject {
             }
         case .getWorlds:
             do {
-                uiState.worlds = try await WorldsRepository().load()
+                uiState.worlds = try await WorldsRepository().fetchAll()
             } catch {
                 print(error)
                 uiState.error = .error(error)

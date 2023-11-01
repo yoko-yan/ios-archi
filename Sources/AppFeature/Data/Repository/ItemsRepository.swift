@@ -6,7 +6,7 @@ import Core
 import Foundation
 
 protocol ItemsRepository: AutoInjectable {
-    func getAll() async throws -> [Item]
+    func fetchAll() async throws -> [Item]
     func insert(item: Item) async throws
     func update(item: Item) async throws
     func delete(item: Item) async throws
@@ -19,8 +19,8 @@ struct ItemsRepositoryImpl: ItemsRepository {
         self.dataSource = dataSource
     }
 
-    func getAll() async throws -> [Item] {
-        try await dataSource.getAll()
+    func fetchAll() async throws -> [Item] {
+        try await dataSource.fetchAll()
     }
 
     func insert(item: Item) async throws {

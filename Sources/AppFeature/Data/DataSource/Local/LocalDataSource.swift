@@ -1,32 +1,54 @@
-////
-////  Created by yoko-yan on 2023/10/11
-////
 //
-// import CoreData
-// import Foundation
+//  Created by yoko-yan on 2023/10/11
 //
-// enum LocalDataSourceImpl<T: NSManagedObject> {
-//    static var context: NSManagedObjectContext {
-//        CoreDataManager.shared.viewContext
-//    }
-//
-//    static func read(id: UUID) async throws -> T? {
-//        let request = T.fetchRequest()
-//        request.fetchLimit = 1
-//        request.predicate = NSPredicate(
-//            format: "id = %@", id.uuidString
-//        )
-//        var entity: T?
-//        try await context.perform { [context] in
-//            entity = try context.fetch(request).first as? T
-//        }
-//        return entity
-//    }
-//
-//    static func delete(id: UUID) async throws {
-//        guard let entity = try? await Self<T>.read(id: id)
-//        else { fatalError() }
-//        context.delete(entity)
-//        try context.save()
-//    }
-// }
+
+import CoreData
+import Foundation
+
+final class LocalDataSource<T: NSManagedObject> {
+    private let coreDataManager: CoreDataManager
+    private var viewContext: NSManagedObjectContext {
+        coreDataManager.viewContext
+    }
+
+    init(
+        coreDataManager: some CoreDataManager = CoreDataManager.shared
+    ) {
+        self.coreDataManager = coreDataManager
+    }
+
+    func getEntity() -> T {
+        T(context: viewContext)
+    }
+
+    func fetch(_ sortDescriptors: [NSSortDescriptor]) async throws -> [T] {
+        print(type(of: T()))
+        let request = ItemEntity.fetchRequest()
+        request.sortDescriptors = sortDescriptors
+        return try viewContext.fetch(request) as? [T] ?? []
+    }
+
+    func read(id: UUID) async throws -> T? {
+        let request = T.fetchRequest()
+        request.fetchLimit = 1
+        request.predicate = NSPredicate(
+            format: "id = %@", id.uuidString
+        )
+        var entity: T?
+        try await viewContext.perform { [viewContext] in
+            entity = try viewContext.fetch(request).first as? T
+        }
+        return entity
+    }
+
+    func delete(id: UUID) async throws {
+        if let entity = try await read(id: id) {
+            viewContext.delete(entity)
+            try viewContext.save()
+        }
+    }
+
+    func saveContext() throws {
+        try coreDataManager.saveContext()
+    }
+}

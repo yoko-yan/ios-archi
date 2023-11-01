@@ -11,8 +11,8 @@ final class WorldsRepository {
         self.dataSource = dataSource
     }
 
-    func load() async throws -> [World] {
-        try await dataSource.load()
+    func fetchAll() async throws -> [World] {
+        try await dataSource.fetchAll()
     }
 
     func insert(world: World) async throws {

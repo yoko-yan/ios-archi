@@ -12,7 +12,7 @@ protocol SynchronizeWithCloudUseCase: AutoInjectable, AutoMockable {
 
 struct SynchronizeWithCloudUseCaseImpl: SynchronizeWithCloudUseCase {
     func execute() async throws -> Bool {
-        _ = try await ItemsRepositoryImpl().getAll()
+        _ = try await ItemsRepositoryImpl().fetchAll()
 
         let notifications = NotificationCenter.default
             .notifications(named: NSPersistentCloudKitContainer.eventChangedNotification, object: nil)

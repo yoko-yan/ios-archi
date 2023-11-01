@@ -29,7 +29,7 @@ final class WorldListViewModel: ObservableObject {
         switch action {
         case .load:
             do {
-                uiState.worlds = try await WorldsRepository().load()
+                uiState.worlds = try await WorldsRepository().fetchAll()
             } catch {
                 print(error)
             }
