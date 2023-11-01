@@ -37,9 +37,19 @@ struct SpotListView: View {
             FloatingButton(action: {
                 isShowEditView.toggle()
             }, label: {
-                Image(systemName: "plus")
-                    .foregroundColor(.white)
-                    .font(.system(size: 24))
+                ZStack {
+                    Image(systemName: "photo")
+                        .foregroundColor(.white)
+                        .font(.system(size: 24))
+                    Image(systemName: "plus")
+                        .foregroundColor(.white)
+                        .font(.system(size: 15))
+                        .frame(
+                            maxWidth: .infinity,
+                            maxHeight: .infinity,
+                            alignment: .trailing
+                        )
+                }
             })
         }
         .task {

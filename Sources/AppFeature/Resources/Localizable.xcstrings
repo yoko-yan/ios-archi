@@ -64,6 +64,16 @@
         }
       }
     },
+    "Deselect" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選択を解除"
+          }
+        }
+      }
+    },
     "Details" : {
       "localizations" : {
         "ja" : {
@@ -226,6 +236,9 @@
         }
       }
     },
+    "Register a world" : {
+
+    },
     "Register a world." : {
       "localizations" : {
         "ja" : {
@@ -277,6 +290,7 @@
       }
     },
     "Unselected" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ja" : {
           "stringUnit" : {

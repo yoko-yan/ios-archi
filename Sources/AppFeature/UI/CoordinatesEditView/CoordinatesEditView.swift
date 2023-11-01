@@ -220,7 +220,7 @@ private extension CoordinatesEditView {
                         }) {
                             Text("clear")
                                 .bold()
-                                .frame(height: 50)
+                                .frame(height: 40)
                                 .padding(.horizontal)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 8)
@@ -235,9 +235,9 @@ private extension CoordinatesEditView {
                             await viewModel.send(action: .onChangeButtonTap)
                         }
                     }) {
-                        Text("Modify")
+                        Label("Modify", systemImage: "location.circle")
                             .bold()
-                            .frame(height: 50)
+                            .frame(height: 40)
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(RoundedButtonStyle(color: .black))

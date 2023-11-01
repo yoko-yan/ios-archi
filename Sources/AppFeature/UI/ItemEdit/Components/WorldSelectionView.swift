@@ -5,6 +5,7 @@
 import SwiftUI
 
 struct WorldSelectionView: View {
+    @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) var dismiss
 
     @State var worlds: [World]
@@ -15,16 +16,6 @@ struct WorldSelectionView: View {
     var body: some View {
         ZStack {
             List(selection: $selected) {
-                HStack {
-                    Spacer()
-                    Text("Unselected")
-                    Spacer()
-                }
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    selected = nil
-                    dismiss()
-                }
                 ForEach(worlds, id: \.self) { world in
                     WorldListCell(world: world)
                         .onTapGesture {
@@ -32,13 +23,30 @@ struct WorldSelectionView: View {
                             dismiss()
                         }
                 }
-                VStack {
+
+                HStack {
+                    if selected != nil {
+                        Button(action: {
+                            selected = nil
+                            dismiss()
+                        }) {
+                            Text("Deselect")
+                                .bold()
+                                .frame(height: 40)
+                                .padding(.horizontal)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .stroke(Color.black, lineWidth: 1)
+                                )
+                        }
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                    }
                     Button(action: {
                         isShowDetailView.toggle()
                     }) {
-                        Text("Register a world.")
+                        Label("Register a world", systemImage: "globe.desk")
                             .bold()
-                            .frame(height: 50)
+                            .frame(height: 40)
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(RoundedButtonStyle(color: .black))
