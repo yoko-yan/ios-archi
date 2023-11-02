@@ -11,6 +11,9 @@
         }
       }
     },
+    "Build Version" : {
+
+    },
     "Cancel" : {
       "localizations" : {
         "ja" : {
@@ -343,6 +346,9 @@
           }
         }
       }
+    },
+    "Version" : {
+
     },
     "World" : {
       "localizations" : {
