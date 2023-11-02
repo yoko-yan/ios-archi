@@ -48,7 +48,15 @@ struct TimeLineCell: View {
                                     }
                                     HStack {
                                         Image(systemName: "globe.desk")
-                                        Text(item.world?.seed?.text ?? "-")
+                                        var world: String? {
+                                            if let title = item.world?.name {
+                                                return title
+                                            } else if let seed = item.world?.seed?.text {
+                                                return seed
+                                            }
+                                            return nil
+                                        }
+                                        Text(world ?? "-")
                                         Spacer()
                                     }
                                 }
