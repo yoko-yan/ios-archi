@@ -14,72 +14,18 @@ struct ItemDetailView: View {
     var body: some View {
         ZStack {
             ScrollView {
-                if let image = viewModel.uiState.spotImage {
-                    Image(uiImage: image)
-                        .resizable()
-                        .scaledToFit()
-                } else {
-                    Text("No photo available")
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .contentShape(Rectangle())
-                        .frame(height: 200)
-                        .background(
-                            Color.gray
-                                .opacity(0.1)
-                        )
-                }
+                spotImageCell
 
-                HStack {
-                    Text("Coordinates")
-                    Spacer()
-                    Text(viewModel.uiState.item.coordinates?.textWitWhitespaces ?? "Unregistered")
-                }
-                .padding()
+                coordinatesCell
 
-                Divider()
+                worldCell
 
-                if let world = viewModel.uiState.item.world {
-                    HStack {
-                        Text("Title")
-                        Spacer()
-                        Text(world.name ?? "")
-                    }
-                    .padding()
+                searchButtonForBiomeFinderCell
 
-                    HStack {
-                        Text("Seed")
-                        Spacer()
-                        Text(world.seed?.text ?? "")
-                    }
-                    .padding()
-
-                    Divider()
-                }
-
-                Button {
-                    isBiomeFinderView.toggle()
-                } label: {
-                    Text("Search for biomes from a seed value and coordinates")
-                        .bold()
-                        .frame(height: 50)
-                        .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(OutlineButtonStyle(color: .green))
-                .padding(.horizontal)
-
-                Button(action: {
-                    isEditView.toggle()
-                }) {
-                    Text("Edit")
-                        .bold()
-                        .frame(height: 50)
-                        .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(RoundedButtonStyle(color: .green))
-                .padding(.horizontal)
+                editButtonCell
             }
         }
-        .navigationBarTitle("Details", displayMode: .inline)
+        .navigationBarTitle("Spot Details", displayMode: .inline)
 //        .toolbar {
 //            ToolbarItem(placement: .navigationBarTrailing) {
 //                Button(action: {
@@ -116,6 +62,97 @@ struct ItemDetailView: View {
 
     init(item: Item) {
         _viewModel = StateObject(wrappedValue: ItemDetailViewModel(item: item))
+    }
+}
+
+// MARK: - Privates
+
+private extension ItemDetailView {
+    @ViewBuilder
+    var spotImageCell: some View {
+        if let image = viewModel.uiState.spotImage {
+            Image(uiImage: image)
+                .resizable()
+                .scaledToFit()
+        } else {
+            Text("No photo available")
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .contentShape(Rectangle())
+                .frame(height: 200)
+                .background(
+                    Color.gray
+                        .opacity(0.1)
+                )
+        }
+    }
+
+    var coordinatesCell: some View {
+        HStack {
+            Text("Coordinates")
+            Spacer()
+            Text(viewModel.uiState.item.coordinates?.textWitWhitespaces ?? "Unregistered")
+        }
+        .padding()
+    }
+
+    @ViewBuilder
+    var worldCell: some View {
+        if let world = viewModel.uiState.item.world {
+            Label("World", systemImage: "globe.desk")
+                .frame(height: 30)
+                .frame(maxWidth: .infinity)
+                .foregroundColor(.white)
+                .background(.gray)
+
+            HStack {
+                Text("Title")
+                Spacer()
+                Text(world.name ?? "")
+            }
+            .padding()
+
+            HStack {
+                Text("Seed")
+                Spacer()
+                Text(world.seed?.text ?? "")
+            }
+            .padding()
+
+            Divider()
+        }
+    }
+
+    @ViewBuilder
+    var searchButtonForBiomeFinderCell: some View {
+        Button {
+            isBiomeFinderView.toggle()
+        } label: {
+            Text("Search for biomes")
+                .bold()
+                .frame(height: 50)
+                .frame(maxWidth: .infinity)
+        }
+        .buttonStyle(OutlineButtonStyle(color: .green))
+        .padding(.horizontal)
+        .padding(.top)
+
+        Text("Search for biomes from a seed value and coordinates")
+            .font(.caption)
+            .foregroundColor(.green)
+            .frame(maxWidth: .infinity)
+    }
+
+    var editButtonCell: some View {
+        Button(action: {
+            isEditView.toggle()
+        }) {
+            Text("Edit")
+                .bold()
+                .frame(height: 50)
+                .frame(maxWidth: .infinity)
+        }
+        .buttonStyle(RoundedButtonStyle(color: .green))
+        .padding()
     }
 }
 

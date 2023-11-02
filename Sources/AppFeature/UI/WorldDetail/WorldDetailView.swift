@@ -14,46 +14,18 @@ struct WorldDetailView: View {
     var body: some View {
         ZStack {
             ScrollView {
-                HStack {
-                    Text("Title")
-                    Spacer()
-                    Text(viewModel.uiState.world.name ?? "")
-                }
-                .padding()
+                titleCell
 
-                HStack {
-                    Text("Seed")
-                    Spacer()
-                    Text(viewModel.uiState.world.seed?.text ?? "")
-                }
-                .padding()
+                seedCell
 
                 Divider()
 
-                Button {
-                    isBiomeFinderView.toggle()
-                } label: {
-                    Text("Search for biomes from a seed value")
-                        .bold()
-                        .frame(height: 50)
-                        .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(OutlineButtonStyle(color: .green))
-                .padding(.horizontal)
+                searchButtonForBiomeFinderCell
 
-                Button(action: {
-                    isEditView.toggle()
-                }) {
-                    Text("Edit")
-                        .bold()
-                        .frame(height: 50)
-                        .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(RoundedButtonStyle(color: .green))
-                .padding(.horizontal)
+                editButtonCell
             }
         }
-        .navigationBarTitle("Details", displayMode: .inline)
+        .navigationBarTitle("World Details", displayMode: .inline)
 //        .toolbar {
 //            ToolbarItem(placement: .navigationBarTrailing) {
 //                Button(action: {
@@ -87,6 +59,62 @@ struct WorldDetailView: View {
 
     init(world: World) {
         _viewModel = StateObject(wrappedValue: WorldDetailViewModel(world: world))
+    }
+}
+
+// MARK: - Privates
+
+private extension WorldDetailView {
+    @ViewBuilder
+    var titleCell: some View {
+        HStack {
+            Text("Title")
+            Spacer()
+            Text(viewModel.uiState.world.name ?? "")
+        }
+        .padding()
+    }
+
+    var seedCell: some View {
+        HStack {
+            Text("Seed")
+            Spacer()
+            Text(viewModel.uiState.world.seed?.text ?? "")
+        }
+        .padding()
+    }
+
+    @ViewBuilder
+    var searchButtonForBiomeFinderCell: some View {
+        Button {
+            isBiomeFinderView.toggle()
+        } label: {
+            Text("Search for biomes")
+                .bold()
+                .frame(height: 50)
+                .frame(maxWidth: .infinity)
+        }
+        .buttonStyle(OutlineButtonStyle(color: .green))
+        .padding(.horizontal)
+        .padding(.top)
+
+        Text("Search for biomes from a seed value")
+            .font(.caption)
+            .foregroundColor(.green)
+            .frame(maxWidth: .infinity)
+    }
+
+    var editButtonCell: some View {
+        Button(action: {
+            isEditView.toggle()
+        }) {
+            Text("Edit")
+                .bold()
+                .frame(height: 50)
+                .frame(maxWidth: .infinity)
+        }
+        .buttonStyle(RoundedButtonStyle(color: .green))
+        .padding()
     }
 }
 

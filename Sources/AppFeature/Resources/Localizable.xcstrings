@@ -92,6 +92,7 @@
       }
     },
     "Details" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -253,6 +254,16 @@
         }
       }
     },
+    "Search for biomes" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バイオームを検索"
+          }
+        }
+      }
+    },
     "Search for biomes from a seed value" : {
       "localizations" : {
         "ja" : {
@@ -293,6 +304,16 @@
         }
       }
     },
+    "Spot Details" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スポット詳細"
+          }
+        }
+      }
+    },
     "Title" : {
       "localizations" : {
         "ja" : {
@@ -328,7 +349,17 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "世界"
+            "value" : "ワールド"
+          }
+        }
+      }
+    },
+    "World Details" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ワールド詳細"
           }
         }
       }

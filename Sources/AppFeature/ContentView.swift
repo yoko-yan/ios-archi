@@ -14,9 +14,9 @@ enum TabItem: String, CaseIterable {
         case .home:
             return "Home"
         case .photo:
-            return "Photo"
+            return "Photos"
         case .list:
-            return "World"
+            return "Worlds"
         }
     }
 

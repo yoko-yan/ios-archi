@@ -232,14 +232,14 @@ private extension SeedEditView {
 
 // MARK: - Previews
 
-// #Preview {
-//    SeedEditView(
-//        seed: .init("318, 63, 1143")
-//    )
-// }
-//
-// #Preview {
-//    SeedEditView(
-//        seed: nil
-//    )
-// }
+#Preview {
+    SeedEditView(
+        seed: .init("318631143")
+    )
+}
+
+#Preview {
+    SeedEditView(
+        seed: nil
+    )
+}
