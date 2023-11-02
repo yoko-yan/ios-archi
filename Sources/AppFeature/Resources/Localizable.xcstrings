@@ -263,6 +263,16 @@
         }
       }
     },
+    "Search for biomes from a seed value and coordinates" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "シード値と座標からバイオームを検索"
+          }
+        }
+      }
+    },
     "Seed" : {
       "localizations" : {
         "ja" : {
