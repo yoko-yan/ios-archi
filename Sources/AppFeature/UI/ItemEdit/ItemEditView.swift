@@ -138,7 +138,7 @@ private extension ItemEditView {
         } label: {
             HStack {
                 Image(systemName: "location.circle")
-                Text("coordinates")
+                Text("Coordinates")
                 Spacer()
                 Text(viewModel.uiState.input.coordinates?.textWitWhitespaces ?? "Unregistered")
                 Image(systemName: "chevron.right")
@@ -168,7 +168,7 @@ private extension ItemEditView {
                         .padding(.trailing)
                 } else {
                     Image(systemName: "globe.desk")
-                    Text("world")
+                    Text("World")
                     Spacer()
                     Text("Unselected")
                 }

@@ -30,7 +30,7 @@ struct ItemDetailView: View {
                 }
 
                 HStack {
-                    Text("coordinates")
+                    Text("Coordinates")
                     Spacer()
                     Text(viewModel.uiState.item.coordinates?.textWitWhitespaces ?? "Unregistered")
                 }
@@ -40,14 +40,14 @@ struct ItemDetailView: View {
 
                 if let world = viewModel.uiState.item.world {
                     HStack {
-                        Text("name")
+                        Text("Title")
                         Spacer()
                         Text(world.name ?? "")
                     }
                     .padding()
 
                     HStack {
-                        Text("seed")
+                        Text("Seed")
                         Spacer()
                         Text(world.seed?.text ?? "")
                     }

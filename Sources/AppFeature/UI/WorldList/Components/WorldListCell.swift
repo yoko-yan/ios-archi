@@ -21,7 +21,7 @@ struct WorldListCell: View {
                 }
                 if let seed = world?.seed {
                     HStack {
-                        Text("seed")
+                        Text("Seed")
                             .font(.subheadline)
                         Spacer()
                         Text(seed.text)

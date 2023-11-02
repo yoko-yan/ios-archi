@@ -1,32 +1,32 @@
 //
-//  Created by yoko-yan on 2023/10/15
+//  Created by yoko-yan on 2023/11/03
 //
 
 import Core
 import SwiftUI
 
-struct CoordinatesEditView: View {
+struct SeedEditView: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) var dismiss
-    @StateObject private var viewModel: CoordinatesEditViewModel
+    @StateObject private var viewModel: SeedEditViewModel
 
     @State private var isImagePicker = false
     @State private var imageSourceType = ImagePicker.SourceType.library
 
-    private let onChanged: ((Coordinates?) -> Bool)?
+    private let onChanged: ((Seed?) -> Bool)?
 
     var body: some View {
-        coordinatesEditCell
+        seedEditCell
             .sheet(isPresented: $isImagePicker) {
                 ImagePicker(
                     show: $isImagePicker,
                     image: .init(
-                        get: { viewModel.uiState.coordinatesImage },
+                        get: { viewModel.uiState.seedImage },
                         set: { newValue in
                             guard let newValue else { return }
                             Task {
-                                await viewModel.send(action: .setCoordinatesImage(newValue))
-                                await viewModel.send(action: .getCoordinates(from: newValue))
+                                await viewModel.send(action: .setSeedImage(newValue))
+                                await viewModel.send(action: .getSeed(from: newValue))
                             }
                         }
                     ),
@@ -34,12 +34,12 @@ struct CoordinatesEditView: View {
                     allowsEditing: true
                 )
             }
-            .analyticsScreen(name: "CoordinatesEditView", class: String(describing: type(of: self)))
+            .analyticsScreen(name: "SeedEditView", class: String(describing: type(of: self)))
     }
 
-    init(coordinates: Coordinates?, onChanged: ((Coordinates?) -> Bool)? = nil) {
+    init(seed: Seed?, onChanged: ((Seed?) -> Bool)? = nil) {
         _viewModel = StateObject(
-            wrappedValue: CoordinatesEditViewModel(coordinates: coordinates)
+            wrappedValue: SeedEditViewModel(seed: seed)
         )
         self.onChanged = onChanged
     }
@@ -47,12 +47,12 @@ struct CoordinatesEditView: View {
 
 // MARK: - Privates
 
-private extension CoordinatesEditView {
-    var coordinatesEditCell: some View {
+private extension SeedEditView {
+    var seedEditCell: some View {
         ZStack {
             ScrollView {
                 VStack {
-                    if let image = viewModel.uiState.coordinatesImage {
+                    if let image = viewModel.uiState.seedImage {
                         Image(uiImage: image)
                             .resizable()
                             .scaledToFit()
@@ -61,7 +61,7 @@ private extension CoordinatesEditView {
                             imageSourceType = .library
                             isImagePicker.toggle()
                         } label: {
-                            Text("Recognize coordinate strings from a photo")
+                            Text("Recognize the seed value string from a photo")
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
                         .contentShape(Rectangle())
@@ -73,7 +73,7 @@ private extension CoordinatesEditView {
                     }
 
                     HStack {
-                        Text("If the coordinates are visible in the photo, they can be recognized")
+                        Text("If the seed value is visible in the photo, it can be recognized")
                             .font(.caption2)
                         Spacer()
                         Button(action: {
@@ -100,19 +100,19 @@ private extension CoordinatesEditView {
                     .accentColor(.gray)
 
                     HStack {
-                        Label("Coordinates", systemImage: "location.circle")
+                        Label("Seed", systemImage: "location.circle")
                         Spacer()
                     }
                     .padding(.horizontal)
 
                     HStack {
                         TextField(
-                            "X",
+                            "Seed",
                             text: .init(
-                                get: { viewModel.uiState.coordinatesXText },
+                                get: { viewModel.uiState.seedText },
                                 set: { newValue in
                                     Task {
-                                        await viewModel.send(action: .setCoordinatesX(newValue))
+                                        await viewModel.send(action: .setSeed(newValue))
                                     }
                                 }
                             )
@@ -122,73 +122,16 @@ private extension CoordinatesEditView {
                         .modifier(
                             TextFieldClearButton(
                                 text: .init(
-                                    get: { viewModel.uiState.coordinatesXText },
+                                    get: { viewModel.uiState.seedText },
                                     set: { newValue in
                                         Task {
-                                            await viewModel.send(action: .setCoordinatesX(newValue))
+                                            await viewModel.send(action: .setSeed(newValue))
                                         }
                                     }
                                 )
                             )
                         )
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .layoutPriority(1)
-
-                        TextField(
-                            "Y",
-                            text: .init(
-                                get: { viewModel.uiState.coordinatesYText },
-                                set: { newValue in
-                                    Task {
-                                        await viewModel.send(action: .setCoordinatesY(newValue))
-                                    }
-                                }
-                            )
-                        )
-                        .keyboardType(.numbersAndPunctuation)
-                        .multilineTextAlignment(TextAlignment.leading)
-                        .modifier(
-                            TextFieldClearButton(
-                                text: .init(
-                                    get: { viewModel.uiState.coordinatesYText },
-                                    set: { newValue in
-                                        Task {
-                                            await viewModel.send(action: .setCoordinatesY(newValue))
-                                        }
-                                    }
-                                )
-                            )
-                        )
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .layoutPriority(1)
-
-                        TextField(
-                            "Z",
-                            text: .init(
-                                get: { viewModel.uiState.coordinatesZText },
-                                set: { newValue in
-                                    Task {
-                                        await viewModel.send(action: .setCoordinatesZ(newValue))
-                                    }
-                                }
-                            )
-                        )
-                        .keyboardType(.numbersAndPunctuation)
-                        .multilineTextAlignment(TextAlignment.leading)
-                        .modifier(
-                            TextFieldClearButton(
-                                text: .init(
-                                    get: { viewModel.uiState.coordinatesZText },
-                                    set: { newValue in
-                                        Task {
-                                            await viewModel.send(action: .setCoordinatesZ(newValue))
-                                        }
-                                    }
-                                )
-                            )
-                        )
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .layoutPriority(1)
                     }
                     .padding(.horizontal)
                     .accentColor(.gray)
@@ -212,10 +155,10 @@ private extension CoordinatesEditView {
                 }
 
                 HStack {
-                    if viewModel.uiState.coordinates != nil {
+                    if viewModel.uiState.seed != nil {
                         Button(action: {
                             Task {
-                                await viewModel.send(action: .clearCoordinates)
+                                await viewModel.send(action: .clearSeed)
                             }
                         }) {
                             Text("Clear")
@@ -246,7 +189,7 @@ private extension CoordinatesEditView {
                 .padding()
             }
         }
-        .navigationBarTitle("Change the coordinates", displayMode: .inline)
+        .navigationBarTitle("Change the seed", displayMode: .inline)
         .toolbar {
             keyboardToolbarItem
         }
@@ -256,7 +199,7 @@ private extension CoordinatesEditView {
                 switch event {
                 case .onChanged:
                     guard let onChanged else { return }
-                    if onChanged(viewModel.uiState.coordinates) {
+                    if onChanged(viewModel.uiState.seed) {
                         dismiss()
                     }
                 }
@@ -289,14 +232,14 @@ private extension CoordinatesEditView {
 
 // MARK: - Previews
 
-#Preview {
-    CoordinatesEditView(
-        coordinates: .init("318, 63, 1143")
-    )
-}
-
-#Preview {
-    CoordinatesEditView(
-        coordinates: nil
-    )
-}
+// #Preview {
+//    SeedEditView(
+//        seed: .init("318, 63, 1143")
+//    )
+// }
+//
+// #Preview {
+//    SeedEditView(
+//        seed: nil
+//    )
+// }

@@ -12,7 +12,7 @@ enum WorldEditViewAction: Equatable {
     case clearSeed
     case setName(String)
     case getSeed(image: UIImage)
-    case setSeed(String)
+    case setSeed(Seed?)
     case onRegisterButtonTap
     case onUpdateButtonTap
     case onDeleteButtonTap
@@ -126,17 +126,8 @@ final class WorldEditViewModel: ObservableObject {
                 print(error)
                 uiState.error = .error(error)
             }
-        case let .setSeed(text):
-            if !text.isEmpty, let validate = SeedValidator.validate(seed: text).validationError {
-                uiState.validationErrors = [validate]
-            } else {
-                uiState.validationErrors = []
-            }
-//            // 数字以外が入力された場合に自動的に修正する場合
-//            if let txt = convertibleInt(text: seed.text) {
-//                uiState.input.seed = Seed(txt)
-//            }
-            uiState.input.seed = Seed(text)
+        case let .setSeed(seed):
+            uiState.input.seed = seed
         case .onRegisterButtonTap:
             await send(action: .onRegister)
         case .onDeleteButtonTap:

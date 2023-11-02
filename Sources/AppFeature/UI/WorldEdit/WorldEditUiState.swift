@@ -124,7 +124,9 @@ struct WorldEditUiState {
     }
 
     var isChanged: Bool {
-        if editItem.seed == editMode.world?.seed {
+        if editItem.name == editMode.world?.name,
+           editItem.seed == editMode.world?.seed
+        {
             false
         } else {
             true

@@ -16,112 +16,19 @@ struct WorldEditView: View {
             ZStack {
                 ScrollView {
                     VStack(spacing: 10) {
-                        SeedEditView(
-                            seed: .init(
-                                get: { viewModel.uiState.input.seed?.text },
-                                set: { newValue in
-                                    guard let newValue else { return }
-                                    Task {
-                                        await viewModel.send(action: .setSeed(newValue))
-                                    }
-                                }
-                            ),
-                            image: viewModel.seedImage
-                        )
+                        nameEditCell
 
-                        if !viewModel.uiState.validationErrors.isEmpty {
-                            HStack {
-                                Spacer()
-                                VStack {
-                                    ForEach(viewModel.uiState.validationErrors, id: \.self) { validationError in
-                                        Text(validationError.localizedDescription)
-                                            .font(.caption2)
-                                            .bold()
-                                            .foregroundColor(.red)
-                                    }
-                                }
-                            }
-                            .padding(.horizontal)
-                        }
+                        Divider()
 
-                        HStack {
-                            Text("name")
-                            Spacer()
-                            TextField(
-                                "Unregistered",
-                                text: .init(
-                                    get: { viewModel.uiState.input.name ?? "" },
-                                    set: { newValue in
-                                        Task {
-                                            await viewModel.send(action: .setName(newValue))
-                                        }
-                                    }
-                                )
-                            )
-                            .multilineTextAlignment(TextAlignment.leading)
-                            .modifier(
-                                TextFieldClearButton(
-                                    text: .init(
-                                        get: { viewModel.uiState.input.name ?? "" },
-                                        set: { newValue in
-                                            Task {
-                                                await viewModel.send(action: .setName(newValue))
-                                            }
-                                        }
-                                    )
-                                )
-                            )
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                        }
-                        .padding(.horizontal)
+                        seedEditCell
 
                         Color.clear
                             .frame(height: 100)
                     }
                 }
 
-                VStack {
-                    Spacer()
-                    HStack {
-                        if case .edit = viewModel.uiState.editMode {
-                            Button(action: {
-                                Task {
-                                    await viewModel.send(action: .onDeleteButtonTap)
-                                }
-                            }) {
-                                Text("Delete")
-                                    .bold()
-                                    .frame(height: 50)
-                                    .padding(.horizontal)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 8)
-                                            .stroke(Color.red, lineWidth: 1)
-                                    )
-                            }
-                            .foregroundColor(.red)
-                        }
-
-                        Button(action: {
-                            Task {
-                                switch viewModel.uiState.editMode {
-                                case .new:
-                                    await viewModel.send(action: .onRegisterButtonTap)
-                                case .edit:
-                                    await viewModel.send(action: .onUpdateButtonTap)
-                                }
-                            }
-                        }) {
-                            Text(viewModel.uiState.editMode.button)
-                                .bold()
-                                .frame(height: 50)
-                                .frame(maxWidth: .infinity)
-                        }
-                        .buttonStyle(RoundedButtonStyle(color: .red))
-                        .disabled(!viewModel.uiState.valid)
-                    }
-                }
-                .padding()
-                .ignoresSafeArea(.keyboard, edges: .bottom)
+                footer
+                    .ignoresSafeArea(.keyboard, edges: .bottom)
             }
             .onChange(of: viewModel.uiState.seedImage) { [old = viewModel.uiState.seedImage] new in
                 if old == new { return }
@@ -217,6 +124,113 @@ struct WorldEditView: View {
         _viewModel = StateObject(wrappedValue: WorldEditViewModel(world: world))
         self.onTapDelete = onTapDelete
         self.onTapDismiss = onTapDismiss
+    }
+}
+
+// MARK: - Privates
+
+private extension WorldEditView {
+    var nameEditCell: some View {
+        VStack {
+            HStack {
+                Text("Title")
+                Spacer()
+            }
+            TextField(
+                "Unregistered",
+                text: .init(
+                    get: { viewModel.uiState.input.name ?? "" },
+                    set: { newValue in
+                        Task {
+                            await viewModel.send(action: .setName(newValue))
+                        }
+                    }
+                )
+            )
+            .multilineTextAlignment(TextAlignment.leading)
+            .modifier(
+                TextFieldClearButton(
+                    text: .init(
+                        get: { viewModel.uiState.input.name ?? "" },
+                        set: { newValue in
+                            Task {
+                                await viewModel.send(action: .setName(newValue))
+                            }
+                        }
+                    )
+                )
+            )
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+        }
+        .padding()
+    }
+
+    var seedEditCell: some View {
+        NavigationLink {
+            SeedEditView(
+                seed: viewModel.uiState.input.seed
+            ) { seed in
+                Task {
+                    await viewModel.send(action: .setSeed(seed))
+                }
+                return true
+            }
+        } label: {
+            HStack {
+                Image(systemName: "location.circle")
+                Text("Seed")
+                Spacer()
+                Text(viewModel.uiState.input.seed?.text ?? "Unregistered")
+                Image(systemName: "chevron.right")
+            }
+            .padding(.horizontal)
+            .accentColor(.gray)
+        }
+    }
+
+    var footer: some View {
+        VStack {
+            Spacer()
+            HStack {
+                if case .edit = viewModel.uiState.editMode {
+                    Button(action: {
+                        Task {
+                            await viewModel.send(action: .onDeleteButtonTap)
+                        }
+                    }) {
+                        Text("Delete")
+                            .bold()
+                            .frame(height: 50)
+                            .padding(.horizontal)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(Color.red, lineWidth: 1)
+                            )
+                    }
+                    .foregroundColor(.red)
+                }
+
+                Button(action: {
+                    Task {
+                        switch viewModel.uiState.editMode {
+                        case .new:
+                            await viewModel.send(action: .onRegisterButtonTap)
+                        case .edit:
+                            await viewModel.send(action: .onUpdateButtonTap)
+                        }
+                    }
+                }) {
+                    Text(viewModel.uiState.editMode.button)
+                        .bold()
+                        .frame(height: 50)
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(RoundedButtonStyle(color: .red))
+                .disabled(!viewModel.uiState.valid)
+            }
+        }
+        .padding()
+        .ignoresSafeArea(.keyboard, edges: .bottom)
     }
 }
 

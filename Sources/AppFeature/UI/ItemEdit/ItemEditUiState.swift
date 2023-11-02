@@ -128,9 +128,9 @@ struct ItemEditUiState {
     }
 
     var isChanged: Bool {
-        if editItem.world == editMode.item?.world,
-           editItem.coordinates == editMode.item?.coordinates,
-           editItem.spotImageName == editMode.item?.spotImageName
+        if editItem.spotImageName == editMode.item?.spotImageName,
+            editItem.coordinates == editMode.item?.coordinates,
+           editItem.world == editMode.item?.world
         {
             false
         } else {

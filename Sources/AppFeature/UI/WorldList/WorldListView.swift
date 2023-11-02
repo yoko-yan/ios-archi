@@ -67,6 +67,7 @@ struct WorldListView: View {
                     }
                 }
             )
+            .presentationDetents([.medium, .large])
         }
         .deleteAlert(
             message: viewModel.uiState.deleteAlertMessage,

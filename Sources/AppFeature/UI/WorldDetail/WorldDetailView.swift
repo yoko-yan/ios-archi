@@ -15,14 +15,14 @@ struct WorldDetailView: View {
         ZStack {
             ScrollView {
                 HStack {
-                    Text("name")
+                    Text("Title")
                     Spacer()
                     Text(viewModel.uiState.world.name ?? "")
                 }
                 .padding()
 
                 HStack {
-                    Text("seed")
+                    Text("Seed")
                     Spacer()
                     Text(viewModel.uiState.world.seed?.text ?? "")
                 }

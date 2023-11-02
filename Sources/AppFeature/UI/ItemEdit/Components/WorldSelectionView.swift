@@ -63,6 +63,7 @@ struct WorldSelectionView: View {
                     worlds.append(newValue)
                 }
             )
+            .presentationDetents([.medium, .large])
         }
     }
 }

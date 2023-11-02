@@ -37,9 +37,9 @@ final class CoordinatesEditViewModel: ObservableObject {
             coordinatesZ = ""
         }
         uiState = CoordinatesEditUiState(
-            coordinatesX: coordinatesX,
-            coordinatesY: coordinatesY,
-            coordinatesZ: coordinatesZ
+            coordinatesXText: coordinatesX,
+            coordinatesYText: coordinatesY,
+            coordinatesZText: coordinatesZ
         )
     }
 
@@ -57,9 +57,9 @@ final class CoordinatesEditViewModel: ObservableObject {
         case let .setCoordinatesImage(image):
             uiState.coordinatesImage = image
         case .clearCoordinates:
-            uiState.coordinatesX = ""
-            uiState.coordinatesY = ""
-            uiState.coordinatesZ = ""
+            uiState.coordinatesXText = ""
+            uiState.coordinatesYText = ""
+            uiState.coordinatesZText = ""
         case let .setCoordinatesX(text):
             if !text.isEmpty, let validate = CoordinatesValidator.validate(x: text).validationError {
                 uiState.validationErrors = [validate]
@@ -68,9 +68,9 @@ final class CoordinatesEditViewModel: ObservableObject {
             }
 //            // 数字以外が入力された場合に自動的に修正する場合
 //            if let txt = convertibleInt(text: text) {
-//                uiState.coordinatesX = txt
+//                uiState.coordinatesXText = txt
 //            }
-            uiState.coordinatesX = text
+            uiState.coordinatesXText = text
         case let .setCoordinatesY(text):
             if !text.isEmpty, let validate = CoordinatesValidator.validate(y: text).validationError {
                 uiState.validationErrors = [validate]
@@ -79,9 +79,9 @@ final class CoordinatesEditViewModel: ObservableObject {
             }
 //            // 数字以外が入力された場合に自動的に修正する場合
 //            if let txt = convertibleInt(text: text) {
-//                uiState.coordinatesY = txt
+//                uiState.coordinatesYText = txt
 //            }
-            uiState.coordinatesY = text
+            uiState.coordinatesYText = text
         case let .setCoordinatesZ(text):
             if !text.isEmpty, let validate = CoordinatesValidator.validate(z: text).validationError {
                 uiState.validationErrors = [validate]
@@ -90,16 +90,16 @@ final class CoordinatesEditViewModel: ObservableObject {
             }
 //            // 数字以外が入力された場合に自動的に修正する場合
 //            if let txt = convertibleInt(text: text) {
-//                uiState.coordinatesZ = txt
+//                uiState.coordinatesZText = txt
 //            }
-            uiState.coordinatesZ = text
+            uiState.coordinatesZText = text
         case let .getCoordinates(image):
             do {
                 let coordinates = try await GetCoordinatesFromImageUseCase().execute(image: image)
                 if let coordinates {
-                    uiState.coordinatesX = "\(coordinates.x)"
-                    uiState.coordinatesY = "\(coordinates.y)"
-                    uiState.coordinatesZ = "\(coordinates.z)"
+                    uiState.coordinatesXText = "\(coordinates.x)"
+                    uiState.coordinatesYText = "\(coordinates.y)"
+                    uiState.coordinatesZText = "\(coordinates.z)"
                 }
             } catch {
                 print(error)
@@ -126,13 +126,13 @@ private extension CoordinatesEditViewModel {
 
     func validate() {
         var validationErrors: [CoordinatesValidationError] = []
-        if !uiState.coordinatesX.isEmpty, let validateX = CoordinatesValidator.validate(x: uiState.coordinatesX).validationError {
+        if !uiState.coordinatesXText.isEmpty, let validateX = CoordinatesValidator.validate(x: uiState.coordinatesXText).validationError {
             validationErrors.append(validateX)
         }
-        if !uiState.coordinatesY.isEmpty, let validateY = CoordinatesValidator.validate(y: uiState.coordinatesY).validationError {
+        if !uiState.coordinatesYText.isEmpty, let validateY = CoordinatesValidator.validate(y: uiState.coordinatesYText).validationError {
             validationErrors.append(validateY)
         }
-        if !uiState.coordinatesZ.isEmpty, let validateZ = CoordinatesValidator.validate(z: uiState.coordinatesZ).validationError {
+        if !uiState.coordinatesZText.isEmpty, let validateZ = CoordinatesValidator.validate(z: uiState.coordinatesZText).validationError {
             validationErrors.append(validateZ)
         }
         uiState.validationErrors = validationErrors

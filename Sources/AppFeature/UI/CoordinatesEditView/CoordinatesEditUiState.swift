@@ -11,20 +11,20 @@ struct CoordinatesEditUiState {
         case onChanged
     }
 
-    var coordinatesX: String
-    var coordinatesY: String
-    var coordinatesZ: String
+    var coordinatesXText: String
+    var coordinatesYText: String
+    var coordinatesZText: String
     var coordinates: Coordinates? {
-        if coordinatesX == "", // swiftlint:disable:this empty_string
-           coordinatesY == "", // swiftlint:disable:this empty_string
-           coordinatesZ == "" // swiftlint:disable:this empty_string
+        if coordinatesXText == "", // swiftlint:disable:this empty_string
+           coordinatesYText == "", // swiftlint:disable:this empty_string
+           coordinatesZText == "" // swiftlint:disable:this empty_string
         {
             return nil
         }
         return Coordinates(
-            x: Int(coordinatesX) ?? 0,
-            y: Int(coordinatesY) ?? 0,
-            z: Int(coordinatesZ) ?? 0
+            x: Int(coordinatesXText) ?? 0,
+            y: Int(coordinatesYText) ?? 0,
+            z: Int(coordinatesZText) ?? 0
         )
     }
 
