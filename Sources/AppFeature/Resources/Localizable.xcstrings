@@ -12,7 +12,14 @@
       }
     },
     "Build Version" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ビルドバージョン"
+          }
+        }
+      }
     },
     "Cancel" : {
       "localizations" : {
@@ -90,17 +97,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "選択を解除"
-          }
-        }
-      }
-    },
-    "Details" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "詳細"
           }
         }
       }
@@ -348,7 +344,14 @@
       }
     },
     "Version" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バージョン"
+          }
+        }
+      }
     },
     "World" : {
       "localizations" : {
