@@ -38,17 +38,21 @@ struct SpotListView: View {
                 isShowEditView.toggle()
             }, label: {
                 ZStack {
-                    Image(systemName: "photo")
-                        .foregroundColor(.white)
-                        .font(.system(size: 24))
-                    Image(systemName: "plus")
-                        .foregroundColor(.white)
-                        .font(.system(size: 15))
-                        .frame(
-                            maxWidth: .infinity,
-                            maxHeight: .infinity,
-                            alignment: .trailing
-                        )
+                    ZStack {
+                        Image(systemName: "photo")
+                            .foregroundColor(.white)
+                            .font(.system(size: 24))
+                            .padding(.trailing, 10)
+                        Image(systemName: "plus.circle.fill")
+                            .foregroundColor(.white)
+                            .font(.system(size: 15))
+                            .frame(
+                                maxWidth: .infinity,
+                                maxHeight: .infinity,
+                                alignment: .trailing
+                            )
+                            .padding(2)
+                    }
                 }
             })
         }

@@ -44,7 +44,8 @@ struct WorldListView: View {
                     Image(systemName: "globe.desk")
                         .foregroundColor(.white)
                         .font(.system(size: 24))
-                    Image(systemName: "plus")
+                        .padding(.trailing, 10)
+                    Image(systemName: "plus.circle.fill")
                         .foregroundColor(.white)
                         .font(.system(size: 15))
                         .frame(
@@ -52,6 +53,7 @@ struct WorldListView: View {
                             maxHeight: .infinity,
                             alignment: .trailing
                         )
+                        .padding(2)
                 }
             })
         }
