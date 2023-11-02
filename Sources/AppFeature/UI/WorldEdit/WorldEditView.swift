@@ -177,7 +177,6 @@ private extension WorldEditView {
             }
         } label: {
             HStack {
-                Image(systemName: "location.circle")
                 Text("Seed")
                 Spacer()
                 Text(viewModel.uiState.input.seed?.text ?? "Unregistered")

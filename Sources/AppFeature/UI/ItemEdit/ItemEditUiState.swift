@@ -129,7 +129,7 @@ struct ItemEditUiState {
 
     var isChanged: Bool {
         if editItem.spotImageName == editMode.item?.spotImageName,
-            editItem.coordinates == editMode.item?.coordinates,
+           editItem.coordinates == editMode.item?.coordinates,
            editItem.world == editMode.item?.world
         {
             false

@@ -100,7 +100,7 @@ private extension SeedEditView {
                     .accentColor(.gray)
 
                     HStack {
-                        Label("Seed", systemImage: "location.circle")
+                        Text("Seed")
                         Spacer()
                     }
                     .padding(.horizontal)
@@ -178,7 +178,7 @@ private extension SeedEditView {
                             await viewModel.send(action: .onChangeButtonTap)
                         }
                     }) {
-                        Label("Modify", systemImage: "location.circle")
+                        Text("Modify")
                             .bold()
                             .frame(height: 40)
                             .frame(maxWidth: .infinity)
