@@ -64,7 +64,7 @@ struct WorldEditUiState {
 
         var title: String {
             switch self {
-            case .new: return "Register a world."
+            case .new: return "Register a world"
             case .edit: return "Modify the world"
             }
         }

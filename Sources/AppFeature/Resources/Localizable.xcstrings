@@ -2,9 +2,16 @@
   "sourceLanguage" : "en",
   "strings" : {
     "" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
-    "cancel" : {
+    "Cancel" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -14,7 +21,7 @@
         }
       }
     },
-    "Change the coordinates." : {
+    "Change the coordinates" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -24,7 +31,7 @@
         }
       }
     },
-    "clear" : {
+    "Clear" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -99,7 +106,7 @@
       "localizations" : {
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "ホーム"
           }
         }
@@ -115,7 +122,7 @@
         }
       }
     },
-    "If the coordinates are visible in the photo, they can be recognized." : {
+    "If the coordinates are visible in the photo, they can be recognized" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -125,7 +132,7 @@
         }
       }
     },
-    "If the seed value is visible in the photo, it can be recognized." : {
+    "If the seed value is visible in the photo, it can be recognized" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -195,7 +202,7 @@
         }
       }
     },
-    "Recognize coordinate strings from a photo." : {
+    "Recognize coordinate strings from a photo" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -205,7 +212,7 @@
         }
       }
     },
-    "Recognize the seed value string from a photo." : {
+    "Recognize the seed value string from a photo" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -226,7 +233,7 @@
         }
       }
     },
-    "Register a photo." : {
+    "Register a photo" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -237,9 +244,6 @@
       }
     },
     "Register a world" : {
-
-    },
-    "Register a world." : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -249,7 +253,7 @@
         }
       }
     },
-    "Search for biomes from a seed value." : {
+    "Search for biomes from a seed value" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -269,7 +273,7 @@
         }
       }
     },
-    "Select a world." : {
+    "Select a world" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
@@ -290,12 +294,31 @@
       }
     },
     "Unselected" : {
-      "extractionState" : "stale",
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "未選択"
+          }
+        }
+      }
+    },
+    "world" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "世界"
+          }
+        }
+      }
+    },
+    "World" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "世界"
           }
         }
       }

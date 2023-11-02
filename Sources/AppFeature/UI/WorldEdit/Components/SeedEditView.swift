@@ -24,7 +24,7 @@ struct SeedEditView: View {
                         imageSourceType = .library
                         isImagePicker.toggle()
                     } label: {
-                        Text("Recognize the seed value string from a photo.")
+                        Text("Recognize the seed value string from a photo")
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                     .contentShape(Rectangle())
@@ -38,7 +38,7 @@ struct SeedEditView: View {
             .accentColor(.gray)
 
             HStack {
-                Text("If the seed value is visible in the photo, it can be recognized.")
+                Text("If the seed value is visible in the photo, it can be recognized")
                     .font(.caption2)
                 Spacer()
                 Button(action: {

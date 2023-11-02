@@ -55,7 +55,7 @@ struct WorldSelectionView: View {
             .listStyle(.plain)
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarTitle(Text("Select a world."))
+        .navigationBarTitle(Text("Select a world"))
         .toolbarBackground(.visible, for: .navigationBar)
         .sheet(isPresented: $isShowDetailView) {
             WorldEditView(

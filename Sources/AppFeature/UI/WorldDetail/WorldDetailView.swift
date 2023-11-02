@@ -33,7 +33,7 @@ struct WorldDetailView: View {
                 Button {
                     isBiomeFinderView.toggle()
                 } label: {
-                    Text("Search for biomes from a seed value.")
+                    Text("Search for biomes from a seed value")
                         .bold()
                         .frame(height: 50)
                         .frame(maxWidth: .infinity)

@@ -10,17 +10,23 @@ struct WorldListCell: View {
 
     var body: some View {
         HStack {
-            Label("", systemImage: "globe.desk")
+            Image(systemName: "globe.desk")
             VStack {
-                HStack {
-                    Text("name")
-                    Spacer()
-                    Text(world?.name ?? "Unregistered")
+                if let name = world?.name, !name.isEmpty {
+                    HStack {
+                        Text(name)
+                            .font(.headline)
+                        Spacer()
+                    }
                 }
-                HStack {
-                    Text("seed")
-                    Spacer()
-                    Text(world?.seed?.text ?? "Unregistered")
+                if let seed = world?.seed {
+                    HStack {
+                        Text("seed")
+                            .font(.subheadline)
+                        Spacer()
+                        Text(seed.text)
+                            .font(.subheadline)
+                    }
                 }
             }
         }

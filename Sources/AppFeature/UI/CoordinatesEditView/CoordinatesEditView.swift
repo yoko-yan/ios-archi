@@ -61,7 +61,7 @@ private extension CoordinatesEditView {
                             imageSourceType = .library
                             isImagePicker.toggle()
                         } label: {
-                            Text("Recognize coordinate strings from a photo.")
+                            Text("Recognize coordinate strings from a photo")
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
                         .contentShape(Rectangle())
@@ -73,7 +73,7 @@ private extension CoordinatesEditView {
                     }
 
                     HStack {
-                        Text("If the coordinates are visible in the photo, they can be recognized.")
+                        Text("If the coordinates are visible in the photo, they can be recognized")
                             .font(.caption2)
                         Spacer()
                         Button(action: {
@@ -218,7 +218,7 @@ private extension CoordinatesEditView {
                                 await viewModel.send(action: .clearCoordinates)
                             }
                         }) {
-                            Text("clear")
+                            Text("Clear")
                                 .bold()
                                 .frame(height: 40)
                                 .padding(.horizontal)
@@ -246,7 +246,7 @@ private extension CoordinatesEditView {
                 .padding()
             }
         }
-        .navigationBarTitle("Change the coordinates.", displayMode: .inline)
+        .navigationBarTitle("Change the coordinates", displayMode: .inline)
         .toolbar {
             keyboardToolbarItem
         }

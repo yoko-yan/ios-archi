@@ -137,7 +137,8 @@ private extension ItemEditView {
             }
         } label: {
             HStack {
-                Label("coordinates", systemImage: "location.circle")
+                Image(systemName: "location.circle")
+                Text("coordinates")
                 Spacer()
                 Text(viewModel.uiState.input.coordinates?.textWitWhitespaces ?? "Unregistered")
                 Image(systemName: "chevron.right")
@@ -148,27 +149,33 @@ private extension ItemEditView {
     }
 
     var worldEditCell: some View {
-        HStack {
-            NavigationLink {
-                WorldSelectionView(
-                    worlds: viewModel.uiState.worlds,
-                    selected: .init(
-                        get: { viewModel.uiState.input.world },
-                        set: { newValue in
-                            Task {
-                                await viewModel.send(action: .setWorld(newValue))
-                            }
+        NavigationLink {
+            WorldSelectionView(
+                worlds: viewModel.uiState.worlds,
+                selected: .init(
+                    get: { viewModel.uiState.input.world },
+                    set: { newValue in
+                        Task {
+                            await viewModel.send(action: .setWorld(newValue))
                         }
-                    )
+                    }
                 )
-            } label: {
-                HStack {
-                    WorldListCell(world: viewModel.uiState.input.world)
-                    Image(systemName: "chevron.right")
+            )
+        } label: {
+            HStack {
+                if let world = viewModel.uiState.input.world {
+                    WorldListCell(world: world)
+                        .padding(.trailing)
+                } else {
+                    Image(systemName: "globe.desk")
+                    Text("world")
+                    Spacer()
+                    Text("Unselected")
                 }
-                .padding(.horizontal)
-                .accentColor(.gray)
+                Image(systemName: "chevron.right")
             }
+            .padding(.horizontal)
+            .accentColor(.gray)
         }
     }
 
@@ -234,7 +241,7 @@ private extension View {
             ),
             presenting: alertType
         ) { _ in
-            Button("cancel", role: .cancel, action: {})
+            Button("Cancel", role: .cancel, action: {})
             Button(
                 alertType?.buttonLabel ?? "",
                 role: alertType?.buttonRole,

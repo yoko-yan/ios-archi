@@ -234,7 +234,7 @@ private extension View {
             ),
             presenting: alertType
         ) { _ in
-            Button("cancel", role: .cancel, action: {})
+            Button("Cancel", role: .cancel, action: {})
             Button(alertType?.buttonLabel ?? "", role: alertType?.buttonRole, action: {
                 onConfirmed()
             })
