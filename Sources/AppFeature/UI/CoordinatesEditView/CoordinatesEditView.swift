@@ -61,7 +61,7 @@ private extension CoordinatesEditView {
                             imageSourceType = .library
                             isImagePicker.toggle()
                         } label: {
-                            Text("Recognize coordinate strings from a photo")
+                            Text("Recognize coordinate strings from a photo", bundle: .module)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
                         .contentShape(Rectangle())
@@ -73,7 +73,7 @@ private extension CoordinatesEditView {
                     }
 
                     HStack {
-                        Text("If the coordinates are visible in the photo, they can be recognized")
+                        Text("If the coordinates are visible in the photo, they can be recognized", bundle: .module)
                             .font(.caption2)
                         Spacer()
                         Button(action: {

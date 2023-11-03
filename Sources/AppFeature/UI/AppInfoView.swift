@@ -12,14 +12,14 @@ struct AppInfoView: View {
             VStack {
                 let (version, build) = vesionInfo
                 HStack {
-                    Text("Version")
+                    Text("Version", bundle: .module)
                     Spacer()
                     Text(version)
                 }
                 .padding()
 
                 HStack {
-                    Text("Build Version")
+                    Text("Build Version", bundle: .module)
                     Spacer()
                     Text(build)
                 }

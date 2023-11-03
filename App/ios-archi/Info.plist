@@ -4,10 +4,6 @@
 <dict>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>remote-notification</string>
-	</array>
 	<key>NSUbiquitousContainers</key>
 	<dict>
 		<key>iCloud.$(PRODUCT_BUNDLE_IDENTIFIER)</key>
@@ -20,5 +16,9 @@
 			<string>ANY</string>
 		</dict>
 	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>

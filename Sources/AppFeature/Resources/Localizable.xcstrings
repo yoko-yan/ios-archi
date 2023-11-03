@@ -193,6 +193,7 @@
       }
     },
     "paste" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ja" : {
           "stringUnit" : {

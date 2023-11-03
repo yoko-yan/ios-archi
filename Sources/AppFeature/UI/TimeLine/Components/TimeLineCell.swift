@@ -25,7 +25,7 @@ struct TimeLineCell: View {
                             Rectangle()
                                 .fill(colorScheme == .dark ? Color.black : Color.white)
                                 .aspectRatio(contentMode: .fit)
-                            Text("No photo available")
+                            Text("No photo available", bundle: .module)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .foregroundColor(.gray)
                         }

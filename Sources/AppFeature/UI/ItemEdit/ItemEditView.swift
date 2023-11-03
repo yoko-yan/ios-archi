@@ -138,7 +138,7 @@ private extension ItemEditView {
         } label: {
             HStack {
                 Image(systemName: "location.circle")
-                Text("Coordinates")
+                Text("Coordinates", bundle: .module)
                 Spacer()
                 Text(viewModel.uiState.input.coordinates?.textWitWhitespaces ?? "Unregistered")
                 Image(systemName: "chevron.right")
@@ -168,9 +168,9 @@ private extension ItemEditView {
                         .padding(.trailing)
                 } else {
                     Image(systemName: "globe.desk")
-                    Text("World")
+                    Text("World", bundle: .module)
                     Spacer()
-                    Text("Unselected")
+                    Text("Unselected", bundle: .module)
                 }
                 Image(systemName: "chevron.right")
             }
@@ -189,7 +189,7 @@ private extension ItemEditView {
                             await viewModel.send(action: .onDeleteButtonTap)
                         }
                     }) {
-                        Text("Delete")
+                        Text("Delete", bundle: .module)
                             .bold()
                             .frame(height: 50)
                             .padding(.horizontal)

@@ -32,7 +32,7 @@ struct ItemDetailView: View {
 //                    isEditView.toggle()
 //                }) {
 //                    HStack {
-//                        Text("Edit")
+//                        Text("Edit", bundle: .module)
 //                    }
 //                }
 //            }
@@ -75,7 +75,7 @@ private extension ItemDetailView {
                 .resizable()
                 .scaledToFit()
         } else {
-            Text("No photo available")
+            Text("No photo available", bundle: .module)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .contentShape(Rectangle())
                 .frame(height: 200)
@@ -88,7 +88,7 @@ private extension ItemDetailView {
 
     var coordinatesCell: some View {
         HStack {
-            Text("Coordinates")
+            Text("Coordinates", bundle: .module)
             Spacer()
             Text(viewModel.uiState.item.coordinates?.textWitWhitespaces ?? "Unregistered")
         }
@@ -105,14 +105,14 @@ private extension ItemDetailView {
                 .background(.gray)
 
             HStack {
-                Text("Title")
+                Text("Title", bundle: .module)
                 Spacer()
                 Text(world.name ?? "")
             }
             .padding()
 
             HStack {
-                Text("Seed")
+                Text("Seed", bundle: .module)
                 Spacer()
                 Text(world.seed?.text ?? "")
             }
@@ -127,7 +127,7 @@ private extension ItemDetailView {
         Button {
             isBiomeFinderView.toggle()
         } label: {
-            Text("Search for biomes")
+            Text("Search for biomes", bundle: .module)
                 .bold()
                 .frame(height: 50)
                 .frame(maxWidth: .infinity)
@@ -136,7 +136,7 @@ private extension ItemDetailView {
         .padding(.horizontal)
         .padding(.top)
 
-        Text("Search for biomes from a seed value and coordinates")
+        Text("Search for biomes from a seed value and coordinates", bundle: .module)
             .font(.caption)
             .foregroundColor(.green)
             .frame(maxWidth: .infinity)
@@ -146,7 +146,7 @@ private extension ItemDetailView {
         Button(action: {
             isEditView.toggle()
         }) {
-            Text("Edit")
+            Text("Edit", bundle: .module)
                 .bold()
                 .frame(height: 50)
                 .frame(maxWidth: .infinity)

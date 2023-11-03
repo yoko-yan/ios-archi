@@ -30,7 +30,7 @@ struct WorldSelectionView: View {
                             selected = nil
                             dismiss()
                         }) {
-                            Text("Deselect")
+                            Text("Deselect", bundle: .module)
                                 .bold()
                                 .frame(height: 40)
                                 .padding(.horizontal)
@@ -55,7 +55,7 @@ struct WorldSelectionView: View {
             .listStyle(.plain)
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarTitle(Text("Select a world"))
+        .navigationBarTitle(Text("Select a world", bundle: .module))
         .toolbarBackground(.visible, for: .navigationBar)
         .sheet(isPresented: $isShowDetailView) {
             WorldEditView(

@@ -61,7 +61,7 @@ private extension SeedEditView {
                             imageSourceType = .library
                             isImagePicker.toggle()
                         } label: {
-                            Text("Recognize the seed value string from a photo")
+                            Text("Recognize the seed value string from a photo", bundle: .module)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
                         .contentShape(Rectangle())
@@ -73,7 +73,7 @@ private extension SeedEditView {
                     }
 
                     HStack {
-                        Text("If the seed value is visible in the photo, it can be recognized")
+                        Text("If the seed value is visible in the photo, it can be recognized", bundle: .module)
                             .font(.caption2)
                         Spacer()
                         Button(action: {
@@ -100,7 +100,7 @@ private extension SeedEditView {
                     .accentColor(.gray)
 
                     HStack {
-                        Text("Seed")
+                        Text("Seed", bundle: .module)
                         Spacer()
                     }
                     .padding(.horizontal)
@@ -161,7 +161,7 @@ private extension SeedEditView {
                                 await viewModel.send(action: .clearSeed)
                             }
                         }) {
-                            Text("Clear")
+                            Text("Clear", bundle: .module)
                                 .bold()
                                 .frame(height: 40)
                                 .padding(.horizontal)
@@ -178,7 +178,7 @@ private extension SeedEditView {
                             await viewModel.send(action: .onChangeButtonTap)
                         }
                     }) {
-                        Text("Modify")
+                        Text("Modify", bundle: .module)
                             .bold()
                             .frame(height: 40)
                             .frame(maxWidth: .infinity)

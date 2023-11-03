@@ -32,7 +32,7 @@ struct WorldDetailView: View {
 //                    isEditView.toggle()
 //                }) {
 //                    HStack {
-//                        Text("Edit")
+//                        Text("Edit", bundle: .module)
 //                    }
 //                }
 //            }
@@ -68,7 +68,7 @@ private extension WorldDetailView {
     @ViewBuilder
     var titleCell: some View {
         HStack {
-            Text("Title")
+            Text("Title", bundle: .module)
             Spacer()
             Text(viewModel.uiState.world.name ?? "")
         }
@@ -77,7 +77,7 @@ private extension WorldDetailView {
 
     var seedCell: some View {
         HStack {
-            Text("Seed")
+            Text("Seed", bundle: .module)
             Spacer()
             Text(viewModel.uiState.world.seed?.text ?? "")
         }
@@ -89,7 +89,7 @@ private extension WorldDetailView {
         Button {
             isBiomeFinderView.toggle()
         } label: {
-            Text("Search for biomes")
+            Text("Search for biomes", bundle: .module)
                 .bold()
                 .frame(height: 50)
                 .frame(maxWidth: .infinity)
@@ -98,7 +98,7 @@ private extension WorldDetailView {
         .padding(.horizontal)
         .padding(.top)
 
-        Text("Search for biomes from a seed value")
+        Text("Search for biomes from a seed value", bundle: .module)
             .font(.caption)
             .foregroundColor(.green)
             .frame(maxWidth: .infinity)
@@ -108,7 +108,7 @@ private extension WorldDetailView {
         Button(action: {
             isEditView.toggle()
         }) {
-            Text("Edit")
+            Text("Edit", bundle: .module)
                 .bold()
                 .frame(height: 50)
                 .frame(maxWidth: .infinity)

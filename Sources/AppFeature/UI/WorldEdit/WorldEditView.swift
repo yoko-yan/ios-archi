@@ -55,6 +55,9 @@ struct WorldEditView: View {
                     viewModel.consumeEvent(event)
                 }
             }
+            .toolbar {
+                keyboardToolbarItem
+            }
             .navigationBarTitle(viewModel.uiState.editMode.title, displayMode: .inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -64,33 +67,6 @@ struct WorldEditView: View {
                         }
                     }) {
                         Image(systemName: "xmark")
-                    }
-                }
-            }
-            .toolbar {
-                ToolbarItem(placement: .keyboard) {
-                    HStack {
-                        Button {
-                            Task {
-                                await viewModel.send(action: .setName(UIPasteboard.general.string ?? ""))
-                            }
-                        } label: {
-                            Text("paste")
-                        }
-
-                        Spacer()
-
-                        Button {
-                            UIApplication.shared.sendAction(
-                                #selector(UIResponder.resignFirstResponder),
-                                to: nil,
-                                from: nil,
-                                for: nil
-                            )
-                        } label: {
-                            Text(Image(systemName: "keyboard.chevron.compact.down"))
-                                .font(.system(size: 15))
-                        }
                     }
                 }
             }
@@ -133,7 +109,7 @@ private extension WorldEditView {
     var nameEditCell: some View {
         VStack {
             HStack {
-                Text("Title")
+                Text("Title", bundle: .module)
                 Spacer()
             }
             TextField(
@@ -177,7 +153,7 @@ private extension WorldEditView {
             }
         } label: {
             HStack {
-                Text("Seed")
+                Text("Seed", bundle: .module)
                 Spacer()
                 Text(viewModel.uiState.input.seed?.text ?? "Unregistered")
                 Image(systemName: "chevron.right")
@@ -197,7 +173,7 @@ private extension WorldEditView {
                             await viewModel.send(action: .onDeleteButtonTap)
                         }
                     }) {
-                        Text("Delete")
+                        Text("Delete", bundle: .module)
                             .bold()
                             .frame(height: 50)
                             .padding(.horizontal)
@@ -230,6 +206,26 @@ private extension WorldEditView {
         }
         .padding()
         .ignoresSafeArea(.keyboard, edges: .bottom)
+    }
+
+    var keyboardToolbarItem: ToolbarItem<Void, HStack<TupleView<(Spacer, Button<Text>)>>> {
+        ToolbarItem(placement: .keyboard) {
+            HStack {
+                Spacer()
+
+                Button {
+                    UIApplication.shared.sendAction(
+                        #selector(UIResponder.resignFirstResponder),
+                        to: nil,
+                        from: nil,
+                        for: nil
+                    )
+                } label: {
+                    Text(Image(systemName: "keyboard.chevron.compact.down"))
+                        .font(.system(size: 15))
+                }
+            }
+        }
     }
 }
 
