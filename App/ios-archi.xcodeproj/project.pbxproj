@@ -178,7 +178,7 @@
 			};
 			buildConfigurationList = 83E74B22292E315600FA1F46 /* Build configuration list for PBXProject "ios-archi" */;
 			compatibilityVersion = "Xcode 13.0";
-			developmentRegion = en;
+			developmentRegion = ja;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
