@@ -23,6 +23,16 @@ let package = Package(
         .target(
             name: "Core",
             dependencies: [
+            ],
+            swiftSettings: [
+                .unsafeFlags([
+                    "-strict-concurrency=complete"
+                ])
+            ]
+        ),
+        .target(
+            name: "GoogleServiceClient",
+            dependencies: [
                 .product(name: "FirebaseCrashlytics", package: "firebase-ios-sdk"),
                 .product(name: "FirebaseAnalytics", package: "firebase-ios-sdk"),
                 .product(name: "FirebasePerformance", package: "firebase-ios-sdk"),
@@ -39,6 +49,7 @@ let package = Package(
             name: "AppFeature",
             dependencies: [
                 "Core",
+                "GoogleServiceClient", // If you are encountering errors related to Firebase while using Xcode Previews, comment out.
                 .product(name: "Dependencies", package: "swift-dependencies")
             ],
             swiftSettings: [

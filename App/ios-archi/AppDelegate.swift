@@ -2,7 +2,9 @@
 //  Created by yoko-yan on 2023/10/26
 //
 
-import Core
+#if canImport(FirebaseCore)
+import GoogleServiceClient
+#endif
 import SwiftUI
 
 class AppDelegate: NSObject, UIApplicationDelegate {
@@ -10,7 +12,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
-        FirebaseAppCore.configure()
+        #if canImport(FirebaseCore)
+        FirebaseAppClient.configure()
+        #endif
         return true
     }
 }
