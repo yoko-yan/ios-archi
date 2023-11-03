@@ -229,7 +229,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which \"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" > /dev/null; then\n    \"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" \"${SRCROOT}/..\"\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
+			shellScript = "if [ \\\"$ENABLE_PREVIEWS\\\" == \\\"YES\\\" ]; then\n  echo 'warning: skip run script'\n  exit 0\nfi\nif which \"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" > /dev/null; then\n    \"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" \"${SRCROOT}/..\"\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
 		};
 		83C439DD298680AA00DA1425 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -248,7 +248,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which \"${PODS_ROOT}/SwiftLint/swiftlint\" > /dev/null; then\n  \"${PODS_ROOT}/SwiftLint/swiftlint\"\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if [ \\\"$ENABLE_PREVIEWS\\\" == \\\"YES\\\" ]; then\n  echo 'warning: skip run script'\n  exit 0\nfi\nif which \"${PODS_ROOT}/SwiftLint/swiftlint\" > /dev/null; then\n  \"${PODS_ROOT}/SwiftLint/swiftlint\"\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		8C0A583C1902CE216094A872 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -309,7 +309,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "GOOGLE_SERVICE_INFO_FILE=\"${PROJECT_DIR}/${PROJECT_NAME}/Configs/GoogleService-Info-${CONFIGURATION}.plist\"\nif [[ -f $GOOGLE_SERVICE_INFO_FILE ]]; then\n    cp $GOOGLE_SERVICE_INFO_FILE \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\"\nfi\n";
+			shellScript = "if [ \\\"$ENABLE_PREVIEWS\\\" == \\\"YES\\\" ]; then\n  echo 'warning: skip run script'\n  exit 0\nfi\nGOOGLE_SERVICE_INFO_FILE=\"${PROJECT_DIR}/${PROJECT_NAME}/Configs/GoogleService-Info-${CONFIGURATION}.plist\"\nif [[ -f $GOOGLE_SERVICE_INFO_FILE ]]; then\n    cp $GOOGLE_SERVICE_INFO_FILE \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\"\nfi\n";
 		};
 		CD47DCAD2AE98E6000026887 /* Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -330,7 +330,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "GOOGLE_SERVICE_INFO_FILE=\"${PROJECT_DIR}/${PROJECT_NAME}/Configs/GoogleService-Info-${CONFIGURATION}.plist\"\nif [[ -f $GOOGLE_SERVICE_INFO_FILE ]]; then\n    \"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\nfi\n";
+			shellScript = "if [ \\\"$ENABLE_PREVIEWS\\\" == \\\"YES\\\" ]; then\n  echo 'warning: skip run script'\n  exit 0\nfi\nGOOGLE_SERVICE_INFO_FILE=\"${PROJECT_DIR}/${PROJECT_NAME}/Configs/GoogleService-Info-${CONFIGURATION}.plist\"\nif [[ -f $GOOGLE_SERVICE_INFO_FILE ]]; then\n    \"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
