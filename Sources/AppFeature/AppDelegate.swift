@@ -7,8 +7,8 @@ import GoogleServiceClient
 #endif
 import SwiftUI
 
-class AppDelegate: NSObject, UIApplicationDelegate {
-    func application(
+public class AppDelegate: NSObject, UIApplicationDelegate {
+    public func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {

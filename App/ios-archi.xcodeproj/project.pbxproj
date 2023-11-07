@@ -10,7 +10,6 @@
 		83E74B2B292E315600FA1F46 /* ios_archiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E74B2A292E315600FA1F46 /* ios_archiApp.swift */; };
 		83E74B32292E315D00FA1F46 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83E74B31292E315D00FA1F46 /* Preview Assets.xcassets */; };
 		97B0E22E2A4F6551003581A1 /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 97B0E22D2A4F6551003581A1 /* AppFeature */; };
-		CD32A3E62AE97CC70057F3A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD32A3E52AE97CC70057F3A9 /* AppDelegate.swift */; };
 		CD430D132A55D0AC00AB8EFA /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD430D0F2A55D0AC00AB8EFA /* Debug.xcconfig */; };
 		CD430D142A55D0AC00AB8EFA /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD430D102A55D0AC00AB8EFA /* Release.xcconfig */; };
 		CD430D162A55D0AC00AB8EFA /* Base.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD430D122A55D0AC00AB8EFA /* Base.xcconfig */; };
@@ -25,7 +24,6 @@
 		83E74B31292E315D00FA1F46 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9EA0AD020CD2636DAEC60268 /* Pods-ios-archi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-archi.release.xcconfig"; path = "Target Support Files/Pods-ios-archi/Pods-ios-archi.release.xcconfig"; sourceTree = "<group>"; };
 		B137D1DEF9A121B7DFC6ED73 /* Pods-ios-archi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-archi.debug.xcconfig"; path = "Target Support Files/Pods-ios-archi/Pods-ios-archi.debug.xcconfig"; sourceTree = "<group>"; };
-		CD32A3E52AE97CC70057F3A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CD430D0F2A55D0AC00AB8EFA /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		CD430D102A55D0AC00AB8EFA /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		CD430D122A55D0AC00AB8EFA /* Base.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
@@ -87,7 +85,6 @@
 				CD6878DF2AE0557D00C4B14F /* Debug.entitlements */,
 				CDC4704F2AE51DC60030F3B1 /* Release.entitlements */,
 				CDE7E6232A59CA3F00EFDC11 /* Info.plist */,
-				CD32A3E52AE97CC70057F3A9 /* AppDelegate.swift */,
 				83E74B2A292E315600FA1F46 /* ios_archiApp.swift */,
 				CD47DCAC2AE98DFA00026887 /* Configs */,
 				CD430D0E2A55D0AC00AB8EFA /* XCConfigs */,
@@ -339,7 +336,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD32A3E62AE97CC70057F3A9 /* AppDelegate.swift in Sources */,
 				83E74B2B292E315600FA1F46 /* ios_archiApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
