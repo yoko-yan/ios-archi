@@ -101,6 +101,16 @@
         }
       }
     },
+    "Display only items with images" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "画像を持っているアイテムのみ表示"
+          }
+        }
+      }
+    },
     "Edit" : {
       "localizations" : {
         "ja" : {

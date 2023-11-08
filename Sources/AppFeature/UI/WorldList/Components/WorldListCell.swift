@@ -36,29 +36,19 @@ struct WorldListCell: View {
 
 // MARK: - Previews
 
-#Preview {
-    WorldListCell(
-        world: World(
-            id: "",
-            name: "aaa",
-            seed: nil,
-            createdAt: Date(),
-            updatedAt: Date()
-        )
-    )
+#if DEBUG
+@available(iOS 17.0, *)
+#Preview(traits: .fixedLayout(width: 375, height: 40)) {
+    WorldListCell(world: .preview)
 }
 
-struct WorldListCell_Previews: PreviewProvider {
-    static var previews: some View {
-        WorldListCell(
-            world: World(
-                id: "",
-                name: "aaa",
-                seed: nil,
-                createdAt: Date(),
-                updatedAt: Date()
-            )
-        )
-        .previewLayout(.fixed(width: 375, height: 40))
-    }
+@available(iOS 17.0, *)
+#Preview(traits: .fixedLayout(width: 375, height: 40)) {
+    WorldListCell(world: .previewWithOutName)
 }
+
+@available(iOS 17.0, *)
+#Preview(traits: .fixedLayout(width: 375, height: 40)) {
+    WorldListCell(world: .previewWithOutSeed)
+}
+#endif

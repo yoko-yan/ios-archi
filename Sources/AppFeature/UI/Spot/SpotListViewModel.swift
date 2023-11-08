@@ -11,6 +11,7 @@ import UIKit
 enum SpotViewAction {
     case load
     case reload
+    case isChecked(Bool)
 }
 
 // MARK: - View model
@@ -30,11 +31,14 @@ final class SpotListViewModel: ObservableObject {
         switch action {
         case .load:
             do {
-                uiState.items = try await itemsRepository.fetchAll()
+                uiState.items = uiState.isChecked ? try await itemsRepository.fetchWithoutNoPhoto() : try await itemsRepository.fetchAll()
             } catch {
                 print(error)
             }
         case .reload:
+            await send(action: .load)
+        case let .isChecked(isChecked):
+            uiState.isChecked = isChecked
             await send(action: .load)
         }
     }

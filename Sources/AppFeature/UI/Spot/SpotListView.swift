@@ -16,6 +16,7 @@ struct SpotListView: View {
     var body: some View {
         ZStack {
             ScrollView {
+                conditionCell
                 LazyVGrid(columns: columns, spacing: 8) {
                     ForEach(viewModel.uiState.items, id: \.self) { item in
                         NavigationLink(value: item) {
@@ -86,10 +87,27 @@ struct SpotListView: View {
     }
 }
 
+// MARK: - Privates
+
+private extension SpotListView {
+    var conditionCell: some View {
+        HStack {
+            Checkbox(label: "Display only items with images") { isChecked in
+                Task {
+                    await viewModel.send(action: .isChecked(isChecked))
+                }
+            }
+            Spacer()
+        }
+        .padding(.horizontal)
+    }
+}
+
 // MARK: - Previews
 
 #if DEBUG
-#Preview {
+@available(iOS 17.0, *)
+#Preview(traits: .sizeThatFitsLayout) {
     InjectedValues[\.itemsRepository] = ItemsRepositoryImpl.preview
     InjectedValues[\.loadSpotImageUseCase] = LoadSpotImageUseCaseImpl.preview
     return SpotListView()

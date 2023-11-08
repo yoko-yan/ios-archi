@@ -49,7 +49,7 @@ let package = Package(
             name: "AppFeature",
             dependencies: [
                 "Core",
-//                "GoogleServiceClient", // If you are encountering errors related to Firebase while using Xcode Previews, comment out.
+                "GoogleServiceClient", // If you are encountering errors related to Firebase while using Xcode Previews, comment out.
                 .product(name: "Dependencies", package: "swift-dependencies")
             ],
             swiftSettings: [
