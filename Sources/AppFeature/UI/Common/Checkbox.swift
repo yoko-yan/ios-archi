@@ -5,6 +5,7 @@
 import SwiftUI
 
 struct Checkbox: View {
+    @Environment(\.colorScheme) private var colorScheme
     @State private var isChecked = false
     let label: LocalizedStringKey
     var action: ((Bool) -> Void)?
@@ -14,7 +15,7 @@ struct Checkbox: View {
             Text(label, bundle: .module)
                 .font(.caption)
                 .bold()
-                .foregroundColor(.black)
+                .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                 .padding(.vertical, 12)
         }
         .onChange(of: isChecked) { newValue in
