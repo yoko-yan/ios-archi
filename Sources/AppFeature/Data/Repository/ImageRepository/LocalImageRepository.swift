@@ -2,6 +2,7 @@
 //  Created by yoko-yan on 2023/07/02.
 //
 
+import Core
 import Foundation
 import UIKit
 
@@ -12,7 +13,12 @@ enum LocalImageRepositoryError: Error {
     case imageFileNotFound
 }
 
-final class LocalImageRepository {
+protocol LocalImageRepository: AutoInjectable, AutoMockable {
+    func saveImage(_ image: UIImage, fileName: String) async throws
+    func loadImage(fileName: String?) async throws -> UIImage?
+}
+
+struct LocalImageRepositoryImpl: LocalImageRepository {
     private func getFileURL(fileName: String) throws -> URL {
         let fileManager = FileManager.default
         // swiftlint:disable:next force_unwrapping
@@ -68,3 +74,16 @@ final class LocalImageRepository {
         }
     }
 }
+
+#if DEBUG
+extension LocalImageRepositoryImpl {
+    static var preview: some LocalImageRepository {
+        let repository = LocalImageRepositoryMock()
+        repository
+            .loadImageFileNameClosure = { _ in
+                UIImage(resource: .sampleCoordinates)
+            }
+        return repository
+    }
+}
+#endif

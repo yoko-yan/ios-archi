@@ -18,11 +18,12 @@ enum SpotViewAction {
 @MainActor
 final class SpotListViewModel: ObservableObject {
     @Injected(\.itemsRepository) var itemsRepository
+    @Injected(\.loadSpotImageUseCase) var loadSpotImageUseCase
 
     @Published private(set) var uiState = SpotListUiState()
 
-    init() {
-        uiState = SpotListUiState()
+    init(uiState: SpotListUiState = .init()) {
+        self.uiState = uiState
     }
 
     func send(action: SpotViewAction) async {
@@ -41,7 +42,7 @@ final class SpotListViewModel: ObservableObject {
     func loadImage(item: Item) {
         guard let imageName = item.spotImageName else { return }
         Task {
-            uiState.spotImages[item.id] = try await LoadSpotImageUseCaseImpl().execute(fileName: imageName).map { SpotImage(imageName: nil, image: $0) }
+            uiState.spotImages[item.id] = try await loadSpotImageUseCase.execute(fileName: imageName).map { SpotImage(imageName: nil, image: $0) }
         }
     }
 }

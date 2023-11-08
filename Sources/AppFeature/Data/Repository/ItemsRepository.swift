@@ -5,7 +5,7 @@
 import Core
 import Foundation
 
-protocol ItemsRepository: AutoInjectable {
+protocol ItemsRepository: AutoInjectable, AutoMockable {
     func fetchAll() async throws -> [Item]
     func fetchWithoutNoPhoto() async throws -> [Item]
     func insert(item: Item) async throws
@@ -40,3 +40,20 @@ struct ItemsRepositoryImpl: ItemsRepository {
         try await dataSource.delete(item)
     }
 }
+
+#if DEBUG
+extension ItemsRepositoryImpl {
+    static var preview: some ItemsRepository {
+        let repository = ItemsRepositoryMock()
+        repository
+            .fetchAllClosure = {
+                [
+                    Item.preview,
+                    Item.previewWithImage,
+                    Item.previewWithNoImage
+                ]
+            }
+        return repository
+    }
+}
+#endif

@@ -13,7 +13,12 @@ enum ICloudDocumentRepositoryError: Error {
     case saveImageFailed
 }
 
-final class ICloudDocumentRepository {
+protocol ICloudDocumentRepository: AutoInjectable, AutoMockable {
+    func saveImage(_ image: UIImage, fileName: String) async throws
+    func loadImage(fileName: String) async throws -> UIImage?
+}
+
+struct ICloudDocumentRepositoryImpl: ICloudDocumentRepository {
     private func getFileURL(fileName: String) throws -> URL {
         let fileManager = FileManager.default
         // swiftlint:disable:next force_unwrapping
@@ -102,3 +107,16 @@ private extension Document {
         }
     }
 }
+
+#if DEBUG
+extension ICloudDocumentRepositoryImpl {
+    static var preview: some ICloudDocumentRepository {
+        let repository = ICloudDocumentRepositoryMock()
+        repository
+            .loadImageFileNameClosure = { _ in
+                UIImage(resource: .sampleCoordinates)
+            }
+        return repository
+    }
+}
+#endif

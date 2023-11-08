@@ -11,12 +11,14 @@ protocol SaveSpotImageUseCase {
 }
 
 struct SaveSpotImageUseCaseImpl: SaveSpotImageUseCase {
-    @Injected(\.isCloudKitContainerAvailableUseCase) var isCloudKitContainerAvailable
+    @Injected(\.isCloudKitContainerAvailableUseCase) var isCloudKitContainerAvailableUseCase
+    @Injected(\.iCloudDocumentRepository) var iCloudDocumentRepository
+    @Injected(\.localImageRepository) var localImageRepository
 
     func execute(image: UIImage, fileName: String) async throws {
-        if isCloudKitContainerAvailable.execute() {
-            try await ICloudDocumentRepository().saveImage(image, fileName: fileName)
+        if isCloudKitContainerAvailableUseCase.execute() {
+            try await iCloudDocumentRepository.saveImage(image, fileName: fileName)
         }
-        try await LocalImageRepository().saveImage(image, fileName: fileName)
+        try await localImageRepository.saveImage(image, fileName: fileName)
     }
 }

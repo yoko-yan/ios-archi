@@ -88,27 +88,10 @@ struct SpotListView: View {
 
 // MARK: - Previews
 
-// #Preview {
-//    SpotListView(
-//        viewModel: SpotListViewModel(
-//            uiState: SpotListUiState(
-//                items: [
-//                    Item(
-//                        id: "",
-//                        coordinates: Coordinates(x: 100, y: 20, z: 300),
-//                        world: nil,
-//                        createdAt: Date(),
-//                        updatedAt: Date()
-//                    ),
-//                    Item(
-//                        id: "",
-//                        coordinates: Coordinates(x: 100, y: 20, z: 300),
-//                        world: nil,
-//                        createdAt: Date(),
-//                        updatedAt: Date()
-//                    )
-//                ]
-//            )
-//        )
-//    )
-// }
+#if DEBUG
+#Preview {
+    InjectedValues[\.itemsRepository] = ItemsRepositoryImpl.preview
+    InjectedValues[\.loadSpotImageUseCase] = LoadSpotImageUseCaseImpl.preview
+    return SpotListView()
+}
+#endif

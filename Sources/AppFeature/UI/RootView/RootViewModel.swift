@@ -11,13 +11,13 @@ import Foundation
 @MainActor
 final class RootViewModel: ObservableObject {
     @Injected(\.synchronizeWithCloudUseCase) var synchronizeWithCloud
-    @Injected(\.isCloudKitContainerAvailableUseCase) var isCloudKitContainerAvailable
+    @Injected(\.isCloudKitContainerAvailableUseCase) var isCloudKitContainerAvailableUseCase
 
     @Published private(set) var uiState = RootUiState()
 
     // FIXME:
     func load() async {
-        if !isCloudKitContainerAvailable.execute() {
+        if !isCloudKitContainerAvailableUseCase.execute() {
             uiState.isLaunching = false
             return
         }
