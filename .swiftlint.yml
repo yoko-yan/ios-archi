@@ -181,8 +181,8 @@ included:
 
 excluded:
   - Pods
-  - Sources/AppFeature/CodeGenerated
-  - Tests/AppFeatureTests/CodeGenerated
+  - Package/Sources/AppFeature/CodeGenerated
+  - Package/Tests/AppFeatureTests/CodeGenerated
 
 file_name:
   suffix_pattern: "Extensions?|\\+.*"

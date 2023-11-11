@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "ios-archi",
+    name: "Package",
     defaultLocalization: "en",
     platforms: [.iOS(.v16)],
     products: [
