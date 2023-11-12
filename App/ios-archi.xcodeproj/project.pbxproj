@@ -3,16 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		83E74B2B292E315600FA1F46 /* ios_archiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E74B2A292E315600FA1F46 /* ios_archiApp.swift */; };
 		83E74B32292E315D00FA1F46 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83E74B31292E315D00FA1F46 /* Preview Assets.xcassets */; };
 		97B0E22E2A4F6551003581A1 /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 97B0E22D2A4F6551003581A1 /* AppFeature */; };
-		CD430D132A55D0AC00AB8EFA /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD430D0F2A55D0AC00AB8EFA /* Debug.xcconfig */; };
-		CD430D142A55D0AC00AB8EFA /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD430D102A55D0AC00AB8EFA /* Release.xcconfig */; };
-		CD430D162A55D0AC00AB8EFA /* Base.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CD430D122A55D0AC00AB8EFA /* Base.xcconfig */; };
 		CDA261FC2AF051DD0089E4F1 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = CDA261FB2AF051DD0089E4F1 /* Localizable.xcstrings */; };
 		CDCC38582A59E5B100679A35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDCC38572A59E5B100679A35 /* Assets.xcassets */; };
 		EB8ED76D45542199BA43AE04 /* Pods_ios_archi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E41725DDA4F7CD16B1057AFB /* Pods_ios_archi.framework */; };
@@ -166,7 +163,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					83E74B26292E315600FA1F46 = {
 						CreatedOnToolsVersion = 13.4.1;
@@ -174,7 +171,7 @@
 				};
 			};
 			buildConfigurationList = 83E74B22292E315600FA1F46 /* Build configuration list for PBXProject "ios-archi" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = ja;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -197,12 +194,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD430D132A55D0AC00AB8EFA /* Debug.xcconfig in Resources */,
 				83E74B32292E315D00FA1F46 /* Preview Assets.xcassets in Resources */,
 				CDA261FC2AF051DD0089E4F1 /* Localizable.xcstrings in Resources */,
-				CD430D142A55D0AC00AB8EFA /* Release.xcconfig in Resources */,
 				CDCC38582A59E5B100679A35 /* Assets.xcassets in Resources */,
-				CD430D162A55D0AC00AB8EFA /* Base.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,6 +342,8 @@
 			baseConfigurationReference = CD430D122A55D0AC00AB8EFA /* Base.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -411,6 +407,8 @@
 			baseConfigurationReference = CD430D122A55D0AC00AB8EFA /* Base.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
