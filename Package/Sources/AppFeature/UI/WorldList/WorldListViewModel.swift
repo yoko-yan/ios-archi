@@ -41,14 +41,14 @@ final class WorldListViewModel: ObservableObject {
             uiState.deleteAlertMessage = "削除しますか？"
         case .onDelete:
             if let deleteWorlds = uiState.deleteWorlds {
-//                for await world in deleteWorlds {
-//                    do {
-//                        try await WorldsRepository().delete(world: world)
-//                        await send(action: .reload)
-//                    } catch {
-//                        print(error)
-//                    }
-//                }
+                for world in deleteWorlds {
+                    do {
+                        try await WorldsRepository().delete(world: world)
+                        await send(action: .reload)
+                    } catch {
+                        print(error)
+                    }
+                }
             } else {
                 fatalError("no deleteItems")
             }

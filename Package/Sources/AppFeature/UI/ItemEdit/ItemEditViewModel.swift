@@ -199,7 +199,6 @@ final class ItemEditViewModel: ObservableObject {
 // MARK: - Privates
 
 private extension ItemEditViewModel {
-    // FIXME:
     func checkCommonError(_ error: Error, type: ItemEditError) -> ItemEditError {
         print(error)
         let appError = AppError(error)

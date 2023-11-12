@@ -187,7 +187,6 @@ final class WorldEditViewModel: ObservableObject {
 // MARK: - Privates
 
 private extension WorldEditViewModel {
-    // FIXME:
     func checkCommonError(_ error: Error, type: WorldEditError) -> WorldEditError {
         print(error)
         let appError = AppError(error)

@@ -17,7 +17,7 @@ final class RecognizeTextRepositorySpec: AsyncSpec {
                     let image = UIImage(resource: .seed1541822036)
 
                     let texts = try await RecognizedTextsRepositoryImpl().get(image: image)
-                    expect(texts.first).to(equal("世界のタイプ"))
+                    expect(texts.first) == "世界のタイプ"
                 }
             }
         }

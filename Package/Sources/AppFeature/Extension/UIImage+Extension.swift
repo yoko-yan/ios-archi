@@ -19,17 +19,24 @@ extension UIImage {
     }
 
     func resized(toMaxSizeKB maxSizeKB: CGFloat, isOpaque: Bool = true) -> UIImage? {
+        guard let pingData = pngData() else { fatalError("UIImage: No ping data") }
+
         var percentage = 1.0
         // 画像のデータサイズをKBで表示。
-        var sizeKB = Double(pngData()!.count) / 1000.0
+        var sizeKB = Double(pingData.count) / 1000.0
         while maxSizeKB <= sizeKB {
             percentage -= 0.1
-            let image = resized(withPercentage: percentage, isOpaque: isOpaque)!
-            let imageData = image.pngData()!
+            guard let image = resized(withPercentage: percentage, isOpaque: isOpaque) else {
+                fatalError("UIImage: No ping data")
+            }
+            guard let imageData = image.pngData() else { fatalError("UIImage: No ping data") }
             sizeKB = Double(imageData.count) / 1000.0
             print("ファイルサイズ: " + "\(sizeKB)")
         }
-        return resized(withPercentage: percentage, isOpaque: isOpaque)!
+        guard let returnImage = resized(withPercentage: percentage, isOpaque: isOpaque) else {
+            fatalError("UIImage: No ping data")
+        }
+        return returnImage
     }
 
     func resized(withPercentage percentage: CGFloat, isOpaque: Bool = true) -> UIImage? {

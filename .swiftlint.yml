@@ -177,7 +177,9 @@ analyzer_rules:
   # - unused_import
 
 included:
-  - Sources
+  - Package/Sources
+  - Package/Tests
+  - App
 
 excluded:
   - Pods

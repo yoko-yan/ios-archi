@@ -15,7 +15,6 @@ final class RootViewModel: ObservableObject {
 
     @Published private(set) var uiState = RootUiState()
 
-    // FIXME:
     func load() async {
         if !isCloudKitContainerAvailableUseCase.execute() {
             uiState.isLaunching = false

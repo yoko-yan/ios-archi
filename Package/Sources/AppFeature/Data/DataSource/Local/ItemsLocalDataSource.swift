@@ -122,6 +122,7 @@ private extension ItemsLocalDataSourceImpl {
     }
 
     func convertToItem(from entity: ItemEntity) async throws -> Item {
+        guard let id = entity.id else { fatalError("ItemEntity: id not found") }
         let coordinates: Coordinates?
         if let entityCoordinatesX = entity.coordinatesX,
            let entityCoordinatesY = entity.coordinatesY,
@@ -143,7 +144,7 @@ private extension ItemsLocalDataSourceImpl {
             world = try await worldsLocalDataSource.getById(worldId)
         }
         return Item(
-            id: entity.id!.uuidString,
+            id: id.uuidString,
             coordinates: coordinates,
             world: world,
             spotImageName: entity.spotImageName,

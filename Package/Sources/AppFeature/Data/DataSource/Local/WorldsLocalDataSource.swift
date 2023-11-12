@@ -81,8 +81,9 @@ private extension WorldsLocalDataSourceImpl {
     }
 
     func convertToItem(from entity: WorldEntity) -> World {
-        World(
-            id: entity.id!.uuidString,
+        guard let id = entity.id else { fatalError("WorldEntity: id not found") }
+        return World(
+            id: id.uuidString,
             name: entity.name,
             seed: Seed(entity.seed ?? ""),
             createdAt: entity.createdAt ?? Date(),

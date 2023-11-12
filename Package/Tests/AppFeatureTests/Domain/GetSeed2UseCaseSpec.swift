@@ -2,6 +2,9 @@
 //  Created by yokoda.takayuki on 2023/07/27
 //
 
+// swiftlint:disable function_body_length
+// swiftlint:disable implicitly_unwrapped_optional
+
 import Combine
 import Dependencies
 import Foundation
@@ -64,7 +67,7 @@ class GetSeed2UseCaseSpec: AsyncSpec {
 
                 it("RecognizeTextErrorが返される") {
                     do {
-                        let _ = try await useCase.execute(image: image)
+                        _ = try await useCase.execute(image: image)
                     } catch {
                         expect(error).to(matchError(RecognizeTextLocalRequestError.error(expectedError)))
                     }
@@ -75,10 +78,9 @@ class GetSeed2UseCaseSpec: AsyncSpec {
 }
 
 private final class NewRecognizedTextsRepositoryMock: NewRecognizedTextsRepository {
-    init() {}
-
     private(set) var getCallCount = 0
     var getHandler: ((UIImage) async throws -> [String])?
+
     func get(image: UIImage) async throws -> [String] {
         getCallCount += 1
         if let getHandler {
@@ -89,3 +91,5 @@ private final class NewRecognizedTextsRepositoryMock: NewRecognizedTextsReposito
 }
 
 extension NewRecognizedTextsRepositoryMock: @unchecked Sendable {}
+// swiftlint:enable function_body_length
+// swiftlint:enable implicitly_unwrapped_optional

@@ -34,6 +34,7 @@ struct Seed: RawRepresentable, Hashable {
 
 #if DEBUG
 extension Seed {
-    static var preview = Seed("1234567890")
+    // swiftlint:disable:next force_unwrapping
+    static var preview: Self { .init("1234567890")! }
 }
 #endif
