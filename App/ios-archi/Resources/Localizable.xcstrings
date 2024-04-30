@@ -1,7 +1,23 @@
 {
   "sourceLanguage" : "ja",
   "strings" : {
-
+    "Register" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "aaaa"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "adfa"
+          }
+        }
+      }
+    }
   },
   "version" : "1.0"
 }

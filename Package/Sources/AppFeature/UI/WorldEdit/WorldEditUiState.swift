@@ -64,15 +64,15 @@ struct WorldEditUiState {
 
         var title: String {
             switch self {
-            case .new: return "Register a world"
-            case .edit: return "Modify the world"
+            case .new: return String(localized: "Register a world", bundle: .module)
+            case .edit: return String(localized: "Modify the world", bundle: .module)
             }
         }
 
         var button: String {
             switch self {
-            case .new: return "Register"
-            case .edit: return "Modify"
+            case .new: return String(localized: "Register", bundle: .module)
+            case .edit: return String(localized: "Modify", bundle: .module)
             }
         }
 

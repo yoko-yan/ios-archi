@@ -100,7 +100,7 @@ private extension CoordinatesEditView {
                     .accentColor(.gray)
 
                     HStack {
-                        Label("Coordinates", systemImage: "location.circle")
+                        Label(String(localized: "Coordinates", bundle: .module), systemImage: "location.circle")
                         Spacer()
                     }
                     .padding(.horizontal)
@@ -235,7 +235,7 @@ private extension CoordinatesEditView {
                             await viewModel.send(action: .onChangeButtonTap)
                         }
                     }) {
-                        Label("Modify", systemImage: "location.circle")
+                        Label(String(localized: "Modify", bundle: .module), systemImage: "location.circle")
                             .bold()
                             .frame(height: 40)
                             .frame(maxWidth: .infinity)
@@ -246,7 +246,7 @@ private extension CoordinatesEditView {
                 .padding()
             }
         }
-        .navigationBarTitle("Change the coordinates", displayMode: .inline)
+        .navigationBarTitle(String(localized: "Change the coordinates", bundle: .module), displayMode: .inline)
         .toolbar {
             keyboardToolbarItem
         }

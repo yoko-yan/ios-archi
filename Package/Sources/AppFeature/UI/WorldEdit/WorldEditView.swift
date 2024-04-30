@@ -113,7 +113,7 @@ private extension WorldEditView {
                 Spacer()
             }
             TextField(
-                "Unregistered",
+                String(localized: "Unregistered", bundle: .module),
                 text: .init(
                     get: { viewModel.uiState.input.name ?? "" },
                     set: { newValue in
@@ -155,7 +155,7 @@ private extension WorldEditView {
             HStack {
                 Text("Seed", bundle: .module)
                 Spacer()
-                Text(viewModel.uiState.input.seed?.text ?? "Unregistered")
+                Text(viewModel.uiState.input.seed?.text ?? String(localized: "Unregistered", bundle: .module))
                 Image(systemName: "chevron.right")
             }
             .padding(.horizontal)

@@ -140,7 +140,7 @@ private extension ItemEditView {
                 Image(systemName: "location.circle")
                 Text("Coordinates", bundle: .module)
                 Spacer()
-                Text(viewModel.uiState.input.coordinates?.textWitWhitespaces ?? "Unregistered")
+                Text(viewModel.uiState.input.coordinates?.textWitWhitespaces ?? String(localized: "Unregistered", bundle: .module))
                 Image(systemName: "chevron.right")
             }
             .padding(.horizontal)

@@ -90,7 +90,7 @@ private extension ItemDetailView {
         HStack {
             Text("Coordinates", bundle: .module)
             Spacer()
-            Text(viewModel.uiState.item.coordinates?.textWitWhitespaces ?? "Unregistered")
+            Text(viewModel.uiState.coordinatesText)
         }
         .padding()
     }

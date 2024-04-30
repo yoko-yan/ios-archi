@@ -44,7 +44,7 @@ struct WorldSelectionView: View {
                     Button(action: {
                         isShowDetailView.toggle()
                     }) {
-                        Label("Register a world", systemImage: "globe.desk")
+                        Label(String(localized: "Register a world", bundle: .module), systemImage: "globe.desk")
                             .bold()
                             .frame(height: 40)
                             .frame(maxWidth: .infinity)

@@ -30,6 +30,6 @@ struct Checkbox: View {
 #if DEBUG
 @available(iOS 17.0, *)
 #Preview(traits: .fixedLayout(width: 375, height: 40)) {
-    Checkbox(label: "label")
+    Checkbox(label: "Display only items with images")
 }
 #endif

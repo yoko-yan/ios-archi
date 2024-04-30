@@ -192,23 +192,32 @@
         }
       }
     },
+    "Modify the spot" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スポットを変更する"
+          }
+        }
+      }
+    },
+    "Modify the world" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ワールドを変更する"
+          }
+        }
+      }
+    },
     "No photo available" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "写真がありません"
-          }
-        }
-      }
-    },
-    "paste" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ペースト"
           }
         }
       }
@@ -250,6 +259,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "写真を登録"
+          }
+        }
+      }
+    },
+    "Register a spot" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スポットを登録"
           }
         }
       }
