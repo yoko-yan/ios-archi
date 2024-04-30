@@ -64,7 +64,7 @@ struct SpotListView: View {
             await viewModel.send(action: .load)
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarTitle(Text("List of Photos", bundle: .module))
+        .navigationBarTitle(Text("SpotListView.Title", bundle: .module))
         .toolbarBackground(.visible, for: .navigationBar)
         .sheet(isPresented: $isShowEditView) {
             ItemEditView(

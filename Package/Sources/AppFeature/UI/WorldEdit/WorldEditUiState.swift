@@ -64,8 +64,8 @@ struct WorldEditUiState {
 
         var title: String {
             switch self {
-            case .new: return String(localized: "Register a world", bundle: .module)
-            case .edit: return String(localized: "Modify the world", bundle: .module)
+            case .new: return String(localized: "WorldEditView.Title.Register", bundle: .module)
+            case .edit: return String(localized: "WorldEditView.Title.Modify", bundle: .module)
             }
         }
 

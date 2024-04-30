@@ -25,7 +25,7 @@ struct ItemDetailView: View {
                 editButtonCell
             }
         }
-        .navigationBarTitle("Spot Details", displayMode: .inline)
+        .navigationBarTitle(Text("SpotDetailView.Title", bundle: .module), displayMode: .inline)
 //        .toolbar {
 //            ToolbarItem(placement: .navigationBarTrailing) {
 //                Button(action: {

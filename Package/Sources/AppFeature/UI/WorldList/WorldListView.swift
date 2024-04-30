@@ -58,7 +58,7 @@ struct WorldListView: View {
             })
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarTitle(Text("List of Worlds", bundle: .module))
+        .navigationBarTitle(Text("WorldListView.Title", bundle: .module))
 //        .navigationBarItems(trailing: EditButton())
         .toolbarBackground(.visible, for: .navigationBar)
         .sheet(isPresented: $isShowEditView) {

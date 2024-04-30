@@ -246,7 +246,7 @@ private extension CoordinatesEditView {
                 .padding()
             }
         }
-        .navigationBarTitle(String(localized: "Change the coordinates", bundle: .module), displayMode: .inline)
+        .navigationBarTitle(Text("CoordinatesEditView.Title", bundle: .module), displayMode: .inline)
         .toolbar {
             keyboardToolbarItem
         }

@@ -189,7 +189,7 @@ private extension SeedEditView {
                 .padding()
             }
         }
-        .navigationBarTitle("Change the seed", displayMode: .inline)
+        .navigationBarTitle(Text("SeedEditView.Title", bundle: .module), displayMode: .inline)
         .toolbar {
             keyboardToolbarItem
         }

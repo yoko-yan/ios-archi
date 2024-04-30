@@ -25,7 +25,7 @@ struct WorldDetailView: View {
                 editButtonCell
             }
         }
-        .navigationBarTitle("World Details", displayMode: .inline)
+        .navigationBarTitle(Text("WorldDetailView.Title", bundle: .module), displayMode: .inline)
 //        .toolbar {
 //            ToolbarItem(placement: .navigationBarTrailing) {
 //                Button(action: {

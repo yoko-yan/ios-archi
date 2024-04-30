@@ -31,26 +31,6 @@
         }
       }
     },
-    "Change the coordinates" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "座標を変更する"
-          }
-        }
-      }
-    },
-    "Change the seed" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "シード値を変更する"
-          }
-        }
-      }
-    },
     "Clear" : {
       "localizations" : {
         "ja" : {
@@ -77,6 +57,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "座標"
+          }
+        }
+      }
+    },
+    "CoordinatesEditView.Title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change the coordinates"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "座標を変更する"
           }
         }
       }
@@ -142,6 +138,22 @@
         }
       }
     },
+    "HomeView.Title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ホーム"
+          }
+        }
+      }
+    },
     "If the coordinates are visible in the photo, they can be recognized" : {
       "localizations" : {
         "ja" : {
@@ -162,52 +174,12 @@
         }
       }
     },
-    "List of Photos" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "写真一覧"
-          }
-        }
-      }
-    },
-    "List of Worlds" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ワールド一覧"
-          }
-        }
-      }
-    },
     "Modify" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "変更"
-          }
-        }
-      }
-    },
-    "Modify the spot" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "スポットを変更する"
-          }
-        }
-      }
-    },
-    "Modify the world" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ワールドを変更する"
           }
         }
       }
@@ -263,16 +235,6 @@
         }
       }
     },
-    "Register a spot" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "スポットを登録"
-          }
-        }
-      }
-    },
     "Register a world" : {
       "localizations" : {
         "ja" : {
@@ -323,6 +285,22 @@
         }
       }
     },
+    "SeedEditView.Title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change the seed"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "シード値を変更する"
+          }
+        }
+      }
+    },
     "Select a world" : {
       "localizations" : {
         "ja" : {
@@ -333,12 +311,69 @@
         }
       }
     },
-    "Spot Details" : {
+    "SpotDetailView.Title" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Details of spot "
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "スポット詳細"
+          }
+        }
+      }
+    },
+    "SpotEditView.Title.Modify" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modify the spot"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スポットを変更する"
+          }
+        }
+      }
+    },
+    "SpotEditView.Title.Register" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Register a spot"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スポットを登録"
+          }
+        }
+      }
+    },
+    "SpotListView" : {
+
+    },
+    "SpotListView.Title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "List of photo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "写真一覧"
           }
         }
       }
@@ -393,12 +428,66 @@
         }
       }
     },
-    "World Details" : {
+    "WorldDetailView.Title" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Details of world"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ワールド詳細"
+          }
+        }
+      }
+    },
+    "WorldEditView.Title.Modify" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modify the spot"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ワールドを変更する"
+          }
+        }
+      }
+    },
+    "WorldEditView.Title.Register" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Register a spot"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ワールドを登録する"
+          }
+        }
+      }
+    },
+    "WorldListView.Title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "List of world"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ワールド一覧"
           }
         }
       }

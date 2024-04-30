@@ -63,8 +63,8 @@ struct ItemEditUiState {
 
         var title: String {
             switch self {
-            case .new: return String(localized: "Register a spot", bundle: .module)
-            case .edit: return String(localized: "Modify the spot", bundle: .module)
+            case .new: return String(localized: "SpotEditView.Title.Register", bundle: .module)
+            case .edit: return String(localized: "SpotEditView.Title.Modify", bundle: .module)
             }
         }
 
