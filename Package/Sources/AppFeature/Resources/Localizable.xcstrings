@@ -378,7 +378,7 @@
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "ホーム"
           }
         }
@@ -391,6 +391,12 @@
             "state" : "translated",
             "value" : "Photo"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "写真"
+          }
         }
       }
     },
@@ -400,6 +406,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "World"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ワールド"
           }
         }
       }
