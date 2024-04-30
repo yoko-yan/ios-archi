@@ -7,16 +7,16 @@ import SwiftUI
 enum TabItem: String, CaseIterable {
     case home
     case photo
-    case list
+    case world
 
     var name: String {
         switch self {
         case .home:
-            return "Home"
+            return String(localized: "TabItem.Name.Home", bundle: .module)
         case .photo:
-            return "Photos"
-        case .list:
-            return "Worlds"
+            return String(localized: "TabItem.Name.Photo", bundle: .module)
+        case .world:
+            return String(localized: "TabItem.Name.World", bundle: .module)
         }
     }
 
@@ -26,7 +26,7 @@ enum TabItem: String, CaseIterable {
             return "house"
         case .photo:
             return "photo.stack"
-        case .list:
+        case .world:
             return "globe.desk"
         }
     }
@@ -53,9 +53,9 @@ struct ContentView: View {
 
                 ListView()
                     .tabItem {
-                        Label(TabItem.list.name, systemImage: TabItem.list.icon)
+                        Label(TabItem.world.name, systemImage: TabItem.world.icon)
                     }
-                    .tag(TabItem.list)
+                    .tag(TabItem.world)
             }
             SplashView()
                 .onAppear {

@@ -128,16 +128,6 @@
         }
       }
     },
-    "Home" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ホーム"
-          }
-        }
-      }
-    },
     "HomeView.Title" : {
       "localizations" : {
         "en" : {
@@ -374,6 +364,42 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "写真一覧"
+          }
+        }
+      }
+    },
+    "TabItem.Name.Home" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ホーム"
+          }
+        }
+      }
+    },
+    "TabItem.Name.Photo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Photo"
+          }
+        }
+      }
+    },
+    "TabItem.Name.World" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "World"
           }
         }
       }
