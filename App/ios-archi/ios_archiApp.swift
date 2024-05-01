@@ -31,7 +31,7 @@ struct ios_archiApp: App {
 
 private extension ios_archiApp {
     func setUp() {
-        if BuildHelper.canUseFirebase {
+        if !BuildHelper.isPreview, !BuildHelper.isTesting, BuildHelper.canUseFirebase {
             FirebaseApp.configure()
         }
     }
