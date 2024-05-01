@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		83E74B2B292E315600FA1F46 /* ios_archiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E74B2A292E315600FA1F46 /* ios_archiApp.swift */; };
 		83E74B32292E315D00FA1F46 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83E74B31292E315D00FA1F46 /* Preview Assets.xcassets */; };
+		977078F62BE2304100A4B040 /* AnalyticsImpl in Frameworks */ = {isa = PBXBuildFile; productRef = 977078F52BE2304100A4B040 /* AnalyticsImpl */; };
 		97B0E22E2A4F6551003581A1 /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 97B0E22D2A4F6551003581A1 /* AppFeature */; };
 		CDA261FC2AF051DD0089E4F1 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = CDA261FB2AF051DD0089E4F1 /* Localizable.xcstrings */; };
 		CDCC38582A59E5B100679A35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDCC38572A59E5B100679A35 /* Assets.xcassets */; };
@@ -41,6 +42,7 @@
 			files = (
 				97B0E22E2A4F6551003581A1 /* AppFeature in Frameworks */,
 				EB8ED76D45542199BA43AE04 /* Pods_ios_archi.framework in Frameworks */,
+				977078F62BE2304100A4B040 /* AnalyticsImpl in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,6 +152,7 @@
 			name = "ios-archi";
 			packageProductDependencies = (
 				97B0E22D2A4F6551003581A1 /* AppFeature */,
+				977078F52BE2304100A4B040 /* AnalyticsImpl */,
 			);
 			productName = "ios-archi";
 			productReference = 83E74B27292E315600FA1F46 /* ios-archi.app */;
@@ -556,6 +559,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		977078F52BE2304100A4B040 /* AnalyticsImpl */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AnalyticsImpl;
+		};
 		97B0E22D2A4F6551003581A1 /* AppFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AppFeature;

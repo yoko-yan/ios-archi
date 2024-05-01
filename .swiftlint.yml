@@ -183,6 +183,7 @@ included:
 
 excluded:
   - Pods
+  - Package/Sources/Analytics/CodeGenerated
   - Package/Sources/AppFeature/CodeGenerated
   - Package/Tests/AppFeatureTests/CodeGenerated
 

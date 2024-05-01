@@ -11,6 +11,10 @@ let package = Package(
         .library(
             name: "AppFeature",
             targets: ["AppFeature"]
+        ),
+        .library(
+            name: "AnalyticsImpl",
+            targets: ["AnalyticsImpl"]
         )
     ],
     dependencies: [
@@ -22,8 +26,7 @@ let package = Package(
     targets: [
         .target(
             name: "Core",
-            dependencies: [
-            ],
+            dependencies: [],
             swiftSettings: [
                 .unsafeFlags([
                     "-strict-concurrency=complete"
@@ -31,25 +34,23 @@ let package = Package(
             ]
         ),
         .target(
-            name: "GoogleServiceClient",
+            name: "Analytics",
             dependencies: [
-                .product(name: "FirebaseCrashlytics", package: "firebase-ios-sdk"),
-                .product(name: "FirebaseAnalytics", package: "firebase-ios-sdk"),
-                .product(name: "FirebasePerformance", package: "firebase-ios-sdk"),
-                .product(name: "FirebaseInAppMessagingSwift-Beta", package: "firebase-ios-sdk"),
-                .product(name: "FirebaseMessaging", package: "firebase-ios-sdk")
-            ],
-            swiftSettings: [
-                .unsafeFlags([
-                    "-strict-concurrency=complete"
-                ])
+                "Core"
+            ]
+        ),
+        .target(
+            name: "AnalyticsImpl",
+            dependencies: [
+                "Analytics",
+                .product(name: "FirebaseAnalytics", package: "firebase-ios-sdk")
             ]
         ),
         .target(
             name: "AppFeature",
             dependencies: [
                 "Core",
-                "GoogleServiceClient", // If you are encountering errors related to Firebase while using Xcode Previews, comment out.
+                "Analytics",
                 .product(name: "Dependencies", package: "swift-dependencies")
             ],
             swiftSettings: [
