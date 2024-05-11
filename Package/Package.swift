@@ -31,6 +31,7 @@ let package = Package(
                 .unsafeFlags(["-strict-concurrency=complete"]),
                 .enableUpcomingFeature("ForwardTrailingClosures"),
                 .enableUpcomingFeature("ExistentialAny"),
+                .enableUpcomingFeature("BareSlashRegexLiterals"),
                 .enableUpcomingFeature("DisableOutwardActorInference")
             ]
         ),
@@ -43,6 +44,7 @@ let package = Package(
                 .unsafeFlags(["-strict-concurrency=complete"]),
                 .enableUpcomingFeature("ForwardTrailingClosures"),
                 .enableUpcomingFeature("ExistentialAny"),
+                .enableUpcomingFeature("BareSlashRegexLiterals"),
                 .enableUpcomingFeature("DisableOutwardActorInference")
             ]
         ),
@@ -56,6 +58,7 @@ let package = Package(
                 .unsafeFlags(["-strict-concurrency=complete"]),
                 .enableUpcomingFeature("ForwardTrailingClosures"),
                 .enableUpcomingFeature("ExistentialAny"),
+                .enableUpcomingFeature("BareSlashRegexLiterals"),
                 .enableUpcomingFeature("DisableOutwardActorInference")
             ]
         ),
@@ -70,6 +73,7 @@ let package = Package(
                 .unsafeFlags(["-strict-concurrency=complete"]),
                 .enableUpcomingFeature("ForwardTrailingClosures"),
                 .enableUpcomingFeature("ExistentialAny"),
+                .enableUpcomingFeature("BareSlashRegexLiterals"),
                 .enableUpcomingFeature("DisableOutwardActorInference")
             ]
         ),
@@ -84,6 +88,7 @@ let package = Package(
                 .unsafeFlags(["-strict-concurrency=complete"]),
                 .enableUpcomingFeature("ForwardTrailingClosures"),
                 .enableUpcomingFeature("ExistentialAny"),
+                .enableUpcomingFeature("BareSlashRegexLiterals"),
                 .enableUpcomingFeature("DisableOutwardActorInference")
             ]
         )
