@@ -1,8 +1,3 @@
-//
-//  Created by yoko-yan on 2023/11/08
-//
-
-import Foundation
 import SwiftUI
 
 struct CheckboxStyle: ToggleStyle {

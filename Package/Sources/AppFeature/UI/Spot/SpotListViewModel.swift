@@ -1,9 +1,4 @@
-//
-//  Created by yoko-yan on 2023/10/08
-//
-
 import Core
-import Foundation
 import UIKit
 
 // MARK: - Action

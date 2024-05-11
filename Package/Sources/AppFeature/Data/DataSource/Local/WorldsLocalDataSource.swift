@@ -1,9 +1,4 @@
-//
-//  Created by yoko-yan on 2023/10/11
-//
-
 import CoreData
-import Foundation
 
 protocol WorldsLocalDataSource {
     func getById(_ id: UUID) async throws -> World?

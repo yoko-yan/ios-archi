@@ -1,8 +1,3 @@
-//
-//  Created by yoko-yan on 2023/01/26.
-//
-
-import Combine
 import UIKit
 @preconcurrency import Vision
 

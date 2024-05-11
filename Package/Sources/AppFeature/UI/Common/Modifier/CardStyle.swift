@@ -1,7 +1,3 @@
-//
-//  Created by yoko-yan on 2023/07/02.
-//
-
 import SwiftUI
 
 struct CardStyle: ViewModifier {

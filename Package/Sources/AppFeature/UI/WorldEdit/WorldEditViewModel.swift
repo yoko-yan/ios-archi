@@ -1,10 +1,4 @@
-//
-//  Created by yoko-yan on 2023/10/08
-//
-
-import Combine
 import SwiftUI
-import UIKit
 
 // MARK: - Action
 

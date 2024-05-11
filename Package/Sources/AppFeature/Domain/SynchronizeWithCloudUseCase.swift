@@ -1,10 +1,5 @@
-//
-//  Created by yoko-yan on 2023/10/27
-//
-
 import Core
 import CoreData
-import Foundation
 
 protocol SynchronizeWithCloudUseCase: AutoInjectable, AutoMockable {
     func execute() async throws -> Bool

@@ -1,10 +1,5 @@
-//
-//  Created by yoko-yan on 2023/10/25
-//
-
 import Core
-import CoreData
-import Foundation
+import Observation
 
 // MARK: - View model
 

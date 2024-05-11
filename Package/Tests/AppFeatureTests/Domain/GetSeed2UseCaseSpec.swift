@@ -1,13 +1,7 @@
-//
-//  Created by yokoda.takayuki on 2023/07/27
-//
-
 // swiftlint:disable function_body_length
 // swiftlint:disable implicitly_unwrapped_optional
 
-import Combine
 import Dependencies
-import Foundation
 import Nimble
 import Quick
 import UIKit

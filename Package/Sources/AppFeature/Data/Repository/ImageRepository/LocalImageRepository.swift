@@ -1,9 +1,4 @@
-//
-//  Created by yoko-yan on 2023/07/02.
-//
-
 import Core
-import Foundation
 import UIKit
 
 enum LocalImageRepositoryError: Error {

@@ -1,9 +1,4 @@
-//
-//  Created by yoko-yan on 2023/10/11
-//
-
 import CoreData
-import Foundation
 
 final class LocalDataSource<T: NSManagedObject> {
     private let coreDataManager: CoreDataManager

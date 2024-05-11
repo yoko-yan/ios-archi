@@ -1,7 +1,3 @@
-//
-//  Created by yoko-yan on 2023/04/27.
-//
-
 import SwiftUI
 
 struct ActivityIndicator: UIViewRepresentable {

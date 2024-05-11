@@ -1,10 +1,4 @@
-//
-//  Created by yokoda.takayuki on 2023/07/27
-//
-
-import Combine
 import Dependencies
-import Foundation
 import UIKit
 
 protocol GetSeedFromImage2UseCase {

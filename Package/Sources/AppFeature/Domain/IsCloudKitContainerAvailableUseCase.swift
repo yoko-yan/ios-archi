@@ -1,7 +1,3 @@
-//
-//  Created by yoko-yan on 2023/10/27
-//
-
 import Core
 import Foundation
 

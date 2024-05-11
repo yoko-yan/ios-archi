@@ -1,7 +1,3 @@
-//
-//  Created by yoko-yan on 2023/10/07
-//
-
 import SwiftUI
 
 struct TimeLineCell: View {

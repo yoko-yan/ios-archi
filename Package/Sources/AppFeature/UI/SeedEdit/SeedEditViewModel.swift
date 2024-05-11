@@ -1,8 +1,3 @@
-//
-//  Created by yoko-yan on 2023/11/03
-//
-
-import Combine
 import UIKit
 
 // MARK: - Action

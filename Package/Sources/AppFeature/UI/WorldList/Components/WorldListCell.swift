@@ -1,7 +1,3 @@
-//
-//  Created by yokoda.takayuki on 2023/07/05
-//
-
 import SwiftUI
 
 struct WorldListCell: View {

@@ -1,8 +1,3 @@
-//
-//  Created by yoko-yan on 2023/01/28.
-//
-
-import Foundation
 import RegexBuilder
 
 struct Coordinates: Hashable {

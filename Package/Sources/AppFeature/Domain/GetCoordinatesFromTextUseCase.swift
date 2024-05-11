@@ -1,10 +1,4 @@
-//
-//  Created by yoko-yan on 2023/10/29
-//
-
-import Combine
 import Dependencies
-import Foundation
 import RegexBuilder
 
 protocol GetCoordinatesFromTextUseCase: Sendable {

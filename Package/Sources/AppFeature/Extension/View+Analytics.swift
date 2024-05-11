@@ -1,7 +1,3 @@
-//
-//  Created by yoko-yan on 2024/05/01
-//
-
 import AnalyticsImpl
 import Core
 import SwiftUI

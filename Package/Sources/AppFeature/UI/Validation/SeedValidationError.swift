@@ -1,9 +1,3 @@
-//
-//  Created by yoko-yan on 2023/10/30
-//
-
-import Foundation
-
 enum SeedValidationError {
     case seed
 }

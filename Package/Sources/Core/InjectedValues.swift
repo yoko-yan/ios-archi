@@ -1,10 +1,4 @@
-//
-//  Created by yoko-yan on 2023/10/31
-//
-
 // https://www.avanderlee.com/swift/dependency-injection/
-
-import Foundation
 
 public protocol InjectionKey {
     /// The associated type representing the type of the dependency injection key's value.

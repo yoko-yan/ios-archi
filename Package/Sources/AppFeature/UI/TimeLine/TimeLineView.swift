@@ -1,8 +1,3 @@
-//
-//  Created by yoko-yan on 2023/10/07
-//
-
-import Core
 import SwiftUI
 
 @MainActor

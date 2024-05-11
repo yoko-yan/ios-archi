@@ -1,7 +1,3 @@
-//
-//  Created by yoko-yan on 2023/01/26.
-//
-
 import SwiftUI
 import WebKit
 

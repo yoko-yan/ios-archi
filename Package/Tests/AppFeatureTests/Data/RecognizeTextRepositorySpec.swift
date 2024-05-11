@@ -1,8 +1,3 @@
-//
-//  Created by yokoda.takayuki on 2023/09/05
-//
-
-import Combine
 import Nimble
 import Quick
 import UIKit

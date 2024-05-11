@@ -1,8 +1,3 @@
-//
-//  Created by yoko-yan on 2023/07/03.
-//
-
-import Foundation
 import SwiftUI
 
 struct FloatingButton<Content: View>: View {

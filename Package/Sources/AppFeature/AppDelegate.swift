@@ -1,8 +1,4 @@
-//
-//  Created by yoko-yan on 2023/10/26
-//
-
-import SwiftUI
+import UIKit
 
 public class AppDelegate: NSObject, UIApplicationDelegate {
     public func application(

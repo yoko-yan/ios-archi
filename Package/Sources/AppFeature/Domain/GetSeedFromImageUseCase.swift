@@ -1,9 +1,3 @@
-//
-//  Created by yokoda.takayuki on 2023/07/27
-//
-
-import Combine
-import Foundation
 import RegexBuilder
 import UIKit
 

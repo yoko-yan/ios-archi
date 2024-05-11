@@ -1,7 +1,3 @@
-//
-//  Created by yoko-yan on 2023/10/25
-//
-
 import SwiftUI
 
 enum TabItem: String, CaseIterable {

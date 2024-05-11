@@ -1,10 +1,4 @@
-//
-//  Created by yoko-yan on 2023/10/11
-//
-
-import Combine
-import SwiftUI
-import UIKit
+import Observation
 
 // MARK: - View model
 

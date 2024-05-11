@@ -1,7 +1,3 @@
-//
-//  Created by yoko-yan on 2023/11/03
-//
-
 import SwiftUI
 
 extension View {

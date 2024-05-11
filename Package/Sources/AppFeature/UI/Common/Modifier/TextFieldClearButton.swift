@@ -1,8 +1,3 @@
-//
-//  Created by yoko-yan on 2023/10/25
-//
-
-import Foundation
 import SwiftUI
 
 struct TextFieldClearButton: ViewModifier {

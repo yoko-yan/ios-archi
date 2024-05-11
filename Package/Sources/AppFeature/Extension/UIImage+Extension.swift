@@ -1,8 +1,3 @@
-//
-//  Created by yokoda.takayuki on 2023/07/18
-//
-
-import Foundation
 import UIKit
 
 extension UIImage {

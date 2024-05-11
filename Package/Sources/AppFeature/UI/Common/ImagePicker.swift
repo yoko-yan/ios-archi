@@ -1,9 +1,4 @@
-//
-//  Created by yokoda.takayuki on 2023/01/25.
-//
-
 import SwiftUI
-import UIKit
 
 struct ImagePicker: UIViewControllerRepresentable {
     enum SourceType {

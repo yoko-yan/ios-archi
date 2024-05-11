@@ -1,9 +1,3 @@
-//
-//  Created by yoko-yan on 2023/10/29
-//
-
-import Foundation
-
 enum ValidationResult<T> {
     case valid
     case invalid(T)

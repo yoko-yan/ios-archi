@@ -1,12 +1,7 @@
-//
-//  Created by yoko-yan on 2024/05/01
-//
-
 // swiftlint:disable implicitly_unwrapped_optional
 
 import Core
 import CoreData
-import Foundation
 import Nimble
 import Quick
 

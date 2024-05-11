@@ -1,7 +1,3 @@
-//
-//  Created by yoko-yan on 2023/10/08
-//
-
 import SwiftUI
 
 struct SpotListCell: View {

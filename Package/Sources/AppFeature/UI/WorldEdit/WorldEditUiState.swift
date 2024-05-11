@@ -1,10 +1,4 @@
-//
-//  Created by yoko-yan on 2023/10/08
-//
-
-import Foundation
 import SwiftUI
-import UIKit
 
 struct WorldEditUiState {
     enum AlertType: Equatable {

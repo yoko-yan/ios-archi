@@ -1,10 +1,4 @@
-//
-//  Created by yoko-yan on 2023/09/06
-//
-
-import Combine
 import Dependencies
-import Foundation
 import RegexBuilder
 
 protocol GetSeedFromTextUseCase: Sendable {

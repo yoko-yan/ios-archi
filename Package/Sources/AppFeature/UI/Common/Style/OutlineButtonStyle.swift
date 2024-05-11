@@ -1,7 +1,3 @@
-//
-//  Created by yokoda.takayuki on 2023/01/30.
-//
-
 import SwiftUI
 
 struct OutlineButtonStyle: ButtonStyle {

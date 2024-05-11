@@ -1,9 +1,4 @@
-//
-//  Created by yoko-yan on 2023/07/01.
-//
-
 import CoreData
-import Foundation
 
 protocol ItemsLocalDataSource {
     func fetchAll() async throws -> [Item]

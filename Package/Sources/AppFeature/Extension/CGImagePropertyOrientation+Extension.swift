@@ -1,7 +1,3 @@
-//
-//  Created by yoko-yan on 2023/01/26.
-//
-
 import UIKit
 
 // Convert UIImageOrientation to CGImageOrientation for use in Vision analysis.
