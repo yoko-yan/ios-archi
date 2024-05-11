@@ -14,6 +14,7 @@ final class RootViewModel {
     func load() async {
         do {
             try await synchronizeWithCloud.execute()
+            try await Task.sleep(for: .seconds(2))
             uiState.isLaunching = false
         } catch {
             print(error)
