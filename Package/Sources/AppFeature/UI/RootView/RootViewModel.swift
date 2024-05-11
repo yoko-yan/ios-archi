@@ -13,7 +13,8 @@ final class RootViewModel {
 
     func load() async {
         do {
-            uiState.isLaunching = try await synchronizeWithCloud.execute()
+            try await synchronizeWithCloud.execute()
+            uiState.isLaunching = false
         } catch {
             print(error)
             uiState.isLaunching = false
