@@ -9,7 +9,7 @@ protocol ItemsRepository: AutoInjectable, AutoMockable {
 }
 
 struct ItemsRepositoryImpl: ItemsRepository {
-    private let dataSource: ItemsLocalDataSource
+    private let dataSource: any ItemsLocalDataSource
 
     init(dataSource: some ItemsLocalDataSource = ItemsLocalDataSourceImpl()) {
         self.dataSource = dataSource

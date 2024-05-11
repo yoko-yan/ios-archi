@@ -8,11 +8,11 @@ public protocol AnalyticsService: AutoInjectable, AutoMockable {
 // MARK: - InjectedValues
 
 private struct AnalyticsServiceKey: InjectionKey {
-    static var currentValue: AnalyticsService = AnalyticsServiceMock()
+    static var currentValue: any AnalyticsService = AnalyticsServiceMock()
 }
 
 public extension InjectedValues {
-    var analyticsService: AnalyticsService {
+    var analyticsService: any AnalyticsService {
         get { Self[AnalyticsServiceKey.self] }
         set { Self[AnalyticsServiceKey.self] = newValue }
     }

@@ -30,7 +30,7 @@ enum ItemEditError {
     case registerFailed
     case updateFailed
     case deleteFailed
-    case error(Error)
+    case error(any Error)
     case appError(AppError)
 }
 
@@ -196,7 +196,7 @@ final class ItemEditViewModel {
 // MARK: - Privates
 
 private extension ItemEditViewModel {
-    func checkCommonError(_ error: Error, type: ItemEditError) -> ItemEditError {
+    func checkCommonError(_ error: any Error, type: ItemEditError) -> ItemEditError {
         print(error)
         let appError = AppError(error)
         if appError.isCommonError {

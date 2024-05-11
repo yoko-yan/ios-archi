@@ -2,7 +2,7 @@ import UIKit
 @preconcurrency import Vision
 
 enum RecognizeTextLocalRequestError: Error {
-    case error(Error)
+    case error(any Error)
     case getCgImage
     case recognizeText
     case recognizeTextRequest

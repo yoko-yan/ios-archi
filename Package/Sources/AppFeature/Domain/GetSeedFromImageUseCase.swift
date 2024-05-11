@@ -7,12 +7,12 @@ protocol GetSeedFromImageUseCase {
 }
 
 struct GetSeedFromImageUseCaseImpl: GetSeedFromImageUseCase {
-    private let recognizedTextsRepository: RecognizedTextsRepository
-    private let getSeedFromTextUseCase: GetSeedFromTextUseCase
+    private let recognizedTextsRepository: any RecognizedTextsRepository
+    private let getSeedFromTextUseCase: any GetSeedFromTextUseCase
 
     init(
-        recognizedTextsRepository: RecognizedTextsRepository = RecognizedTextsRepositoryImpl(),
-        getSeedFromTextUseCase: GetSeedFromTextUseCase = GetSeedFromTextUseCaseImpl()
+        recognizedTextsRepository: any RecognizedTextsRepository = RecognizedTextsRepositoryImpl(),
+        getSeedFromTextUseCase: any GetSeedFromTextUseCase = GetSeedFromTextUseCaseImpl()
     ) {
         self.recognizedTextsRepository = recognizedTextsRepository
         self.getSeedFromTextUseCase = getSeedFromTextUseCase

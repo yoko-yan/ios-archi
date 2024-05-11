@@ -37,6 +37,10 @@ let package = Package(
             name: "Analytics",
             dependencies: [
                 "Core"
+            ],
+            swiftSettings: [
+                .unsafeFlags(["-strict-concurrency=complete"]),
+                .enableUpcomingFeature("ExistentialAny")
             ]
         ),
         .target(
@@ -54,9 +58,8 @@ let package = Package(
                 .product(name: "Dependencies", package: "swift-dependencies")
             ],
             swiftSettings: [
-                .unsafeFlags([
-                    "-strict-concurrency=complete"
-                ])
+                .unsafeFlags(["-strict-concurrency=complete"]),
+                .enableUpcomingFeature("ExistentialAny")
             ]
         ),
         .testTarget(
@@ -67,9 +70,8 @@ let package = Package(
                 "Nimble"
             ],
             swiftSettings: [
-                .unsafeFlags([
-                    "-strict-concurrency=complete"
-                ])
+                .unsafeFlags(["-strict-concurrency=complete"]),
+                .enableUpcomingFeature("ExistentialAny")
             ]
         )
     ]

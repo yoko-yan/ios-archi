@@ -2,12 +2,12 @@ import RegexBuilder
 import UIKit
 
 struct GetCoordinatesFromImageUseCase {
-    private let recognizedTextsRepository: RecognizedTextsRepository
-    private let getCoordinatesFromTextUseCase: GetCoordinatesFromTextUseCase
+    private let recognizedTextsRepository: any RecognizedTextsRepository
+    private let getCoordinatesFromTextUseCase: any GetCoordinatesFromTextUseCase
 
     init(
-        recognizedTextsRepository: RecognizedTextsRepository = RecognizedTextsRepositoryImpl(),
-        getCoordinatesFromTextUseCase: GetCoordinatesFromTextUseCase = GetCoordinatesFromTextUseCaseImpl()
+        recognizedTextsRepository: any RecognizedTextsRepository = RecognizedTextsRepositoryImpl(),
+        getCoordinatesFromTextUseCase: any GetCoordinatesFromTextUseCase = GetCoordinatesFromTextUseCaseImpl()
     ) {
         self.recognizedTextsRepository = recognizedTextsRepository
         self.getCoordinatesFromTextUseCase = getCoordinatesFromTextUseCase

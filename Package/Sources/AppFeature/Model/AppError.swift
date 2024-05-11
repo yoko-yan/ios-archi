@@ -11,7 +11,7 @@ enum AppError {
         return false
     }
 
-    init(_ error: Error) {
+    init(_ error: any Error) {
         if let urlError = error as? URLError {
             switch urlError.code {
             case .timedOut:

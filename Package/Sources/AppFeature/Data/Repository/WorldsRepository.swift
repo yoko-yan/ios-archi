@@ -1,7 +1,7 @@
 final class WorldsRepository {
-    private let dataSource: WorldsLocalDataSource
+    private let dataSource: any WorldsLocalDataSource
 
-    init(dataSource: WorldsLocalDataSource = WorldsLocalDataSourceImpl()) {
+    init(dataSource: any WorldsLocalDataSource = WorldsLocalDataSourceImpl()) {
         self.dataSource = dataSource
     }
 

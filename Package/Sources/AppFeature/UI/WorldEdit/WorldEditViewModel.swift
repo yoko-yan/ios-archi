@@ -26,7 +26,7 @@ enum WorldEditError {
     case registerFailed
     case updateFailed
     case deleteFailed
-    case error(Error)
+    case error(any Error)
     case appError(AppError)
 }
 
@@ -183,7 +183,7 @@ final class WorldEditViewModel {
 // MARK: - Privates
 
 private extension WorldEditViewModel {
-    func checkCommonError(_ error: Error, type: WorldEditError) -> WorldEditError {
+    func checkCommonError(_ error: any Error, type: WorldEditError) -> WorldEditError {
         print(error)
         let appError = AppError(error)
         if appError.isCommonError {
