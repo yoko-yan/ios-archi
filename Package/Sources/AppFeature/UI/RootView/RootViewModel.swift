@@ -9,10 +9,12 @@ import Foundation
 // MARK: - View model
 
 @MainActor
-final class RootViewModel: ObservableObject {
-    @Injected(\.synchronizeWithCloudUseCase) var synchronizeWithCloud
+@Observable
+final class RootViewModel {
+    @ObservationIgnored
+    @Injected(\.synchronizeWithCloudUseCase) private var synchronizeWithCloud
 
-    @Published private(set) var uiState = RootUiState()
+    private(set) var uiState = RootUiState()
 
     func load() async {
         do {

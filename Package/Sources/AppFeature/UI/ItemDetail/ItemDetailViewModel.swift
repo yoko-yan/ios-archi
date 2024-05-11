@@ -9,8 +9,9 @@ import UIKit
 // MARK: - View model
 
 @MainActor
-final class ItemDetailViewModel: ObservableObject {
-    @Published private(set) var uiState: ItemDetailUiState
+@Observable
+final class ItemDetailViewModel {
+    private(set) var uiState: ItemDetailUiState
 
     init(item: Item) {
         uiState = ItemDetailUiState(item: item)

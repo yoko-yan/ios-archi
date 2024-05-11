@@ -5,8 +5,9 @@
 import Core
 import SwiftUI
 
+@MainActor
 struct TimeLineView: View {
-    @StateObject private var viewModel: TimeLineViewModel
+    @State private var viewModel: TimeLineViewModel
     @State private var isShowEditView = false
 
     var body: some View {
@@ -83,7 +84,7 @@ struct TimeLineView: View {
     }
 
     private init(viewModel: TimeLineViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+        _viewModel = State(wrappedValue: viewModel)
     }
 }
 

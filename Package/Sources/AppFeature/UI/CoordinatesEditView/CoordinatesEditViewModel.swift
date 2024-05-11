@@ -20,8 +20,9 @@ enum CoordinatesEditViewAction: Equatable {
 // MARK: - View model
 
 @MainActor
-final class CoordinatesEditViewModel: ObservableObject {
-    @Published private(set) var uiState: CoordinatesEditUiState
+@Observable
+final class CoordinatesEditViewModel {
+    private(set) var uiState: CoordinatesEditUiState
 
     init(coordinates: Coordinates?) {
         var coordinatesX: String

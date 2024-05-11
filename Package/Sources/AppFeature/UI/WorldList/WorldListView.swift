@@ -5,8 +5,9 @@
 import Core
 import SwiftUI
 
+@MainActor
 struct WorldListView: View {
-    @StateObject private var viewModel: WorldListViewModel = .init()
+    @State private var viewModel: WorldListViewModel = .init()
     @State private var isShowEditView = false
 
     @Binding var navigatePath: NavigationPath

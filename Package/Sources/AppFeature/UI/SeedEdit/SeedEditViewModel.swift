@@ -18,8 +18,9 @@ enum SeedEditViewAction: Equatable {
 // MARK: - View model
 
 @MainActor
-final class SeedEditViewModel: ObservableObject {
-    @Published private(set) var uiState: SeedEditUiState
+@Observable
+final class SeedEditViewModel {
+    private(set) var uiState: SeedEditUiState
 
     init(seed: Seed?) {
         uiState = SeedEditUiState(

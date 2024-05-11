@@ -74,10 +74,12 @@ extension ItemEditError: LocalizedError {
 // MARK: - View model
 
 @MainActor
-final class ItemEditViewModel: ObservableObject {
+@Observable
+final class ItemEditViewModel {
+    @ObservationIgnored
     @Injected(\.itemsRepository) var itemsRepository
 
-    @Published private(set) var uiState: ItemEditUiState
+    private(set) var uiState: ItemEditUiState
 
     init(item: Item?) {
         uiState = ItemEditUiState(

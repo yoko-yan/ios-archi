@@ -4,8 +4,9 @@
 
 import SwiftUI
 
+@MainActor
 public struct RootView: View {
-    @StateObject private var viewModel = RootViewModel()
+    @State private var viewModel = RootViewModel()
 
     public var body: some View {
         Group {

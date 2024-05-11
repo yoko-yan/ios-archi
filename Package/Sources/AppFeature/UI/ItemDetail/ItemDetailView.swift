@@ -5,9 +5,10 @@
 import Core
 import SwiftUI
 
+@MainActor
 struct ItemDetailView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject private var viewModel: ItemDetailViewModel
+    @State private var viewModel: ItemDetailViewModel
     @State private var isEditView = false
     @State private var isBiomeFinderView = false
 
@@ -61,7 +62,7 @@ struct ItemDetailView: View {
     }
 
     init(item: Item) {
-        _viewModel = StateObject(wrappedValue: ItemDetailViewModel(item: item))
+        _viewModel = State(wrappedValue: ItemDetailViewModel(item: item))
     }
 }
 

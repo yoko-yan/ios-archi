@@ -5,9 +5,10 @@
 import Core
 import SwiftUI
 
+@MainActor
 struct WorldDetailView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject private var viewModel: WorldDetailViewModel
+    @State private var viewModel: WorldDetailViewModel
     @State private var isEditView = false
     @State private var isBiomeFinderView = false
 
@@ -58,7 +59,7 @@ struct WorldDetailView: View {
     }
 
     init(world: World) {
-        _viewModel = StateObject(wrappedValue: WorldDetailViewModel(world: world))
+        _viewModel = State(wrappedValue: WorldDetailViewModel(world: world))
     }
 }
 

@@ -16,10 +16,12 @@ enum TimeLineViewAction {
 // MARK: - View model
 
 @MainActor
-final class TimeLineViewModel: ObservableObject {
+@Observable
+final class TimeLineViewModel {
+    @ObservationIgnored
     @Injected(\.itemsRepository) var itemsRepository
 
-    @Published private(set) var uiState = TimeLineUiState()
+    private(set) var uiState = TimeLineUiState()
 
     init(uiState: TimeLineUiState = TimeLineUiState()) {
         self.uiState = uiState

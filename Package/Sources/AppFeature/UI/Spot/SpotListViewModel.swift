@@ -17,11 +17,14 @@ enum SpotViewAction {
 // MARK: - View model
 
 @MainActor
-final class SpotListViewModel: ObservableObject {
+@Observable
+final class SpotListViewModel {
+    @ObservationIgnored
     @Injected(\.itemsRepository) var itemsRepository
+    @ObservationIgnored
     @Injected(\.loadSpotImageUseCase) var loadSpotImageUseCase
 
-    @Published private(set) var uiState = SpotListUiState()
+    private(set) var uiState = SpotListUiState()
 
     init(uiState: SpotListUiState = .init()) {
         self.uiState = uiState

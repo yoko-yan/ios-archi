@@ -5,10 +5,11 @@
 import Core
 import SwiftUI
 
+@MainActor
 struct SeedEditView: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) var dismiss
-    @StateObject private var viewModel: SeedEditViewModel
+    @State private var viewModel: SeedEditViewModel
 
     @State private var isImagePicker = false
     @State private var imageSourceType = ImagePicker.SourceType.library
@@ -38,7 +39,7 @@ struct SeedEditView: View {
     }
 
     init(seed: Seed?, onChanged: ((Seed?) -> Bool)? = nil) {
-        _viewModel = StateObject(
+        _viewModel = State(
             wrappedValue: SeedEditViewModel(seed: seed)
         )
         self.onChanged = onChanged

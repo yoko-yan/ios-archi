@@ -5,8 +5,9 @@
 import Core
 import SwiftUI
 
+@MainActor
 struct SpotListView: View {
-    @StateObject private var viewModel: SpotListViewModel
+    @State private var viewModel: SpotListViewModel
     @State private var isShowEditView = false
 
     private let columns = [
@@ -83,7 +84,7 @@ struct SpotListView: View {
     }
 
     init(viewModel: SpotListViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+        _viewModel = State(wrappedValue: viewModel)
     }
 }
 

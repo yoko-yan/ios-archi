@@ -5,9 +5,10 @@
 import Core
 import SwiftUI
 
+@MainActor
 struct WorldEditView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject private var viewModel: WorldEditViewModel
+    @State private var viewModel: WorldEditViewModel
     private let onTapDelete: ((World) -> Void)?
     private let onTapDismiss: ((World) -> Void)?
 
@@ -97,7 +98,7 @@ struct WorldEditView: View {
     }
 
     init(world: World? = nil, onTapDelete: ((World) -> Void)? = nil, onTapDismiss: ((World) -> Void)? = nil) {
-        _viewModel = StateObject(wrappedValue: WorldEditViewModel(world: world))
+        _viewModel = State(wrappedValue: WorldEditViewModel(world: world))
         self.onTapDelete = onTapDelete
         self.onTapDismiss = onTapDismiss
     }

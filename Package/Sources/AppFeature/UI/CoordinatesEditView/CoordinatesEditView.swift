@@ -5,10 +5,11 @@
 import Core
 import SwiftUI
 
+@MainActor
 struct CoordinatesEditView: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) var dismiss
-    @StateObject private var viewModel: CoordinatesEditViewModel
+    @State private var viewModel: CoordinatesEditViewModel
 
     @State private var isImagePicker = false
     @State private var imageSourceType = ImagePicker.SourceType.library
@@ -38,7 +39,7 @@ struct CoordinatesEditView: View {
     }
 
     init(coordinates: Coordinates?, onChanged: ((Coordinates?) -> Bool)? = nil) {
-        _viewModel = StateObject(
+        _viewModel = State(
             wrappedValue: CoordinatesEditViewModel(coordinates: coordinates)
         )
         self.onChanged = onChanged

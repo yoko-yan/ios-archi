@@ -74,7 +74,9 @@ extension WorldEditError: LocalizedError {
 // MARK: - View model
 
 @MainActor
-final class WorldEditViewModel: ObservableObject {
+@Observable
+final class WorldEditViewModel {
+    @ObservationIgnored
     @Published private(set) var uiState: WorldEditUiState
 
     var input: Binding<WorldEditUiState.Input> {

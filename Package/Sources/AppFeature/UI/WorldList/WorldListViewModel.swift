@@ -18,8 +18,9 @@ enum WorldListViewAction {
 // MARK: - View model
 
 @MainActor
-final class WorldListViewModel: ObservableObject {
-    @Published private(set) var uiState = WorldListUiState()
+@Observable
+final class WorldListViewModel {
+    private(set) var uiState = WorldListUiState()
 
     init() {
         uiState = WorldListUiState()
