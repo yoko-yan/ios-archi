@@ -3,6 +3,19 @@
 
 import PackageDescription
 
+let swiftSettings: [SwiftSetting] = [
+    .unsafeFlags(["-strict-concurrency=complete"]),
+    .enableUpcomingFeature("ForwardTrailingClosures"),
+    .enableUpcomingFeature("ExistentialAny"),
+    .enableUpcomingFeature("BareSlashRegexLiterals"),
+    .enableUpcomingFeature("ConciseMagicFile"),
+    .enableUpcomingFeature("ImportObjcForwardDeclarations"),
+    .enableUpcomingFeature("DisableOutwardActorInference"),
+    .enableUpcomingFeature("DeprecateApplicationMain"),
+    .enableUpcomingFeature("IsolatedDefaultValues"),
+    .enableUpcomingFeature("GlobalConcurrency")
+]
+
 let package = Package(
     name: "Package",
     defaultLocalization: "en",
@@ -27,36 +40,14 @@ let package = Package(
         .target(
             name: "Core",
             dependencies: [],
-            swiftSettings: [
-                .unsafeFlags(["-strict-concurrency=complete"]),
-                .enableUpcomingFeature("ForwardTrailingClosures"),
-                .enableUpcomingFeature("ExistentialAny"),
-                .enableUpcomingFeature("BareSlashRegexLiterals"),
-                .enableUpcomingFeature("ConciseMagicFile"),
-                .enableUpcomingFeature("ImportObjcForwardDeclarations"),
-                .enableUpcomingFeature("DisableOutwardActorInference"),
-                .enableUpcomingFeature("DeprecateApplicationMain"),
-                .enableUpcomingFeature("IsolatedDefaultValues"),
-                .enableUpcomingFeature("GlobalConcurrency")
-            ]
+            swiftSettings: swiftSettings
         ),
         .target(
             name: "Analytics",
             dependencies: [
                 "Core"
             ],
-            swiftSettings: [
-                .unsafeFlags(["-strict-concurrency=complete"]),
-                .enableUpcomingFeature("ForwardTrailingClosures"),
-                .enableUpcomingFeature("ExistentialAny"),
-                .enableUpcomingFeature("BareSlashRegexLiterals"),
-                .enableUpcomingFeature("ConciseMagicFile"),
-                .enableUpcomingFeature("ImportObjcForwardDeclarations"),
-                .enableUpcomingFeature("DisableOutwardActorInference"),
-                .enableUpcomingFeature("DeprecateApplicationMain"),
-                .enableUpcomingFeature("IsolatedDefaultValues"),
-                .enableUpcomingFeature("GlobalConcurrency")
-            ]
+            swiftSettings: swiftSettings
         ),
         .target(
             name: "AnalyticsImpl",
@@ -64,18 +55,7 @@ let package = Package(
                 "Analytics",
                 .product(name: "FirebaseAnalytics", package: "firebase-ios-sdk")
             ],
-            swiftSettings: [
-                .unsafeFlags(["-strict-concurrency=complete"]),
-                .enableUpcomingFeature("ForwardTrailingClosures"),
-                .enableUpcomingFeature("ExistentialAny"),
-                .enableUpcomingFeature("BareSlashRegexLiterals"),
-                .enableUpcomingFeature("ConciseMagicFile"),
-                .enableUpcomingFeature("ImportObjcForwardDeclarations"),
-                .enableUpcomingFeature("DisableOutwardActorInference"),
-                .enableUpcomingFeature("DeprecateApplicationMain"),
-                .enableUpcomingFeature("IsolatedDefaultValues"),
-                .enableUpcomingFeature("GlobalConcurrency")
-            ]
+            swiftSettings: swiftSettings
         ),
         .target(
             name: "AppFeature",
@@ -84,18 +64,7 @@ let package = Package(
                 "Analytics",
                 .product(name: "Dependencies", package: "swift-dependencies")
             ],
-            swiftSettings: [
-                .unsafeFlags(["-strict-concurrency=complete"]),
-                .enableUpcomingFeature("ForwardTrailingClosures"),
-                .enableUpcomingFeature("ExistentialAny"),
-                .enableUpcomingFeature("BareSlashRegexLiterals"),
-                .enableUpcomingFeature("ConciseMagicFile"),
-                .enableUpcomingFeature("ImportObjcForwardDeclarations"),
-                .enableUpcomingFeature("DisableOutwardActorInference"),
-                .enableUpcomingFeature("DeprecateApplicationMain"),
-                .enableUpcomingFeature("IsolatedDefaultValues"),
-                .enableUpcomingFeature("GlobalConcurrency")
-            ]
+            swiftSettings: swiftSettings
         ),
         .testTarget(
             name: "AppFeatureTests",
@@ -104,18 +73,7 @@ let package = Package(
                 "Quick",
                 "Nimble"
             ],
-            swiftSettings: [
-                .unsafeFlags(["-strict-concurrency=complete"]),
-                .enableUpcomingFeature("ForwardTrailingClosures"),
-                .enableUpcomingFeature("ExistentialAny"),
-                .enableUpcomingFeature("BareSlashRegexLiterals"),
-                .enableUpcomingFeature("ConciseMagicFile"),
-                .enableUpcomingFeature("ImportObjcForwardDeclarations"),
-                .enableUpcomingFeature("DisableOutwardActorInference"),
-                .enableUpcomingFeature("DeprecateApplicationMain"),
-                .enableUpcomingFeature("IsolatedDefaultValues"),
-                .enableUpcomingFeature("GlobalConcurrency")
-            ]
+            swiftSettings: swiftSettings
         )
     ]
 )
