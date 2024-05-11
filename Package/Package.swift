@@ -31,6 +31,7 @@ let package = Package(
                 .unsafeFlags(["-strict-concurrency=complete"]),
                 .enableUpcomingFeature("ForwardTrailingClosures"),
                 .enableUpcomingFeature("ExistentialAny"),
+                .enableUpcomingFeature("DisableOutwardActorInference")
             ]
         ),
         .target(
@@ -42,6 +43,7 @@ let package = Package(
                 .unsafeFlags(["-strict-concurrency=complete"]),
                 .enableUpcomingFeature("ForwardTrailingClosures"),
                 .enableUpcomingFeature("ExistentialAny"),
+                .enableUpcomingFeature("DisableOutwardActorInference")
             ]
         ),
         .target(
@@ -54,6 +56,7 @@ let package = Package(
                 .unsafeFlags(["-strict-concurrency=complete"]),
                 .enableUpcomingFeature("ForwardTrailingClosures"),
                 .enableUpcomingFeature("ExistentialAny"),
+                .enableUpcomingFeature("DisableOutwardActorInference")
             ]
         ),
         .target(
@@ -67,6 +70,7 @@ let package = Package(
                 .unsafeFlags(["-strict-concurrency=complete"]),
                 .enableUpcomingFeature("ForwardTrailingClosures"),
                 .enableUpcomingFeature("ExistentialAny"),
+                .enableUpcomingFeature("DisableOutwardActorInference")
             ]
         ),
         .testTarget(
