@@ -28,9 +28,8 @@ let package = Package(
             name: "Core",
             dependencies: [],
             swiftSettings: [
-                .unsafeFlags([
-                    "-strict-concurrency=complete"
-                ])
+                .unsafeFlags(["-strict-concurrency=complete"]),
+                .enableUpcomingFeature("ExistentialAny")
             ]
         ),
         .target(
@@ -48,6 +47,10 @@ let package = Package(
             dependencies: [
                 "Analytics",
                 .product(name: "FirebaseAnalytics", package: "firebase-ios-sdk")
+            ],
+            swiftSettings: [
+                .unsafeFlags(["-strict-concurrency=complete"]),
+                .enableUpcomingFeature("ExistentialAny")
             ]
         ),
         .target(

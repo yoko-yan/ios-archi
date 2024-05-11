@@ -493,7 +493,7 @@
 				);
 				MARKETING_VERSION = 0.1.0;
 				OTHER_LDFLAGS = "-ObjC";
-				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -enable-upcoming-feature DisableOutwardActorInference";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -enable-upcoming-feature ExistentialAny DisableOutwardActorInference";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -529,7 +529,7 @@
 				);
 				MARKETING_VERSION = 0.1.0;
 				OTHER_LDFLAGS = "-ObjC";
-				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -enable-upcoming-feature DisableOutwardActorInference";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -enable-upcoming-feature ExistentialAny DisableOutwardActorInference";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

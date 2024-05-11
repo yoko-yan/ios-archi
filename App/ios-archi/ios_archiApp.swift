@@ -16,7 +16,7 @@ struct ios_archiApp: App {
     }
 
     init() {
-        let analyticsService: AnalyticsService = if BuildHelper.isPreview || BuildHelper.isTesting {
+        let analyticsService: any AnalyticsService = if BuildHelper.isPreview || BuildHelper.isTesting {
             AnalyticsServiceMock()
         } else {
             AnalyticsServiceImpl()
