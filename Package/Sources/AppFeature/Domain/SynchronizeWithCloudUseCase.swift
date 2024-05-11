@@ -6,8 +6,8 @@ protocol SynchronizeWithCloudUseCase: AutoInjectable, AutoMockable {
 }
 
 struct SynchronizeWithCloudUseCaseImpl: SynchronizeWithCloudUseCase {
-    @Injected(\.isCloudKitContainerAvailableUseCase) var isCloudKitContainerAvailableUseCase
-    @Injected(\.itemsRepository) var itemsRepository
+    @Injected(\.isCloudKitContainerAvailableUseCase) private var isCloudKitContainerAvailableUseCase
+    @Injected(\.itemsRepository) private var itemsRepository
 
     func execute() async throws -> Bool {
         if !isCloudKitContainerAvailableUseCase.execute() {

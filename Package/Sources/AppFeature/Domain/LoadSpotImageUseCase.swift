@@ -6,9 +6,9 @@ protocol LoadSpotImageUseCase: AutoInjectable, AutoMockable {
 }
 
 struct LoadSpotImageUseCaseImpl: LoadSpotImageUseCase {
-    @Injected(\.isCloudKitContainerAvailableUseCase) var isCloudKitContainerAvailableUseCase
-    @Injected(\.iCloudDocumentRepository) var iCloudDocumentRepository
-    @Injected(\.localImageRepository) var localImageRepository
+    @Injected(\.isCloudKitContainerAvailableUseCase) private var isCloudKitContainerAvailableUseCase
+    @Injected(\.iCloudDocumentRepository) private var iCloudDocumentRepository
+    @Injected(\.localImageRepository) private var localImageRepository
 
     func execute(fileName: String?) async throws -> UIImage? {
         guard let fileName else { return nil }

@@ -6,9 +6,9 @@ protocol SaveSpotImageUseCase {
 }
 
 struct SaveSpotImageUseCaseImpl: SaveSpotImageUseCase {
-    @Injected(\.isCloudKitContainerAvailableUseCase) var isCloudKitContainerAvailableUseCase
-    @Injected(\.iCloudDocumentRepository) var iCloudDocumentRepository
-    @Injected(\.localImageRepository) var localImageRepository
+    @Injected(\.isCloudKitContainerAvailableUseCase) private var isCloudKitContainerAvailableUseCase
+    @Injected(\.iCloudDocumentRepository) private var iCloudDocumentRepository
+    @Injected(\.localImageRepository) private var localImageRepository
 
     func execute(image: UIImage, fileName: String) async throws {
         if isCloudKitContainerAvailableUseCase.execute() {

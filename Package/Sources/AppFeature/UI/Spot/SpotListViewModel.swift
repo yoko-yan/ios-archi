@@ -15,9 +15,9 @@ enum SpotViewAction {
 @Observable
 final class SpotListViewModel {
     @ObservationIgnored
-    @Injected(\.itemsRepository) var itemsRepository
+    @Injected(\.itemsRepository) private var itemsRepository
     @ObservationIgnored
-    @Injected(\.loadSpotImageUseCase) var loadSpotImageUseCase
+    @Injected(\.loadSpotImageUseCase) private var loadSpotImageUseCase
 
     private(set) var uiState = SpotListUiState()
 

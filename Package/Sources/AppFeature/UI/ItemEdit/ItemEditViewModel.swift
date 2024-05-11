@@ -72,7 +72,7 @@ extension ItemEditError: LocalizedError {
 @Observable
 final class ItemEditViewModel {
     @ObservationIgnored
-    @Injected(\.itemsRepository) var itemsRepository
+    @Injected(\.itemsRepository) private var itemsRepository
 
     private(set) var uiState: ItemEditUiState
 

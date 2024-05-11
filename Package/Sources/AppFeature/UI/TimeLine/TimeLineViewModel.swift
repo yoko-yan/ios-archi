@@ -14,7 +14,7 @@ enum TimeLineViewAction {
 @Observable
 final class TimeLineViewModel {
     @ObservationIgnored
-    @Injected(\.itemsRepository) var itemsRepository
+    @Injected(\.itemsRepository) private var itemsRepository
 
     private(set) var uiState = TimeLineUiState()
 
