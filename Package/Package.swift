@@ -35,7 +35,9 @@ let package = Package(
                 .enableUpcomingFeature("ConciseMagicFile"),
                 .enableUpcomingFeature("ImportObjcForwardDeclarations"),
                 .enableUpcomingFeature("DisableOutwardActorInference"),
-                .enableUpcomingFeature("DeprecateApplicationMain")
+                .enableUpcomingFeature("DeprecateApplicationMain"),
+                .enableUpcomingFeature("IsolatedDefaultValues"),
+                .enableUpcomingFeature("GlobalConcurrency")
             ]
         ),
         .target(
@@ -51,7 +53,9 @@ let package = Package(
                 .enableUpcomingFeature("ConciseMagicFile"),
                 .enableUpcomingFeature("ImportObjcForwardDeclarations"),
                 .enableUpcomingFeature("DisableOutwardActorInference"),
-                .enableUpcomingFeature("DeprecateApplicationMain")
+                .enableUpcomingFeature("DeprecateApplicationMain"),
+                .enableUpcomingFeature("IsolatedDefaultValues"),
+                .enableUpcomingFeature("GlobalConcurrency")
             ]
         ),
         .target(
@@ -68,7 +72,9 @@ let package = Package(
                 .enableUpcomingFeature("ConciseMagicFile"),
                 .enableUpcomingFeature("ImportObjcForwardDeclarations"),
                 .enableUpcomingFeature("DisableOutwardActorInference"),
-                .enableUpcomingFeature("DeprecateApplicationMain")
+                .enableUpcomingFeature("DeprecateApplicationMain"),
+                .enableUpcomingFeature("IsolatedDefaultValues"),
+                .enableUpcomingFeature("GlobalConcurrency")
             ]
         ),
         .target(
@@ -86,7 +92,9 @@ let package = Package(
                 .enableUpcomingFeature("ConciseMagicFile"),
                 .enableUpcomingFeature("ImportObjcForwardDeclarations"),
                 .enableUpcomingFeature("DisableOutwardActorInference"),
-                .enableUpcomingFeature("DeprecateApplicationMain")
+                .enableUpcomingFeature("DeprecateApplicationMain"),
+                .enableUpcomingFeature("IsolatedDefaultValues"),
+                .enableUpcomingFeature("GlobalConcurrency")
             ]
         ),
         .testTarget(
@@ -104,7 +112,9 @@ let package = Package(
                 .enableUpcomingFeature("ConciseMagicFile"),
                 .enableUpcomingFeature("ImportObjcForwardDeclarations"),
                 .enableUpcomingFeature("DisableOutwardActorInference"),
-                .enableUpcomingFeature("DeprecateApplicationMain")
+                .enableUpcomingFeature("DeprecateApplicationMain"),
+                .enableUpcomingFeature("IsolatedDefaultValues"),
+                .enableUpcomingFeature("GlobalConcurrency")
             ]
         )
     ]
