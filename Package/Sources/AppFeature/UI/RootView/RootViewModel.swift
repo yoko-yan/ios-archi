@@ -13,12 +13,13 @@ final class RootViewModel {
 
     func load() async {
         do {
-            try await synchronizeWithCloud.execute()
             try await Task.sleep(for: .seconds(2))
-            uiState.isLaunching = false
+            defer {
+                uiState.isLaunching = false
+            }
+            try await synchronizeWithCloud.execute()
         } catch {
             print(error)
-            uiState.isLaunching = false
         }
     }
 }
