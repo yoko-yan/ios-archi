@@ -14,9 +14,9 @@ struct HomeView: View {
                     }
                 )
         }
-        .sheet(isPresented: $isShowAppInfoView) {
+        .sheet(isPresented: $isShowAppInfoView, content: {
             AppInfoView()
-        }
+        })
         .analyticsScreen(name: "HomeView", class: String(describing: type(of: self)))
     }
 }

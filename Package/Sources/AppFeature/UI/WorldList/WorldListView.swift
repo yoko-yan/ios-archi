@@ -57,7 +57,7 @@ struct WorldListView: View {
         .navigationBarTitle(Text("WorldListView.Title", bundle: .module))
 //        .navigationBarItems(trailing: EditButton())
         .toolbarBackground(.visible, for: .navigationBar)
-        .sheet(isPresented: $isShowEditView) {
+        .sheet(isPresented: $isShowEditView, content: {
             WorldEditView(
                 onTapDismiss: { _ in
                     Task {
@@ -66,7 +66,7 @@ struct WorldListView: View {
                 }
             )
             .presentationDetents([.medium, .large])
-        }
+        })
         .deleteAlert(
             message: viewModel.uiState.deleteAlertMessage,
             onDelete: {

@@ -35,7 +35,7 @@ struct ItemEditView: View {
                 footer
                     .ignoresSafeArea(.keyboard, edges: .bottom)
             }
-            .sheet(isPresented: $isImagePicker) {
+            .sheet(isPresented: $isImagePicker, content: {
                 ImagePicker(
                     show: $isImagePicker,
                     image: .init(
@@ -51,7 +51,7 @@ struct ItemEditView: View {
                     sourceType: imageSourceType,
                     allowsEditing: true
                 )
-            }
+            })
             .task {
                 await viewModel.send(action: .loadImage)
                 await viewModel.send(action: .getWorlds)

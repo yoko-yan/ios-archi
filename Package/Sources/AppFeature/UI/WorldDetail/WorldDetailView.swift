@@ -34,13 +34,13 @@ struct WorldDetailView: View {
 //            }
 //        }
         .toolbarBackground(.visible, for: .navigationBar)
-        .sheet(isPresented: $isBiomeFinderView) {
+        .sheet(isPresented: $isBiomeFinderView, content: {
             BiomeFinderView(
                 seed: viewModel.uiState.world.seed?.rawValue ?? 0,
                 coordinates: Coordinates.zero
             )
-        }
-        .sheet(isPresented: $isEditView) {
+        })
+        .sheet(isPresented: $isEditView, content: {
             WorldEditView(
                 world: viewModel.uiState.world,
                 onTapDelete: { _ in
@@ -49,7 +49,7 @@ struct WorldDetailView: View {
                     viewModel.reload(world: world)
                 }
             )
-        }
+        })
         .analyticsScreen(name: "WorldDetailView", class: String(describing: type(of: self)))
     }
 

@@ -62,7 +62,7 @@ struct TimeLineView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarTitle(Text("HomeView.Title", bundle: .module))
         .toolbarBackground(.visible, for: .navigationBar)
-        .sheet(isPresented: $isShowEditView) {
+        .sheet(isPresented: $isShowEditView, content: {
             ItemEditView(
                 onChange: { _ in
                     Task {
@@ -70,7 +70,7 @@ struct TimeLineView: View {
                     }
                 }
             )
-        }
+        })
         .analyticsScreen(name: "TimeLineView", class: String(describing: type(of: self)))
     }
 

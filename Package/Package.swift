@@ -29,7 +29,8 @@ let package = Package(
             dependencies: [],
             swiftSettings: [
                 .unsafeFlags(["-strict-concurrency=complete"]),
-                .enableUpcomingFeature("ExistentialAny")
+                .enableUpcomingFeature("ForwardTrailingClosures"),
+                .enableUpcomingFeature("ExistentialAny"),
             ]
         ),
         .target(
@@ -39,7 +40,8 @@ let package = Package(
             ],
             swiftSettings: [
                 .unsafeFlags(["-strict-concurrency=complete"]),
-                .enableUpcomingFeature("ExistentialAny")
+                .enableUpcomingFeature("ForwardTrailingClosures"),
+                .enableUpcomingFeature("ExistentialAny"),
             ]
         ),
         .target(
@@ -50,7 +52,8 @@ let package = Package(
             ],
             swiftSettings: [
                 .unsafeFlags(["-strict-concurrency=complete"]),
-                .enableUpcomingFeature("ExistentialAny")
+                .enableUpcomingFeature("ForwardTrailingClosures"),
+                .enableUpcomingFeature("ExistentialAny"),
             ]
         ),
         .target(
@@ -62,7 +65,8 @@ let package = Package(
             ],
             swiftSettings: [
                 .unsafeFlags(["-strict-concurrency=complete"]),
-                .enableUpcomingFeature("ExistentialAny")
+                .enableUpcomingFeature("ForwardTrailingClosures"),
+                .enableUpcomingFeature("ExistentialAny"),
             ]
         ),
         .testTarget(
@@ -74,7 +78,9 @@ let package = Package(
             ],
             swiftSettings: [
                 .unsafeFlags(["-strict-concurrency=complete"]),
-                .enableUpcomingFeature("ExistentialAny")
+                .enableUpcomingFeature("ForwardTrailingClosures"),
+                .enableUpcomingFeature("ExistentialAny"),
+                .enableUpcomingFeature("DisableOutwardActorInference")
             ]
         )
     ]

@@ -14,7 +14,7 @@ struct SeedEditView: View {
 
     var body: some View {
         seedEditCell
-            .sheet(isPresented: $isImagePicker) {
+            .sheet(isPresented: $isImagePicker, content: {
                 ImagePicker(
                     show: $isImagePicker,
                     image: .init(
@@ -30,7 +30,7 @@ struct SeedEditView: View {
                     sourceType: imageSourceType,
                     allowsEditing: true
                 )
-            }
+            })
             .analyticsScreen(name: "SeedEditView", class: String(describing: type(of: self)))
     }
 

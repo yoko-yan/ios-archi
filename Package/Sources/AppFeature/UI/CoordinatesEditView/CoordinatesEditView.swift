@@ -13,7 +13,7 @@ struct CoordinatesEditView: View {
 
     var body: some View {
         coordinatesEditCell
-            .sheet(isPresented: $isImagePicker) {
+            .sheet(isPresented: $isImagePicker, content: {
                 ImagePicker(
                     show: $isImagePicker,
                     image: .init(
@@ -29,7 +29,7 @@ struct CoordinatesEditView: View {
                     sourceType: imageSourceType,
                     allowsEditing: true
                 )
-            }
+            })
             .analyticsScreen(name: "CoordinatesEditView", class: String(describing: type(of: self)))
     }
 

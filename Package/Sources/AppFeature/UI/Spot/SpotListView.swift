@@ -63,7 +63,7 @@ struct SpotListView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarTitle(Text("SpotListView.Title", bundle: .module))
         .toolbarBackground(.visible, for: .navigationBar)
-        .sheet(isPresented: $isShowEditView) {
+        .sheet(isPresented: $isShowEditView, content: {
             ItemEditView(
                 onChange: { _ in
                     Task {
@@ -71,7 +71,7 @@ struct SpotListView: View {
                     }
                 }
             )
-        }
+        })
         .analyticsScreen(name: "SpotListView", class: String(describing: type(of: self)))
     }
 

@@ -53,14 +53,14 @@ struct WorldSelectionView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarTitle(Text("Select a world", bundle: .module))
         .toolbarBackground(.visible, for: .navigationBar)
-        .sheet(isPresented: $isShowDetailView) {
+        .sheet(isPresented: $isShowDetailView, content: {
             WorldEditView(
                 onTapDismiss: { newValue in
                     worlds.append(newValue)
                 }
             )
             .presentationDetents([.medium, .large])
-        }
+        })
     }
 }
 

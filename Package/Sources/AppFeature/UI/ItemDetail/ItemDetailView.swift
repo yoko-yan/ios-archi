@@ -37,13 +37,13 @@ struct ItemDetailView: View {
         .task {
             viewModel.loadImage()
         }
-        .sheet(isPresented: $isBiomeFinderView) {
+        .sheet(isPresented: $isBiomeFinderView, content: {
             BiomeFinderView(
                 seed: viewModel.uiState.item.world?.seed?.rawValue ?? 0,
                 coordinates: viewModel.uiState.item.coordinates ?? Coordinates.zero
             )
-        }
-        .sheet(isPresented: $isEditView) {
+        })
+        .sheet(isPresented: $isEditView, content: {
             ItemEditView(
                 item: viewModel.uiState.item,
                 onDelete: { _ in
@@ -52,7 +52,7 @@ struct ItemDetailView: View {
                     viewModel.reload(item: item)
                 }
             )
-        }
+        })
         .analyticsScreen(name: "ItemDetailView", class: String(describing: type(of: self)))
     }
 
