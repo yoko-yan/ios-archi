@@ -32,6 +32,7 @@ let package = Package(
                 .enableUpcomingFeature("ForwardTrailingClosures"),
                 .enableUpcomingFeature("ExistentialAny"),
                 .enableUpcomingFeature("BareSlashRegexLiterals"),
+                .enableUpcomingFeature("ConciseMagicFile"),
                 .enableUpcomingFeature("DisableOutwardActorInference")
             ]
         ),
@@ -45,6 +46,7 @@ let package = Package(
                 .enableUpcomingFeature("ForwardTrailingClosures"),
                 .enableUpcomingFeature("ExistentialAny"),
                 .enableUpcomingFeature("BareSlashRegexLiterals"),
+                .enableUpcomingFeature("ConciseMagicFile"),
                 .enableUpcomingFeature("DisableOutwardActorInference")
             ]
         ),
@@ -59,6 +61,7 @@ let package = Package(
                 .enableUpcomingFeature("ForwardTrailingClosures"),
                 .enableUpcomingFeature("ExistentialAny"),
                 .enableUpcomingFeature("BareSlashRegexLiterals"),
+                .enableUpcomingFeature("ConciseMagicFile"),
                 .enableUpcomingFeature("DisableOutwardActorInference")
             ]
         ),
@@ -74,6 +77,7 @@ let package = Package(
                 .enableUpcomingFeature("ForwardTrailingClosures"),
                 .enableUpcomingFeature("ExistentialAny"),
                 .enableUpcomingFeature("BareSlashRegexLiterals"),
+                .enableUpcomingFeature("ConciseMagicFile"),
                 .enableUpcomingFeature("DisableOutwardActorInference")
             ]
         ),
@@ -89,6 +93,7 @@ let package = Package(
                 .enableUpcomingFeature("ForwardTrailingClosures"),
                 .enableUpcomingFeature("ExistentialAny"),
                 .enableUpcomingFeature("BareSlashRegexLiterals"),
+                .enableUpcomingFeature("ConciseMagicFile"),
                 .enableUpcomingFeature("DisableOutwardActorInference")
             ]
         )
