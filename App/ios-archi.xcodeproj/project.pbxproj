@@ -493,7 +493,7 @@
 				);
 				MARKETING_VERSION = 0.1.0;
 				OTHER_LDFLAGS = "-ObjC";
-				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -enable-upcoming-feature ForwardTrailingClosures ExistentialAny BareSlashRegexLiterals ConciseMagicFile ImportObjcForwardDeclarations DisableOutwardActorInference DeprecateApplicationMain IsolatedDefaultValues GlobalConcurrency";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -enable-upcoming-feature ForwardTrailingClosures -enable-upcoming-feature ExistentialAny -enable-upcoming-feature BareSlashRegexLiterals -enable-upcoming-feature ConciseMagicFile -enable-upcoming-feature ImportObjcForwardDeclarations -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature DeprecateApplicationMain -enable-upcoming-feature IsolatedDefaultValues -enable-upcoming-feature GlobalConcurrency";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -529,7 +529,7 @@
 				);
 				MARKETING_VERSION = 0.1.0;
 				OTHER_LDFLAGS = "-ObjC";
-				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -enable-upcoming-feature ForwardTrailingClosures ExistentialAny BareSlashRegexLiterals ConciseMagicFile ImportObjcForwardDeclarations DisableOutwardActorInference DeprecateApplicationMain IsolatedDefaultValues GlobalConcurrency";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -enable-upcoming-feature ForwardTrailingClosures -enable-upcoming-feature ExistentialAny -enable-upcoming-feature BareSlashRegexLiterals -enable-upcoming-feature ConciseMagicFile -enable-upcoming-feature ImportObjcForwardDeclarations -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature DeprecateApplicationMain -enable-upcoming-feature IsolatedDefaultValues -enable-upcoming-feature GlobalConcurrency";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
