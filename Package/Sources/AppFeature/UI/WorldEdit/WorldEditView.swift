@@ -27,7 +27,7 @@ struct WorldEditView: View {
                 footer
                     .ignoresSafeArea(.keyboard, edges: .bottom)
             }
-            .onChange(of: viewModel.uiState.seedImage) { [old = viewModel.uiState.seedImage] new in
+            .onChange(of: viewModel.uiState.seedImage) { old, new in
                 if old == new { return }
                 if let new {
                     Task {
@@ -35,7 +35,7 @@ struct WorldEditView: View {
                     }
                 }
             }
-            .onChange(of: viewModel.uiState.events) { [old = viewModel.uiState.events] new in
+            .onChange(of: viewModel.uiState.events) { old, new in
                 if old == new { return }
                 if let event = new.first {
                     switch event {

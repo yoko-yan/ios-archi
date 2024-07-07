@@ -14,8 +14,8 @@ struct Checkbox: View {
                 .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                 .padding(.vertical, 12)
         }
-        .onChange(of: isChecked) { newValue in
-            action?(newValue)
+        .onChange(of: isChecked) {
+            action?(isChecked)
         }
         .toggleStyle(CheckboxStyle())
     }

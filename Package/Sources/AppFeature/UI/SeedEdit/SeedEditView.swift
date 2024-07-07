@@ -190,7 +190,7 @@ private extension SeedEditView {
         .toolbar {
             keyboardToolbarItem
         }
-        .onChange(of: viewModel.uiState.events) { [old = viewModel.uiState.events] new in
+        .onChange(of: viewModel.uiState.events) { old, new in
             if old == new { return }
             if let event = new.first {
                 switch event {
