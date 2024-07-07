@@ -1,7 +1,7 @@
 import Core
 import UIKit
 
-protocol SaveSpotImageUseCase {
+protocol SaveSpotImageUseCase: Sendable {
     func execute(image: UIImage, fileName: String) async throws
 }
 

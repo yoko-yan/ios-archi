@@ -1,7 +1,7 @@
 import RegexBuilder
 import UIKit
 
-protocol GetSeedFromImageUseCase {
+protocol GetSeedFromImageUseCase: Sendable {
     func execute(image: UIImage) async throws -> Seed?
 //    func execute(image: UIImage) -> AnyPublisher<Seed?, RecognizeTextLocalRequestError>
 }

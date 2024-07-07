@@ -1,6 +1,6 @@
 import UIKit
 
-protocol RecognizedTextsRepository {
+protocol RecognizedTextsRepository: Sendable {
     func get(image: UIImage) async throws -> [String]
 //    func get(image: UIImage, completionHandler: @escaping @Sendable (Result<[String], RecognizeTextError>) -> Void)
 //    func get(image: UIImage) -> AnyPublisher<[String], RecognizeTextError>

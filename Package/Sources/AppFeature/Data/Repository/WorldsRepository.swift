@@ -1,4 +1,4 @@
-final class WorldsRepository {
+final class WorldsRepository: Sendable {
     private let dataSource: any WorldsLocalDataSource
 
     init(dataSource: any WorldsLocalDataSource = WorldsLocalDataSourceImpl()) {

@@ -1,7 +1,7 @@
 import Core
 import UIKit
 
-protocol LoadSpotImageUseCase: AutoInjectable, AutoMockable {
+protocol LoadSpotImageUseCase: AutoInjectable, AutoMockable, Sendable {
     func execute(fileName: String?) async throws -> UIImage?
 }
 

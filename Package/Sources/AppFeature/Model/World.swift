@@ -1,6 +1,6 @@
 import Foundation
 
-struct World: Identifiable, Hashable {
+struct World: Identifiable, Hashable, Sendable {
     let id: String
     let name: String?
     let seed: Seed?

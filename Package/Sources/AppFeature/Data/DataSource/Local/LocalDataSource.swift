@@ -1,6 +1,6 @@
 import CoreData
 
-final class LocalDataSource<T: NSManagedObject> {
+final class LocalDataSource<T: NSManagedObject>: Sendable {
     private let coreDataManager: CoreDataManager
     private var viewContext: NSManagedObjectContext {
         coreDataManager.viewContext

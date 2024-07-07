@@ -1,6 +1,6 @@
 import CoreData
 
-protocol ItemsLocalDataSource {
+protocol ItemsLocalDataSource: Sendable {
     func fetchAll() async throws -> [Item]
     func fetchWithoutNoPhoto() async throws -> [Item]
     func insert(_ item: Item) async throws

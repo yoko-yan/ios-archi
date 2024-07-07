@@ -8,7 +8,7 @@ enum ICloudDocumentRepositoryError: Error {
     case saveImageFailed
 }
 
-protocol ICloudDocumentRepository: AutoInjectable, AutoMockable {
+protocol ICloudDocumentRepository: AutoInjectable, AutoMockable, Sendable {
     func saveImage(_ image: UIImage, fileName: String) async throws
     func loadImage(fileName: String) async throws -> UIImage?
 }

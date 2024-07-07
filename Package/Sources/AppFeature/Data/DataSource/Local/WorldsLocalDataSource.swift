@@ -1,6 +1,6 @@
 import CoreData
 
-protocol WorldsLocalDataSource {
+protocol WorldsLocalDataSource: Sendable {
     func getById(_ id: UUID) async throws -> World?
     func fetchAll() async throws -> [World]
     func insert(_ world: World) async throws

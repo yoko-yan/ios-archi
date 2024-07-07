@@ -1,6 +1,6 @@
 import Core
 
-protocol ItemsRepository: AutoInjectable, AutoMockable {
+protocol ItemsRepository: AutoInjectable, AutoMockable, Sendable {
     func fetchAll() async throws -> [Item]
     func fetchWithoutNoPhoto() async throws -> [Item]
     func insert(item: Item) async throws

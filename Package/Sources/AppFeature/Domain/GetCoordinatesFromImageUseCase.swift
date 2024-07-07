@@ -1,7 +1,7 @@
 import RegexBuilder
 import UIKit
 
-struct GetCoordinatesFromImageUseCase {
+struct GetCoordinatesFromImageUseCase: Sendable {
     private let recognizedTextsRepository: any RecognizedTextsRepository
     private let getCoordinatesFromTextUseCase: any GetCoordinatesFromTextUseCase
 

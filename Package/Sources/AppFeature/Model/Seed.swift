@@ -1,4 +1,4 @@
-struct Seed: RawRepresentable, Hashable {
+struct Seed: RawRepresentable, Hashable, Sendable {
     public static var zero: Self { .init(rawValue: 0)! } // swiftlint:disable:this force_unwrapping
 
     let rawValue: Int

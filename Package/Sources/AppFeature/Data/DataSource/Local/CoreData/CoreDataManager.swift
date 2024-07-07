@@ -7,12 +7,12 @@ enum CoreDataManagerError: Error {
     case deleteFailed
 }
 
-public final class CoreDataManager {
+public final class CoreDataManager: Sendable {
     public static let shared = CoreDataManager()
 
-    private(set) lazy var viewContext = container.viewContext
+    var viewContext: NSManagedObjectContext { container.viewContext }
 
-    var container: NSPersistentCloudKitContainer = {
+    let container: NSPersistentCloudKitContainer = {
         let container: NSPersistentCloudKitContainer
 
         // swiftlint:disable:next force_unwrapping

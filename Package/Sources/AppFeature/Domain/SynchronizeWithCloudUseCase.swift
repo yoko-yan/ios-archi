@@ -1,7 +1,7 @@
 import Core
 import CoreData
 
-protocol SynchronizeWithCloudUseCase: AutoInjectable, AutoMockable {
+protocol SynchronizeWithCloudUseCase: AutoInjectable, AutoMockable, Sendable {
     func execute() async throws
 }
 
