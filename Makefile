@@ -9,3 +9,4 @@ bootstrap:
 	# cocoapodsのライブラリをインストール
 	bundle exec pod install
 	open ios-archi.xcworkspace
+
