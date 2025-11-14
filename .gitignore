@@ -96,3 +96,5 @@ Package/Sources/Analytics/CodeGenerated
 Package/Sources/AppFeature/CodeGenerated
 Package/Tests/CoreTests/CodeGenerated
 Package/Tests/AppFeatureTests/CodeGenerated
+settings.local.json
+*.log

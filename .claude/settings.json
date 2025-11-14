@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__mobile-mcp__mobile_list_available_devices",
+      "mcp__mobile-mcp__mobile_list_apps",
+      "Bash(xcodebuild:*)",
+      "Bash(mkdir:*)"
+    ],
+    "deny": [
+      "Read(./build/**)",
+      "Read(./DerivedData/**)",
+      "Read(./Pods/**)",
+      "Read(./xcuserdata/**)",
+      "Read(./.build/**)",
+      "Read(./Carthage/Build/**)",
+      "Read(./vendor/bundle/**)",
+      "Read(./.bundle/**)",
+      "Read(./Package/Sources/Core/CodeGenerated/**)",
+      "Read(./Package/Sources/Analytics/CodeGenerated/**)",
+      "Read(./Package/Sources/AppFeature/CodeGenerated/**)",
+      "Read(./Package/Tests/CoreTests/CodeGenerated/**)",
+      "Read(./Package/Tests/AppFeatureTests/CodeGenerated/**)",
+      "Read(./fastlane/report.xml)",
+      "Read(./fastlane/Preview.html)",
+      "Read(./fastlane/screenshots/**)",
+      "Read(./fastlane/test_output/**)",
+      "Read(./GoogleService-Info*.plist)",
+      "Read(./env.txt)",
+      "Read(./App/ios-archi/XCConfigs/Local.xcconfig)",
+      "Read(./**/*.log)"
+    ],
+    "ask": []
+  }
+}
