@@ -24,6 +24,13 @@
 			remoteGlobalIDString = 83E74B26292E315600FA1F46;
 			remoteInfo = "ios-archi";
 		};
+		CD05E0992EC7A7A6002E41EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83E74B1F292E315600FA1F46 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 83E74B26292E315600FA1F46;
+			remoteInfo = "ios-archi";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +40,7 @@
 		9EA0AD020CD2636DAEC60268 /* Pods-ios-archi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-archi.release.xcconfig"; path = "Target Support Files/Pods-ios-archi/Pods-ios-archi.release.xcconfig"; sourceTree = "<group>"; };
 		B137D1DEF9A121B7DFC6ED73 /* Pods-ios-archi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-archi.debug.xcconfig"; path = "Target Support Files/Pods-ios-archi/Pods-ios-archi.debug.xcconfig"; sourceTree = "<group>"; };
 		CD05E0762EC79BEE002E41EF /* ios-archiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ios-archiUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD05E0952EC7A7A6002E41EF /* ios-archiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ios-archiTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD430D0F2A55D0AC00AB8EFA /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		CD430D102A55D0AC00AB8EFA /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		CD430D122A55D0AC00AB8EFA /* Base.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
@@ -48,6 +56,7 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		CD05E0772EC79BEE002E41EF /* ios-archiUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "ios-archiUITests"; sourceTree = "<group>"; };
+		CD05E0962EC7A7A6002E41EF /* ios-archiTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "ios-archiTests"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +71,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		CD05E0732EC79BEE002E41EF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD05E0922EC7A7A6002E41EF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -86,6 +102,7 @@
 			children = (
 				CD73EEE92A59B6930028B068 /* ios-archi.xctestplan */,
 				83E74B29292E315600FA1F46 /* ios-archi */,
+				CD05E0962EC7A7A6002E41EF /* ios-archiTests */,
 				CD05E0772EC79BEE002E41EF /* ios-archiUITests */,
 				83E74B28292E315600FA1F46 /* Products */,
 				DF99ECBECFE82D436A431575 /* Frameworks */,
@@ -98,6 +115,7 @@
 			children = (
 				83E74B27292E315600FA1F46 /* ios-archi.app */,
 				CD05E0762EC79BEE002E41EF /* ios-archiUITests.xctest */,
+				CD05E0952EC7A7A6002E41EF /* ios-archiTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -205,6 +223,29 @@
 			productReference = CD05E0762EC79BEE002E41EF /* ios-archiUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		CD05E0942EC7A7A6002E41EF /* ios-archiTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD05E09B2EC7A7A6002E41EF /* Build configuration list for PBXNativeTarget "ios-archiTests" */;
+			buildPhases = (
+				CD05E0912EC7A7A6002E41EF /* Sources */,
+				CD05E0922EC7A7A6002E41EF /* Frameworks */,
+				CD05E0932EC7A7A6002E41EF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CD05E09A2EC7A7A6002E41EF /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				CD05E0962EC7A7A6002E41EF /* ios-archiTests */,
+			);
+			name = "ios-archiTests";
+			packageProductDependencies = (
+			);
+			productName = "ios-archiTests";
+			productReference = CD05E0952EC7A7A6002E41EF /* ios-archiTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -219,6 +260,10 @@
 						CreatedOnToolsVersion = 13.4.1;
 					};
 					CD05E0752EC79BEE002E41EF = {
+						CreatedOnToolsVersion = 26.1.1;
+						TestTargetID = 83E74B26292E315600FA1F46;
+					};
+					CD05E0942EC7A7A6002E41EF = {
 						CreatedOnToolsVersion = 26.1.1;
 						TestTargetID = 83E74B26292E315600FA1F46;
 					};
@@ -239,6 +284,7 @@
 			projectRoot = "";
 			targets = (
 				83E74B26292E315600FA1F46 /* ios-archi */,
+				CD05E0942EC7A7A6002E41EF /* ios-archiTests */,
 				CD05E0752EC79BEE002E41EF /* ios-archiUITests */,
 			);
 		};
@@ -256,6 +302,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		CD05E0742EC79BEE002E41EF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD05E0932EC7A7A6002E41EF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -403,6 +456,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CD05E0912EC7A7A6002E41EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -410,6 +470,11 @@
 			isa = PBXTargetDependency;
 			target = 83E74B26292E315600FA1F46 /* ios-archi */;
 			targetProxy = CD05E07C2EC79BEE002E41EF /* PBXContainerItemProxy */;
+		};
+		CD05E09A2EC7A7A6002E41EF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 83E74B26292E315600FA1F46 /* ios-archi */;
+			targetProxy = CD05E0992EC7A7A6002E41EF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -662,6 +727,57 @@
 			};
 			name = Release;
 		};
+		CD05E09C2EC7A7A6002E41EF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.runpany.ios-archiTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ios-archi.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ios-archi";
+			};
+			name = Debug;
+		};
+		CD05E09D2EC7A7A6002E41EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.runpany.ios-archiTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ios-archi.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ios-archi";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -688,6 +804,15 @@
 			buildConfigurations = (
 				CD05E07E2EC79BEE002E41EF /* Debug */,
 				CD05E07F2EC79BEE002E41EF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CD05E09B2EC7A7A6002E41EF /* Build configuration list for PBXNativeTarget "ios-archiTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD05E09C2EC7A7A6002E41EF /* Debug */,
+				CD05E09D2EC7A7A6002E41EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

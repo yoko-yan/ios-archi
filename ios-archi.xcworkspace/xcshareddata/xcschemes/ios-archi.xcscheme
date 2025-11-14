@@ -56,7 +56,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "83E74B36292E315D00FA1F46"
+               BlueprintIdentifier = "CD05E0942EC7A7A6002E41EF"
                BuildableName = "ios-archiTests.xctest"
                BlueprintName = "ios-archiTests"
                ReferencedContainer = "container:App/ios-archi.xcodeproj">

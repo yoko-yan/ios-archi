@@ -14,16 +14,23 @@
   "testTargets" : [
     {
       "target" : {
-        "containerPath" : "container:App\/ios-archi.xcodeproj",
-        "identifier" : "CD05E0752EC79BEE002E41EF",
-        "name" : "ios-archiUITests"
+        "containerPath" : "container:Package",
+        "identifier" : "AppFeatureTests",
+        "name" : "AppFeatureTests"
       }
     },
     {
       "target" : {
-        "containerPath" : "container:Package",
-        "identifier" : "AppFeatureTests",
-        "name" : "AppFeatureTests"
+        "containerPath" : "container:App\/ios-archi.xcodeproj",
+        "identifier" : "CD05E0942EC7A7A6002E41EF",
+        "name" : "ios-archiTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:App\/ios-archi.xcodeproj",
+        "identifier" : "CD05E0752EC79BEE002E41EF",
+        "name" : "ios-archiUITests"
       }
     }
   ],
