@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Language Preference
+
+**IMPORTANT: Always respond in Japanese (日本語) when interacting with this codebase.** This is a Japanese development project, and all explanations, suggestions, and communications should be provided in Japanese unless explicitly asked otherwise.
+
 ## Overview
 
 This is a Japanese iOS application playground project (`ios-archi`) used for technical experimentation. It intentionally contains both modern and legacy technologies for learning purposes. The app uses MVVM + Layered Architecture with multi-module structure via SPM.
