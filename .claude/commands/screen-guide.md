@@ -1,8 +1,8 @@
 ---
-description: Generate or update ScreenGuide.md for UI testing
+description: Generate or update screen-guide.md for UI testing
 ---
 
-docs/ScreenGuide.mdを作成または更新してください。このドキュメントはUIテスト作成時のコンテキストとして使用されます。
+screen-guide.mdを作成または更新してください。このドキュメントはUIテスト作成時のコンテキストとして使用されます。
 
 mobile-mcp（必須）を使ってアプリを起動し、実際の画面を確認しながらソースコードと照合してください。
 
