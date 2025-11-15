@@ -1,9 +1,5 @@
 # UI Testing Guide
 
-## 対象
-
-Android/iOS アプリの自動化テストリポジトリ
-
 ## 基本方針
 
 - Page Object Pattern を使用
