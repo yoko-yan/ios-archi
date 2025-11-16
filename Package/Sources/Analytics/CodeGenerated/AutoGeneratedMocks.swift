@@ -6,40 +6,16 @@
 
 import Core
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 public class AnalyticsServiceMock: AnalyticsService {
-
     public init() {}
 
-
-
-    //MARK: - logEvent
+    // MARK: - logEvent
 
     public var logEventNameParamsCallsCount = 0
     public var logEventNameParamsCalled: Bool {
-        return logEventNameParamsCallsCount > 0
+        logEventNameParamsCallsCount > 0
     }
+
     public var logEventNameParamsReceivedArguments: (name: String, params: [String: Any]?)?
     public var logEventNameParamsReceivedInvocations: [(name: String, params: [String: Any]?)] = []
     public var logEventNameParamsClosure: ((String, [String: Any]?) -> Void)?
@@ -51,12 +27,13 @@ public class AnalyticsServiceMock: AnalyticsService {
         logEventNameParamsClosure?(name, params)
     }
 
-    //MARK: - logScreen
+    // MARK: - logScreen
 
     public var logScreenNameClassExtraParamsCallsCount = 0
     public var logScreenNameClassExtraParamsCalled: Bool {
-        return logScreenNameClassExtraParamsCallsCount > 0
+        logScreenNameClassExtraParamsCallsCount > 0
     }
+
     public var logScreenNameClassExtraParamsReceivedArguments: (name: String, screenClass: String?, extraParams: [String: Any]?)?
     public var logScreenNameClassExtraParamsReceivedInvocations: [(name: String, screenClass: String?, extraParams: [String: Any]?)] = []
     public var logScreenNameClassExtraParamsClosure: ((String, String?, [String: Any]?) -> Void)?
@@ -67,5 +44,4 @@ public class AnalyticsServiceMock: AnalyticsService {
         logScreenNameClassExtraParamsReceivedInvocations.append((name: name, screenClass: screenClass, extraParams: extraParams))
         logScreenNameClassExtraParamsClosure?(name, screenClass, extraParams)
     }
-
 }

@@ -13,7 +13,11 @@ struct SpotListView: View {
     var body: some View {
         ZStack {
             ScrollView {
-                conditionCell
+                FilterConditionCell(label: "Display only items with images") { isChecked in
+                    Task {
+                        await viewModel.send(action: .isChecked(isChecked))
+                    }
+                }
                 LazyVGrid(columns: columns, spacing: 8) {
                     ForEach(viewModel.uiState.items, id: \.self) { item in
                         NavigationLink(value: item) {
@@ -81,22 +85,6 @@ struct SpotListView: View {
 
     init(viewModel: SpotListViewModel) {
         _viewModel = State(wrappedValue: viewModel)
-    }
-}
-
-// MARK: - Privates
-
-private extension SpotListView {
-    var conditionCell: some View {
-        HStack {
-            Checkbox(label: "Display only items with images") { isChecked in
-                Task {
-                    await viewModel.send(action: .isChecked(isChecked))
-                }
-            }
-            Spacer()
-        }
-        .padding(.horizontal)
     }
 }
 

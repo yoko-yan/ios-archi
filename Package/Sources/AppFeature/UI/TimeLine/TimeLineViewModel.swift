@@ -6,6 +6,7 @@ import Observation
 enum TimeLineViewAction {
     case load
     case reload
+    case isChecked(Bool)
 }
 
 // MARK: - View model
@@ -26,11 +27,14 @@ final class TimeLineViewModel {
         switch action {
         case .load:
             do {
-                uiState.items = try await itemsRepository.fetchWithoutNoPhoto()
+                uiState.items = uiState.isChecked ? try await itemsRepository.fetchWithoutNoPhoto() : try await itemsRepository.fetchAll()
             } catch {
                 print(error)
             }
         case .reload:
+            await send(action: .load)
+        case let .isChecked(isChecked):
+            uiState.isChecked = isChecked
             await send(action: .load)
         }
     }

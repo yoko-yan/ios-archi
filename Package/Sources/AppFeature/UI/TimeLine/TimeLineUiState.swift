@@ -3,4 +3,5 @@ struct TimeLineUiState: Equatable {
     var spotImages: [String: SpotImage?] = [:]
     var deleteItems: [Item]?
     var deleteAlertMessage: String?
+    var isChecked = false
 }

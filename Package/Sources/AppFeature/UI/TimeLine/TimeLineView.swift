@@ -8,6 +8,16 @@ struct TimeLineView: View {
     var body: some View {
         ZStack {
             List {
+                Section {
+                    FilterConditionCell(label: "Display only items with images") { isChecked in
+                        Task {
+                            await viewModel.send(action: .isChecked(isChecked))
+                        }
+                    }
+                }
+                .listRowSeparator(.hidden)
+                .listRowInsets(EdgeInsets())
+
                 ForEach(viewModel.uiState.items, id: \.self) { item in
                     HStack {
                         TimeLineCell(
