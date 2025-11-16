@@ -49,7 +49,9 @@ struct WorldEditView: View {
                         dismiss()
                     }
 
-                    viewModel.consumeEvent(event)
+                    Task { @MainActor in
+                        viewModel.consumeEvent(event)
+                    }
                 }
             }
             .toolbar {

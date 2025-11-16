@@ -68,7 +68,9 @@ struct ItemEditView: View {
                         dismiss()
                     }
 
-                    viewModel.consumeEvent(event)
+                    Task { @MainActor in
+                        viewModel.consumeEvent(event)
+                    }
                 }
             }
             .navigationBarTitle(viewModel.uiState.editMode.title, displayMode: .inline)

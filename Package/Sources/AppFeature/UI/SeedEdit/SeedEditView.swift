@@ -201,7 +201,9 @@ private extension SeedEditView {
                     }
                 }
 
-                viewModel.consumeEvent(event)
+                Task { @MainActor in
+                    viewModel.consumeEvent(event)
+                }
             }
         }
     }

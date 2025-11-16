@@ -257,7 +257,9 @@ private extension CoordinatesEditView {
                     }
                 }
 
-                viewModel.consumeEvent(event)
+                Task { @MainActor in
+                    viewModel.consumeEvent(event)
+                }
             }
         }
     }
