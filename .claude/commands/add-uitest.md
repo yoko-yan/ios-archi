@@ -1,6 +1,7 @@
 ---
 description: Create UI test for a specific screen using mobile-mcp
-allowed-tools: mcp__mobile-mcp, Bash(xcodebuild:*), Bash(xcrun simctl:*)
+argument-hint: [--no-prod-changes]
+allowed-tools: mcp__mobile-mcp, Bash(xcodebuild:*), Bash(xcrun simctl:*), Read, Edit, Write, Glob
 ---
 
 mobile-mcp（必須）を使ってアプリを起動し、指定された画面のUIテストを作成してください。
@@ -16,12 +17,12 @@ mobile-mcp（必須）を使ってアプリを起動し、指定された画面�
 1. mobile-mcp でアプリを操作し、対象画面のUI要素を把握
 2. SCREEN_GUIDE.md で画面構造を確認
 3. 既存のPage Objectを参照し、必要に応じて修正・追加
-4. テストコードを生成
+4. テストコードを生成（画面ごとに別ファイル: `{画面名}UITests.swift`）
 5. 実機でテストを実行し、成功するまで修正
 
 ## 重要な制約
 
-- **プロダクトコード変更は原則禁止**（必要な場合は必ずユーザーに確認）
+- `--no-prod-changes`: プロダクトコード変更禁止
 - テスト追加フローと重要ルールは UI_TESTING_GUIDE.md を参照
 - タスク終了前に必ずテストを実行して成功を確認
 - **1度に作成するテストケースは3つまで**

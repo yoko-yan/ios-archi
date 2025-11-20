@@ -1,11 +1,18 @@
 ---
 description: Generate or update SCREEN_GUIDE.md for UI testing
-allowed-tools: mcp__mobile-mcp
+allowed-tools: mcp__mobile-mcp, Glob, Read, Write, Edit
 ---
 
-SCREEN_GUIDE.mdを作成または更新してください。
+docs/SCREEN_GUIDE.mdを網羅的に作成または更新してください。
 このドキュメントはUIテスト作成時のコンテキストとして使用されます。
 mobile-mcp（必須）を使ってアプリを起動し、実際の画面を確認しながらソースコードと照合してください。
+全タブ・全画面・全遷移を漏れなく記載すること。
+
+## 実行手順
+
+1. **SCREEN_GUIDE.mdを検索**: プロジェクト内で既存ファイルを探す
+2. **存在する場合**: 既存ファイルを読み込んで更新
+3. **存在しない場合**: `docs/SCREEN_GUIDE.md`に新規作成
 
 ## mobile-mcp設定
 - **デバイス**: 起動中のシミュレータを優先使用。なければiPhone 16を起動
@@ -55,8 +62,7 @@ mobile-mcp（必須）を使ってアプリを起動し、実際の画面を確�
 | アイテム詳細画面 | - | 写真/シード値/座標の表示、編集・削除操作 |
 ```
 
-### 画面遷移図図
-主要な画面のみ、３階層くらいまで
+### 6. 画面遷移図
 ```mermaid
 graph LR
     HomeTab[ホーム] --> Timeline[タイムライン]
@@ -88,3 +94,7 @@ graph LR
 
 - 表形式を活用して情報を構造化
 - 冗長な表現を避け、簡潔に記述
+
+## サブエージェント実行
+
+Taskツール（subagent_type: general-purpose）で実行可能。

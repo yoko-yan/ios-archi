@@ -11,7 +11,22 @@ class ItemEditPage: BasePage {
 
     /// 閉じるボタン（×）
     var closeButton: XCUIElement {
-        app.navigationBars.buttons.matching(NSPredicate(format: "label CONTAINS 'xmark' OR label CONTAINS '×'")).firstMatch
+        app.buttons["xmark"]
+    }
+
+    /// 写真を登録ボタン
+    var photoRegistrationButton: XCUIElement {
+        app.buttons["写真を登録"]
+    }
+
+    /// カメラボタン
+    var cameraButton: XCUIElement {
+        app.buttons["camera.circle.fill"]
+    }
+
+    /// 写真選択ボタン
+    var photoPickerButton: XCUIElement {
+        app.buttons["photo.circle.fill"]
     }
 
     /// 座標セル
@@ -21,7 +36,7 @@ class ItemEditPage: BasePage {
 
     /// ワールドセル
     var worldCell: XCUIElement {
-        app.buttons.matching(NSPredicate(format: "label CONTAINS 'World' OR label CONTAINS 'ワールド'")).firstMatch
+        app.buttons.matching(NSPredicate(format: "label CONTAINS '未選択' OR label CONTAINS '選択済み' OR (label CONTAINS 'ワールド' AND label CONTAINS ',')")).firstMatch
     }
 
     /// 登録ボタン
