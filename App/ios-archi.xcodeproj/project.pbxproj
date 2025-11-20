@@ -13,7 +13,6 @@
 		97B0E22E2A4F6551003581A1 /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 97B0E22D2A4F6551003581A1 /* AppFeature */; };
 		CDA261FC2AF051DD0089E4F1 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = CDA261FB2AF051DD0089E4F1 /* Localizable.xcstrings */; };
 		CDCC38582A59E5B100679A35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDCC38572A59E5B100679A35 /* Assets.xcassets */; };
-		EB8ED76D45542199BA43AE04 /* Pods_ios_archi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E41725DDA4F7CD16B1057AFB /* Pods_ios_archi.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,8 +36,6 @@
 		83E74B27292E315600FA1F46 /* ios-archi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-archi.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83E74B2A292E315600FA1F46 /* ios_archiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_archiApp.swift; sourceTree = "<group>"; };
 		83E74B31292E315D00FA1F46 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		9EA0AD020CD2636DAEC60268 /* Pods-ios-archi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-archi.release.xcconfig"; path = "Target Support Files/Pods-ios-archi/Pods-ios-archi.release.xcconfig"; sourceTree = "<group>"; };
-		B137D1DEF9A121B7DFC6ED73 /* Pods-ios-archi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-archi.debug.xcconfig"; path = "Target Support Files/Pods-ios-archi/Pods-ios-archi.debug.xcconfig"; sourceTree = "<group>"; };
 		CD05E0762EC79BEE002E41EF /* ios-archiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ios-archiUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD05E0952EC7A7A6002E41EF /* ios-archiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ios-archiTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD430D0F2A55D0AC00AB8EFA /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
@@ -51,7 +48,6 @@
 		CDC4704F2AE51DC60030F3B1 /* Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Release.entitlements; sourceTree = "<group>"; };
 		CDCC38572A59E5B100679A35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CDE7E6232A59CA3F00EFDC11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		E41725DDA4F7CD16B1057AFB /* Pods_ios_archi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_archi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -65,7 +61,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				97B0E22E2A4F6551003581A1 /* AppFeature in Frameworks */,
-				EB8ED76D45542199BA43AE04 /* Pods_ios_archi.framework in Frameworks */,
 				977078F62BE2304100A4B040 /* AnalyticsImpl in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,16 +82,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		20ABA691EDCBAB865296460F /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				B137D1DEF9A121B7DFC6ED73 /* Pods-ios-archi.debug.xcconfig */,
-				9EA0AD020CD2636DAEC60268 /* Pods-ios-archi.release.xcconfig */,
-			);
-			name = Pods;
-			path = ../Pods;
-			sourceTree = "<group>";
-		};
 		83E74B1E292E315600FA1F46 = {
 			isa = PBXGroup;
 			children = (
@@ -106,7 +91,6 @@
 				CD05E0772EC79BEE002E41EF /* ios-archiUITests */,
 				83E74B28292E315600FA1F46 /* Products */,
 				DF99ECBECFE82D436A431575 /* Frameworks */,
-				20ABA691EDCBAB865296460F /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -165,7 +149,6 @@
 		DF99ECBECFE82D436A431575 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E41725DDA4F7CD16B1057AFB /* Pods_ios_archi.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -177,9 +160,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 83E74B4B292E315D00FA1F46 /* Build configuration list for PBXNativeTarget "ios-archi" */;
 			buildPhases = (
-				8C0A583C1902CE216094A872 /* [CP] Check Pods Manifest.lock */,
-				83C439DC2986807600DA1425 /* SwiftFormat */,
-				83C439DD298680AA00DA1425 /* SwiftLint */,
 				83E74B23292E315600FA1F46 /* Sources */,
 				83E74B24292E315600FA1F46 /* Frameworks */,
 				83E74B25292E315600FA1F46 /* Resources */,
@@ -318,66 +298,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		83C439DC2986807600DA1425 /* SwiftFormat */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = SwiftFormat;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ \\\"$ENABLE_PREVIEWS\\\" == \\\"YES\\\" ]; then\n  echo 'warning: skip run script'\n  exit 0\nfi\nif which \"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" > /dev/null; then\n    \"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" \"${SRCROOT}/..\"\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
-		};
-		83C439DD298680AA00DA1425 /* SwiftLint */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = SwiftLint;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ \\\"$ENABLE_PREVIEWS\\\" == \\\"YES\\\" ]; then\n  echo 'warning: skip run script'\n  exit 0\nfi\nif which \"${PODS_ROOT}/SwiftLint/swiftlint\" > /dev/null; then\n  \"${PODS_ROOT}/SwiftLint/swiftlint\"\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		8C0A583C1902CE216094A872 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ios-archi-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		97B0E22F2A4F6BBE003581A1 /* create env.txt */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -516,6 +436,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = U98P3DV78J;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -582,6 +503,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = U98P3DV78J;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -632,7 +554,6 @@
 				);
 				MARKETING_VERSION = 0.1.0;
 				OTHER_LDFLAGS = "-ObjC";
-				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -enable-upcoming-feature ForwardTrailingClosures -enable-upcoming-feature ExistentialAny -enable-upcoming-feature BareSlashRegexLiterals -enable-upcoming-feature ConciseMagicFile -enable-upcoming-feature ImportObjcForwardDeclarations -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature DeprecateApplicationMain -enable-upcoming-feature IsolatedDefaultValues -enable-upcoming-feature GlobalConcurrency";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -668,7 +589,6 @@
 				);
 				MARKETING_VERSION = 0.1.0;
 				OTHER_LDFLAGS = "-ObjC";
-				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -enable-upcoming-feature ForwardTrailingClosures -enable-upcoming-feature ExistentialAny -enable-upcoming-feature BareSlashRegexLiterals -enable-upcoming-feature ConciseMagicFile -enable-upcoming-feature ImportObjcForwardDeclarations -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature DeprecateApplicationMain -enable-upcoming-feature IsolatedDefaultValues -enable-upcoming-feature GlobalConcurrency";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

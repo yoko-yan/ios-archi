@@ -33,11 +33,11 @@ The project uses Swift Package Manager for modularization:
   - Uses XCConfig files in `XCConfigs/` for build configuration
   - Links to Package modules as dependencies
 
-### Workspace Structure
+### Project Structure
 
-- `ios-archi.xcworkspace`: Main workspace (combines CocoaPods and SPM)
 - `App/ios-archi.xcodeproj`: Application project
-- Uses both CocoaPods (SwiftLint, SwiftFormat, Sourcery) and SPM (feature modules)
+- `Tools/Package.swift`: Development tools (SwiftLint, SwiftFormat, Sourcery) via SPM
+- Uses SPM for both feature modules and development tools
 
 ## Build and Development Commands
 
@@ -48,54 +48,49 @@ make bootstrap
 ```
 
 This will:
-1. Install correct Ruby version via rbenv
-2. Install bundler dependencies (CocoaPods, Fastlane)
-3. Install CocoaPods dependencies
-4. Open the workspace
+1. Resolve tool dependencies via SPM
+2. Open the project
 
 ### Building in VS Code
 
 The project uses `xcode-build-server` for VS Code integration. The configuration is in `buildServer.json`:
-- Workspace: `ios-archi.xcworkspace`
+- Project: `App/ios-archi.xcodeproj`
 - Scheme: `ios-archi`
 
 ### Manual Build Commands
 
 ```bash
-# Build the workspace
-xcodebuild -workspace ios-archi.xcworkspace -scheme ios-archi build
+# Build the project
+xcodebuild -project App/ios-archi.xcodeproj -scheme ios-archi build
 
 # Build for testing
-xcodebuild -workspace ios-archi.xcworkspace -scheme ios-archi build-for-testing
+xcodebuild -project App/ios-archi.xcodeproj -scheme ios-archi build-for-testing
 
 # Run tests
-xcodebuild -workspace ios-archi.xcworkspace -scheme ios-archi test
+xcodebuild -project App/ios-archi.xcodeproj -scheme ios-archi test
 ```
 
 ### Code Quality Tools
 
 ```bash
 # Run SwiftLint
-bundle exec Pods/SwiftLint/swiftlint
+make lint
 
 # Auto-fix SwiftLint issues
-bundle exec Pods/SwiftLint/swiftlint --fix
+make lint-fix
 
 # Run SwiftFormat
-bundle exec Pods/SwiftFormat/CommandLineTool/swiftformat .
+make format
 
 # Generate code with Sourcery (mocks and DI)
-bundle exec Pods/Sourcery/bin/sourcery --config .sourcery.yml
+make sourcery
 ```
 
-### Dependency Management
-
+Or directly via SPM:
 ```bash
-# Install/update CocoaPods
-bundle exec pod install
-
-# Update Swift Package dependencies
-# (done via Xcode or xcodebuild -resolvePackageDependencies)
+swift run --package-path Tools swiftlint
+swift run --package-path Tools swiftformat .
+swift run --package-path Tools sourcery --config .sourcery.yml
 ```
 
 ## Architecture Patterns
@@ -158,7 +153,7 @@ class MyViewModelSpec: AsyncSpec {
 - **`.swiftformat`**: SwiftFormat configuration (4-space indent, alphabetized imports)
 - **`.sourcery.yml`**: Sourcery code generation configuration
 - **`Package/Package.swift`**: SPM package definition with strict concurrency enabled
-- **`Podfile`**: CocoaPods dependencies (SwiftLint, SwiftFormat, Sourcery only)
+- **`Tools/Package.swift`**: Development tools (SwiftLint, SwiftFormat, Sourcery)
 - **`App/ios-archi/XCConfigs/`**: XCConfig files for build settings (Base, Debug, Release, Local)
 
 ## Technologies in Use

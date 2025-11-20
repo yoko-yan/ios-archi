@@ -98,3 +98,4 @@ Package/Tests/CoreTests/CodeGenerated
 Package/Tests/AppFeatureTests/CodeGenerated
 settings.local.json
 *.log
+buildServer.json

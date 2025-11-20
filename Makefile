@@ -2,11 +2,19 @@ SHELL=/bin/zsh
 
 bootstrap:
 	cd . # use chxcode auto
-	rbenv install -s
-	# bundlerでcocoapodsとfastlaneをインストール
-	bundle config set --local path vendor/bundle
-	bundle install
-	# cocoapodsのライブラリをインストール
-	bundle exec pod install
-	open ios-archi.xcworkspace
+	# ツールの依存関係を解決
+	swift package --package-path Tools resolve
+	open App/ios-archi.xcodeproj
+
+lint:
+	swift run --package-path Tools swiftlint
+
+lint-fix:
+	swift run --package-path Tools swiftlint --fix
+
+format:
+	swift run --package-path Tools swiftformat .
+
+sourcery:
+	swift run --package-path Tools sourcery --config .sourcery.yml
 
