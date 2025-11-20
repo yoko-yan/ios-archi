@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# Install Sourcery using Homebrew.
+brew install sourcery
+		
+# Install dependencies you manage with CocoaPods.
 make sourcery
 
 echo "$XCCONFIG" | base64 --decode > ../App/ios-archi/XCConfigs/Local.xcconfig
