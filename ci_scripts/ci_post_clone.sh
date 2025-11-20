@@ -2,9 +2,7 @@
 
 # Install Sourcery using Homebrew.
 brew install sourcery
-		
-# Install dependencies you manage with CocoaPods.
-make sourcery
+swift run --package-path Tools sourcery --config .sourcery.yml
 
 echo "$XCCONFIG" | base64 --decode > ../App/ios-archi/XCConfigs/Local.xcconfig
 echo "$GOOGLE_SERVICE_INFO" | base64 --decode > ../App/ios-archi/Configs/GoogleService-Info-Release.plist
