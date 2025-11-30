@@ -4,7 +4,7 @@ bootstrap:
 	cd . # use chxcode auto
 	# ツールの依存関係を解決
 	swift package --package-path Tools resolve
-	open App/ios-archi.xcodeproj
+	open ios-archi.xcworkspace
 
 lint:
 	swift run --package-path Tools swiftlint
@@ -17,4 +17,3 @@ format:
 
 sourcery:
 	swift run --package-path Tools sourcery --config .sourcery.yml
-
