@@ -25,13 +25,13 @@ make bootstrap
 
 ```bash
 # Build the project
-xcodebuild -project App/ios-archi.xcodeproj -scheme ios-archi build
+xcodebuild -workspace ios-archi.xcworkspace -scheme ios-archi build
 
 # Build for testing
-xcodebuild -project App/ios-archi.xcodeproj -scheme ios-archi build-for-testing
+xcodebuild -workspace ios-archi.xcworkspace -scheme ios-archi build-for-testing
 
 # Run tests
-xcodebuild -project App/ios-archi.xcodeproj -scheme ios-archi test
+xcodebuild -workspace ios-archi.xcworkspace -scheme ios-archi test
 ```
 
 ### Code Quality Tools
@@ -202,10 +202,10 @@ withDependencies {
 
 ```bash
 # Run all tests
-xcodebuild -project App/ios-archi.xcodeproj -scheme ios-archi test
+xcodebuild -workspace ios-archi.xcworkspace -scheme ios-archi test
 
 # Run specific test
-xcodebuild -project App/ios-archi.xcodeproj -scheme ios-archi test -only-testing:AppFeatureTests/MyViewModelSpec
+xcodebuild -workspace ios-archi.xcworkspace -scheme ios-archi test -only-testing:AppFeatureTests/MyViewModelSpec
 ```
 
 ## Git Workflow
@@ -233,12 +233,12 @@ Write clear, concise commit messages in Japanese:
 
 2. Run tests:
    ```bash
-   xcodebuild -project App/ios-archi.xcodeproj -scheme ios-archi test
+   xcodebuild -workspace ios-archi.xcworkspace -scheme ios-archi test
    ```
 
 3. Verify build:
    ```bash
-   xcodebuild -project App/ios-archi.xcodeproj -scheme ios-archi build
+   xcodebuild -workspace ios-archi.xcworkspace -scheme ios-archi build
    ```
 
 ### Pull Request Guidelines
@@ -270,7 +270,7 @@ Write clear, concise commit messages in Japanese:
 
 The project uses `xcode-build-server` for VS Code integration:
 - Configuration: `buildServer.json`
-- Project: `App/ios-archi.xcodeproj`
+- Workspace: `ios-archi.xcworkspace`
 - Scheme: `ios-archi`
 
 ## Technologies Stack
@@ -319,7 +319,7 @@ The project uses `xcode-build-server` for VS Code integration:
 
 ### Troubleshooting Build Issues
 
-1. Clean build folder: `xcodebuild clean -project App/ios-archi.xcodeproj -scheme ios-archi`
+1. Clean build folder: `xcodebuild clean -workspace ios-archi.xcworkspace -scheme ios-archi`
 2. Reset package cache: `rm -rf ~/Library/Developer/Xcode/DerivedData`
 3. Resolve packages: Open Xcode → File → Packages → Resolve Package Versions
 4. Regenerate code: `make sourcery`

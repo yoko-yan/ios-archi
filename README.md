@@ -63,13 +63,13 @@ make bootstrap
 
 ```bash
 # プロジェクトのビルド
-xcodebuild -project App/ios-archi.xcodeproj -scheme ios-archi build
+xcodebuild -workspace ios-archi.xcworkspace -scheme ios-archi build
 
 # テスト用ビルド
-xcodebuild -project App/ios-archi.xcodeproj -scheme ios-archi build-for-testing
+xcodebuild -workspace ios-archi.xcworkspace -scheme ios-archi build-for-testing
 
 # テスト実行
-xcodebuild -project App/ios-archi.xcodeproj -scheme ios-archi test
+xcodebuild -workspace ios-archi.xcworkspace -scheme ios-archi test
 ```
 
 ### コード品質ツール
@@ -195,5 +195,5 @@ extension InjectedValues {
 ## VS Code統合
 
 `buildServer.json`を使用した`xcode-build-server`統合:
-- プロジェクト: `App/ios-archi.xcodeproj`
+- ワークスペース: `ios-archi.xcworkspace`
 - スキーム: `ios-archi`
