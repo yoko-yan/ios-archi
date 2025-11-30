@@ -1,5 +1,4 @@
 import Analytics
-import Core
 import FirebaseAnalytics
 
 public final class AnalyticsServiceImpl: AnalyticsService {
