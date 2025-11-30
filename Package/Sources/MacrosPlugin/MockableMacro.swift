@@ -59,14 +59,14 @@ public struct MockableMacro: PeerMacro {
             }
 
             let varName = identifier.identifier.text
-            let typeName = typeAnnotation.type.description.trimmingCharacters(in: .whitespaces)
+            let typeName = typeAnnotation.type.description.trimmingWhitespace()
             let isOptional = typeName.hasSuffix("?")
 
             if isOptional {
                 results.append("    \(accessLevel)var \(varName): \(typeName)")
-            } else if typeName.hasPrefix("[") || typeName.contains(": ") {
+            } else if typeName.hasPrefix("[") || typeName.containsSubstring(": ") {
                 // Array or Dictionary
-                let defaultValue = typeName.contains(": ") ? "[:]" : "[]"
+                let defaultValue = typeName.containsSubstring(": ") ? "[:]" : "[]"
                 results.append("    \(accessLevel)var \(varName): \(typeName) = \(defaultValue)")
             } else {
                 results.append("""
@@ -89,7 +89,7 @@ public struct MockableMacro: PeerMacro {
         let selectorName = generateSelectorName(funcDecl: funcDecl)
         let isAsync = funcDecl.signature.effectSpecifiers?.asyncSpecifier != nil
         let isThrows = funcDecl.signature.effectSpecifiers?.throwsClause != nil
-        let returnType = funcDecl.signature.returnClause?.type.description.trimmingCharacters(in: .whitespaces)
+        let returnType = funcDecl.signature.returnClause?.type.description.trimmingWhitespace()
         let parameters = funcDecl.signature.parameterClause.parameters
 
         // MARK comment
@@ -113,13 +113,13 @@ public struct MockableMacro: PeerMacro {
         // ReceivedArguments (for methods with parameters)
         if parameters.count == 1, let param = parameters.first {
             let paramName = param.secondName?.text ?? param.firstName.text
-            let paramType = param.type.description.trimmingCharacters(in: .whitespaces)
+            let paramType = param.type.description.trimmingWhitespace()
             results.append("    \(accessLevel)var \(selectorName)Received\(paramName.capitalizingFirstLetter()): \(paramType)?")
             results.append("    \(accessLevel)var \(selectorName)ReceivedInvocations: [\(paramType)] = []")
         } else if parameters.count > 1 {
             let tupleType = parameters.map { param -> String in
                 let paramName = param.secondName?.text ?? param.firstName.text
-                let paramType = param.type.description.trimmingCharacters(in: .whitespaces)
+                let paramType = param.type.description.trimmingWhitespace()
                 return "\(paramName): \(paramType)"
             }.joined(separator: ", ")
             results.append("    \(accessLevel)var \(selectorName)ReceivedArguments: (\(tupleType))?")
@@ -138,7 +138,7 @@ public struct MockableMacro: PeerMacro {
 
         // Closure
         let closureParams = parameters.map { param -> String in
-            param.type.description.trimmingCharacters(in: .whitespaces)
+            param.type.description.trimmingWhitespace()
         }.joined(separator: ", ")
         let closureReturn = returnType ?? "Void"
         let asyncPart = isAsync ? "async " : ""
@@ -149,7 +149,7 @@ public struct MockableMacro: PeerMacro {
         let paramsDecl = parameters.map { param -> String in
             let firstName = param.firstName.text
             let secondName = param.secondName?.text ?? firstName
-            let paramType = param.type.description.trimmingCharacters(in: .whitespaces)
+            let paramType = param.type.description.trimmingWhitespace()
             if firstName == "_" {
                 return "_ \(secondName): \(paramType)"
             } else if firstName == secondName {
@@ -259,6 +259,30 @@ enum MacroError: Error, CustomStringConvertible {
 extension String {
     func capitalizingFirstLetter() -> String {
         prefix(1).uppercased() + dropFirst()
+    }
+
+    func trimmingWhitespace() -> String {
+        var result = self[...]
+        while result.first?.isWhitespace == true {
+            result = result.dropFirst()
+        }
+        while result.last?.isWhitespace == true {
+            result = result.dropLast()
+        }
+        return String(result)
+    }
+
+    func containsSubstring(_ substring: String) -> Bool {
+        guard !substring.isEmpty else { return true }
+        var index = startIndex
+        while index < endIndex {
+            let remaining = self[index...]
+            if remaining.hasPrefix(substring) {
+                return true
+            }
+            index = self.index(after: index)
+        }
+        return false
     }
 }
 
