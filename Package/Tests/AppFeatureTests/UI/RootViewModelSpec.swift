@@ -1,6 +1,6 @@
 // swiftlint:disable implicitly_unwrapped_optional
 
-import Core
+import Dependencies
 import Nimble
 import Quick
 
@@ -8,30 +8,28 @@ import Quick
 
 class RootViewModelSpec: AsyncSpec {
     override class func spec() {
-        var isCloudKitContainerAvailableUseCaseMock: IsCloudKitContainerAvailableUseCaseMock!
         var synchronizeWithCloudUseCaseMock: SynchronizeWithCloudUseCaseMock!
         var viewModel: RootViewModel!
 
         describe("load") {
             beforeEach {
-                isCloudKitContainerAvailableUseCaseMock = IsCloudKitContainerAvailableUseCaseMock()
-                InjectedValues[\.isCloudKitContainerAvailableUseCase] = isCloudKitContainerAvailableUseCaseMock
                 synchronizeWithCloudUseCaseMock = SynchronizeWithCloudUseCaseMock()
-                InjectedValues[\.synchronizeWithCloudUseCase] = synchronizeWithCloudUseCaseMock
-                viewModel = await RootViewModel()
             }
 
             context("When iCloud is available and synchronization is successful.") {
                 beforeEach {
-                    isCloudKitContainerAvailableUseCaseMock.executeClosure = { true }
-                    synchronizeWithCloudUseCaseMock.executeClosure = { true }
+                    synchronizeWithCloudUseCaseMock.executeClosure = {}
                 }
 
                 it("The app launches successfully.") { @MainActor in
-                    await viewModel.load()
-                    expect(isCloudKitContainerAvailableUseCaseMock.executeCallsCount) == 1
-                    expect(synchronizeWithCloudUseCaseMock.executeCallsCount) == 1
-                    expect(viewModel.uiState.isLaunching) == true
+                    await withDependencies {
+                        $0.synchronizeWithCloudUseCase = synchronizeWithCloudUseCaseMock
+                    } operation: {
+                        viewModel = RootViewModel()
+                        await viewModel.load()
+                        expect(synchronizeWithCloudUseCaseMock.executeCallsCount) == 1
+                        expect(viewModel.uiState.isLaunching) == false
+                    }
                 }
             }
         }

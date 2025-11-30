@@ -1,13 +1,28 @@
-import Core
 import CoreData
+import Dependencies
+import Macros
 
-protocol SynchronizeWithCloudUseCase: AutoInjectable, AutoMockable, Sendable {
+@Mockable
+protocol SynchronizeWithCloudUseCase: Sendable {
     func execute() async throws
 }
 
+// MARK: - DependencyValues
+
+private struct SynchronizeWithCloudUseCaseKey: DependencyKey {
+    static let liveValue: any SynchronizeWithCloudUseCase = SynchronizeWithCloudUseCaseImpl()
+}
+
+extension DependencyValues {
+    var synchronizeWithCloudUseCase: any SynchronizeWithCloudUseCase {
+        get { self[SynchronizeWithCloudUseCaseKey.self] }
+        set { self[SynchronizeWithCloudUseCaseKey.self] = newValue }
+    }
+}
+
 struct SynchronizeWithCloudUseCaseImpl: SynchronizeWithCloudUseCase {
-    @Injected(\.isCloudKitContainerAvailableUseCase) private var isCloudKitContainerAvailableUseCase
-    @Injected(\.itemsRepository) private var itemsRepository
+    @Dependency(\.isCloudKitContainerAvailableUseCase) private var isCloudKitContainerAvailableUseCase
+    @Dependency(\.itemsRepository) private var itemsRepository
 
     func execute() async throws {
 //        guard isCloudKitContainerAvailableUseCase.execute() else { return }

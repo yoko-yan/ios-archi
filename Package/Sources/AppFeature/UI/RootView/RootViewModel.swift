@@ -1,4 +1,4 @@
-import Core
+import Dependencies
 import Observation
 
 // MARK: - View model
@@ -7,7 +7,7 @@ import Observation
 @Observable
 final class RootViewModel {
     @ObservationIgnored
-    @Injected(\.synchronizeWithCloudUseCase) private var synchronizeWithCloud
+    @Dependency(\.synchronizeWithCloudUseCase) private var synchronizeWithCloud
 
     private(set) var uiState = RootUiState()
 

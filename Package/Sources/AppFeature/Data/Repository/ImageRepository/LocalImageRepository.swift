@@ -1,4 +1,5 @@
-import Core
+import Dependencies
+import Macros
 import UIKit
 
 enum LocalImageRepositoryError: Error {
@@ -8,9 +9,23 @@ enum LocalImageRepositoryError: Error {
     case imageFileNotFound
 }
 
-protocol LocalImageRepository: AutoInjectable, AutoMockable {
+@Mockable
+protocol LocalImageRepository: Sendable {
     func saveImage(_ image: UIImage, fileName: String) async throws
     func loadImage(fileName: String?) async throws -> UIImage?
+}
+
+// MARK: - DependencyValues
+
+private struct LocalImageRepositoryKey: DependencyKey {
+    static let liveValue: any LocalImageRepository = LocalImageRepositoryImpl()
+}
+
+extension DependencyValues {
+    var localImageRepository: any LocalImageRepository {
+        get { self[LocalImageRepositoryKey.self] }
+        set { self[LocalImageRepositoryKey.self] = newValue }
+    }
 }
 
 struct LocalImageRepositoryImpl: LocalImageRepository {

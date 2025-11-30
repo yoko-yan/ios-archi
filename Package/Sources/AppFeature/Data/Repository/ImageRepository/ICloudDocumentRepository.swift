@@ -1,4 +1,5 @@
-import Core
+import Dependencies
+import Macros
 import UIKit
 
 // MARK: - Error
@@ -8,9 +9,23 @@ enum ICloudDocumentRepositoryError: Error {
     case saveImageFailed
 }
 
-protocol ICloudDocumentRepository: AutoInjectable, AutoMockable, Sendable {
+@Mockable
+protocol ICloudDocumentRepository: Sendable {
     func saveImage(_ image: UIImage, fileName: String) async throws
     func loadImage(fileName: String) async throws -> UIImage?
+}
+
+// MARK: - DependencyValues
+
+private struct ICloudDocumentRepositoryKey: DependencyKey {
+    static let liveValue: any ICloudDocumentRepository = ICloudDocumentRepositoryImpl()
+}
+
+extension DependencyValues {
+    var iCloudDocumentRepository: any ICloudDocumentRepository {
+        get { self[ICloudDocumentRepositoryKey.self] }
+        set { self[ICloudDocumentRepositoryKey.self] = newValue }
+    }
 }
 
 struct ICloudDocumentRepositoryImpl: ICloudDocumentRepository {

@@ -1,4 +1,4 @@
-import Core
+import Dependencies
 import Observation
 
 // MARK: - Action
@@ -15,7 +15,7 @@ enum TimeLineViewAction {
 @Observable
 final class TimeLineViewModel {
     @ObservationIgnored
-    @Injected(\.itemsRepository) private var itemsRepository
+    @Dependency(\.itemsRepository) private var itemsRepository
 
     private(set) var uiState = TimeLineUiState()
 

@@ -1,11 +1,26 @@
-import Core
+import Dependencies
+import Macros
 
-protocol ItemsRepository: AutoInjectable, AutoMockable, Sendable {
+@Mockable
+protocol ItemsRepository: Sendable {
     func fetchAll() async throws -> [Item]
     func fetchWithoutNoPhoto() async throws -> [Item]
     func insert(item: Item) async throws
     func update(item: Item) async throws
     func delete(item: Item) async throws
+}
+
+// MARK: - DependencyValues
+
+private struct ItemsRepositoryKey: DependencyKey {
+    static let liveValue: any ItemsRepository = ItemsRepositoryImpl()
+}
+
+extension DependencyValues {
+    var itemsRepository: any ItemsRepository {
+        get { self[ItemsRepositoryKey.self] }
+        set { self[ItemsRepositoryKey.self] = newValue }
+    }
 }
 
 struct ItemsRepositoryImpl: ItemsRepository {

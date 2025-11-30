@@ -2,6 +2,7 @@ import Analytics
 import AnalyticsImpl
 import AppFeature
 import Core
+import Dependencies
 import FirebaseCore
 import SwiftUI
 
@@ -16,12 +17,8 @@ struct ios_archiApp: App {
     }
 
     init() {
-        let analyticsService: any AnalyticsService = if BuildHelper.isPreview || BuildHelper.isTesting {
-            AnalyticsServiceMock()
-        } else {
-            AnalyticsServiceImpl()
-        }
-        InjectedValues[\.analyticsService] = analyticsService
+        // swift-dependencies uses liveValue by default
+        // For preview/testing, dependencies are overridden using withDependencies
     }
 }
 

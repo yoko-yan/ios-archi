@@ -1,4 +1,4 @@
-import Core
+import Dependencies
 import UIKit
 
 // MARK: - Action
@@ -15,9 +15,9 @@ enum SpotViewAction {
 @Observable
 final class SpotListViewModel {
     @ObservationIgnored
-    @Injected(\.itemsRepository) private var itemsRepository
+    @Dependency(\.itemsRepository) private var itemsRepository
     @ObservationIgnored
-    @Injected(\.loadSpotImageUseCase) private var loadSpotImageUseCase
+    @Dependency(\.loadSpotImageUseCase) private var loadSpotImageUseCase
 
     private(set) var uiState = SpotListUiState()
 

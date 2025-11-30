@@ -1,4 +1,4 @@
-import Core
+import Dependencies
 import SwiftUI
 
 @MainActor
@@ -93,8 +93,11 @@ struct SpotListView: View {
 #if DEBUG
 @available(iOS 17.0, *)
 #Preview(traits: .sizeThatFitsLayout) {
-    InjectedValues[\.itemsRepository] = ItemsRepositoryImpl.preview
-    InjectedValues[\.loadSpotImageUseCase] = LoadSpotImageUseCaseImpl.preview
-    return SpotListView()
+    withDependencies {
+        $0.itemsRepository = ItemsRepositoryImpl.preview
+        $0.loadSpotImageUseCase = LoadSpotImageUseCaseImpl.preview
+    } operation: {
+        SpotListView()
+    }
 }
 #endif

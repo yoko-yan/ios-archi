@@ -1,4 +1,4 @@
-import Core
+import Dependencies
 import UIKit
 
 // MARK: - Action
@@ -72,7 +72,7 @@ extension ItemEditError: LocalizedError {
 @Observable
 final class ItemEditViewModel {
     @ObservationIgnored
-    @Injected(\.itemsRepository) private var itemsRepository
+    @Dependency(\.itemsRepository) private var itemsRepository
 
     private(set) var uiState: ItemEditUiState
 

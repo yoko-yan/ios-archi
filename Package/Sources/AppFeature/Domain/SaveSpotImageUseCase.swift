@@ -1,4 +1,4 @@
-import Core
+import Dependencies
 import UIKit
 
 protocol SaveSpotImageUseCase: Sendable {
@@ -6,9 +6,9 @@ protocol SaveSpotImageUseCase: Sendable {
 }
 
 struct SaveSpotImageUseCaseImpl: SaveSpotImageUseCase {
-    @Injected(\.isCloudKitContainerAvailableUseCase) private var isCloudKitContainerAvailableUseCase
-    @Injected(\.iCloudDocumentRepository) private var iCloudDocumentRepository
-    @Injected(\.localImageRepository) private var localImageRepository
+    @Dependency(\.isCloudKitContainerAvailableUseCase) private var isCloudKitContainerAvailableUseCase
+    @Dependency(\.iCloudDocumentRepository) private var iCloudDocumentRepository
+    @Dependency(\.localImageRepository) private var localImageRepository
 
     func execute(image: UIImage, fileName: String) async throws {
         if isCloudKitContainerAvailableUseCase.execute() {
