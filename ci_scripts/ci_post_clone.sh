@@ -1,7 +1,6 @@
 #!/bin/sh
 
 # Xcode CloudでSwift MacrosとSPMプラグインのビルドエラーを回避
-# https://zenn.dev/hmhv/articles/c7240daf96990a
 defaults write com.apple.dt.Xcode IDESkipMacroFingerprintValidation -bool YES
 defaults write com.apple.dt.Xcode IDESkipPackagePluginFingerprintValidatation -bool YES
 
