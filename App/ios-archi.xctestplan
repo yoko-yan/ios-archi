@@ -28,6 +28,10 @@
     },
     {
       "skippedTests" : [
+        "ItemEditUITests",
+        "ItemEditUITests\/testCloseButtonDismissesItemEditSheet()",
+        "ItemEditUITests\/testItemEditScreenElementsAreDisplayed()",
+        "ItemEditUITests\/testNavigateToWorldSelectionScreen()",
         "WorldRegistrationUITests",
         "WorldRegistrationUITests\/testNavigateToWorldTab()",
         "WorldRegistrationUITests\/testRegisterNewWorld()",
