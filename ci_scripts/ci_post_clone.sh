@@ -2,7 +2,7 @@
 
 # Xcode CloudでSwift MacrosとSPMプラグインのビルドエラーを回避
 defaults write com.apple.dt.Xcode IDESkipMacroFingerprintValidation -bool YES
-defaults write com.apple.dt.Xcode IDESkipPackagePluginFingerprintValidation -bool YES
+defaults write com.apple.dt.Xcode IDESkipPackagePluginFingerprintValidatation -bool YES
 
 echo "$XCCONFIG" | base64 --decode > ../App/ios-archi/XCConfigs/Local.xcconfig
 echo "$GOOGLE_SERVICE_INFO" | base64 --decode > ../App/ios-archi/Configs/GoogleService-Info-Release.plist
