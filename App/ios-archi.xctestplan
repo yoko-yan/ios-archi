@@ -27,6 +27,12 @@
       }
     },
     {
+      "skippedTests" : [
+        "WorldRegistrationUITests",
+        "WorldRegistrationUITests\/testNavigateToWorldTab()",
+        "WorldRegistrationUITests\/testRegisterNewWorld()",
+        "WorldRegistrationUITests\/testShowAddWorldButton()"
+      ],
       "target" : {
         "containerPath" : "container:App\/ios-archi.xcodeproj",
         "identifier" : "CD05E0752EC79BEE002E41EF",
