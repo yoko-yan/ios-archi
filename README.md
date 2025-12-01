@@ -192,6 +192,58 @@ extension InjectedValues {
 - **`Tools/Package.swift`**: 開発ツール定義
 - **`App/ios-archi/XCConfigs/`**: ビルド設定（Base, Debug, Release, Local）
 
+## Firebase設定
+
+### GoogleService-Info.plistの配置
+
+Firebaseを使用するため、GoogleService-Infoファイルを手動で配置する必要があります（.gitignoreで除外されているため）。
+
+1. [Firebaseコンソール](https://console.firebase.google.com/)からプロジェクトの設定ファイルをダウンロード
+2. 以下のディレクトリに配置:
+
+```
+App/ios-archi/Configs/
+├── GoogleService-Info-Debug.plist    # Debug用
+└── GoogleService-Info-Release.plist  # Release用
+```
+
+> **注意**: これらのファイルにはAPIキーなどの機密情報が含まれるため、gitにコミットしないでください。
+
+## Xcode Cloud設定
+
+Xcode Cloudでビルドする場合、環境変数を使用して設定ファイルを生成します。
+
+### 環境変数の設定
+
+Xcode Cloudの「Environment Variables」で以下の変数をSecretとして登録:
+
+| 変数名 | 説明 |
+|--------|------|
+| `XCCONFIG` | Local.xcconfigをbase64エンコードした値 |
+| `GOOGLE_SERVICE_INFO` | GoogleService-Info-Release.plistをbase64エンコードした値 |
+| `GOOGLE_SERVICE_INFO_DEBUG` | GoogleService-Info-Debug.plistをbase64エンコードした値 |
+
+### base64エンコードの方法
+
+```bash
+# Local.xcconfigをエンコード
+cat App/ios-archi/XCConfigs/Local.xcconfig | base64
+
+# GoogleService-Info-Release.plistをエンコード
+cat App/ios-archi/Configs/GoogleService-Info-Release.plist | base64
+
+# GoogleService-Info-Debug.plistをエンコード
+cat App/ios-archi/Configs/GoogleService-Info-Debug.plist | base64
+```
+
+### ci_post_clone.sh
+
+`ci_scripts/ci_post_clone.sh`がクローン後に実行され、環境変数から設定ファイルを生成します:
+
+- Swift MacrosとSPMプラグインのビルドエラー回避設定
+- Local.xcconfigの生成
+- GoogleService-Info-*.plistの生成
+
 ## VS Code統合
 
 `buildServer.json`を使用した`xcode-build-server`統合:
