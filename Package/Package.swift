@@ -91,7 +91,8 @@ let package = Package(
             dependencies: [
                 "AppFeature",
                 "Quick",
-                "Nimble"
+                "Nimble",
+                "Macros"
             ],
             swiftSettings: swiftSettings
         )
