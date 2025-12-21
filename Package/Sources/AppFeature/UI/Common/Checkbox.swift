@@ -2,10 +2,19 @@ import SwiftUI
 
 struct Checkbox: View {
     @Environment(\.colorScheme) private var colorScheme
-    @State private var isChecked = true
+    @Binding var isChecked: Bool
     let label: LocalizedStringKey
     var action: ((Bool) -> Void)?
 
+    init(
+        label: LocalizedStringKey,
+        isChecked: Binding<Bool> = .constant(true),
+        action: ((Bool) -> Void)? = nil
+    ) {
+        self.label = label
+        self._isChecked = isChecked
+        self.action = action
+    }
     var body: some View {
         Toggle(isOn: $isChecked) {
             Text(label, bundle: .module)
