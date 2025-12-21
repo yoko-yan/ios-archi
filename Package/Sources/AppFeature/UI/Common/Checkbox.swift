@@ -2,7 +2,7 @@ import SwiftUI
 
 struct Checkbox: View {
     @Environment(\.colorScheme) private var colorScheme
-    @State private var isChecked = false
+    @State private var isChecked = true
     let label: LocalizedStringKey
     var action: ((Bool) -> Void)?
 
