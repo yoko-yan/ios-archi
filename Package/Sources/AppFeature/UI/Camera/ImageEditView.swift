@@ -110,9 +110,10 @@ struct ImageEditView: View {
         let imageSize = image.size
         let cropFrameSize = UIScreen.main.bounds.width
 
-        // 画像座標系へのスケール変換
-        // 表示される画像のベースサイズ（frameで指定したサイズ）= cropFrameSize
-        let coordinateScale = imageSize.width / cropFrameSize
+        // scaledToFillの実際のスケールを計算
+        // scaledToFillは max(cropFrameSize/width, cropFrameSize/height) でスケーリングされる
+        // 表示座標から画像座標への変換倍率は、そのスケールの逆数
+        let coordinateScale = min(imageSize.width / cropFrameSize, imageSize.height / cropFrameSize)
 
         // 切り取り枠のサイズ（画像座標系）
         let cropSizeInImage = cropFrameSize * coordinateScale / scale
