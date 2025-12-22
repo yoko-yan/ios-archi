@@ -28,6 +28,12 @@ final class ItemsSwiftDataSourceImpl: ItemsSwiftDataSource {
             sortBy: [SortDescriptor(\.createdAt, order: .reverse)]
         )
         let models = try context.fetch(descriptor)
+        print("📊 ItemsSwiftDataSource.fetchAll: fetched \(models.count) items")
+        if models.isEmpty {
+            print("⚠️ No items found in local store")
+        } else {
+            print("ℹ️ Item IDs: \(models.map { $0.id }.prefix(5))")
+        }
         return try await models.asyncMap { try await convertToDomain($0) }
     }
 

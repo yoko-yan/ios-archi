@@ -21,6 +21,34 @@ final class SwiftDataManager {
     private init() {
         checkCloudKitAvailability()
         setupContainer()
+        setupCloudKitNotifications()
+    }
+
+    /// CloudKitの同期通知を監視
+    private func setupCloudKitNotifications() {
+        NotificationCenter.default.addObserver(
+            forName: NSNotification.Name("NSPersistentCloudKitContainerEventChangedNotification"),
+            object: nil,
+            queue: .main
+        ) { [weak self] notification in
+            guard let self = self else { return }
+            if let userInfo = notification.userInfo,
+               let eventTypeString = userInfo["event"] as? String {
+                print("🔔 CloudKit event: \(eventTypeString)")
+            }
+
+            // Import完了後にデータ件数を確認
+            Task { @MainActor in
+                let context = ModelContext(self.container)
+                let itemDescriptor = FetchDescriptor<ItemModel>()
+                let worldDescriptor = FetchDescriptor<WorldModel>()
+
+                if let itemCount = try? context.fetch(itemDescriptor).count,
+                   let worldCount = try? context.fetch(worldDescriptor).count {
+                    print("📊 After CloudKit event - Items: \(itemCount), Worlds: \(worldCount)")
+                }
+            }
+        }
     }
 
     /// CloudKitの利用可能性をチェック

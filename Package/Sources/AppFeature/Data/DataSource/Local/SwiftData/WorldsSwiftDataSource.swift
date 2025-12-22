@@ -22,6 +22,12 @@ final class WorldsSwiftDataSourceImpl: WorldsSwiftDataSource {
             sortBy: [SortDescriptor(\.createdAt, order: .reverse)]
         )
         let models = try context.fetch(descriptor)
+        print("📊 WorldsSwiftDataSource.fetchAll: fetched \(models.count) worlds")
+        if models.isEmpty {
+            print("⚠️ No worlds found in local store")
+        } else {
+            print("ℹ️ World IDs: \(models.map { $0.id }.prefix(5))")
+        }
         return models.map(convertToDomain)
     }
 
