@@ -28,15 +28,24 @@ struct LoadSpotImageUseCaseImpl: LoadSpotImageUseCase {
     func execute(fileName: String?) async throws -> UIImage? {
         guard let fileName else { return nil }
         if isCloudKitContainerAvailableUseCase.execute() {
-            let image = try await iCloudDocumentRepository.loadImage(fileName: fileName)
-            if let image {
-                try await localImageRepository.saveImage(image, fileName: fileName)
-                return image
-            } else {
-                return try await localImageRepository.loadImage(fileName: fileName)
+            if let localImage = await loadLocalImage(fileName: fileName) {
+                return localImage
             }
-        } else {
+
+            if let image = try? await iCloudDocumentRepository.loadImage(fileName: fileName) {
+                try? await localImageRepository.saveImage(image, fileName: fileName)
+                return await loadLocalImage(fileName: fileName) ?? image
+            }
+        }
+
+        return await loadLocalImage(fileName: fileName)
+    }
+
+    private func loadLocalImage(fileName: String) async -> UIImage? {
+        do {
             return try await localImageRepository.loadImage(fileName: fileName)
+        } catch {
+            return nil
         }
     }
 }

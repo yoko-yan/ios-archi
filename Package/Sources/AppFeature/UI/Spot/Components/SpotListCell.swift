@@ -9,6 +9,7 @@ struct SpotListCell: View {
 
     var body: some View {
         Rectangle()
+            .fill(colorScheme == .dark ? Color.black : Color.clear)
             .aspectRatio(1, contentMode: .fit)
             .overlay(
                 ZStack(alignment: .leading) {
@@ -16,6 +17,13 @@ struct SpotListCell: View {
                         Image(uiImage: uiImage)
                             .resizable()
                             .scaledToFit()
+                    } else if spotImage?.isLoading == true {
+                        ZStack {
+                            Rectangle()
+                                .fill(colorScheme == .dark ? Color.black : Color.clear)
+                            ProgressView()
+                                .tint(.gray)
+                        }
                     } else {
                         Rectangle()
                             .fill(colorScheme == .dark ? Color.black : Color.white)

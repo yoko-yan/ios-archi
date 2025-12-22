@@ -16,6 +16,8 @@ enum TimeLineViewAction {
 final class TimeLineViewModel {
     @ObservationIgnored
     @Dependency(\.itemsRepository) private var itemsRepository
+    @ObservationIgnored
+    @Dependency(\.loadSpotImageUseCase) private var loadSpotImageUseCase
 
     private(set) var uiState = TimeLineUiState()
 
@@ -46,9 +48,15 @@ final class TimeLineViewModel {
 
     func loadImage(item: Item) {
         guard let imageName = item.spotImageName else { return }
+        if let spotImage = uiState.spotImages[item.id] ?? nil,
+           spotImage.isLoading || spotImage.image != nil {
+            return
+        }
+
+        uiState.spotImages[item.id] = SpotImage(imageName: nil, image: nil, isLoading: true)
         Task {
-            uiState.spotImages[item.id] = try await LoadSpotImageUseCaseImpl().execute(fileName: imageName)
-                .map { SpotImage(imageName: nil, image: $0) }
+            let image = try await loadSpotImageUseCase.execute(fileName: imageName)
+            uiState.spotImages[item.id] = SpotImage(imageName: nil, image: image, isLoading: false)
         }
     }
 }
