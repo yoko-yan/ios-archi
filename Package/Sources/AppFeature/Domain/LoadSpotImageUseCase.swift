@@ -1,5 +1,7 @@
 import Dependencies
+import Foundation
 import Macros
+import SwiftData
 import UIKit
 
 @Mockable
@@ -10,6 +12,7 @@ protocol LoadSpotImageUseCase: Sendable {
 // MARK: - DependencyValues
 
 private struct LoadSpotImageUseCaseKey: DependencyKey {
+    @MainActor
     static let liveValue: any LoadSpotImageUseCase = LoadSpotImageUseCaseImpl()
 }
 
@@ -20,24 +23,28 @@ extension DependencyValues {
     }
 }
 
+@MainActor
 struct LoadSpotImageUseCaseImpl: LoadSpotImageUseCase {
-    @Dependency(\.isCloudKitContainerAvailableUseCase) private var isCloudKitContainerAvailableUseCase
-    @Dependency(\.iCloudDocumentRepository) private var iCloudDocumentRepository
-    @Dependency(\.localImageRepository) private var localImageRepository
-
     func execute(fileName: String?) async throws -> UIImage? {
         guard let fileName else { return nil }
-        if isCloudKitContainerAvailableUseCase.execute() {
-            let image = try await iCloudDocumentRepository.loadImage(fileName: fileName)
-            if let image {
-                try await localImageRepository.saveImage(image, fileName: fileName)
-                return image
-            } else {
-                return try await localImageRepository.loadImage(fileName: fileName)
-            }
-        } else {
-            return try await localImageRepository.loadImage(fileName: fileName)
+
+        // SwiftDataから画像を読み込む
+        guard let container = SwiftDataManager.shared.container else {
+            print("⚠️ ModelContainer is not initialized")
+            return nil
         }
+
+        let context = ModelContext(container)
+
+        let predicate = #Predicate<ItemModel> { $0.id == fileName }
+        let descriptor = FetchDescriptor<ItemModel>(predicate: predicate)
+
+        guard let model = try context.fetch(descriptor).first,
+              let imageData = model.spotImageData else {
+            return nil
+        }
+
+        return UIImage(data: imageData)
     }
 }
 
