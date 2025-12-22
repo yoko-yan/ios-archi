@@ -26,8 +26,14 @@ final class SwiftDataManager {
         let currentSetting = iCloudSyncEnabled
         let pendingReinitialization = UserDefaults.standard.bool(forKey: "pendingModelContainerReinitialization")
 
+        // 初回起動時（lastInitializedWithCloudKitEnabled が nil）は何もしない
+        guard let lastSetting = lastInitializedWithCloudKitEnabled else {
+            print("ℹ️ Initial app launch, skipping reinitialization check")
+            return
+        }
+
         // 設定が変更されている場合のみ再初期化
-        if lastInitializedWithCloudKitEnabled != currentSetting {
+        if lastSetting != currentSetting {
             print("🔄 iCloud sync setting changed, reinitializing ModelContainer...")
             print("   - Previous: \(lastInitializedWithCloudKitEnabled.map(String.init) ?? "none")")
             print("   - Current: \(currentSetting)")
