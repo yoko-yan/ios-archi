@@ -77,7 +77,17 @@ final class SwiftDataManager {
             // 再初期化開始を通知
             NotificationCenter.default.post(name: .modelContainerReinitializationStarted, object: nil)
 
+            // オフ→オンの切り替えの場合、マージ処理を実行
+            let switchedToCloudKit = !lastSetting && currentSetting
+
             setupContainer()
+
+            // iCloud同期をオンにした場合、データマージを実行
+            if switchedToCloudKit {
+                Task {
+                    await performCloudKitMerge()
+                }
+            }
 
             // 再初期化完了を通知
             NotificationCenter.default.post(name: .modelContainerReinitializationCompleted, object: nil)
@@ -163,6 +173,73 @@ final class SwiftDataManager {
                     fatalError("❌ Failed to create ModelContainer: \(error)")
                 }
             }
+        }
+    }
+
+    /// iCloud同期オン時のデータマージ処理
+    /// iCloudのデータを正として、ローカルデータとマージする
+    private func performCloudKitMerge() async {
+        print("🔄 Starting CloudKit merge process...")
+        print("   - iCloud data will be treated as source of truth")
+        print("   - Local data will be merged based on ID and updatedAt")
+
+        // SwiftDataがCloudKitから同期するまで少し待つ
+        try? await Task.sleep(nanoseconds: 2_000_000_000) // 2秒待機
+
+        let context = ModelContext(container)
+
+        do {
+            // 全ItemModelを取得してID別にグループ化
+            let itemDescriptor = FetchDescriptor<ItemModel>(
+                sortBy: [SortDescriptor(\.updatedAt, order: .reverse)]
+            )
+            let allItems = try context.fetch(itemDescriptor)
+
+            // IDでグループ化して重複をチェック
+            let groupedItems = Dictionary(grouping: allItems, by: { $0.id })
+            var duplicateCount = 0
+
+            for (id, items) in groupedItems where items.count > 1 {
+                print("⚠️ Found duplicate items with ID: \(id)")
+                // updatedAtが最新のもの以外を削除（iCloudデータを優先）
+                let sorted = items.sorted { $0.updatedAt > $1.updatedAt }
+                for item in sorted.dropFirst() {
+                    print("   - Removing older duplicate: updatedAt=\(item.updatedAt)")
+                    context.delete(item)
+                    duplicateCount += 1
+                }
+            }
+
+            // 全WorldModelを取得してID別にグループ化
+            let worldDescriptor = FetchDescriptor<WorldModel>(
+                sortBy: [SortDescriptor(\.updatedAt, order: .reverse)]
+            )
+            let allWorlds = try context.fetch(worldDescriptor)
+
+            let groupedWorlds = Dictionary(grouping: allWorlds, by: { $0.id })
+
+            for (id, worlds) in groupedWorlds where worlds.count > 1 {
+                print("⚠️ Found duplicate worlds with ID: \(id)")
+                // updatedAtが最新のもの以外を削除（iCloudデータを優先）
+                let sorted = worlds.sorted { $0.updatedAt > $1.updatedAt }
+                for world in sorted.dropFirst() {
+                    print("   - Removing older duplicate: updatedAt=\(world.updatedAt)")
+                    context.delete(world)
+                    duplicateCount += 1
+                }
+            }
+
+            if duplicateCount > 0 {
+                try context.save()
+                print("✅ CloudKit merge completed: removed \(duplicateCount) duplicate(s)")
+            } else {
+                print("✅ CloudKit merge completed: no duplicates found")
+            }
+
+            print("   - Total items: \(allItems.count - duplicateCount)")
+            print("   - Total worlds: \(allWorlds.count - duplicateCount)")
+        } catch {
+            print("❌ CloudKit merge failed: \(error)")
         }
     }
 }
