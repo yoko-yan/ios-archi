@@ -20,7 +20,7 @@ let swiftSettings: [SwiftSetting] = [
 let package = Package(
     name: "Package",
     defaultLocalization: "en",
-    platforms: [.iOS(.v17), .macOS(.v10_15)],
+    platforms: [.iOS(.v17), .macOS(.v14)],
     products: [
         .library(
             name: "AppFeature",
