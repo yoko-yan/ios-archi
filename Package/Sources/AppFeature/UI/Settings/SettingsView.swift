@@ -2,8 +2,10 @@ import SwiftUI
 
 struct SettingsView: View {
     @AppStorage("iCloudSyncEnabled") private var iCloudSyncEnabled = true
+    @AppStorage("pendingModelContainerReinitialization") private var pendingReinitialization = false
     @State private var showRestartAlert = false
     @State private var isReloading = false
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         NavigationStack {
@@ -46,18 +48,34 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("設定")
+            .onAppear {
+                // 再初期化が保留中の場合、ローディング状態を復元
+                if pendingReinitialization {
+                    isReloading = true
+                    showRestartAlert = true
+                }
+            }
+            .onChange(of: scenePhase) { _, newPhase in
+                // フォアグラウンド復帰時にローディング開始
+                if newPhase == .active && pendingReinitialization {
+                    isReloading = true
+                }
+            }
             .onReceive(NotificationCenter.default.publisher(for: .modelContainerReinitializationStarted)) { _ in
                 isReloading = true
             }
             .onReceive(NotificationCenter.default.publisher(for: .modelContainerReinitializationCompleted)) { _ in
                 isReloading = false
                 showRestartAlert = false
+                pendingReinitialization = false
             }
         }
     }
 
     private func handleSyncToggle() {
         showRestartAlert = true
+        isReloading = true
+        pendingReinitialization = true
     }
 }
 
