@@ -5,6 +5,7 @@ struct SettingsView: View {
     @AppStorage("pendingModelContainerReinitialization") private var pendingReinitialization = false
     @State private var showRestartAlert = false
     @State private var isReloading = false
+    @State private var isSyncing = false
     @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
@@ -28,6 +29,30 @@ struct SettingsView: View {
                     Text("データ同期")
                 } footer: {
                     Text("iCloud同期をオンにすると、複数のデバイス間でデータが同期されます。設定変更後は、アプリをバックグラウンドに移動してから戻ってください。")
+                }
+
+                if iCloudSyncEnabled && !isReloading {
+                    Section {
+                        Button(action: {
+                            Task {
+                                await performManualSync()
+                            }
+                        }) {
+                            HStack {
+                                Label("今すぐ同期", systemImage: "arrow.triangle.2.circlepath")
+
+                                Spacer()
+
+                                if isSyncing {
+                                    ProgressView()
+                                        .scaleEffect(0.8)
+                                }
+                            }
+                        }
+                        .disabled(isSyncing)
+                    } footer: {
+                        Text("iCloudとの同期を手動で実行します。通常は自動的に同期されますが、最新のデータを確認したい場合に使用してください。")
+                    }
                 }
 
                 if showRestartAlert && !isReloading {
@@ -69,6 +94,12 @@ struct SettingsView: View {
                 showRestartAlert = false
                 pendingReinitialization = false
             }
+            .onReceive(NotificationCenter.default.publisher(for: .manualSyncStarted)) { _ in
+                isSyncing = true
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .manualSyncCompleted)) { _ in
+                isSyncing = false
+            }
         }
     }
 
@@ -76,6 +107,10 @@ struct SettingsView: View {
         showRestartAlert = true
         isReloading = true
         pendingReinitialization = true
+    }
+
+    private func performManualSync() async {
+        await SwiftDataManager.shared.manualSync()
     }
 }
 

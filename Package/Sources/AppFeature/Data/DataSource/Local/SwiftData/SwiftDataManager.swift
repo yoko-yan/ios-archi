@@ -80,6 +80,23 @@ final class SwiftDataManager {
         }
     }
 
+    /// 手動でCloudKit同期を実行
+    func manualSync() async {
+        guard iCloudSyncEnabled else {
+            print("⚠️ iCloud sync is disabled")
+            return
+        }
+
+        print("🔄 Manual sync requested...")
+        NotificationCenter.default.post(name: .manualSyncStarted, object: nil)
+
+        // マージ処理を実行（重複排除）
+        await performCloudKitMerge()
+
+        NotificationCenter.default.post(name: .manualSyncCompleted, object: nil)
+        print("✅ Manual sync completed")
+    }
+
     /// フォアグラウンド復帰時に設定変更をチェックして必要なら再初期化
     func reinitializeIfNeeded() {
         let currentSetting = iCloudSyncEnabled
@@ -303,4 +320,6 @@ final class SwiftDataManager {
 extension Notification.Name {
     static let modelContainerReinitializationStarted = Notification.Name("modelContainerReinitializationStarted")
     static let modelContainerReinitializationCompleted = Notification.Name("modelContainerReinitializationCompleted")
+    static let manualSyncStarted = Notification.Name("manualSyncStarted")
+    static let manualSyncCompleted = Notification.Name("manualSyncCompleted")
 }
