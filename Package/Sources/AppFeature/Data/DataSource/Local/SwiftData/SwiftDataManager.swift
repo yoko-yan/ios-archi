@@ -28,8 +28,8 @@ final class SwiftDataManager {
         Task {
             do {
                 let bundleID = Bundle.main.bundleIdentifier ?? "com.runpany.ios-archi"
-                let containerID = CKContainer.ID("iCloud.\(bundleID)")
-                let container = CKContainer(identifier: containerID)
+                let containerIdentifier = "iCloud.\(bundleID)"
+                let container = CKContainer(identifier: containerIdentifier)
 
                 let status = try await container.accountStatus()
                 switch status {
@@ -135,9 +135,7 @@ final class SwiftDataManager {
             print("   - Store name: \(storeName)")
             print("   - CloudKit enabled: \(iCloudSyncEnabled)")
             print("   - CloudKit database: \(config.cloudKitDatabase)")
-            if let url = config.url {
-                print("   - Store URL: \(url.path)")
-            }
+            print("   - Store URL: \(config.url.path)")
         } catch {
             print("⚠️ Failed to initialize ModelContainer")
             print("⚠️ Error details: \(error)")
