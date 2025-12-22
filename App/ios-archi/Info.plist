@@ -20,5 +20,7 @@
 	<array>
 		<string>remote-notification</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>写真からテキストを認識するためにカメラを使用します</string>
 </dict>
 </plist>

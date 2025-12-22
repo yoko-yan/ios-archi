@@ -299,3 +299,13 @@ The project uses `xcode-build-server` for VS Code integration:
 - [SwiftUI Documentation](https://developer.apple.com/documentation/swiftui)
 - [Quick/Nimble Documentation](https://github.com/Quick/Quick)
 - [swift-dependencies](https://github.com/pointfreeco/swift-dependencies)
+
+## Active Technologies
+- Swift 5.9+ + AVFoundation (カメラ制御), Vision Framework (OCR), swift-dependencies (DI), SwiftUI (UI) (001-camera-customization)
+- UserDefaults（設定永続化）, CoreData（既存のデータ層） (001-camera-customization)
+- SwiftData (@Model, @Attribute, ExternalStorage), CloudKit (クラウド同期), ModelContainer/ModelConfiguration (002-swiftdata-migration)
+- UserDefaults（設定管理）, Swift Testing (テストフレームワーク) (002-swiftdata-migration)
+
+## Recent Changes
+- 001-camera-customization: Added Swift 5.9+ + AVFoundation (カメラ制御), Vision Framework (OCR), swift-dependencies (DI), SwiftUI (UI)
+- 002-swiftdata-migration: Added SwiftData (@Model, @Attribute, ExternalStorage), CloudKit (クラウド同期), ModelContainer/ModelConfiguration

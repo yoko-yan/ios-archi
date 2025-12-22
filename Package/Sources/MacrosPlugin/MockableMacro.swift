@@ -54,7 +54,8 @@ public struct MockableMacro: PeerMacro {
 
         for binding in varDecl.bindings {
             guard let identifier = binding.pattern.as(IdentifierPatternSyntax.self),
-                  let typeAnnotation = binding.typeAnnotation else {
+                  let typeAnnotation = binding.typeAnnotation
+            else {
                 continue
             }
 
@@ -92,7 +93,8 @@ public struct MockableMacro: PeerMacro {
         let returnType = funcDecl.signature.returnClause?.type.description.trimmingWhitespace()
         let parameters = funcDecl.signature.parameterClause.parameters
 
-        // MARK comment
+        // MARK: comment
+
         results.append("    // MARK: - \(funcName)")
 
         // Throwable error
@@ -127,7 +129,7 @@ public struct MockableMacro: PeerMacro {
         }
 
         // ReturnValue
-        if let returnType = returnType, returnType != "Void" {
+        if let returnType, returnType != "Void" {
             let isOptionalReturn = returnType.hasSuffix("?")
             if isOptionalReturn {
                 results.append("    \(accessLevel)var \(selectorName)ReturnValue: \(returnType)")
@@ -202,7 +204,7 @@ public struct MockableMacro: PeerMacro {
         let tryPart = isThrows ? "try " : ""
         let awaitPart = isAsync ? "await " : ""
 
-        if let returnType = returnType, returnType != "Void" {
+        if let returnType, returnType != "Void" {
             methodBody.append("""
                         if let closure = \(selectorName)Closure {
                             return \(tryPart)\(awaitPart)closure(\(closureCallArgs))

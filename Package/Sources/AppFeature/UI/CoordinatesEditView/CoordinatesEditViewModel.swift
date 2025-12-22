@@ -1,3 +1,4 @@
+import Dependencies
 import UIKit
 
 // MARK: - Action
@@ -18,6 +19,9 @@ enum CoordinatesEditViewAction: Equatable {
 @Observable
 final class CoordinatesEditViewModel {
     private(set) var uiState: CoordinatesEditUiState
+
+    @ObservationIgnored
+    @Dependency(\.getCameraSettingsUseCase) private var getCameraSettings
 
     init(coordinates: Coordinates?) {
         var coordinatesX: String
@@ -91,7 +95,9 @@ final class CoordinatesEditViewModel {
             uiState.coordinatesZText = text
         case let .getCoordinates(image):
             do {
-                let coordinates = try await GetCoordinatesFromImageUseCase().execute(image: image)
+                // カメラ設定を取得してOCRを実行
+                let settings = try await getCameraSettings.execute()
+                let coordinates = try await GetCoordinatesFromImageUseCase().execute(image: image, settings: settings)
                 if let coordinates {
                     uiState.coordinatesXText = "\(coordinates.x)"
                     uiState.coordinatesYText = "\(coordinates.y)"

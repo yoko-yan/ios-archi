@@ -6,16 +6,28 @@ struct CoordinatesEditView: View {
     @Environment(\.dismiss) var dismiss
     @State private var viewModel: CoordinatesEditViewModel
 
-    @State private var isImagePicker = false
-    @State private var imageSourceType = ImagePicker.SourceType.library
+    enum ImagePickerState {
+        case hidden
+        case camera
+        case library
+    }
+
+    @State private var imagePickerState: ImagePickerState = .hidden
 
     private let onChanged: ((Coordinates?) -> Bool)?
 
     var body: some View {
         coordinatesEditCell
-            .sheet(isPresented: $isImagePicker, content: {
-                ImagePicker(
-                    show: $isImagePicker,
+            .fullScreenCover(isPresented: Binding(
+                get: { imagePickerState != .hidden },
+                set: { if !$0 { imagePickerState = .hidden } }
+            )) {
+                let sourceType: ImagePickerAdapter.SourceType = imagePickerState == .camera ? .camera : .library
+                ImagePickerAdapter(
+                    show: Binding(
+                        get: { imagePickerState != .hidden },
+                        set: { if !$0 { imagePickerState = .hidden } }
+                    ),
                     image: .init(
                         get: { viewModel.uiState.coordinatesImage },
                         set: { newValue in
@@ -26,10 +38,11 @@ struct CoordinatesEditView: View {
                             }
                         }
                     ),
-                    sourceType: imageSourceType,
-                    allowsEditing: true
+                    sourceType: sourceType,
+                    allowsEditing: true,
+                    cameraMode: .custom
                 )
-            })
+            }
             .analyticsScreen(name: "CoordinatesEditView", class: String(describing: type(of: self)))
     }
 
@@ -54,8 +67,7 @@ private extension CoordinatesEditView {
                             .scaledToFit()
                     } else {
                         Button {
-                            imageSourceType = .library
-                            isImagePicker.toggle()
+                            imagePickerState = .library
                         } label: {
                             Text("Recognize coordinate strings from a photo", bundle: .module)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -73,8 +85,7 @@ private extension CoordinatesEditView {
                             .font(.caption2)
                         Spacer()
                         Button(action: {
-                            imageSourceType = .camera
-                            isImagePicker.toggle()
+                            imagePickerState = .camera
                         }) {
                             Image(systemName: "camera.circle.fill")
                                 .resizable()
@@ -83,8 +94,7 @@ private extension CoordinatesEditView {
                         }
 
                         Button(action: {
-                            imageSourceType = .library
-                            isImagePicker.toggle()
+                            imagePickerState = .library
                         }) {
                             Image(systemName: "photo.circle.fill")
                                 .resizable()

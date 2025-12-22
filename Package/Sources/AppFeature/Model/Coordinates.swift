@@ -1,7 +1,7 @@
 import RegexBuilder
 
 struct Coordinates: Hashable {
-    public static var zero: Self { .init(x: 0, y: 0, z: 0)! } // swiftlint:disable:this force_unwrapping
+    static var zero: Self { .init(x: 0, y: 0, z: 0)! } // swiftlint:disable:this force_unwrapping
 
     var text: String {
         "\(x),\(y),\(z)"

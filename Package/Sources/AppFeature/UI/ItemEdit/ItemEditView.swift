@@ -7,51 +7,33 @@ struct ItemEditView: View {
     private let onDelete: ((Item) -> Void)?
     private let onChange: ((Item) -> Void)?
 
-    @State private var isImagePicker = false
-    @State private var imageSourceType = ImagePicker.SourceType.library
+    enum ImagePickerState {
+        case hidden
+        case camera
+        case library
+    }
+
+    @State private var imagePickerState: ImagePickerState = .hidden
 
     var body: some View {
         NavigationStack {
-            ZStack {
-                ScrollView {
-                    VStack(spacing: 10) {
-                        SpotImageEditCell(
-                            image: viewModel.uiState.spotImage,
-                            isImagePicker: $isImagePicker,
-                            imageSourceType: $imageSourceType
-                        )
-
-                        coordinatesEditCell
-
-                        Divider()
-
-                        worldEditCell
-
-                        Color.clear
-                            .frame(height: 100)
-                    }
-                }
-
-                footer
-                    .ignoresSafeArea(.keyboard, edges: .bottom)
-            }
-            .sheet(isPresented: $isImagePicker, content: {
-                ImagePicker(
-                    show: $isImagePicker,
-                    image: .init(
-                        get: { viewModel.uiState.spotImage },
-                        set: { newValue in
-                            guard let newValue else { return }
-                            Task {
-                                await viewModel.send(action: .setSpotImage(newValue))
-                                await viewModel.send(action: .getCoordinates(from: newValue))
-                            }
-                        }
+            contentView
+            .fullScreenCover(isPresented: Binding(
+                get: { imagePickerState != .hidden },
+                set: { if !$0 { imagePickerState = .hidden } }
+            )) {
+                let sourceType: ImagePickerAdapter.SourceType = imagePickerState == .camera ? .camera : .library
+                ImagePickerAdapter(
+                    show: Binding(
+                        get: { imagePickerState != .hidden },
+                        set: { if !$0 { imagePickerState = .hidden } }
                     ),
-                    sourceType: imageSourceType,
-                    allowsEditing: true
+                    image: spotImageBinding,
+                    sourceType: sourceType,
+                    allowsEditing: true,
+                    cameraMode: .custom
                 )
-            })
+            }
             .task {
                 await viewModel.send(action: .loadImage)
                 await viewModel.send(action: .getWorlds)
@@ -123,6 +105,44 @@ struct ItemEditView: View {
 // MARK: - Privates
 
 private extension ItemEditView {
+    var spotImageBinding: Binding<UIImage?> {
+        Binding(
+            get: { viewModel.uiState.spotImage },
+            set: { newValue in
+                guard let newValue else { return }
+                Task {
+                    await viewModel.send(action: .setSpotImage(newValue))
+                    await viewModel.send(action: .getCoordinates(from: newValue))
+                }
+            }
+        )
+    }
+
+    var contentView: some View {
+        ZStack {
+            ScrollView {
+                VStack(spacing: 10) {
+                    SpotImageEditCell(
+                        image: viewModel.uiState.spotImage,
+                        imagePickerState: $imagePickerState
+                    )
+
+                    coordinatesEditCell
+
+                    Divider()
+
+                    worldEditCell
+
+                    Color.clear
+                        .frame(height: 100)
+                }
+            }
+
+            footer
+                .ignoresSafeArea(.keyboard, edges: .bottom)
+        }
+    }
+
     var coordinatesEditCell: some View {
         NavigationLink {
             CoordinatesEditView(
