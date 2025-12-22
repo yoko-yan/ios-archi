@@ -24,6 +24,7 @@ final class SwiftDataManager {
     /// フォアグラウンド復帰時に設定変更をチェックして必要なら再初期化
     func reinitializeIfNeeded() {
         let currentSetting = iCloudSyncEnabled
+        let pendingReinitialization = UserDefaults.standard.bool(forKey: "pendingModelContainerReinitialization")
 
         // 設定が変更されている場合のみ再初期化
         if lastInitializedWithCloudKitEnabled != currentSetting {
@@ -39,6 +40,10 @@ final class SwiftDataManager {
             // 再初期化完了を通知
             NotificationCenter.default.post(name: .modelContainerReinitializationCompleted, object: nil)
             print("✅ ModelContainer reinitialization completed")
+        } else if pendingReinitialization {
+            // 設定変更がないが、保留中の再初期化がある場合（既に設定が反映されている場合）
+            print("ℹ️ No configuration change needed, clearing pending flag")
+            NotificationCenter.default.post(name: .modelContainerReinitializationCompleted, object: nil)
         }
     }
 
