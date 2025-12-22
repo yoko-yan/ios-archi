@@ -86,12 +86,17 @@ final class SwiftDataManager {
             if switchedToCloudKit {
                 Task {
                     await performCloudKitMerge()
+                    // マージ完了後に通知
+                    await MainActor.run {
+                        NotificationCenter.default.post(name: .modelContainerReinitializationCompleted, object: nil)
+                        print("✅ ModelContainer reinitialization completed (with merge)")
+                    }
                 }
+            } else {
+                // マージ不要の場合はすぐに完了通知
+                NotificationCenter.default.post(name: .modelContainerReinitializationCompleted, object: nil)
+                print("✅ ModelContainer reinitialization completed")
             }
-
-            // 再初期化完了を通知
-            NotificationCenter.default.post(name: .modelContainerReinitializationCompleted, object: nil)
-            print("✅ ModelContainer reinitialization completed")
         } else if pendingReinitialization {
             // 設定変更がないが、保留中の再初期化がある場合（既に設定が反映されている場合）
             print("ℹ️ No configuration change needed, clearing pending flag")
@@ -180,10 +185,13 @@ final class SwiftDataManager {
         print("🔄 Starting CloudKit merge process...")
         print("   - iCloud data will be treated as source of truth")
         print("   - Local data will be merged based on ID and updatedAt")
+        print("   - Waiting for CloudKit sync to complete...")
 
-        // SwiftDataがCloudKitから同期するまで少し待つ
-        try? await Task.sleep(nanoseconds: 2_000_000_000) // 2秒待機
+        // SwiftDataがCloudKitから同期するまで待つ
+        // CloudKitからのダウンロードには時間がかかる場合がある
+        try? await Task.sleep(nanoseconds: 5_000_000_000) // 5秒待機
 
+        print("ℹ️ Starting merge operation after sync delay")
         let context = ModelContext(container)
 
         do {
@@ -192,19 +200,29 @@ final class SwiftDataManager {
                 sortBy: [SortDescriptor(\.updatedAt, order: .reverse)]
             )
             let allItems = try context.fetch(itemDescriptor)
+            print("ℹ️ Fetched \(allItems.count) items from local store")
 
             // IDでグループ化して重複をチェック
             let groupedItems = Dictionary(grouping: allItems, by: { $0.id })
             var duplicateCount = 0
+            var itemsKept = 0
+            var itemsRemoved = 0
 
-            for (id, items) in groupedItems where items.count > 1 {
-                print("⚠️ Found duplicate items with ID: \(id)")
-                // updatedAtが最新のもの以外を削除（iCloudデータを優先）
-                let sorted = items.sorted { $0.updatedAt > $1.updatedAt }
-                for item in sorted.dropFirst() {
-                    print("   - Removing older duplicate: updatedAt=\(item.updatedAt)")
-                    context.delete(item)
-                    duplicateCount += 1
+            for (id, items) in groupedItems {
+                if items.count > 1 {
+                    print("⚠️ Found duplicate items with ID: \(id) (count: \(items.count))")
+                    // updatedAtが最新のもの以外を削除（iCloudデータを優先）
+                    let sorted = items.sorted { $0.updatedAt > $1.updatedAt }
+                    print("   - Keeping newest: updatedAt=\(sorted.first!.updatedAt)")
+                    for item in sorted.dropFirst() {
+                        print("   - Removing older duplicate: updatedAt=\(item.updatedAt)")
+                        context.delete(item)
+                        itemsRemoved += 1
+                        duplicateCount += 1
+                    }
+                    itemsKept += 1
+                } else {
+                    itemsKept += 1
                 }
             }
 
@@ -213,31 +231,43 @@ final class SwiftDataManager {
                 sortBy: [SortDescriptor(\.updatedAt, order: .reverse)]
             )
             let allWorlds = try context.fetch(worldDescriptor)
+            print("ℹ️ Fetched \(allWorlds.count) worlds from local store")
 
             let groupedWorlds = Dictionary(grouping: allWorlds, by: { $0.id })
+            var worldsKept = 0
+            var worldsRemoved = 0
 
-            for (id, worlds) in groupedWorlds where worlds.count > 1 {
-                print("⚠️ Found duplicate worlds with ID: \(id)")
-                // updatedAtが最新のもの以外を削除（iCloudデータを優先）
-                let sorted = worlds.sorted { $0.updatedAt > $1.updatedAt }
-                for world in sorted.dropFirst() {
-                    print("   - Removing older duplicate: updatedAt=\(world.updatedAt)")
-                    context.delete(world)
-                    duplicateCount += 1
+            for (id, worlds) in groupedWorlds {
+                if worlds.count > 1 {
+                    print("⚠️ Found duplicate worlds with ID: \(id) (count: \(worlds.count))")
+                    // updatedAtが最新のもの以外を削除（iCloudデータを優先）
+                    let sorted = worlds.sorted { $0.updatedAt > $1.updatedAt }
+                    print("   - Keeping newest: updatedAt=\(sorted.first!.updatedAt)")
+                    for world in sorted.dropFirst() {
+                        print("   - Removing older duplicate: updatedAt=\(world.updatedAt)")
+                        context.delete(world)
+                        worldsRemoved += 1
+                        duplicateCount += 1
+                    }
+                    worldsKept += 1
+                } else {
+                    worldsKept += 1
                 }
             }
 
             if duplicateCount > 0 {
                 try context.save()
                 print("✅ CloudKit merge completed: removed \(duplicateCount) duplicate(s)")
+                print("   - Items: kept \(itemsKept), removed \(itemsRemoved)")
+                print("   - Worlds: kept \(worldsKept), removed \(worldsRemoved)")
             } else {
                 print("✅ CloudKit merge completed: no duplicates found")
+                print("   - Total items: \(allItems.count)")
+                print("   - Total worlds: \(allWorlds.count)")
             }
-
-            print("   - Total items: \(allItems.count - duplicateCount)")
-            print("   - Total worlds: \(allWorlds.count - duplicateCount)")
         } catch {
             print("❌ CloudKit merge failed: \(error)")
+            print("   - Error details: \(error.localizedDescription)")
         }
     }
 }
