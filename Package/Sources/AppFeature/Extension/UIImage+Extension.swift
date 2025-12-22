@@ -51,4 +51,9 @@ extension UIImage {
             draw(in: CGRect(origin: .zero, size: canvas))
         }
     }
+
+    /// カメラ設定を使用して画像をリサイズ
+    func resized(withSettings settings: CameraSettings, isOpaque: Bool = true) -> UIImage? {
+        resized(toMaxSizeKB: settings.imageCompressionSizeKB, isOpaque: isOpaque)
+    }
 }

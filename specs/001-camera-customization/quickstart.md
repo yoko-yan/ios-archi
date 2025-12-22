@@ -211,25 +211,47 @@ final class ExampleViewModel {
 
 ### 設定の調整（開発時）
 
-```swift
-// 方法1: CameraSettings.defaultを変更
-extension CameraSettings {
-    static let `default` = CameraSettings(
-        ocrRecognitionLevel: .fast,  // 変更: 高速モードに
-        ocrLanguages: ["en-US"],     // 変更: 英語に
-        imageCompressionSizeKB: 500.0,
-        shutterButtonPosition: .right,
-        flashEnabled: true,
-        gridEnabled: true,
-        exposureMode: .manual,
-        focusMode: .manual,
-        zoomFactor: 2.0
-    )
-}
+CameraSettings.swiftにデバッグ用プリセットが用意されています。
 
-// 方法2: デバッグビルド時に設定を上書き
+**方法1: デバッグプリセットを使用**
+
+`Package/Sources/AppFeature/Model/CameraSettings.swift`の`default`を変更：
+
+```swift
+// デフォルト設定（標準）
+static let `default` = CameraSettings.debugFastEnglish  // デバッグプリセットに変更
+```
+
+利用可能なプリセット：
+- `CameraSettings.default`: 標準設定
+- `CameraSettings.debugFastEnglish`: 高速OCR＋英語認識
+- `CameraSettings.debugGridRight`: グリッド表示ON＋右シャッター
+- `CameraSettings.debugManualZoom`: マニュアルモード＋ズーム2倍
+
+**方法2: カスタムデフォルト値を設定**
+
+`Package/Sources/AppFeature/Model/CameraSettings.swift`の`default`を直接編集：
+
+```swift
+static let `default` = CameraSettings(
+    ocrRecognitionLevel: .fast,  // 変更: 高速モードに
+    ocrLanguages: ["en-US"],     // 変更: 英語に
+    imageCompressionSizeKB: 500.0,
+    shutterButtonPosition: .right,
+    flashEnabled: true,
+    gridEnabled: true,
+    exposureMode: .manual,
+    focusMode: .manual,
+    zoomFactor: 2.0
+)
+```
+
+**方法3: デバッグビルド時に動的に設定を上書き**
+
+AppDelegateやAppのinit()で実行：
+
+```swift
 #if DEBUG
-// AppDelegate や App の init() などで実行
 Task {
     var settings = CameraSettings.default
     settings.gridEnabled = true

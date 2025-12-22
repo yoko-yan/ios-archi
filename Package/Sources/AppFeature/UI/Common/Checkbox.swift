@@ -12,9 +12,10 @@ struct Checkbox: View {
         action: ((Bool) -> Void)? = nil
     ) {
         self.label = label
-        self._isChecked = isChecked
+        _isChecked = isChecked
         self.action = action
     }
+
     var body: some View {
         Toggle(isOn: $isChecked) {
             Text(label, bundle: .module)

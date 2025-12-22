@@ -2,8 +2,7 @@ import SwiftUI
 
 struct SpotImageEditCell: View {
     let image: UIImage?
-    @Binding var isImagePicker: Bool
-    @Binding var imageSourceType: ImagePicker.SourceType
+    @Binding var imagePickerState: ItemEditView.ImagePickerState
 
     var body: some View {
         VStack {
@@ -13,8 +12,7 @@ struct SpotImageEditCell: View {
                     .scaledToFit()
             } else {
                 Button {
-                    imageSourceType = .library
-                    isImagePicker.toggle()
+                    imagePickerState = .library
                 } label: {
                     Text("Register a photo", bundle: .module)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -32,8 +30,7 @@ struct SpotImageEditCell: View {
                     .font(.caption2)
                 Spacer()
                 Button(action: {
-                    imageSourceType = .camera
-                    isImagePicker.toggle()
+                    imagePickerState = .camera
                 }) {
                     Image(systemName: "camera.circle.fill")
                         .resizable()
@@ -42,8 +39,7 @@ struct SpotImageEditCell: View {
                 }
 
                 Button(action: {
-                    imageSourceType = .library
-                    isImagePicker.toggle()
+                    imagePickerState = .library
                 }) {
                     Image(systemName: "photo.circle.fill")
                         .resizable()
@@ -62,15 +58,13 @@ struct SpotImageEditCell: View {
 #Preview {
     SpotImageEditCell(
         image: UIImage(resource: .sampleCoordinates),
-        isImagePicker: .constant(false),
-        imageSourceType: .constant(.library)
+        imagePickerState: .constant(.hidden)
     )
 }
 
 #Preview {
     SpotImageEditCell(
         image: nil,
-        isImagePicker: .constant(false),
-        imageSourceType: .constant(.library)
+        imagePickerState: .constant(.hidden)
     )
 }

@@ -7,16 +7,28 @@ struct SeedEditView: View {
     @Environment(\.dismiss) var dismiss
     @State private var viewModel: SeedEditViewModel
 
-    @State private var isImagePicker = false
-    @State private var imageSourceType = ImagePicker.SourceType.library
+    enum ImagePickerState {
+        case hidden
+        case camera
+        case library
+    }
+
+    @State private var imagePickerState: ImagePickerState = .hidden
 
     private let onChanged: ((Seed?) -> Bool)?
 
     var body: some View {
         seedEditCell
-            .sheet(isPresented: $isImagePicker, content: {
-                ImagePicker(
-                    show: $isImagePicker,
+            .fullScreenCover(isPresented: Binding(
+                get: { imagePickerState != .hidden },
+                set: { if !$0 { imagePickerState = .hidden } }
+            )) {
+                let sourceType: ImagePickerAdapter.SourceType = imagePickerState == .camera ? .camera : .library
+                ImagePickerAdapter(
+                    show: Binding(
+                        get: { imagePickerState != .hidden },
+                        set: { if !$0 { imagePickerState = .hidden } }
+                    ),
                     image: .init(
                         get: { viewModel.uiState.seedImage },
                         set: { newValue in
@@ -27,10 +39,11 @@ struct SeedEditView: View {
                             }
                         }
                     ),
-                    sourceType: imageSourceType,
-                    allowsEditing: true
+                    sourceType: sourceType,
+                    allowsEditing: true,
+                    cameraMode: .custom
                 )
-            })
+            }
             .analyticsScreen(name: "SeedEditView", class: String(describing: type(of: self)))
     }
 
@@ -55,8 +68,7 @@ private extension SeedEditView {
                             .scaledToFit()
                     } else {
                         Button {
-                            imageSourceType = .library
-                            isImagePicker.toggle()
+                            imagePickerState = .library
                         } label: {
                             Text("Recognize the seed value string from a photo", bundle: .module)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -74,8 +86,7 @@ private extension SeedEditView {
                             .font(.caption2)
                         Spacer()
                         Button(action: {
-                            imageSourceType = .camera
-                            isImagePicker.toggle()
+                            imagePickerState = .camera
                         }) {
                             Image(systemName: "camera.circle.fill")
                                 .resizable()
@@ -84,8 +95,7 @@ private extension SeedEditView {
                         }
 
                         Button(action: {
-                            imageSourceType = .library
-                            isImagePicker.toggle()
+                            imagePickerState = .library
                         }) {
                             Image(systemName: "photo.circle.fill")
                                 .resizable()

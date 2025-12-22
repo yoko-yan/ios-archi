@@ -29,11 +29,7 @@ struct LoadSpotImageUseCaseImpl: LoadSpotImageUseCase {
         guard let fileName else { return nil }
 
         // SwiftDataから画像を読み込む
-        guard let container = SwiftDataManager.shared.container else {
-            print("⚠️ ModelContainer is not initialized")
-            return nil
-        }
-
+        let container = SwiftDataManager.shared.container
         let context = ModelContext(container)
 
         let predicate = #Predicate<ItemModel> { $0.id == fileName }

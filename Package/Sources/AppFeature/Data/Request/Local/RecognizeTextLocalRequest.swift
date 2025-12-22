@@ -9,7 +9,12 @@ enum RecognizeTextLocalRequestError: Error {
 }
 
 struct RecognizeTextLocalRequest {
-    private func perform(image: UIImage, completionHandler: @escaping @Sendable (Result<[String], RecognizeTextLocalRequestError>) -> Void) {
+    private func perform(
+        image: UIImage,
+        recognitionLevel: VNRequestTextRecognitionLevel = .accurate,
+        recognitionLanguages: [String] = ["ja-JP"],
+        completionHandler: @escaping @Sendable (Result<[String], RecognizeTextLocalRequestError>) -> Void
+    ) {
         let cgOrientation = CGImagePropertyOrientation(image.imageOrientation)
         guard let cgImage = image.cgImage else {
             completionHandler(.failure(.getCgImage))
@@ -35,8 +40,8 @@ struct RecognizeTextLocalRequest {
             completionHandler(.success(strings))
         }
 
-        request.recognitionLevel = .accurate
-        request.recognitionLanguages = ["ja-JP"]
+        request.recognitionLevel = recognitionLevel
+        request.recognitionLanguages = recognitionLanguages
 
         var requests: [VNRequest] = []
         requests.append(request)
@@ -58,9 +63,14 @@ struct RecognizeTextLocalRequest {
         }
     }
 
-    func perform(image: UIImage) async throws -> [String] {
+    /// カメラ設定を使用してOCRを実行
+    func perform(image: UIImage, settings: CameraSettings) async throws -> [String] {
         try await withCheckedThrowingContinuation { continuation in
-            perform(image: image) { result in
+            perform(
+                image: image,
+                recognitionLevel: settings.ocrRecognitionLevel.vnLevel,
+                recognitionLanguages: settings.ocrLanguages
+            ) { result in
                 switch result {
                 case let .success(texts):
                     continuation.resume(returning: texts)
@@ -69,6 +79,11 @@ struct RecognizeTextLocalRequest {
                 }
             }
         }
+    }
+
+    /// デフォルト設定でOCRを実行（既存の互換性維持）
+    func perform(image: UIImage) async throws -> [String] {
+        try await perform(image: image, settings: .default)
     }
 
 //    func perform(image: UIImage) -> AnyPublisher<[String], RecognizeTextLocalRequestError> {

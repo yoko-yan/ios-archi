@@ -17,6 +17,7 @@ struct TimeLineCell: View {
     var body: some View {
         LazyVStack {
             Rectangle()
+                .fill(colorScheme == .dark ? Color.black : Color.clear)
                 .aspectRatio(containerAspectRatio, contentMode: .fit)
                 .overlay(
                     ZStack {
@@ -24,6 +25,13 @@ struct TimeLineCell: View {
                             Image(uiImage: uiImage)
                                 .resizable()
                                 .scaledToFit()
+                        } else if spotImage?.isLoading == true {
+                            ZStack {
+                                Rectangle()
+                                    .fill(colorScheme == .dark ? Color.black : Color.clear)
+                                ProgressView()
+                                    .tint(.gray)
+                            }
                         } else {
                             Rectangle()
                                 .fill(colorScheme == .dark ? Color.black : Color.white)
