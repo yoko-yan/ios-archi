@@ -30,7 +30,15 @@ final class SwiftDataManager {
             print("🔄 iCloud sync setting changed, reinitializing ModelContainer...")
             print("   - Previous: \(lastInitializedWithCloudKitEnabled.map(String.init) ?? "none")")
             print("   - Current: \(currentSetting)")
+
+            // 再初期化開始を通知
+            NotificationCenter.default.post(name: .modelContainerReinitializationStarted, object: nil)
+
             setupContainer()
+
+            // 再初期化完了を通知
+            NotificationCenter.default.post(name: .modelContainerReinitializationCompleted, object: nil)
+            print("✅ ModelContainer reinitialization completed")
         }
     }
 
@@ -99,4 +107,9 @@ final class SwiftDataManager {
             }
         }
     }
+}
+
+extension Notification.Name {
+    static let modelContainerReinitializationStarted = Notification.Name("modelContainerReinitializationStarted")
+    static let modelContainerReinitializationCompleted = Notification.Name("modelContainerReinitializationCompleted")
 }
