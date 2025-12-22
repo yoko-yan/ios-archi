@@ -73,6 +73,8 @@ extension ItemEditError: LocalizedError {
 final class ItemEditViewModel {
     @ObservationIgnored
     @Dependency(\.itemsRepository) private var itemsRepository
+    @ObservationIgnored
+    @Dependency(\.worldsRepository) private var worldsRepository
 
     private(set) var uiState: ItemEditUiState
 
@@ -112,7 +114,7 @@ final class ItemEditViewModel {
             }
         case .getWorlds:
             do {
-                uiState.worlds = try await WorldsRepository().fetchAll()
+                uiState.worlds = try await worldsRepository.fetchAll()
             } catch {
                 print(error)
                 uiState.error = .error(error)
@@ -120,15 +122,11 @@ final class ItemEditViewModel {
         case let .setWorld(world):
             uiState.input.world = world
         case .saveImage:
-            do {
-                if let spotImage = uiState.spotImage {
-                    let spotImageName = uiState.input.spotImageName ?? UUID().uuidString
-                    uiState.input.spotImageName = spotImageName
-                    try await SaveSpotImageUseCaseImpl().execute(image: spotImage, fileName: spotImageName)
-                }
-            } catch {
-                print(error)
-                uiState.error = .error(error)
+            // SwiftDataでは画像はItemsRepository.insert/updateに渡されるため、
+            // ここでは何もしません
+            if let spotImage = uiState.spotImage {
+                let spotImageName = uiState.input.spotImageName ?? UUID().uuidString
+                uiState.input.spotImageName = spotImageName
             }
         case .loadImage:
             do {
@@ -155,8 +153,7 @@ final class ItemEditViewModel {
             do {
                 await send(action: .onAlertDismiss)
                 guard case .new = uiState.editMode else { fatalError() }
-                await send(action: .saveImage)
-                try await itemsRepository.insert(item: uiState.editItem)
+                try await itemsRepository.insert(item: uiState.editItem, image: uiState.spotImage)
                 send(event: .onChanged)
                 send(event: .onDismiss)
             } catch {
@@ -166,8 +163,7 @@ final class ItemEditViewModel {
             do {
                 await send(action: .onAlertDismiss)
                 guard case .edit = uiState.editMode else { fatalError() }
-                await send(action: .saveImage)
-                try await itemsRepository.update(item: uiState.editItem)
+                try await itemsRepository.update(item: uiState.editItem, image: uiState.spotImage)
                 send(event: .onChanged)
                 send(event: .onDismiss)
             } catch {

@@ -1,3 +1,4 @@
+import Dependencies
 import SwiftUI
 
 // MARK: - Action
@@ -71,6 +72,8 @@ extension WorldEditError: LocalizedError {
 @Observable
 final class WorldEditViewModel {
     @ObservationIgnored
+    @Dependency(\.worldsRepository) private var worldsRepository
+    @ObservationIgnored
     @Published private(set) var uiState: WorldEditUiState
 
     var input: Binding<WorldEditUiState.Input> {
@@ -139,7 +142,7 @@ final class WorldEditViewModel {
                 validate()
                 guard uiState.valid else { return }
                 guard case .new = uiState.editMode else { fatalError() }
-                try await WorldsRepository().insert(world: uiState.editItem)
+                try await worldsRepository.insert(world: uiState.editItem)
                 send(event: .onChanged)
                 await send(action: .onAlertDismiss)
             } catch {
@@ -153,7 +156,7 @@ final class WorldEditViewModel {
                 validate()
                 guard uiState.valid else { return }
                 guard case .edit = uiState.editMode else { fatalError() }
-                try await WorldsRepository().update(world: uiState.editItem)
+                try await worldsRepository.update(world: uiState.editItem)
                 send(event: .onChanged)
                 await send(action: .onAlertDismiss)
             } catch {
@@ -164,7 +167,7 @@ final class WorldEditViewModel {
             do {
                 guard case .edit = uiState.editMode, let world = uiState.editMode.world else { return }
 
-                try await WorldsRepository().delete(world: world)
+                try await worldsRepository.delete(world: world)
                 send(event: .onDeleted)
             } catch {
                 print(error)

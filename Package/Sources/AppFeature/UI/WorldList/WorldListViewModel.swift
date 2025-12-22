@@ -1,3 +1,4 @@
+import Dependencies
 import UIKit
 
 // MARK: - Action
@@ -15,6 +16,9 @@ enum WorldListViewAction {
 @MainActor
 @Observable
 final class WorldListViewModel {
+    @ObservationIgnored
+    @Dependency(\.worldsRepository) private var worldsRepository
+
     private(set) var uiState = WorldListUiState()
 
     init() {
@@ -25,7 +29,7 @@ final class WorldListViewModel {
         switch action {
         case .load:
             do {
-                uiState.worlds = try await WorldsRepository().fetchAll()
+                uiState.worlds = try await worldsRepository.fetchAll()
             } catch {
                 print(error)
             }
@@ -39,7 +43,7 @@ final class WorldListViewModel {
             if let deleteWorlds = uiState.deleteWorlds {
                 for world in deleteWorlds {
                     do {
-                        try await WorldsRepository().delete(world: world)
+                        try await worldsRepository.delete(world: world)
                         await send(action: .reload)
                     } catch {
                         print(error)

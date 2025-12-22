@@ -1,19 +1,17 @@
-import Dependencies
 import UIKit
+
+// SwiftDataでは画像をItemModel.spotImageDataに直接保存するため、
+// このUseCaseは不要になりました。
+// ItemsRepository.insert/updateに画像を渡すことで保存されます。
 
 protocol SaveSpotImageUseCase: Sendable {
     func execute(image: UIImage, fileName: String) async throws
 }
 
 struct SaveSpotImageUseCaseImpl: SaveSpotImageUseCase {
-    @Dependency(\.isCloudKitContainerAvailableUseCase) private var isCloudKitContainerAvailableUseCase
-    @Dependency(\.iCloudDocumentRepository) private var iCloudDocumentRepository
-    @Dependency(\.localImageRepository) private var localImageRepository
-
     func execute(image: UIImage, fileName: String) async throws {
-        if isCloudKitContainerAvailableUseCase.execute() {
-            try await iCloudDocumentRepository.saveImage(image, fileName: fileName)
-        }
-        try await localImageRepository.saveImage(image, fileName: fileName)
+        // SwiftDataでは画像はItemsRepository経由で保存されるため、
+        // このメソッドは何もしません（後方互換性のため残しています）
+        // 将来的には削除予定
     }
 }

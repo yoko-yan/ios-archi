@@ -1,3 +1,10 @@
+// ローカル環境専用の設定ファイル（gitにコミットされません）
+// このファイルを Local.xcconfig にコピーして使用してください
+
 CODE_SIGN_STYLE = Automatic
-DEVELOPMENT_TEAM = 
+
+// Apple Developer Team ID (例: ABCDE12345)
+DEVELOPMENT_TEAM =
+
+// Bundle Identifier (例: com.example.myapp)
 PRODUCT_BUNDLE_IDENTIFIER = 
