@@ -5,7 +5,8 @@ import SwiftData
 final class ItemModel {
     // CloudKitは@Attribute(.unique)をサポートしないため削除
     // アプリケーション側で重複チェックを行う
-    var id: String
+    // CloudKit統合のため、デフォルト値を設定
+    var id: String = UUID().uuidString
     var coordinatesX: String?
     var coordinatesY: String?
     var coordinatesZ: String?
@@ -16,11 +17,12 @@ final class ItemModel {
     // 画像をExternalStorageに保存
     @Attribute(.externalStorage) var spotImageData: Data?
 
-    var createdAt: Date
-    var updatedAt: Date
+    // CloudKit統合のため、デフォルト値を設定
+    var createdAt: Date = Date()
+    var updatedAt: Date = Date()
 
     init(
-        id: String,
+        id: String = UUID().uuidString,
         coordinatesX: String? = nil,
         coordinatesY: String? = nil,
         coordinatesZ: String? = nil,
@@ -28,8 +30,8 @@ final class ItemModel {
         name: String? = nil,
         comment: String? = nil,
         spotImageData: Data? = nil,
-        createdAt: Date,
-        updatedAt: Date
+        createdAt: Date = Date(),
+        updatedAt: Date = Date()
     ) {
         self.id = id
         self.coordinatesX = coordinatesX
