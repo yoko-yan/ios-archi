@@ -6,10 +6,14 @@ struct TimeLineView: View {
     @State private var isShowEditView = false
 
     var body: some View {
+        @Bindable var viewModel = viewModel
         ZStack {
             List {
                 Section {
-                    FilterConditionCell(label: "Display only items with images") { isChecked in
+                    FilterConditionCell(
+                        label: "Display only items with images",
+                        isChecked: $viewModel.isChecked
+                    ) { isChecked in
                         Task {
                             await viewModel.send(action: .isChecked(isChecked))
                         }
