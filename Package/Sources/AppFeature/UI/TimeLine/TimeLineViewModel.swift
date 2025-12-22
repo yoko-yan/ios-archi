@@ -23,6 +23,11 @@ final class TimeLineViewModel {
         self.uiState = uiState
     }
 
+    var isChecked: Bool {
+        get { uiState.isChecked }
+        set { uiState.isChecked = newValue }
+    }
+
     func send(action: TimeLineViewAction) async {
         switch action {
         case .load:
