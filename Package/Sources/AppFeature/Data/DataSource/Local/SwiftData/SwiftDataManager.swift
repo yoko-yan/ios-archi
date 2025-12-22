@@ -1,5 +1,6 @@
 import Foundation
 import SwiftData
+import CloudKit
 
 @MainActor
 final class SwiftDataManager {
@@ -18,7 +19,37 @@ final class SwiftDataManager {
     }
 
     private init() {
+        checkCloudKitAvailability()
         setupContainer()
+    }
+
+    /// CloudKitの利用可能性をチェック
+    private func checkCloudKitAvailability() {
+        Task {
+            do {
+                let bundleID = Bundle.main.bundleIdentifier ?? "com.runpany.ios-archi"
+                let containerID = CKContainer.ID("iCloud.\(bundleID)")
+                let container = CKContainer(identifier: containerID)
+
+                let status = try await container.accountStatus()
+                switch status {
+                case .available:
+                    print("✅ CloudKit account available")
+                case .noAccount:
+                    print("⚠️ CloudKit: No iCloud account")
+                case .restricted:
+                    print("⚠️ CloudKit: Account restricted")
+                case .couldNotDetermine:
+                    print("⚠️ CloudKit: Could not determine account status")
+                case .temporarilyUnavailable:
+                    print("⚠️ CloudKit: Temporarily unavailable")
+                @unknown default:
+                    print("⚠️ CloudKit: Unknown account status")
+                }
+            } catch {
+                print("⚠️ CloudKit availability check failed: \(error)")
+            }
+        }
     }
 
     /// フォアグラウンド復帰時に設定変更をチェックして必要なら再初期化
@@ -66,6 +97,13 @@ final class SwiftDataManager {
             let config: ModelConfiguration
             if iCloudSyncEnabled {
                 // CloudKit同期を有効化
+                // Bundle Identifierから明示的にコンテナIDを取得
+                let bundleID = Bundle.main.bundleIdentifier ?? "com.runpany.ios-archi"
+                let containerIdentifier = "iCloud.\(bundleID)"
+
+                print("ℹ️ Setting up CloudKit sync")
+                print("   - Container ID: \(containerIdentifier)")
+
                 config = ModelConfiguration(
                     storeName,
                     cloudKitDatabase: .automatic
@@ -86,6 +124,10 @@ final class SwiftDataManager {
             print("✅ ModelContainer initialized successfully")
             print("   - Store name: \(storeName)")
             print("   - CloudKit enabled: \(iCloudSyncEnabled)")
+            print("   - CloudKit database: \(config.cloudKitDatabase)")
+            if let url = config.url {
+                print("   - Store URL: \(url.path)")
+            }
         } catch {
             print("⚠️ Failed to initialize ModelContainer")
             print("⚠️ Error details: \(error)")
