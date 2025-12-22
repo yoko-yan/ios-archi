@@ -29,6 +29,11 @@ final class SwiftDataManager {
         // 初回起動時（lastInitializedWithCloudKitEnabled が nil）は何もしない
         guard let lastSetting = lastInitializedWithCloudKitEnabled else {
             print("ℹ️ Initial app launch, skipping reinitialization check")
+            // 初回起動時でも、保留中のフラグがあればクリア
+            if pendingReinitialization {
+                print("ℹ️ Clearing pending reinitialization flag on initial launch")
+                NotificationCenter.default.post(name: .modelContainerReinitializationCompleted, object: nil)
+            }
             return
         }
 
