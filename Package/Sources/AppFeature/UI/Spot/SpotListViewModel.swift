@@ -25,6 +25,11 @@ final class SpotListViewModel {
         self.uiState = uiState
     }
 
+    var isChecked: Bool {
+        get { uiState.isChecked }
+        set { uiState.isChecked = newValue }
+    }
+
     func send(action: SpotViewAction) async {
         switch action {
         case .load:

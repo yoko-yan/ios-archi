@@ -6,11 +6,18 @@ struct TimeLineCell: View {
     let item: Item
     let spotImage: SpotImage?
     let onLoadImage: ((Item) -> Void)?
+    private var containerAspectRatio: CGFloat {
+        if let image = spotImage?.image {
+            let ratio = image.size.width / max(image.size.height, 1)
+            return max(ratio, 1)
+        }
+        return 16.0 / 9.0
+    }
 
     var body: some View {
         LazyVStack {
             Rectangle()
-                .aspectRatio(1, contentMode: .fit)
+                .aspectRatio(containerAspectRatio, contentMode: .fit)
                 .overlay(
                     ZStack {
                         if let uiImage = spotImage?.image {
@@ -20,7 +27,6 @@ struct TimeLineCell: View {
                         } else {
                             Rectangle()
                                 .fill(colorScheme == .dark ? Color.black : Color.white)
-                                .aspectRatio(contentMode: .fit)
                             Text("No photo available", bundle: .module)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .foregroundColor(.gray)

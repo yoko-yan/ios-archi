@@ -11,9 +11,13 @@ struct SpotListView: View {
     ]
 
     var body: some View {
+        @Bindable var viewModel = viewModel
         ZStack {
             ScrollView {
-                FilterConditionCell(label: "Display only items with images") { isChecked in
+                FilterConditionCell(
+                    label: "Display only items with images",
+                    isChecked: $viewModel.isChecked
+                ) { isChecked in
                     Task {
                         await viewModel.send(action: .isChecked(isChecked))
                     }

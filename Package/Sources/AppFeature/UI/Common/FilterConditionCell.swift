@@ -2,11 +2,22 @@ import SwiftUI
 
 struct FilterConditionCell: View {
     let label: LocalizedStringKey
+    @Binding var isChecked: Bool
     var action: ((Bool) -> Void)?
+
+    init(
+        label: LocalizedStringKey,
+        isChecked: Binding<Bool> = .constant(true),
+        action: ((Bool) -> Void)? = nil
+    ) {
+        self.label = label
+        self._isChecked = isChecked
+        self.action = action
+    }
 
     var body: some View {
         HStack {
-            Checkbox(label: label, action: action)
+            Checkbox(label: label, isChecked: $isChecked, action: action)
             Spacer()
         }
         .padding(.horizontal)
