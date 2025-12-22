@@ -15,7 +15,7 @@ struct SettingsView: View {
                 } header: {
                     Text("データ同期")
                 } footer: {
-                    Text("iCloud同期をオンにすると、複数のデバイス間でデータが同期されます。設定変更後はアプリを再起動してください。")
+                    Text("iCloud同期をオンにすると、複数のデバイス間でデータが同期されます。設定変更後は、アプリをバックグラウンドに移動してから戻ってください。")
                 }
 
                 if showRestartAlert {
@@ -23,8 +23,14 @@ struct SettingsView: View {
                         HStack {
                             Image(systemName: "info.circle")
                                 .foregroundColor(.orange)
-                            Text("設定を反映するにはアプリを再起動してください")
-                                .font(.caption)
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("設定を反映するには")
+                                    .font(.caption)
+                                    .fontWeight(.medium)
+                                Text("ホーム画面に戻ってから、アプリを再度開いてください")
+                                    .font(.caption2)
+                                    .foregroundColor(.secondary)
+                            }
                         }
                     }
                 }
@@ -34,7 +40,6 @@ struct SettingsView: View {
     }
 
     private func handleSyncToggle() {
-        NotificationCenter.default.post(name: .iCloudSyncSettingChanged, object: nil)
         showRestartAlert = true
     }
 }

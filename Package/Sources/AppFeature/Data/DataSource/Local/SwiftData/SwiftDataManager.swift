@@ -6,6 +6,9 @@ final class SwiftDataManager {
     static let shared = SwiftDataManager()
     private(set) var container: ModelContainer!
 
+    // 最後に初期化した時の設定を記録
+    private var lastInitializedWithCloudKitEnabled: Bool?
+
     private var iCloudSyncEnabled: Bool {
         // デフォルト値をtrueに設定
         if !UserDefaults.standard.dictionaryRepresentation().keys.contains("iCloudSyncEnabled") {
@@ -16,12 +19,19 @@ final class SwiftDataManager {
 
     private init() {
         setupContainer()
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handleSyncSettingChanged),
-            name: .iCloudSyncSettingChanged,
-            object: nil
-        )
+    }
+
+    /// フォアグラウンド復帰時に設定変更をチェックして必要なら再初期化
+    func reinitializeIfNeeded() {
+        let currentSetting = iCloudSyncEnabled
+
+        // 設定が変更されている場合のみ再初期化
+        if lastInitializedWithCloudKitEnabled != currentSetting {
+            print("🔄 iCloud sync setting changed, reinitializing ModelContainer...")
+            print("   - Previous: \(lastInitializedWithCloudKitEnabled.map(String.init) ?? "none")")
+            print("   - Current: \(currentSetting)")
+            setupContainer()
+        }
     }
 
     private func setupContainer() {
@@ -48,6 +58,7 @@ final class SwiftDataManager {
                 for: ItemModel.self, WorldModel.self,
                 configurations: config
             )
+            lastInitializedWithCloudKitEnabled = iCloudSyncEnabled
             print("✅ ModelContainer initialized successfully")
             print("   - Store name: \(storeName)")
             print("   - CloudKit enabled: \(iCloudSyncEnabled)")
@@ -67,6 +78,7 @@ final class SwiftDataManager {
                     for: ItemModel.self, WorldModel.self,
                     configurations: config
                 )
+                lastInitializedWithCloudKitEnabled = false
                 print("✅ Fallback successful - using local-only storage")
             } catch {
                 print("❌ Fallback failed: \(error)")
@@ -79,6 +91,7 @@ final class SwiftDataManager {
                         for: ItemModel.self, WorldModel.self,
                         configurations: config
                     )
+                    lastInitializedWithCloudKitEnabled = nil
                     print("✅ In-memory storage initialized (⚠️ data will not persist)")
                 } catch {
                     fatalError("❌ Failed to create ModelContainer: \(error)")
@@ -86,13 +99,4 @@ final class SwiftDataManager {
             }
         }
     }
-
-    @objc private func handleSyncSettingChanged() {
-        // 注意: 設定変更後はアプリ再起動が必要
-        setupContainer()
-    }
-}
-
-extension Notification.Name {
-    static let iCloudSyncSettingChanged = Notification.Name("iCloudSyncSettingChanged")
 }
