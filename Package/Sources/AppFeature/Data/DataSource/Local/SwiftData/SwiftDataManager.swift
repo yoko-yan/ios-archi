@@ -55,7 +55,10 @@ final class SwiftDataManager {
     private func checkCloudKitAvailability() {
         Task {
             do {
-                let bundleID = Bundle.main.bundleIdentifier ?? "com.runpany.ios-archi"
+                guard let bundleID = Bundle.main.bundleIdentifier else {
+                    print("⚠️ Bundle identifier is not available")
+                    return
+                }
                 let containerIdentifier = "iCloud.\(bundleID)"
                 let container = CKContainer(identifier: containerIdentifier)
 
@@ -158,7 +161,22 @@ final class SwiftDataManager {
             if iCloudSyncEnabled {
                 // CloudKit同期を有効化
                 // Bundle Identifierから明示的にコンテナIDを取得
-                let bundleID = Bundle.main.bundleIdentifier ?? "com.runpany.ios-archi"
+                guard let bundleID = Bundle.main.bundleIdentifier else {
+                    print("⚠️ Bundle identifier is not available, falling back to local storage")
+                    let fallbackConfig = ModelConfiguration(
+                        storeName,
+                        cloudKitDatabase: .none
+                    )
+                    container = try ModelContainer(
+                        for: ItemModel.self, WorldModel.self,
+                        configurations: fallbackConfig
+                    )
+                    lastInitializedWithCloudKitEnabled = false
+                    print("✅ ModelContainer initialized with local storage (Bundle ID unavailable)")
+                    print("   - Store name: \(storeName)")
+                    print("   - CloudKit enabled: false")
+                    return
+                }
                 let containerIdentifier = "iCloud.\(bundleID)"
 
                 print("ℹ️ Setting up CloudKit sync")
