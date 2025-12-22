@@ -1,11 +1,11 @@
+@testable import AppFeature
 import Dependencies
 import Testing
-@testable import AppFeature
 
 @Suite("GetCameraSettingsUseCase Tests")
 struct GetCameraSettingsUseCaseTests {
     @Test("設定を取得できる")
-    func testGetSettings() async throws {
+    func getSettings() async throws {
         // テスト用のモックRepository
         let mockRepository = MockCameraSettingsRepository()
 
@@ -20,7 +20,7 @@ struct GetCameraSettingsUseCaseTests {
     }
 
     @Test("Repositoryからエラーが発生した場合は伝播する")
-    func testGetSettingsError() async throws {
+    func getSettingsError() async throws {
         // テスト用のエラーを返すRepository
         let errorRepository = ErrorCameraSettingsRepository()
 

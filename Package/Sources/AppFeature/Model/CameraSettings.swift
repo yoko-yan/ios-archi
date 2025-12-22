@@ -27,6 +27,9 @@ struct CameraSettings: Codable, Equatable, Sendable {
 
     // MARK: - 撮影設定
 
+    /// プレビューアスペクト比
+    var aspectRatio: AspectRatio
+
     /// 露出モード
     var exposureMode: ExposureMode
 
@@ -99,6 +102,27 @@ struct CameraSettings: Codable, Equatable, Sendable {
         }
     }
 
+    /// プレビューアスペクト比
+    enum AspectRatio: String, Codable, CaseIterable, Sendable {
+        /// 1:1（正方形）
+        case square
+        /// アスペクト比を保持して画面全体を埋める（一部切れる）
+        case fill
+        /// アスペクト比を保持して全体を表示（黒い帯が出る）
+        case fit
+        /// アスペクト比を無視して画面全体に表示
+        case stretch
+
+        var displayName: String {
+            switch self {
+            case .square: return "正方形（1:1）"
+            case .fill: return "全画面（切り抜き）"
+            case .fit: return "全体表示"
+            case .stretch: return "引き伸ばし"
+            }
+        }
+    }
+
     // MARK: - Factory
 
     /// デフォルト設定
@@ -109,9 +133,69 @@ struct CameraSettings: Codable, Equatable, Sendable {
         shutterButtonPosition: .center,
         flashEnabled: false,
         gridEnabled: false,
+        aspectRatio: .square,
         exposureMode: .auto,
         focusMode: .auto,
         zoomFactor: 1.0
+    )
+
+    // MARK: - Debug Presets
+
+    /// デバッグ用設定例: 高速OCR＋英語認識
+    ///
+    /// 開発時にこの設定を使用するには、以下のように変更：
+    /// ```swift
+    /// static let `default` = CameraSettings.debugFastEnglish
+    /// ```
+    static let debugFastEnglish = CameraSettings(
+        ocrRecognitionLevel: .fast,
+        ocrLanguages: ["en-US"],
+        imageCompressionSizeKB: 500.0,
+        shutterButtonPosition: .center,
+        flashEnabled: false,
+        gridEnabled: false,
+        aspectRatio: .fill,
+        exposureMode: .auto,
+        focusMode: .auto,
+        zoomFactor: 1.0
+    )
+
+    /// デバッグ用設定例: グリッド表示ON＋右シャッター
+    ///
+    /// 開発時にこの設定を使用するには、以下のように変更：
+    /// ```swift
+    /// static let `default` = CameraSettings.debugGridRight
+    /// ```
+    static let debugGridRight = CameraSettings(
+        ocrRecognitionLevel: .accurate,
+        ocrLanguages: ["ja-JP"],
+        imageCompressionSizeKB: 1000.0,
+        shutterButtonPosition: .right,
+        flashEnabled: false,
+        gridEnabled: true,
+        aspectRatio: .fill,
+        exposureMode: .auto,
+        focusMode: .auto,
+        zoomFactor: 1.0
+    )
+
+    /// デバッグ用設定例: マニュアルモード＋ズーム2倍
+    ///
+    /// 開発時にこの設定を使用するには、以下のように変更：
+    /// ```swift
+    /// static let `default` = CameraSettings.debugManualZoom
+    /// ```
+    static let debugManualZoom = CameraSettings(
+        ocrRecognitionLevel: .accurate,
+        ocrLanguages: ["ja-JP"],
+        imageCompressionSizeKB: 1000.0,
+        shutterButtonPosition: .center,
+        flashEnabled: true,
+        gridEnabled: true,
+        aspectRatio: .fill,
+        exposureMode: .manual,
+        focusMode: .manual,
+        zoomFactor: 2.0
     )
 
     // MARK: - Validation

@@ -83,14 +83,14 @@
 
 ### User Story 2 実装（カスタムカメラUI基盤）
 
-- [ ] T016 [P] [US2] CameraPreviewViewを作成（AVCaptureVideoPreviewLayerラッパー） `Package/Sources/AppFeature/UI/Camera/CameraPreviewView.swift`
-- [ ] T017 [P] [US2] CameraControlsViewを作成（シャッター・フラッシュ・グリッドUI） `Package/Sources/AppFeature/UI/Camera/CameraControlsView.swift`
-- [ ] T018 [US2] CustomCameraViewModelを作成（AVCaptureSession管理、UI設定反映） `Package/Sources/AppFeature/UI/Camera/CustomCameraViewModel.swift`
-- [ ] T019 [US2] CustomCameraViewを作成（メイン統合View） `Package/Sources/AppFeature/UI/Camera/CustomCameraView.swift`
+- [X] T016 [P] [US2] CameraPreviewViewを作成（AVCaptureVideoPreviewLayerラッパー） `Package/Sources/AppFeature/UI/Camera/CameraPreviewView.swift`
+- [X] T017 [P] [US2] CameraControlsViewを作成（シャッター・フラッシュ・グリッドUI） `Package/Sources/AppFeature/UI/Camera/CameraControlsView.swift`
+- [X] T018 [US2] CustomCameraViewModelを作成（AVCaptureSession管理、UI設定反映） `Package/Sources/AppFeature/UI/Camera/CustomCameraViewModel.swift`
+- [X] T019 [US2] CustomCameraViewを作成（メイン統合View） `Package/Sources/AppFeature/UI/Camera/CustomCameraView.swift`
 
 ### User Story 2 テスト
 
-- [ ] T020 [US2] CustomCameraViewModelのテストを作成 `Package/Tests/AppFeatureTests/UI/CustomCameraViewModelTests.swift`
+- [X] T020 [US2] CustomCameraViewModelのテストを作成 `Package/Tests/AppFeatureTests/UI/CustomCameraViewModelTests.swift`
 
 **チェックポイント**: User Story 1とUser Story 2の両方が独立して動作
 
@@ -104,10 +104,10 @@
 
 ### User Story 3 実装（カメラ撮影設定）
 
-- [ ] T021 [US3] CustomCameraViewModelに露出制御を追加 `Package/Sources/AppFeature/UI/Camera/CustomCameraViewModel.swift`
-- [ ] T022 [US3] CustomCameraViewModelにフォーカス制御を追加 `Package/Sources/AppFeature/UI/Camera/CustomCameraViewModel.swift`
-- [ ] T023 [US3] CustomCameraViewModelにズーム制御を追加 `Package/Sources/AppFeature/UI/Camera/CustomCameraViewModel.swift`
-- [ ] T024 [US3] CameraControlsViewに撮影設定UIコントロールを追加 `Package/Sources/AppFeature/UI/Camera/CameraControlsView.swift`
+- [X] T021 [US3] CustomCameraViewModelに露出制御を追加 `Package/Sources/AppFeature/UI/Camera/CustomCameraViewModel.swift`
+- [X] T022 [US3] CustomCameraViewModelにフォーカス制御を追加 `Package/Sources/AppFeature/UI/Camera/CustomCameraViewModel.swift`
+- [X] T023 [US3] CustomCameraViewModelにズーム制御を追加 `Package/Sources/AppFeature/UI/Camera/CustomCameraViewModel.swift`
+- [X] T024 [US3] CameraControlsViewに撮影設定UIコントロールを追加 `Package/Sources/AppFeature/UI/Camera/CameraControlsView.swift`
 
 **チェックポイント**: すべてのUser Story（US1, US2, US3）が独立して機能
 
@@ -121,8 +121,8 @@
 
 ### User Story 4 実装（開発者向け設定調整）
 
-- [ ] T025 [US4] CameraSettings.defaultにデバッグ用設定例をコメントで追加 `Package/Sources/AppFeature/Model/CameraSettings.swift`
-- [ ] T026 [US4] quickstart.mdの設定調整セクションを実装に合わせて更新 `specs/001-camera-customization/quickstart.md`
+- [X] T025 [US4] CameraSettings.defaultにデバッグ用設定例をコメントで追加 `Package/Sources/AppFeature/Model/CameraSettings.swift`
+- [X] T026 [US4] quickstart.mdの設定調整セクションを実装に合わせて更新 `specs/001-camera-customization/quickstart.md`
 
 **チェックポイント**: 開発者が設定を簡単に調整できる仕組みが完成
 

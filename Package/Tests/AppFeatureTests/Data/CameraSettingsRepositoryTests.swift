@@ -1,10 +1,10 @@
-import Testing
 @testable import AppFeature
+import Testing
 
 @Suite("CameraSettings Repository Tests")
 struct CameraSettingsRepositoryTests {
     @Test("デフォルト設定を返す")
-    func testDefaultSettings() async throws {
+    func defaultSettings() async throws {
         // テスト用のUserDefaultsを使用
         let userDefaults = UserDefaults(suiteName: "test.CameraSettingsRepositoryTests.default")!
         userDefaults.removePersistentDomain(forName: "test.CameraSettingsRepositoryTests.default")
@@ -16,7 +16,7 @@ struct CameraSettingsRepositoryTests {
     }
 
     @Test("設定を保存して読み込める")
-    func testSaveAndLoad() async throws {
+    func saveAndLoad() async throws {
         // テスト用のUserDefaultsを使用
         let userDefaults = UserDefaults(suiteName: "test.CameraSettingsRepositoryTests.saveLoad")!
         userDefaults.removePersistentDomain(forName: "test.CameraSettingsRepositoryTests.saveLoad")
@@ -54,7 +54,7 @@ struct CameraSettingsRepositoryTests {
     }
 
     @Test("JSONシリアライズ・デシリアライズが正常に動作")
-    func testJSONSerialization() throws {
+    func jSONSerialization() throws {
         let settings = CameraSettings.default
         let encoder = JSONEncoder()
         let decoder = JSONDecoder()
@@ -66,7 +66,7 @@ struct CameraSettingsRepositoryTests {
     }
 
     @Test("バリデーション: 空の言語配列はエラー")
-    func testValidationEmptyLanguages() {
+    func validationEmptyLanguages() {
         var settings = CameraSettings.default
         settings.ocrLanguages = []
 
@@ -81,7 +81,7 @@ struct CameraSettingsRepositoryTests {
     }
 
     @Test("バリデーション: 不正な圧縮サイズはエラー")
-    func testValidationInvalidCompressionSize() {
+    func validationInvalidCompressionSize() {
         var settings = CameraSettings.default
         settings.imageCompressionSizeKB = -100.0
 
@@ -96,7 +96,7 @@ struct CameraSettingsRepositoryTests {
     }
 
     @Test("バリデーション: 不正なズーム倍率はエラー")
-    func testValidationInvalidZoomFactor() {
+    func validationInvalidZoomFactor() {
         var settings = CameraSettings.default
         settings.zoomFactor = 10.0
 
@@ -111,7 +111,7 @@ struct CameraSettingsRepositoryTests {
     }
 
     @Test("バリデーション: 正常な設定はバリデーションパス")
-    func testValidationValid() {
+    func validationValid() {
         let settings = CameraSettings.default
 
         let result = settings.validate()

@@ -7,6 +7,7 @@ struct CustomCameraUiState: Equatable, Sendable {
     var flashEnabled: Bool = false
     var gridEnabled: Bool = false
     var shutterButtonPosition: CameraSettings.ShutterButtonPosition = .center
+    var aspectRatio: CameraSettings.AspectRatio = .fill
     var zoomFactor: Double = 1.0
     var cameraPosition: CameraPosition = .back
     var error: CameraError?
