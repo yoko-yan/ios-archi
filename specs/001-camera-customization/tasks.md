@@ -41,18 +41,18 @@
 
 ### 設定モデルと基盤レイヤー
 
-- [ ] T003 [P] CameraSettingsモデルを作成 `Package/Sources/AppFeature/Model/CameraSettings.swift`
-- [ ] T004 [P] CustomCameraUiStateモデルを作成 `Package/Sources/AppFeature/UI/Camera/CustomCameraUiState.swift`
-- [ ] T005 CameraSettingsRepositoryプロトコルと実装を作成 `Package/Sources/AppFeature/Data/Repository/CameraSettingsRepository.swift`
-- [ ] T006 [P] GetCameraSettingsUseCaseプロトコルと実装を作成 `Package/Sources/AppFeature/Domain/GetCameraSettingsUseCase.swift`
-- [ ] T007 [P] SaveCameraSettingsUseCaseプロトコルと実装を作成 `Package/Sources/AppFeature/Domain/SaveCameraSettingsUseCase.swift`
-- [ ] T008 swift-dependencies用のDI登録を追加 `Package/Sources/AppFeature/Domain/CameraSettingsDependency.swift`
+- [X] T003 [P] CameraSettingsモデルを作成 `Package/Sources/AppFeature/Model/CameraSettings.swift`
+- [X] T004 [P] CustomCameraUiStateモデルを作成 `Package/Sources/AppFeature/UI/Camera/CustomCameraUiState.swift`
+- [X] T005 CameraSettingsRepositoryプロトコルと実装を作成 `Package/Sources/AppFeature/Data/Repository/CameraSettingsRepository.swift`
+- [X] T006 [P] GetCameraSettingsUseCaseプロトコルと実装を作成 `Package/Sources/AppFeature/Domain/GetCameraSettingsUseCase.swift`
+- [X] T007 [P] SaveCameraSettingsUseCaseプロトコルと実装を作成 `Package/Sources/AppFeature/Domain/SaveCameraSettingsUseCase.swift`
+- [X] T008 swift-dependencies用のDI登録を追加 `Package/Sources/AppFeature/Domain/CameraSettingsDependency.swift`
 
 ### 基盤テスト
 
-- [ ] T009 [P] CameraSettingsRepositoryのテストを作成 `Package/Tests/AppFeatureTests/Data/CameraSettingsRepositoryTests.swift`
-- [ ] T010 [P] GetCameraSettingsUseCaseのテストを作成 `Package/Tests/AppFeatureTests/Domain/GetCameraSettingsUseCaseTests.swift`
-- [ ] T011 [P] SaveCameraSettingsUseCaseのテストを作成 `Package/Tests/AppFeatureTests/Domain/SaveCameraSettingsUseCaseTests.swift`
+- [X] T009 [P] CameraSettingsRepositoryのテストを作成 `Package/Tests/AppFeatureTests/Data/CameraSettingsRepositoryTests.swift`
+- [X] T010 [P] GetCameraSettingsUseCaseのテストを作成 `Package/Tests/AppFeatureTests/Domain/GetCameraSettingsUseCaseTests.swift`
+- [X] T011 [P] SaveCameraSettingsUseCaseのテストを作成 `Package/Tests/AppFeatureTests/Domain/SaveCameraSettingsUseCaseTests.swift`
 
 **チェックポイント**: 基盤準備完了 - User Story実装を並列開始可能
 
@@ -66,10 +66,10 @@
 
 ### User Story 1 実装
 
-- [ ] T012 [US1] RecognizeTextLocalRequestに設定対応メソッドを追加 `Package/Sources/AppFeature/Data/Request/Local/RecognizeTextLocalRequest.swift`
-- [ ] T013 [US1] UIImage+Extensionに設定対応リサイズメソッドを追加 `Package/Sources/AppFeature/Extension/UIImage+Extension.swift`
-- [ ] T014 [US1] SeedEditViewModelで設定を使用したOCRを実装 `Package/Sources/AppFeature/UI/SeedEdit/SeedEditViewModel.swift`
-- [ ] T015 [US1] CoordinatesEditViewModelで設定を使用したOCRを実装 `Package/Sources/AppFeature/UI/CoordinatesEditView/CoordinatesEditViewModel.swift`
+- [X] T012 [US1] RecognizeTextLocalRequestに設定対応メソッドを追加 `Package/Sources/AppFeature/Data/Request/Local/RecognizeTextLocalRequest.swift`
+- [X] T013 [US1] UIImage+Extensionに設定対応リサイズメソッドを追加 `Package/Sources/AppFeature/Extension/UIImage+Extension.swift`
+- [X] T014 [US1] SeedEditViewModelで設定を使用したOCRを実装 `Package/Sources/AppFeature/UI/SeedEdit/SeedEditViewModel.swift`
+- [X] T015 [US1] CoordinatesEditViewModelで設定を使用したOCRを実装 `Package/Sources/AppFeature/UI/CoordinatesEditView/CoordinatesEditViewModel.swift`
 
 **チェックポイント**: User Story 1が完全に機能し、独立してテスト可能
 

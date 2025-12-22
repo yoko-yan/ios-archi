@@ -1,3 +1,4 @@
+import Dependencies
 import UIKit
 
 // MARK: - Action
@@ -16,6 +17,9 @@ enum SeedEditViewAction: Equatable {
 @Observable
 final class SeedEditViewModel {
     private(set) var uiState: SeedEditUiState
+
+    @ObservationIgnored
+    @Dependency(\.getCameraSettingsUseCase) private var getCameraSettings
 
     init(seed: Seed?) {
         uiState = SeedEditUiState(
@@ -50,7 +54,9 @@ final class SeedEditViewModel {
             uiState.seedText = text
         case let .getSeed(image):
             do {
-                let seed = try await GetSeedFromImageUseCaseImpl().execute(image: image)
+                // カメラ設定を取得してOCRを実行
+                let settings = try await getCameraSettings.execute()
+                let seed = try await GetSeedFromImageUseCaseImpl().execute(image: image, settings: settings)
                 if let seed {
                     uiState.seedText = seed.text
                 }
