@@ -54,7 +54,7 @@ struct SynchronizeWithCloudUseCaseImpl: SynchronizeWithCloudUseCase {
 
             group.addTask {
                 // 万が一エラーも出なかった場合、タイムアウトさせてスプラッシュ解除
-                try await Task.sleep(for: .seconds(10))
+                try await Task.sleep(for: .seconds(3))
             }
 
             // swiftlint:disable:next force_unwrapping

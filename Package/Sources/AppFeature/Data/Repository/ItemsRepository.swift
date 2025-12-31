@@ -1,18 +1,20 @@
 import Dependencies
 import Macros
+import UIKit
 
 @Mockable
 protocol ItemsRepository: Sendable {
     func fetchAll() async throws -> [Item]
     func fetchWithoutNoPhoto() async throws -> [Item]
-    func insert(item: Item) async throws
-    func update(item: Item) async throws
+    func insert(item: Item, image: UIImage?) async throws
+    func update(item: Item, image: UIImage?) async throws
     func delete(item: Item) async throws
 }
 
 // MARK: - DependencyValues
 
 private struct ItemsRepositoryKey: DependencyKey {
+    @MainActor
     static let liveValue: any ItemsRepository = ItemsRepositoryImpl()
 }
 
@@ -24,9 +26,10 @@ extension DependencyValues {
 }
 
 struct ItemsRepositoryImpl: ItemsRepository {
-    private let dataSource: any ItemsLocalDataSource
+    private let dataSource: any ItemsSwiftDataSource
 
-    init(dataSource: some ItemsLocalDataSource = ItemsLocalDataSourceImpl()) {
+    @MainActor
+    init(dataSource: some ItemsSwiftDataSource = ItemsSwiftDataSourceImpl()) {
         self.dataSource = dataSource
     }
 
@@ -38,12 +41,14 @@ struct ItemsRepositoryImpl: ItemsRepository {
         try await dataSource.fetchWithoutNoPhoto()
     }
 
-    func insert(item: Item) async throws {
-        try await dataSource.insert(item)
+    func insert(item: Item, image: UIImage?) async throws {
+        let imageData = image?.jpegData(compressionQuality: 0.8)
+        try await dataSource.insert(item, imageData: imageData)
     }
 
-    func update(item: Item) async throws {
-        try await dataSource.update(item)
+    func update(item: Item, image: UIImage?) async throws {
+        let imageData = image?.jpegData(compressionQuality: 0.8)
+        try await dataSource.update(item, imageData: imageData)
     }
 
     func delete(item: Item) async throws {

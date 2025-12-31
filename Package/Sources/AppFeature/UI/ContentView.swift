@@ -4,6 +4,7 @@ enum TabItem: String, CaseIterable {
     case home
     case photo
     case world
+    case settings
 
     var name: String {
         switch self {
@@ -13,6 +14,8 @@ enum TabItem: String, CaseIterable {
             return String(localized: "TabItem.Name.Photo", bundle: .module)
         case .world:
             return String(localized: "TabItem.Name.World", bundle: .module)
+        case .settings:
+            return "設定"
         }
     }
 
@@ -24,6 +27,8 @@ enum TabItem: String, CaseIterable {
             return "photo.stack"
         case .world:
             return "globe.desk"
+        case .settings:
+            return "gear"
         }
     }
 }
@@ -52,6 +57,12 @@ struct ContentView: View {
                         Label(TabItem.world.name, systemImage: TabItem.world.icon)
                     }
                     .tag(TabItem.world)
+
+                SettingsView()
+                    .tabItem {
+                        Label(TabItem.settings.name, systemImage: TabItem.settings.icon)
+                    }
+                    .tag(TabItem.settings)
             }
             SplashView()
                 .onAppear {

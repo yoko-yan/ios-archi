@@ -28,7 +28,7 @@ struct CameraPreviewView: UIViewRepresentable {
         if let previewLayer = context.coordinator.previewLayer {
             DispatchQueue.main.async {
                 previewLayer.frame = uiView.bounds
-                previewLayer.videoGravity = self.videoGravity(for: self.aspectRatio)
+                previewLayer.videoGravity = videoGravity(for: aspectRatio)
             }
         }
     }

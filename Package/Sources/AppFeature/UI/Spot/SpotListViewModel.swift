@@ -49,7 +49,8 @@ final class SpotListViewModel {
     func loadImage(item: Item) {
         guard let imageName = item.spotImageName else { return }
         if let spotImage = uiState.spotImages[item.id] ?? nil,
-           spotImage.isLoading || spotImage.image != nil {
+           spotImage.isLoading || spotImage.image != nil
+        {
             return
         }
 
