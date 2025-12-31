@@ -76,11 +76,58 @@ make format
 
 Follow MVVM + Layered Architecture:
 
-1. **UI Layer** (`UI/`): SwiftUI views and ViewModels
-2. **Domain Layer** (`Domain/`): Use cases containing business logic
-3. **Data Layer** (`Data/`): Repository and DataSource implementations
+```
+┌─────────────────────────────────────────┐
+│  UI Layer (View / ViewModel)            │
+│  - SwiftUI Views                        │
+│  - ViewModels (@Observable)             │
+└─────────────────┬───────────────────────┘
+                  │ 依存
+                  ▼
+┌─────────────────────────────────────────┐
+│  Domain Layer (UseCase)                 │
+│  - ビジネスロジック                      │
+│  - Repository Protocol定義              │
+└─────────────────┬───────────────────────┘
+                  │ 依存
+                  ▼
+┌─────────────────────────────────────────┐
+│  Data Layer (Repository / DataSource)   │
+│  - Repository実装 (Impl)                │
+│  - DataSource, API Request              │
+└─────────────────────────────────────────┘
+                  ▲
+                  │ 参照可
+┌─────────────────────────────────────────┐
+│  Model (Entity)                         │
+│  - ドメインモデル                        │
+│  - 他レイヤーに依存しない                │
+└─────────────────────────────────────────┘
+```
 
-**Dependencies flow**: UI → Domain → Data
+### アーキテクチャルール
+
+#### 許可される依存
+- UI → Domain → Data（上から下への依存のみ）
+- 全レイヤー → Model（Modelは共通で参照可能）
+
+#### 禁止される依存
+- **UI → Data**: UI層がData層を直接参照してはいけない
+- **Domain → UI**: Domain層がUI層を参照してはいけない
+- **Data → UI**: Data層がUI層を参照してはいけない
+- **Model → 他レイヤー**: Modelは他レイヤーに依存してはいけない
+
+#### 具象クラスへの依存禁止
+- UI層・Domain層は `*Impl` クラスを直接参照しない
+- Protocolを通じて依存性注入を使用する
+
+#### 命名規則
+| レイヤー | サフィックス | 例 |
+|---------|-------------|-----|
+| UI | View, ViewModel, Screen | `ItemDetailView`, `RootViewModel` |
+| Domain | UseCase, Service | `GetSeedFromImageUseCase` |
+| Data | Repository, DataSource, Request | `ItemRepositoryImpl`, `CloudDataSource` |
+| Model | (なし) | `Item`, `World`, `Seed` |
 
 ### Dependency Injection
 
@@ -309,3 +356,46 @@ The project uses `xcode-build-server` for VS Code integration:
 ## Recent Changes
 - 001-camera-customization: Added Swift 5.9+ + AVFoundation (カメラ制御), Vision Framework (OCR), swift-dependencies (DI), SwiftUI (UI)
 - 002-swiftdata-migration: Added SwiftData (@Model, @Attribute, ExternalStorage), CloudKit (クラウド同期), ModelContainer/ModelConfiguration
+
+---
+
+## Claude Code 専用機能
+
+> **⚠️ このセクションは Claude Code 専用です。Cursor、GitHub Copilot等は無視してください。**
+
+### 自律開発サイクル
+
+一通り実装が終わったら、`/implement-cycle` を実行してください。
+
+このコマンドは以下のサブエージェントを順次呼び出します：
+`build` → `run-tests` → `self-review` → `verify-app` → 完了報告
+
+問題があれば修正して繰り返します。
+
+### 個別指示への対応
+
+| ユーザー指示 | 実行コマンド |
+|-------------|-------------|
+| 「ビルドして確認」 | `/implement-cycle` |
+| 「動作確認」「アプリ確認」 | `/verify-app` |
+| 「テスト実行」 | `/run-tests` |
+
+---
+
+## 他のAIエージェント向け（Cursor、GitHub Copilot等）
+
+### 自律開発サイクル
+
+実装タスクを依頼されたら、以下のサイクルを実行してください：
+
+```
+実装 → ビルド確認 → テスト → セルフレビュー → 完了
+（問題あれば修正して繰り返し）
+```
+
+### 各フェーズ
+
+1. **ビルド確認**: `./scripts/bash/build.sh 2>&1 | ./scripts/bash/extract-build-errors.sh`
+2. **テスト**: `xcodebuild test -workspace ios-archi.xcworkspace -scheme ios-archi -destination 'platform=iOS Simulator,name=iPhone 16'`
+3. **Lint**: `make lint`
+4. **セルフレビュー**: 変更したコードを自分で読んでレビュー（上記「アーキテクチャルール」参照）
