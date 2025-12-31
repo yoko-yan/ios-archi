@@ -455,7 +455,7 @@ public struct RootView: View {
 
 #### 6.2 ドキュメント更新
 
-**変更ファイル**: `/Users/apla/workspace/projects/source/ios-archi/CLAUDE.md`
+**変更ファイル**: `CLAUDE.md`
 - CoreData → SwiftData へ更新
 - CloudKit設定の説明を更新
 - 新しい設定画面の説明を追加
@@ -606,7 +606,7 @@ final class ItemsSwiftDataSourceSpec: AsyncSpec {
 - `/Package/Sources/AppFeature/Domain/LoadSpotImageUseCase.swift`
 - `/Package/Sources/AppFeature/Domain/SynchronizeWithCloudUseCase.swift`
 - `/Package/Sources/AppFeature/UI/RootView/RootView.swift`
-- `/Users/apla/workspace/projects/source/ios-archi/CLAUDE.md`
+- `CLAUDE.md`
 
 ### 削除ファイル（Phase 6）
 - CoreData関連すべて

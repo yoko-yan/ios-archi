@@ -116,7 +116,7 @@
 
 ### Implementation for User Story 3
 
-- [ ] T019 [US3] App Store説明文のドラフトを作成（データリセットの旨を記載）in /Users/apla/workspace/projects/source/ios-archi_/docs/app-store-description.md (新規作成)
+- [ ] T019 [US3] App Store説明文のドラフトを作成（データリセットの旨を記載）in /docs/app-store-description.md (新規作成)
 - [ ] T020 [US3] （オプション）初回起動時の警告ダイアログをRootViewModelに追加 in Package/Sources/AppFeature/UI/RootView/RootViewModel.swift
 
 **Checkpoint**: User Story 3が完全に機能
@@ -138,7 +138,7 @@
 ### Implementation for User Story 4
 
 - [ ] T021 [US4] デバッグビルドでのデフォルト設定変更機能を追加（#if DEBUG でUserDefaults初期値を変更可能に）in Package/Sources/AppFeature/Data/DataSource/Local/SwiftData/SwiftDataManager.swift
-- [ ] T022 [US4] 開発者向けドキュメントにiCloud同期設定のテスト方法を記載 in /Users/apla/workspace/projects/source/ios-archi_/docs/developer-testing-guide.md (新規作成)
+- [ ] T022 [US4] 開発者向けドキュメントにiCloud同期設定のテスト方法を記載 in /docs/developer-testing-guide.md (新規作成)
 
 **Checkpoint**: すべてのユーザーストーリーが独立して機能
 
@@ -164,7 +164,7 @@
 - [ ] T029 [P] LocalDataSource削除 in Package/Sources/AppFeature/Data/DataSource/Local/LocalDataSource.swift
 - [ ] T030 [P] LocalImageRepository削除 in Package/Sources/AppFeature/Data/Repository/ImageRepository/LocalImageRepository.swift
 - [ ] T031 [P] ICloudDocumentRepository削除 in Package/Sources/AppFeature/Data/Repository/ImageRepository/ICloudDocumentRepository.swift
-- [ ] T032 CLAUDE.mdを更新（CoreData → SwiftData、CloudKit設定、設定画面の説明を追加）in /Users/apla/workspace/projects/source/ios-archi_/CLAUDE.md
+- [ ] T032 CLAUDE.mdを更新（CoreData → SwiftData、CloudKit設定、設定画面の説明を追加）in CLAUDE.md
 - [ ] T033 SwiftLintを実行してコード品質を確認
 - [ ] T034 SwiftFormatを実行してコードフォーマットを確認
 - [ ] T035 ビルドが成功することを確認（xcodebuild build）
