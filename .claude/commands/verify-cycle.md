@@ -1,5 +1,5 @@
 ---
-description: 実装後の確認サイクル（ビルド→テスト→レビュー→動作確認）(project)
+description: 検証サイクル（ビルド→テスト→レビュー→動作確認）(project)
 allowed-tools: Bash, Read, Edit, Write, Glob, Grep, mcp__mobile-mcp
 ---
 
