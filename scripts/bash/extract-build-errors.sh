@@ -34,108 +34,115 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+# グローバル配列（bash 3.2互換のため）
+ERRORS=()
+WARNINGS=()
+
 # エラー・警告を抽出
 extract_issues() {
-    local errors=()
-    local warnings=()
+    ERRORS=()
+    WARNINGS=()
 
     while IFS= read -r line; do
         if [[ "$line" =~ error: ]]; then
-            errors+=("$line")
+            ERRORS+=("$line")
         elif [[ "$line" =~ warning: ]]; then
-            warnings+=("$line")
+            WARNINGS+=("$line")
         fi
     done
 
     case "$OUTPUT_FORMAT" in
         json)
-            output_json errors warnings
+            output_json
             ;;
         full)
-            output_full errors warnings
+            output_full
             ;;
         summary|*)
-            output_summary errors warnings
+            output_summary
             ;;
     esac
 
     # エラーがあれば終了コード1
-    [[ ${#errors[@]} -eq 0 ]]
+    [[ ${#ERRORS[@]} -eq 0 ]]
 }
 
 output_json() {
-    local -n _errors=$1
-    local -n _warnings=$2
-
     echo "{"
     echo '  "summary": {'
-    echo "    \"error_count\": ${#_errors[@]},"
-    echo "    \"warning_count\": ${#_warnings[@]}"
+    echo "    \"error_count\": ${#ERRORS[@]},"
+    echo "    \"warning_count\": ${#WARNINGS[@]}"
     echo "  },"
     echo '  "errors": ['
     local first=true
-    for err in "${_errors[@]}"; do
-        [[ "$first" == true ]] || echo ","
-        first=false
-        local escaped=$(echo "$err" | sed 's/\\/\\\\/g' | sed 's/"/\\"/g' | sed 's/\t/\\t/g')
-        echo -n "    \"$escaped\""
-    done
+    if [[ ${#ERRORS[@]} -gt 0 ]]; then
+        for err in "${ERRORS[@]}"; do
+            [[ "$first" == true ]] || echo ","
+            first=false
+            local escaped=$(echo "$err" | sed 's/\\/\\\\/g' | sed 's/"/\\"/g' | sed 's/\t/\\t/g')
+            echo -n "    \"$escaped\""
+        done
+    fi
     echo ""
     echo "  ],"
     echo '  "warnings": ['
     first=true
-    for warn in "${_warnings[@]}"; do
-        [[ "$first" == true ]] || echo ","
-        first=false
-        local escaped=$(echo "$warn" | sed 's/\\/\\\\/g' | sed 's/"/\\"/g' | sed 's/\t/\\t/g')
-        echo -n "    \"$escaped\""
-    done
+    if [[ ${#WARNINGS[@]} -gt 0 ]]; then
+        for warn in "${WARNINGS[@]}"; do
+            [[ "$first" == true ]] || echo ","
+            first=false
+            local escaped=$(echo "$warn" | sed 's/\\/\\\\/g' | sed 's/"/\\"/g' | sed 's/\t/\\t/g')
+            echo -n "    \"$escaped\""
+        done
+    fi
     echo ""
     echo "  ]"
     echo "}"
 }
 
 output_full() {
-    local -n _errors=$1
-    local -n _warnings=$2
-
-    echo "=== エラー (${#_errors[@]}件) ==="
-    for err in "${_errors[@]}"; do
-        echo "$err"
-    done
+    echo "=== エラー (${#ERRORS[@]}件) ==="
+    if [[ ${#ERRORS[@]} -gt 0 ]]; then
+        for err in "${ERRORS[@]}"; do
+            echo "$err"
+        done
+    fi
 
     echo ""
-    echo "=== 警告 (${#_warnings[@]}件) ==="
-    for warn in "${_warnings[@]}"; do
-        echo "$warn"
-    done
+    echo "=== 警告 (${#WARNINGS[@]}件) ==="
+    if [[ ${#WARNINGS[@]} -gt 0 ]]; then
+        for warn in "${WARNINGS[@]}"; do
+            echo "$warn"
+        done
+    fi
 }
 
 output_summary() {
-    local -n _errors=$1
-    local -n _warnings=$2
-
     echo "# ビルド結果サマリー"
     echo ""
     echo "## 概要"
-    echo "- エラー: ${#_errors[@]}件"
-    echo "- 警告: ${#_warnings[@]}件"
+    echo "- エラー: ${#ERRORS[@]}件"
+    echo "- 警告: ${#WARNINGS[@]}件"
     echo ""
 
-    if [[ ${#_errors[@]} -gt 0 ]]; then
+    if [[ ${#ERRORS[@]} -gt 0 ]]; then
         echo "## エラー詳細"
         echo ""
-        printf '%s\n' "${_errors[@]}" | sort -u | while IFS= read -r line; do
+        printf '%s\n' "${ERRORS[@]}" | sort -u | while IFS= read -r line; do
             echo "- \`$line\`"
         done
         echo ""
     fi
 
-    if [[ ${#_warnings[@]} -gt 0 ]]; then
+    if [[ ${#WARNINGS[@]} -gt 0 ]]; then
         echo "## 警告詳細 (上位20件)"
         echo ""
-        printf '%s\n' "${_warnings[@]}" | sort | uniq -c | sort -rn | head -20 | while read count line; do
-            echo "- ($count件) \`$line\`"
+        printf '%s\n' "${WARNINGS[@]}" | sort | uniq -c | sort -rn | head -20 | while IFS= read -r line; do
+            # 先頭の空白と数字を分離
+            local count="${line%%[!0-9 ]*}"
+            local msg="${line#*[0-9] }"
+            count="${count// /}"  # 空白を除去
+            echo "- (${count}件) \`$msg\`"
         done
         echo ""
     fi
