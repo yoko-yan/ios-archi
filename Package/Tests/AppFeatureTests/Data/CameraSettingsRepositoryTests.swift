@@ -1,5 +1,7 @@
-@testable import AppFeature
+import Foundation
 import Testing
+
+@testable import AppFeature
 
 @Suite("CameraSettings Repository Tests")
 struct CameraSettingsRepositoryTests {

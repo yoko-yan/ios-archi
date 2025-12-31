@@ -52,15 +52,9 @@ struct CustomCameraViewModelTests {
         try await withDependencies {
             $0.getCameraSettingsUseCase = MockGetCameraSettingsUseCase(settings: mockSettings)
         } operation: {
-            let viewModel = CustomCameraViewModel()
-
-            // setupCameraを呼び出すと設定がロードされる
-            // ただし、実際のカメラデバイスがないシミュレータ環境では
-            // カメラセッションの設定はスキップされる可能性がある
-            // await viewModel.setupCamera()
-
-            // 代わりに、設定ロード部分のみをテスト
-            let settings = try await GetCameraSettingsUseCaseImpl().execute()
+            // 依存性注入を通じてモックを使用
+            @Dependency(\.getCameraSettingsUseCase) var getCameraSettingsUseCase
+            let settings = try await getCameraSettingsUseCase.execute()
             #expect(settings.flashEnabled == true)
             #expect(settings.gridEnabled == true)
             #expect(settings.shutterButtonPosition == .right)
