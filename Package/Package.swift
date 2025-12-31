@@ -31,6 +31,10 @@ let package = Package(
             targets: ["AnalyticsImpl"]
         ),
         .library(
+            name: "CrashlyticsImpl",
+            targets: ["CrashlyticsImpl"]
+        ),
+        .library(
             name: "Macros",
             targets: ["Macros"]
         )
@@ -40,7 +44,7 @@ let package = Package(
         .package(url: "https://github.com/Quick/Quick.git", .upToNextMajor(from: "7.0.0")),
         .package(url: "https://github.com/Quick/Nimble.git", .upToNextMajor(from: "13.0.0")),
         .package(url: "https://github.com/firebase/firebase-ios-sdk.git", .upToNextMajor(from: "12.6.0")),
-        .package(url: "https://github.com/swiftlang/swift-syntax.git", from: "603.0.0-prerelease-2025-06-26")
+        .package(url: "https://github.com/swiftlang/swift-syntax.git", from: "600.0.1")
     ],
     targets: [
         .macro(
@@ -48,11 +52,13 @@ let package = Package(
             dependencies: [
                 .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
                 .product(name: "SwiftCompilerPlugin", package: "swift-syntax")
-            ]
+            ],
+            swiftSettings: swiftSettings
         ),
         .target(
             name: "Macros",
-            dependencies: ["MacrosPlugin"]
+            dependencies: ["MacrosPlugin"],
+            swiftSettings: swiftSettings
         ),
         .target(
             name: "Core",
@@ -76,11 +82,29 @@ let package = Package(
             swiftSettings: swiftSettings
         ),
         .target(
+            name: "Crashlytics",
+            dependencies: [
+                "Macros"
+            ],
+            swiftSettings: swiftSettings
+        ),
+        .target(
+            name: "CrashlyticsImpl",
+            dependencies: [
+                "Crashlytics",
+                .product(name: "Dependencies", package: "swift-dependencies"),
+                .product(name: "FirebaseCrashlytics", package: "firebase-ios-sdk")
+            ],
+            swiftSettings: swiftSettings
+        ),
+        .target(
             name: "AppFeature",
             dependencies: [
                 "Core",
                 "Analytics",
                 "AnalyticsImpl",
+                "Crashlytics",
+                "CrashlyticsImpl",
                 "Macros",
                 .product(name: "Dependencies", package: "swift-dependencies")
             ],

@@ -116,7 +116,8 @@ public struct MockableMacro: PeerMacro {
         if parameters.count == 1, let param = parameters.first {
             let paramName = param.secondName?.text ?? param.firstName.text
             let paramType = param.type.description.trimmingWhitespace()
-            results.append("    \(accessLevel)var \(selectorName)Received\(paramName.capitalizingFirstLetter()): \(paramType)?")
+            let optionalParamType = paramType.hasPrefix("any ") ? "(\(paramType))?" : "\(paramType)?"
+            results.append("    \(accessLevel)var \(selectorName)Received\(paramName.capitalizingFirstLetter()): \(optionalParamType)")
             results.append("    \(accessLevel)var \(selectorName)ReceivedInvocations: [\(paramType)] = []")
         } else if parameters.count > 1 {
             let tupleType = parameters.map { param -> String in
