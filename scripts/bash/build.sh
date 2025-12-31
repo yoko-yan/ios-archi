@@ -3,9 +3,6 @@
 
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/common.sh"
-
 WORKSPACE="ios-archi.xcworkspace"
 SCHEME="ios-archi"
 CLEAN_BUILD=false
@@ -43,8 +40,7 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-REPO_ROOT=$(get_repo_root)
-cd "$REPO_ROOT"
+cd "$(git rev-parse --show-toplevel)"
 
 if [[ "$CLEAN_BUILD" == true ]]; then
     echo "クリーンビルドを実行中..." >&2
