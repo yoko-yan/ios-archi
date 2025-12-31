@@ -75,6 +75,10 @@ private final class RecognizedTextsRepositoryMock: RecognizedTextsRepository {
         }
         fatalError()
     }
+
+    func get(image: UIImage, settings: CameraSettings) async throws -> [String] {
+        try await get(image: image)
+    }
 }
 
 // swiftlint:enable implicitly_unwrapped_optional

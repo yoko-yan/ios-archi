@@ -27,6 +27,10 @@ class RootViewModelSpec: AsyncSpec {
                     } operation: {
                         viewModel = RootViewModel()
                         await viewModel.load()
+
+                        // バックグラウンド同期が完了するまで待機
+                        await expect(viewModel.uiState.syncState).toEventually(equal(.completed), timeout: .seconds(5))
+
                         expect(synchronizeWithCloudUseCaseMock.executeCallsCount) == 1
                         expect(viewModel.uiState.isLaunching) == false
                     }

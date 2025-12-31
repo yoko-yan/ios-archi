@@ -73,8 +73,8 @@ extension WorldEditError: LocalizedError {
 final class WorldEditViewModel {
     @ObservationIgnored
     @Dependency(\.worldsRepository) private var worldsRepository
-    @ObservationIgnored
-    @Published private(set) var uiState: WorldEditUiState
+
+    private(set) var uiState: WorldEditUiState
 
     var input: Binding<WorldEditUiState.Input> {
         Binding(
@@ -115,7 +115,7 @@ final class WorldEditViewModel {
         case .clearSeed:
             uiState.input.seed = nil
         case let .setName(text):
-            uiState.input.name = text
+            uiState.input.name = text.isEmpty ? nil : text
         case let .getSeed(image):
             do {
                 let seed = try await GetSeedFromImageUseCaseImpl().execute(image: image)
@@ -132,10 +132,10 @@ final class WorldEditViewModel {
         case .onDeleteButtonTap:
             uiState.confirmationAlert = .confirmDeletion(.onDelete)
         case .onCloseButtonTap:
-            if uiState.editItem.seed == uiState.editMode.world?.seed {
-                send(event: .onDismiss)
-            } else {
+            if uiState.isChanged {
                 uiState.confirmationAlert = .confirmDismiss(.onDismiss)
+            } else {
+                send(event: .onDismiss)
             }
         case .onRegister:
             do {
