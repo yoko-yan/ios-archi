@@ -321,7 +321,7 @@ The project uses `xcode-build-server` for VS Code integration:
 一通り実装が終わったら、`/implement-cycle` を実行してください。
 
 このコマンドは以下のサブエージェントを順次呼び出します：
-`build-errors` → `run-tests` → `self-review` → `verify-app` → 完了報告
+`build` → `run-tests` → `self-review` → `verify-app` → 完了報告
 
 問題があれば修正して繰り返します。
 

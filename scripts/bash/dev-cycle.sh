@@ -89,17 +89,16 @@ run_build() {
     log_header "ビルドチェック"
 
     local result
-    result=$("$SCRIPT_DIR/extract-build-errors.sh" -o summary 2>&1) || true
+    result=$("$SCRIPT_DIR/build.sh" 2>&1 | "$SCRIPT_DIR/extract-build-errors.sh" -o summary) || true
 
-    local error_count=$(echo "$result" | grep -c "error:" || echo "0")
-    local warning_count=$(echo "$result" | grep -c "warning:" || echo "0")
+    local error_count=$(echo "$result" | grep -c "エラー:" | grep -v "0件" || echo "0")
 
-    if [[ "$error_count" -gt 0 ]]; then
-        log_error "ビルドエラー: ${error_count}件"
+    if echo "$result" | grep -q "エラー: [1-9]"; then
+        log_error "ビルドエラーあり"
         echo "$result"
         return 1
-    elif [[ "$warning_count" -gt 0 ]]; then
-        log_warning "ビルド警告: ${warning_count}件"
+    elif echo "$result" | grep -q "警告: [1-9]"; then
+        log_warning "ビルド警告あり"
         [[ "$QUIET" == false ]] && echo "$result"
         return 0
     else

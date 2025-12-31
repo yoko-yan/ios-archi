@@ -10,7 +10,7 @@ model: sonnet
 > 一通り実装が終わったら、このエージェントを実行してください。
 
 ## サイクル
-`build-errors` → `run-tests` → `self-review` → `verify-app` → 完了報告
+`build` → `run-tests` → `self-review` → `verify-app` → 完了報告
 （問題あれば修正して繰り返し）
 
 ## ルール

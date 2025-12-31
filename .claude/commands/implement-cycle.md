@@ -7,13 +7,13 @@ allowed-tools: Bash, Read, Edit, Write, Glob, Grep, mcp__mobile-mcp
 
 ## サイクル
 
-`build-errors` → `run-tests` → `self-review` → `verify-app` → 完了報告
+`build` → `run-tests` → `self-review` → `verify-app` → 完了報告
 （問題あれば修正して繰り返し）
 
 ## 各フェーズ
 
 ### 1. ビルド確認
-`build-errors` サブエージェントを実行。エラーがあれば修正。
+`build` サブエージェントを実行。エラーがあれば修正。
 
 ### 2. テスト
 `run-tests` サブエージェントを実行。失敗があれば修正。

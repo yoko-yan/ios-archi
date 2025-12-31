@@ -1,19 +1,23 @@
 ---
-description: ビルドエラー・警告を抽出し修正（implement-cycleから呼び出される）(project)
-argument-hint: [-c|--clean] [-o summary|full|json]
-allowed-tools: Bash(scripts/bash/extract-build-errors.sh:*), Read, Edit, Glob, Grep
+description: ビルドログからエラー・警告を抽出 (project)
+argument-hint: [-o summary|full|json] [log-file]
+allowed-tools: Bash(scripts/bash/extract-build-errors.sh:*), Read, Glob, Grep
 ---
 
-> このコマンドは `/implement-cycle` のビルド確認フェーズで呼び出されます。
+> ビルドログからエラー・警告を抽出します。
 
 ## 入力: $ARGUMENTS
 
-## 実行
+## 使用例
 ```bash
-./scripts/bash/extract-build-errors.sh -o summary
+# パイプで受け取り
+./scripts/bash/build.sh 2>&1 | ./scripts/bash/extract-build-errors.sh
+
+# ログファイル指定
+./scripts/bash/extract-build-errors.sh build.log
 ```
 
-## フロー
-1. スクリプト実行でエラー抽出
-2. エラー箇所を確認・修正
-3. 再ビルドで確認（エラー0件になるまで繰り返し）
+## オプション
+- `-o summary`: Markdownサマリー（デフォルト）
+- `-o full`: 全出力
+- `-o json`: JSON形式

@@ -1,20 +1,19 @@
 ---
 name: build-errors
-description: ビルドエラー・警告を抽出し修正（implement-cycleから呼び出される）
-tools: Bash, Read, Edit, Glob, Grep
+description: ビルドログからエラー・警告を抽出
+tools: Bash, Read, Glob, Grep
 model: sonnet
 ---
 
 # ビルドエラー抽出エージェント
 
-> このエージェントは `/implement-cycle` のビルド確認フェーズで呼び出されます。
+> ビルドログからエラー・警告を抽出します。
 
-## 実行
+## 使用例
 ```bash
-./scripts/bash/extract-build-errors.sh -o summary
-```
+# パイプで受け取り
+./scripts/bash/build.sh 2>&1 | ./scripts/bash/extract-build-errors.sh
 
-## フロー
-1. スクリプト実行でエラー抽出
-2. エラー箇所を確認・修正
-3. 再ビルドで確認（エラー0件になるまで繰り返し）
+# ログファイル指定
+./scripts/bash/extract-build-errors.sh build.log
+```
