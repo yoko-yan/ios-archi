@@ -76,11 +76,58 @@ make format
 
 Follow MVVM + Layered Architecture:
 
-1. **UI Layer** (`UI/`): SwiftUI views and ViewModels
-2. **Domain Layer** (`Domain/`): Use cases containing business logic
-3. **Data Layer** (`Data/`): Repository and DataSource implementations
+```
+┌─────────────────────────────────────────┐
+│  UI Layer (View / ViewModel)            │
+│  - SwiftUI Views                        │
+│  - ViewModels (@Observable)             │
+└─────────────────┬───────────────────────┘
+                  │ 依存
+                  ▼
+┌─────────────────────────────────────────┐
+│  Domain Layer (UseCase)                 │
+│  - ビジネスロジック                      │
+│  - Repository Protocol定義              │
+└─────────────────┬───────────────────────┘
+                  │ 依存
+                  ▼
+┌─────────────────────────────────────────┐
+│  Data Layer (Repository / DataSource)   │
+│  - Repository実装 (Impl)                │
+│  - DataSource, API Request              │
+└─────────────────────────────────────────┘
+                  ▲
+                  │ 参照可
+┌─────────────────────────────────────────┐
+│  Model (Entity)                         │
+│  - ドメインモデル                        │
+│  - 他レイヤーに依存しない                │
+└─────────────────────────────────────────┘
+```
 
-**Dependencies flow**: UI → Domain → Data
+### アーキテクチャルール
+
+#### 許可される依存
+- UI → Domain → Data（上から下への依存のみ）
+- 全レイヤー → Model（Modelは共通で参照可能）
+
+#### 禁止される依存
+- **UI → Data**: UI層がData層を直接参照してはいけない
+- **Domain → UI**: Domain層がUI層を参照してはいけない
+- **Data → UI**: Data層がUI層を参照してはいけない
+- **Model → 他レイヤー**: Modelは他レイヤーに依存してはいけない
+
+#### 具象クラスへの依存禁止
+- UI層・Domain層は `*Impl` クラスを直接参照しない
+- Protocolを通じて依存性注入を使用する
+
+#### 命名規則
+| レイヤー | サフィックス | 例 |
+|---------|-------------|-----|
+| UI | View, ViewModel, Screen | `ItemDetailView`, `RootViewModel` |
+| Domain | UseCase, Service | `GetSeedFromImageUseCase` |
+| Data | Repository, DataSource, Request | `ItemRepositoryImpl`, `CloudDataSource` |
+| Model | (なし) | `Item`, `World`, `Seed` |
 
 ### Dependency Injection
 

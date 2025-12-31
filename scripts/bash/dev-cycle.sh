@@ -134,24 +134,8 @@ run_test() {
     fi
 }
 
-# レビュー実行（Lint + レイヤーチェックのみ。セルフレビューはAI自身で実施）
+# Lint実行（セルフレビュー・アーキテクチャレビューはAI自身で実施）
 run_review() {
-    local issues=0
-
-    # レイヤー違反チェック
-    log_header "レイヤー違反チェック"
-
-    local layer_exit_code=0
-    "$SCRIPT_DIR/check-layer-violations.sh" || layer_exit_code=$?
-
-    if [[ "$layer_exit_code" -ne 0 ]]; then
-        log_warning "レイヤー違反あり"
-        ((issues++))
-    else
-        log_success "レイヤー構造OK"
-    fi
-
-    # Lint
     log_header "SwiftLint"
 
     local lint_result
@@ -162,15 +146,11 @@ run_review() {
 
     if [[ "$lint_errors" -gt 0 ]]; then
         log_error "Lintエラー: ${lint_errors}件"
-        ((issues += lint_errors))
+        return 1
     elif [[ "$lint_warnings" -gt 0 ]]; then
         log_warning "Lint警告: ${lint_warnings}件"
     else
         log_success "Lint OK"
-    fi
-
-    if [[ "$issues" -gt 0 ]]; then
-        return 1
     fi
     return 0
 }
