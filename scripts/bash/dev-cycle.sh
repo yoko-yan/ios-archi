@@ -141,14 +141,12 @@ run_review() {
     # レイヤー違反チェック
     log_header "レイヤー違反チェック"
 
-    local layer_result
-    layer_result=$("$SCRIPT_DIR/check-layer-violations.sh" 2>&1) || true
+    local layer_exit_code=0
+    "$SCRIPT_DIR/check-layer-violations.sh" || layer_exit_code=$?
 
-    local layer_issues=$(echo "$layer_result" | grep -c "違反" || echo "0")
-    if [[ "$layer_issues" -gt 0 ]]; then
-        log_warning "レイヤー違反: ${layer_issues}件"
-        [[ "$QUIET" == false ]] && echo "$layer_result"
-        ((issues += layer_issues))
+    if [[ "$layer_exit_code" -ne 0 ]]; then
+        log_warning "レイヤー違反あり"
+        ((issues++))
     else
         log_success "レイヤー構造OK"
     fi

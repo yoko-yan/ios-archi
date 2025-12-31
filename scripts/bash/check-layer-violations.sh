@@ -318,14 +318,26 @@ output_json() {
 
 # メイン処理
 main() {
+    local total_violations=0
+
     case "$OUTPUT_FORMAT" in
         json)
             output_json
             ;;
         summary|*)
-            output_summary
+            # サマリー出力から違反数を取得
+            local output=$(output_summary)
+            echo "$output"
+            # 合計行から件数を抽出
+            total_violations=$(echo "$output" | grep -E "^\| \*\*合計\*\*" | sed -E 's/.*\*\*([0-9]+)件\*\*.*/\1/' || echo "0")
             ;;
     esac
+
+    # 違反がある場合は終了コード1
+    if [[ "$total_violations" -gt 0 ]]; then
+        exit 1
+    fi
+    exit 0
 }
 
 main
