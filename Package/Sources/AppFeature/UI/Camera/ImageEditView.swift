@@ -19,7 +19,7 @@ struct ImageEditView: View {
 
             VStack {
                 // 画像プレビュー領域（切り取り枠付き）
-                GeometryReader { geometry in
+                GeometryReader { _ in
                     let cropFrameSize = UIScreen.main.bounds.width
 
                     ZStack {

@@ -11,7 +11,7 @@ struct FilterConditionCell: View {
         action: ((Bool) -> Void)? = nil
     ) {
         self.label = label
-        self._isChecked = isChecked
+        _isChecked = isChecked
         self.action = action
     }
 

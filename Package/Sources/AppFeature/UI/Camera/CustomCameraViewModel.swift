@@ -125,14 +125,14 @@ final class CustomCameraViewModel {
                 guard let self else { return }
 
                 // アスペクト比が正方形の場合、画像を正方形にクロップ
-                if self.uiState.aspectRatio == .square, let squareImage = self.cropToSquare(image) {
-                    self.uiState.capturedImage = squareImage
+                if uiState.aspectRatio == .square, let squareImage = cropToSquare(image) {
+                    uiState.capturedImage = squareImage
                 } else {
-                    self.uiState.capturedImage = image
+                    uiState.capturedImage = image
                 }
 
                 // 撮影完了後にデリゲートをクリア
-                self.photoCaptureDelegate = nil
+                photoCaptureDelegate = nil
             }
         }
 

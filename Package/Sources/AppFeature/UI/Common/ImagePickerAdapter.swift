@@ -30,7 +30,7 @@ struct ImagePickerAdapter: View {
 
     @ViewBuilder
     var body: some View {
-        if sourceType == .camera && cameraMode == .custom {
+        if sourceType == .camera, cameraMode == .custom {
             // カスタムカメラを使用
             CustomCameraView(
                 capturedImage: $image,

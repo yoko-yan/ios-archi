@@ -10,11 +10,11 @@ protocol WorldsSwiftDataSource: Sendable {
 
 @MainActor
 final class WorldsSwiftDataSourceImpl: WorldsSwiftDataSource {
-    private let container: ModelContainer
-
-    init(container: ModelContainer = SwiftDataManager.shared.container) {
-        self.container = container
+    private var container: ModelContainer {
+        SwiftDataManager.shared.container
     }
+
+    init() {}
 
     func fetchAll() async throws -> [World] {
         let context = ModelContext(container)
@@ -26,7 +26,7 @@ final class WorldsSwiftDataSourceImpl: WorldsSwiftDataSource {
         if models.isEmpty {
             print("⚠️ No worlds found in local store")
         } else {
-            print("ℹ️ World IDs: \(models.map { $0.id }.prefix(5))")
+            print("ℹ️ World IDs: \(models.map(\.id).prefix(5))")
         }
         return models.map(convertToDomain)
     }

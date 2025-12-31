@@ -11,14 +11,15 @@ protocol ItemsSwiftDataSource: Sendable {
 
 @MainActor
 final class ItemsSwiftDataSourceImpl: ItemsSwiftDataSource {
-    private let container: ModelContainer
+    private var container: ModelContainer {
+        SwiftDataManager.shared.container
+    }
+
     private let worldsDataSource: any WorldsSwiftDataSource
 
     init(
-        container: ModelContainer = SwiftDataManager.shared.container,
         worldsDataSource: some WorldsSwiftDataSource = WorldsSwiftDataSourceImpl()
     ) {
-        self.container = container
         self.worldsDataSource = worldsDataSource
     }
 
@@ -32,7 +33,7 @@ final class ItemsSwiftDataSourceImpl: ItemsSwiftDataSource {
         if models.isEmpty {
             print("⚠️ No items found in local store")
         } else {
-            print("ℹ️ Item IDs: \(models.map { $0.id }.prefix(5))")
+            print("ℹ️ Item IDs: \(models.map(\.id).prefix(5))")
         }
         return try await models.asyncMap { try await convertToDomain($0) }
     }
@@ -93,7 +94,7 @@ final class ItemsSwiftDataSourceImpl: ItemsSwiftDataSource {
         model.coordinatesY = item.coordinates?.y.description
         model.coordinatesZ = item.coordinates?.z.description
         model.worldID = item.world?.id
-        if let imageData = imageData {
+        if let imageData {
             model.spotImageData = imageData
         }
         model.updatedAt = Date()

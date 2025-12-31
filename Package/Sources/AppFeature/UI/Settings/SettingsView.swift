@@ -31,7 +31,7 @@ struct SettingsView: View {
                     Text("iCloud同期をオンにすると、複数のデバイス間でデータが同期されます。設定変更後は、アプリをバックグラウンドに移動してから戻ってください。")
                 }
 
-                if iCloudSyncEnabled && !isReloading {
+                if iCloudSyncEnabled, !isReloading {
                     Section {
                         Button(action: {
                             Task {
@@ -55,7 +55,7 @@ struct SettingsView: View {
                     }
                 }
 
-                if showRestartAlert && !isReloading {
+                if showRestartAlert, !isReloading {
                     Section {
                         HStack {
                             Image(systemName: "info.circle")
@@ -82,7 +82,7 @@ struct SettingsView: View {
             }
             .onChange(of: scenePhase) { _, newPhase in
                 // フォアグラウンド復帰時にローディング開始
-                if newPhase == .active && pendingReinitialization {
+                if newPhase == .active, pendingReinitialization {
                     isReloading = true
                 }
             }

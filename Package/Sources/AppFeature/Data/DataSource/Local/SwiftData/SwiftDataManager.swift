@@ -1,6 +1,6 @@
+import CloudKit
 import Foundation
 import SwiftData
-import CloudKit
 
 @MainActor
 final class SwiftDataManager {
@@ -31,9 +31,10 @@ final class SwiftDataManager {
             object: nil,
             queue: .main
         ) { [weak self] notification in
-            guard let self = self else { return }
+            guard let self else { return }
             if let userInfo = notification.userInfo,
-               let eventTypeString = userInfo["event"] as? String {
+               let eventTypeString = userInfo["event"] as? String
+            {
                 print("🔔 CloudKit event: \(eventTypeString)")
             }
 
@@ -44,7 +45,8 @@ final class SwiftDataManager {
                 let worldDescriptor = FetchDescriptor<WorldModel>()
 
                 if let itemCount = try? context.fetch(itemDescriptor).count,
-                   let worldCount = try? context.fetch(worldDescriptor).count {
+                   let worldCount = try? context.fetch(worldDescriptor).count
+                {
                     print("📊 After CloudKit event - Items: \(itemCount), Worlds: \(worldCount)")
                 }
             }

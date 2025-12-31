@@ -39,7 +39,8 @@ struct LoadSpotImageUseCaseImpl: LoadSpotImageUseCase {
         let descriptor = FetchDescriptor<ItemModel>(predicate: predicate)
 
         guard let model = try context.fetch(descriptor).first,
-              let imageData = model.spotImageData else {
+              let imageData = model.spotImageData
+        else {
             return nil
         }
 

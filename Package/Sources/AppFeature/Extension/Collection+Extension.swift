@@ -4,7 +4,8 @@ extension Collection {
     ) async rethrows -> [T] {
         var values = [T]()
         for element in self {
-            try await values.append(transform(element))
+            // swiftformat:disable:next hoistTry
+            values.append(try await transform(element))
         }
         return values
     }

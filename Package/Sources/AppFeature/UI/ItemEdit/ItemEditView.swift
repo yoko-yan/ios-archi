@@ -18,73 +18,73 @@ struct ItemEditView: View {
     var body: some View {
         NavigationStack {
             contentView
-            .fullScreenCover(isPresented: Binding(
-                get: { imagePickerState != .hidden },
-                set: { if !$0 { imagePickerState = .hidden } }
-            )) {
-                let sourceType: ImagePickerAdapter.SourceType = imagePickerState == .camera ? .camera : .library
-                ImagePickerAdapter(
-                    show: Binding(
-                        get: { imagePickerState != .hidden },
-                        set: { if !$0 { imagePickerState = .hidden } }
-                    ),
-                    image: spotImageBinding,
-                    sourceType: sourceType,
-                    allowsEditing: true,
-                    cameraMode: .custom
-                )
-            }
-            .task {
-                await viewModel.send(action: .loadImage)
-                await viewModel.send(action: .getWorlds)
-            }
-            .onChange(of: viewModel.uiState.events) { old, new in
-                if old == new { return }
-                if let event = new.first {
-                    switch event {
-                    case .onChanged:
-                        onChange?(viewModel.uiState.editItem)
-                    case .onDeleted:
-                        onDelete?(viewModel.uiState.editItem)
-                    case .onDismiss:
-                        dismiss()
-                    }
+                .fullScreenCover(isPresented: Binding(
+                    get: { imagePickerState != .hidden },
+                    set: { if !$0 { imagePickerState = .hidden } }
+                )) {
+                    let sourceType: ImagePickerAdapter.SourceType = imagePickerState == .camera ? .camera : .library
+                    ImagePickerAdapter(
+                        show: Binding(
+                            get: { imagePickerState != .hidden },
+                            set: { if !$0 { imagePickerState = .hidden } }
+                        ),
+                        image: spotImageBinding,
+                        sourceType: sourceType,
+                        allowsEditing: true,
+                        cameraMode: .custom
+                    )
+                }
+                .task {
+                    await viewModel.send(action: .loadImage)
+                    await viewModel.send(action: .getWorlds)
+                }
+                .onChange(of: viewModel.uiState.events) { old, new in
+                    if old == new { return }
+                    if let event = new.first {
+                        switch event {
+                        case .onChanged:
+                            onChange?(viewModel.uiState.editItem)
+                        case .onDeleted:
+                            onDelete?(viewModel.uiState.editItem)
+                        case .onDismiss:
+                            dismiss()
+                        }
 
-                    Task { @MainActor in
-                        viewModel.consumeEvent(event)
-                    }
-                }
-            }
-            .navigationBarTitle(viewModel.uiState.editMode.title, displayMode: .inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        Task {
-                            await viewModel.send(action: .onCloseButtonTap)
-                        }
-                    }) {
-                        Image(systemName: "xmark")
-                    }
-                }
-            }
-            .toolbarBackground(.visible, for: .navigationBar)
-            .confirmationAlert(
-                alertType: viewModel.uiState.confirmationAlert,
-                onConfirmed: {
-                    if let action =
-                        viewModel.uiState.confirmationAlert?.action
-                    {
-                        Task {
-                            await viewModel.send(action: action)
+                        Task { @MainActor in
+                            viewModel.consumeEvent(event)
                         }
                     }
-                },
-                onDismiss: {
-                    Task {
-                        await viewModel.send(action: .onAlertDismiss)
+                }
+                .navigationBarTitle(viewModel.uiState.editMode.title, displayMode: .inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button(action: {
+                            Task {
+                                await viewModel.send(action: .onCloseButtonTap)
+                            }
+                        }) {
+                            Image(systemName: "xmark")
+                        }
                     }
                 }
-            )
+                .toolbarBackground(.visible, for: .navigationBar)
+                .confirmationAlert(
+                    alertType: viewModel.uiState.confirmationAlert,
+                    onConfirmed: {
+                        if let action =
+                            viewModel.uiState.confirmationAlert?.action
+                        {
+                            Task {
+                                await viewModel.send(action: action)
+                            }
+                        }
+                    },
+                    onDismiss: {
+                        Task {
+                            await viewModel.send(action: .onAlertDismiss)
+                        }
+                    }
+                )
         }
         .interactiveDismissDisabled(viewModel.uiState.isChanged)
         .errorAlert(error: viewModel.uiState.error) {
