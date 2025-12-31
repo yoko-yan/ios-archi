@@ -365,7 +365,7 @@ The project uses `xcode-build-server` for VS Code integration:
 
 ### 自律開発サイクル
 
-一通り実装が終わったら、`/implement-cycle` を実行してください。
+一通り実装が終わったら、`/verify-cycle` を実行してください。
 
 このコマンドは以下のサブエージェントを順次呼び出します：
 `build` → `run-tests` → `self-review` → `verify-app` → 完了報告
@@ -376,7 +376,7 @@ The project uses `xcode-build-server` for VS Code integration:
 
 | ユーザー指示 | 実行コマンド |
 |-------------|-------------|
-| 「ビルドして確認」 | `/implement-cycle` |
+| 「ビルドして確認」 | `/verify-cycle` |
 | 「動作確認」「アプリ確認」 | `/verify-app` |
 | 「テスト実行」 | `/run-tests` |
 

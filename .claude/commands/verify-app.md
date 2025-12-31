@@ -4,7 +4,7 @@ argument-hint: [画面名やシナリオ]
 allowed-tools: mcp__mobile-mcp, Bash(xcodebuild:*), Bash(xcrun simctl:*), Read, Glob
 ---
 
-> 「動作確認」「アプリ確認」と指示された場合、または `/implement-cycle` から呼び出されます。
+> 「動作確認」「アプリ確認」と指示された場合、または `/verify-cycle` から呼び出されます。
 
 ## 入力: $ARGUMENTS
 
