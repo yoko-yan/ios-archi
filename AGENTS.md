@@ -318,10 +318,10 @@ The project uses `xcode-build-server` for VS Code integration:
 
 ### 自律開発サイクル
 
-実装タスクを依頼されたら、`/implement-cycle` を実行してください。
+一通り実装が終わったら、`/implement-cycle` を実行してください。
 
 このコマンドは以下のサブエージェントを順次呼び出します：
-1. 実装 → 2. `build-errors` → 3. `run-tests` → 4. `self-review` → 5. `verify-app` → 6. 完了報告
+`build-errors` → `run-tests` → `self-review` → `verify-app` → 完了報告
 
 問題があれば修正して繰り返します。
 
