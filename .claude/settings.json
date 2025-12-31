@@ -12,9 +12,7 @@
       "Bash(mkdir:*)",
       "Bash(swift package:*)",
       "Bash(make:*)",
-      "Bash(scripts/bash/extract-build-errors.sh:*)",
-      "Bash(scripts/bash/self-review-check.sh:*)",
-      "Bash(scripts/bash/check-layer-violations.sh:*)"
+      "Bash(scripts/bash/extract-build-errors.sh:*)"
     ],
     "deny": [
       "Read(./build/**)",
