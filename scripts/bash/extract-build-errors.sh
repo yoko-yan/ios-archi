@@ -137,11 +137,7 @@ output_summary() {
     if [[ ${#WARNINGS[@]} -gt 0 ]]; then
         echo "## 警告詳細 (上位20件)"
         echo ""
-        printf '%s\n' "${WARNINGS[@]}" | sort | uniq -c | sort -rn | head -20 | while IFS= read -r line; do
-            # 先頭の空白と数字を分離
-            local count="${line%%[!0-9 ]*}"
-            local msg="${line#*[0-9] }"
-            count="${count// /}"  # 空白を除去
+        printf '%s\n' "${WARNINGS[@]}" | sort | uniq -c | sort -rn | head -20 | while read -r count msg; do
             echo "- (${count}件) \`$msg\`"
         done
         echo ""
