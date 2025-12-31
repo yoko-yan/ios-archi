@@ -44,6 +44,13 @@ cd "$(git rev-parse --show-toplevel)"
 
 if [[ "$CLEAN_BUILD" == true ]]; then
     echo "クリーンビルドを実行中..." >&2
+
+    # マクロプラグインキャッシュを削除
+    echo "マクロプラグインキャッシュを削除中..." >&2
+    rm -rf ~/Library/Developer/Xcode/DerivedData/ios-archi-*/Build/Products/*/MacrosPlugin* 2>/dev/null || true
+    rm -rf ~/Library/Developer/Xcode/DerivedData/ios-archi-*/Build/Intermediates.noindex/*/MacrosPlugin* 2>/dev/null || true
+    rm -rf .build/ 2>/dev/null || true
+
     xcodebuild clean \
         -workspace "$WORKSPACE" \
         -scheme "$SCHEME" \
