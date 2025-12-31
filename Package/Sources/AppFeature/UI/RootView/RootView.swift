@@ -12,6 +12,9 @@ public struct RootView: View {
                 SplashView()
             } else {
                 ContentView()
+                    .overlay(alignment: .top) {
+                        SyncStatusOverlay(syncState: viewModel.uiState.syncState)
+                    }
             }
         }
         .task {
