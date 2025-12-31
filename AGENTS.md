@@ -309,3 +309,45 @@ The project uses `xcode-build-server` for VS Code integration:
 ## Recent Changes
 - 001-camera-customization: Added Swift 5.9+ + AVFoundation (カメラ制御), Vision Framework (OCR), swift-dependencies (DI), SwiftUI (UI)
 - 002-swiftdata-migration: Added SwiftData (@Model, @Attribute, ExternalStorage), CloudKit (クラウド同期), ModelContainer/ModelConfiguration
+
+---
+
+## Claude Code 専用機能
+
+> **⚠️ このセクションは Claude Code 専用です。Cursor、GitHub Copilot等は無視してください。**
+
+### 自律開発サイクル
+
+実装タスクを依頼されたら、`/implement-cycle` を実行してください。
+
+このコマンドは以下のサブエージェントを順次呼び出します：
+1. 実装 → 2. `build-errors` → 3. `run-tests` → 4. `self-review` → 5. `verify-app` → 6. 完了報告
+
+問題があれば修正して繰り返します。
+
+---
+
+## 他のAIエージェント向け（Cursor、GitHub Copilot等）
+
+### 自律開発サイクル
+
+実装タスクを依頼されたら、以下のサイクルを実行してください：
+
+```
+実装 → ビルド確認 → テスト → セルフレビュー → 完了
+（問題あれば修正して繰り返し）
+```
+
+### 各フェーズ
+
+1. **ビルド確認**: `./scripts/bash/extract-build-errors.sh`
+2. **テスト**: `xcodebuild test -workspace ios-archi.xcworkspace -scheme ios-archi -destination 'platform=iOS Simulator,name=iPhone 16'`
+3. **セルフレビュー**: 変更したコードを自分で読んでレビュー（スクリプトではなくAI自身で実施）
+4. **Lint**: `make lint`
+
+### セルフレビュー観点
+- レイヤー分離（UI→Domain→Data）
+- 未使用import・変数
+- 強制アンラップ（!）
+- エラーハンドリング
+- 命名規則

@@ -3,8 +3,18 @@
     "allow": [
       "mcp__mobile-mcp__mobile_list_available_devices",
       "mcp__mobile-mcp__mobile_list_apps",
+      "mcp__mobile-mcp__mobile_launch_app",
+      "mcp__mobile-mcp__mobile_take_screenshot",
+      "mcp__mobile-mcp__mobile_list_elements_on_screen",
+      "mcp__mobile-mcp__mobile_click_on_screen_at_coordinates",
+      "mcp__mobile-mcp__mobile_install_app",
       "Bash(xcodebuild:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(swift package:*)",
+      "Bash(make:*)",
+      "Bash(scripts/bash/extract-build-errors.sh:*)",
+      "Bash(scripts/bash/self-review-check.sh:*)",
+      "Bash(scripts/bash/check-layer-violations.sh:*)"
     ],
     "deny": [
       "Read(./build/**)",
