@@ -10,11 +10,12 @@ final class CustomCameraViewModel {
     @ObservationIgnored
     @Dependency(\.getCameraSettingsUseCase) private var getCameraSettings
 
-    let captureSession = AVCaptureSession()
-    private let photoOutput = AVCapturePhotoOutput()
+    nonisolated(unsafe) let captureSession = AVCaptureSession()
+    nonisolated(unsafe) private let photoOutput = AVCapturePhotoOutput()
     private let sessionQueue = DispatchQueue(label: "camera.session")
 
-    private var currentDevice: AVCaptureDevice?
+    @ObservationIgnored
+    nonisolated(unsafe) private var currentDevice: AVCaptureDevice?
     private var photoCaptureDelegate: PhotoCaptureDelegate?
 
     init() {
@@ -49,7 +50,7 @@ final class CustomCameraViewModel {
         }
     }
 
-    private func configureCaptureSession() {
+    nonisolated private func configureCaptureSession() {
         captureSession.beginConfiguration()
 
         // デバイスを取得
@@ -172,6 +173,7 @@ final class CustomCameraViewModel {
     }
 
     func switchCamera() {
+        let currentPosition = uiState.cameraPosition
         sessionQueue.async { [weak self] in
             guard let self else { return }
 
@@ -183,7 +185,7 @@ final class CustomCameraViewModel {
             }
 
             // カメラ位置を切り替え
-            let newPosition: AVCaptureDevice.Position = uiState.cameraPosition == .back ? .front : .back
+            let newPosition: AVCaptureDevice.Position = currentPosition == .back ? .front : .back
 
             guard let newDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: newPosition) else {
                 captureSession.commitConfiguration()
@@ -334,7 +336,7 @@ private class PhotoCaptureDelegate: NSObject, AVCapturePhotoCaptureDelegate {
     func photoOutput(
         _: AVCapturePhotoOutput,
         didFinishProcessingPhoto photo: AVCapturePhoto,
-        error: Error?
+        error: (any Error)?
     ) {
         if let error {
             print("Error capturing photo: \(error)")

@@ -14,7 +14,7 @@ protocol CameraSettingsRepository: Sendable {
 
 /// CameraSettingsRepositoryの実装
 struct CameraSettingsRepositoryImpl: CameraSettingsRepository {
-    private let userDefaults: UserDefaults
+    nonisolated(unsafe) private let userDefaults: UserDefaults
     private let key = "camera_settings"
 
     init(userDefaults: UserDefaults = .standard) {
