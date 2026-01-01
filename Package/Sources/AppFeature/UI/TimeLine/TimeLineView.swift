@@ -28,7 +28,6 @@ struct TimeLineView: View {
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)
             }
-            .padding(.top, 8)
             .listStyle(.plain)
             .task {
                 await viewModel.send(action: .load)
