@@ -171,6 +171,11 @@ final class CustomCameraViewModel {
         uiState.gridEnabled.toggle()
     }
 
+    func toggleAspectRatio() {
+        // 正方形とワイドを切り替え
+        uiState.aspectRatio = uiState.aspectRatio == .square ? .widescreen : .square
+    }
+
     func switchCamera() {
         sessionQueue.async { [weak self] in
             guard let self else { return }
