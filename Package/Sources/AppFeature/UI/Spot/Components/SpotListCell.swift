@@ -84,7 +84,7 @@ struct SpotListCell: View {
     )
 }
 
-#Preview {
+#Preview(traits: .fixedLayout(width: 375, height: 100)) {
     SpotListCell(
         item: Item(
             id: UUID().uuidString,
@@ -97,7 +97,6 @@ struct SpotListCell: View {
         spotImage: nil,
         onLoadImage: nil
     )
-    .previewLayout(.fixed(width: 375, height: 100))
 }
 
 struct SpotListCell_Previews: PreviewProvider {

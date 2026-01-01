@@ -41,7 +41,7 @@ public struct MockableMacro: PeerMacro {
         let membersCode = members.joined(separator: "\n\n")
 
         let mockClass: DeclSyntax = """
-        \(raw: accessLevel)class \(raw: mockClassName): \(raw: protocolName) {
+        \(raw: accessLevel)final class \(raw: mockClassName): \(raw: protocolName), @unchecked Sendable {
         \(raw: membersCode)
         }
         """

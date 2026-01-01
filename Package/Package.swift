@@ -44,7 +44,7 @@ let package = Package(
         .package(url: "https://github.com/Quick/Quick.git", .upToNextMajor(from: "7.0.0")),
         .package(url: "https://github.com/Quick/Nimble.git", .upToNextMajor(from: "13.0.0")),
         .package(url: "https://github.com/firebase/firebase-ios-sdk.git", .upToNextMajor(from: "12.6.0")),
-        .package(url: "https://github.com/swiftlang/swift-syntax.git", from: "600.0.1")
+        .package(url: "https://github.com/swiftlang/swift-syntax.git", from: "602.0.0")
     ],
     targets: [
         .macro(
