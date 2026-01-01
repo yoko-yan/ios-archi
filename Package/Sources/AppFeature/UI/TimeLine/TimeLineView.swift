@@ -39,10 +39,6 @@ struct TimeLineView: View {
             .navigationDestination(for: Item.self) { item in
                 ItemDetailView(item: item)
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarTitle(Text("HomeView.Title", bundle: .module))
-            .toolbarBackground(.visible, for: .navigationBar)
-            .analyticsScreen(name: "TimeLineView", class: String(describing: type(of: self)))
 
             FloatingButton(action: {
                 isShowEditView = true
@@ -54,6 +50,10 @@ struct TimeLineView: View {
             .padding(.trailing, 16)
             .padding(.bottom, 16)
         }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitle(Text("HomeView.Title", bundle: .module))
+        .toolbarBackground(.visible, for: .navigationBar)
+        .analyticsScreen(name: "TimeLineView", class: String(describing: type(of: self)))
         .sheet(isPresented: $isShowEditView) {
             ItemEditView(onChange: { _ in })
         }

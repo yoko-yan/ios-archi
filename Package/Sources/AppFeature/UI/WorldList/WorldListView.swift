@@ -32,23 +32,6 @@ struct WorldListView: View {
             .navigationDestination(for: World.self) { world in
                 WorldDetailView(world: world)
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarTitle(Text("WorldListView.Title", bundle: .module))
-            .toolbarBackground(.visible, for: .navigationBar)
-            .deleteAlert(
-                message: viewModel.uiState.deleteAlertMessage,
-                onDelete: {
-                    Task {
-                        await viewModel.send(action: .onDelete)
-                    }
-                },
-                onDismiss: {
-                    Task {
-                        await viewModel.send(action: .onDeleteAlertDismiss)
-                    }
-                }
-            )
-            .analyticsScreen(name: "WorldListView", class: String(describing: type(of: self)))
 
             FloatingButton(action: {
                 isShowEditView = true
@@ -60,6 +43,23 @@ struct WorldListView: View {
             .padding(.trailing, 16)
             .padding(.bottom, 16)
         }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitle(Text("WorldListView.Title", bundle: .module))
+        .toolbarBackground(.visible, for: .navigationBar)
+        .deleteAlert(
+            message: viewModel.uiState.deleteAlertMessage,
+            onDelete: {
+                Task {
+                    await viewModel.send(action: .onDelete)
+                }
+            },
+            onDismiss: {
+                Task {
+                    await viewModel.send(action: .onDeleteAlertDismiss)
+                }
+            }
+        )
+        .analyticsScreen(name: "WorldListView", class: String(describing: type(of: self)))
         .sheet(isPresented: $isShowEditView) {
             WorldEditView(onTapDismiss: { _ in })
                 .presentationDetents([.medium, .large])

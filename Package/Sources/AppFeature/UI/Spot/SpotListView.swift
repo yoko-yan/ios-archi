@@ -45,10 +45,6 @@ struct SpotListView: View {
             .refreshable {
                 await viewModel.send(action: .load)
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarTitle(Text("SpotListView.Title", bundle: .module))
-            .toolbarBackground(.visible, for: .navigationBar)
-            .analyticsScreen(name: "SpotListView", class: String(describing: type(of: self)))
 
             FloatingButton(action: {
                 isShowEditView = true
@@ -60,6 +56,10 @@ struct SpotListView: View {
             .padding(.trailing, 16)
             .padding(.bottom, 16)
         }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitle(Text("SpotListView.Title", bundle: .module))
+        .toolbarBackground(.visible, for: .navigationBar)
+        .analyticsScreen(name: "SpotListView", class: String(describing: type(of: self)))
         .sheet(isPresented: $isShowEditView) {
             ItemEditView(onChange: { _ in })
         }
