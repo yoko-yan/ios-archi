@@ -12,7 +12,7 @@ struct SpotListView: View {
 
     var body: some View {
         @Bindable var viewModel = viewModel
-        ZStack {
+        ZStack(alignment: .bottomTrailing) {
             ScrollView {
                 FilterConditionCell(
                     label: "Display only items with images",
@@ -39,48 +39,30 @@ struct SpotListView: View {
                     ItemDetailView(item: item)
                 }
             }
+            .task {
+                await viewModel.send(action: .load)
+            }
+            .refreshable {
+                await viewModel.send(action: .load)
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitle(Text("SpotListView.Title", bundle: .module))
+            .toolbarBackground(.visible, for: .navigationBar)
+            .analyticsScreen(name: "SpotListView", class: String(describing: type(of: self)))
 
             FloatingButton(action: {
-                isShowEditView.toggle()
+                isShowEditView = true
             }, label: {
-                ZStack {
-                    ZStack {
-                        Image(systemName: "photo")
-                            .foregroundColor(.white)
-                            .font(.system(size: 24))
-                            .padding(.trailing, 10)
-                        Image(systemName: "plus.circle.fill")
-                            .foregroundColor(.white)
-                            .font(.system(size: 15))
-                            .frame(
-                                maxWidth: .infinity,
-                                maxHeight: .infinity,
-                                alignment: .trailing
-                            )
-                            .padding(2)
-                    }
-                }
+                Image(systemName: "plus")
+                    .font(.system(size: 22, weight: .medium))
+                    .foregroundStyle(.white)
             })
+            .padding(.trailing, 16)
+            .padding(.bottom, 16)
         }
-        .task {
-            await viewModel.send(action: .load)
+        .sheet(isPresented: $isShowEditView) {
+            ItemEditView(onChange: { _ in })
         }
-        .refreshable {
-            await viewModel.send(action: .load)
-        }
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarTitle(Text("SpotListView.Title", bundle: .module))
-        .toolbarBackground(.visible, for: .navigationBar)
-        .sheet(isPresented: $isShowEditView, content: {
-            ItemEditView(
-                onChange: { _ in
-                    Task {
-                        await viewModel.send(action: .reload)
-                    }
-                }
-            )
-        })
-        .analyticsScreen(name: "SpotListView", class: String(describing: type(of: self)))
     }
 
     init() {

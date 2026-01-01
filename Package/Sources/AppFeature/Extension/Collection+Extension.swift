@@ -5,7 +5,7 @@ extension Collection {
         var values = [T]()
         for element in self {
             // swiftformat:disable:next hoistTry
-            values.append(try await transform(element))
+            await values.append(try transform(element))
         }
         return values
     }

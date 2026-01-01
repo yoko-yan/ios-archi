@@ -33,6 +33,8 @@ enum TabItem: String, CaseIterable {
     }
 }
 
+// MARK: - Content View
+
 struct ContentView: View {
     @State private var selected: TabItem = .home
     @State private var fadeInOut = true
@@ -64,6 +66,7 @@ struct ContentView: View {
                     }
                     .tag(TabItem.settings)
             }
+
             SplashView()
                 .onAppear {
                     withAnimation(

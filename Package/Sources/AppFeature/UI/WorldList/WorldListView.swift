@@ -9,7 +9,7 @@ struct WorldListView: View {
     var selectedAction: ((_ selected: World) -> Void)?
 
     var body: some View {
-        ZStack {
+        ZStack(alignment: .bottomTrailing) {
             List {
                 ForEach(viewModel.uiState.worlds, id: \.self) { world in
                     NavigationLink(value: world) {
@@ -32,55 +32,38 @@ struct WorldListView: View {
             .navigationDestination(for: World.self) { world in
                 WorldDetailView(world: world)
             }
-
-            FloatingButton(action: {
-                isShowEditView.toggle()
-            }, label: {
-                ZStack {
-                    Image(systemName: "globe.desk")
-                        .foregroundColor(.white)
-                        .font(.system(size: 24))
-                        .padding(.trailing, 10)
-                    Image(systemName: "plus.circle.fill")
-                        .foregroundColor(.white)
-                        .font(.system(size: 15))
-                        .frame(
-                            maxWidth: .infinity,
-                            maxHeight: .infinity,
-                            alignment: .trailing
-                        )
-                        .padding(2)
-                }
-            })
-        }
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarTitle(Text("WorldListView.Title", bundle: .module))
-//        .navigationBarItems(trailing: EditButton())
-        .toolbarBackground(.visible, for: .navigationBar)
-        .sheet(isPresented: $isShowEditView, content: {
-            WorldEditView(
-                onTapDismiss: { _ in
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitle(Text("WorldListView.Title", bundle: .module))
+            .toolbarBackground(.visible, for: .navigationBar)
+            .deleteAlert(
+                message: viewModel.uiState.deleteAlertMessage,
+                onDelete: {
                     Task {
-                        await viewModel.send(action: .reload)
+                        await viewModel.send(action: .onDelete)
+                    }
+                },
+                onDismiss: {
+                    Task {
+                        await viewModel.send(action: .onDeleteAlertDismiss)
                     }
                 }
             )
-            .presentationDetents([.medium, .large])
-        })
-        .deleteAlert(
-            message: viewModel.uiState.deleteAlertMessage,
-            onDelete: {
-                Task {
-                    await viewModel.send(action: .onDelete)
-                }
-            },
-            onDismiss: {
-                Task {
-                    await viewModel.send(action: .onDeleteAlertDismiss)
-                }
-            }
-        )
-        .analyticsScreen(name: "WorldListView", class: String(describing: type(of: self)))
+            .analyticsScreen(name: "WorldListView", class: String(describing: type(of: self)))
+
+            FloatingButton(action: {
+                isShowEditView = true
+            }, label: {
+                Image(systemName: "plus")
+                    .font(.system(size: 22, weight: .medium))
+                    .foregroundStyle(.white)
+            })
+            .padding(.trailing, 16)
+            .padding(.bottom, 16)
+        }
+        .sheet(isPresented: $isShowEditView) {
+            WorldEditView(onTapDismiss: { _ in })
+                .presentationDetents([.medium, .large])
+        }
     }
 }
 
