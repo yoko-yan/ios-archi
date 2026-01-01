@@ -19,6 +19,7 @@ struct ios_archiApp: App {
     init() {
         // swift-dependencies uses liveValue by default
         // For preview/testing, dependencies are overridden using withDependencies
+        setUp()
     }
 }
 
