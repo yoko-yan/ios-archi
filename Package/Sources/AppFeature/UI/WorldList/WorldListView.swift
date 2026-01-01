@@ -61,8 +61,12 @@ struct WorldListView: View {
         )
         .analyticsScreen(name: "WorldListView", class: String(describing: type(of: self)))
         .sheet(isPresented: $isShowEditView) {
-            WorldEditView(onTapDismiss: { _ in })
-                .presentationDetents([.medium, .large])
+            WorldEditView(onTapDismiss: { _ in
+                Task {
+                    await viewModel.send(action: .load)
+                }
+            })
+            .presentationDetents([.medium, .large])
         }
     }
 }

@@ -54,7 +54,11 @@ struct TimeLineView: View {
         .toolbarBackground(.visible, for: .navigationBar)
         .analyticsScreen(name: "TimeLineView", class: String(describing: type(of: self)))
         .sheet(isPresented: $isShowEditView) {
-            ItemEditView(onChange: { _ in })
+            ItemEditView(onChange: { _ in
+                Task {
+                    await viewModel.send(action: .reload)
+                }
+            })
         }
     }
 
