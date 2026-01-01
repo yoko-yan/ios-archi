@@ -59,7 +59,7 @@ fi
 
 echo "ビルド実行中..." >&2
 
-DESTINATION="${DESTINATION:-platform=iOS Simulator,name=iPhone 16}"
+DESTINATION="${DESTINATION:-platform=iOS Simulator,name=iPhone 17}"
 
 if [[ -n "$LOG_FILE" ]]; then
     xcodebuild \
