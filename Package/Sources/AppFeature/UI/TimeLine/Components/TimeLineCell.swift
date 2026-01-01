@@ -14,73 +14,94 @@ struct TimeLineCell: View {
         return 16.0 / 9.0
     }
 
+    private var hasImage: Bool {
+        item.spotImageName != nil
+    }
+
     var body: some View {
         LazyVStack {
-            Rectangle()
-                .fill(colorScheme == .dark ? Color.black : Color.clear)
-                .aspectRatio(containerAspectRatio, contentMode: .fit)
-                .overlay(
-                    ZStack {
-                        if let uiImage = spotImage?.image {
-                            Image(uiImage: uiImage)
-                                .resizable()
-                                .scaledToFit()
-                        } else if spotImage?.isLoading == true {
-                            ZStack {
-                                Rectangle()
-                                    .fill(colorScheme == .dark ? Color.black : Color.clear)
-                                ProgressView()
-                                    .tint(.gray)
-                            }
-                        } else {
-                            Rectangle()
-                                .fill(colorScheme == .dark ? Color.black : Color.white)
-                            Text("No photo available", bundle: .module)
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                .foregroundColor(.gray)
-                        }
-
-                        VStack {
-                            Spacer()
-                            ZStack {
-                                VStack {
-                                    Spacer()
-                                    Color.black
-                                        .frame(maxHeight: 70)
-                                        .opacity(0.5)
-                                }
-                                VStack {
-                                    Spacer()
-                                    HStack {
-                                        Image(systemName: "location.circle")
-                                        Text(item.coordinates?.textWitWhitespaces ?? "-")
-                                        Spacer()
-                                    }
-                                    HStack {
-                                        Image(systemName: "globe.desk")
-                                        var world: String? {
-                                            if let title = item.world?.name {
-                                                return title
-                                            } else if let seed = item.world?.seed?.text {
-                                                return seed
-                                            }
-                                            return nil
-                                        }
-                                        Text(world ?? "-")
-                                        Spacer()
-                                    }
-                                }
-                                .foregroundColor(.white)
-                                .padding()
-                            }
-                        }
-                    }
-                )
-                .modifier(CardStyle())
-                .task {
-                    onLoadImage?(item)
+            Group {
+                if hasImage {
+                    Rectangle()
+                        .fill(colorScheme == .dark ? Color.black : Color.clear)
+                        .aspectRatio(containerAspectRatio, contentMode: .fit)
+                        .overlay(imageOverlay)
+                } else {
+                    Rectangle()
+                        .fill(colorScheme == .dark ? Color.black : Color.gray.opacity(0.3))
+                        .frame(height: 70)
+                        .overlay(infoOverlay)
                 }
+            }
+            .modifier(CardStyle())
+            .task {
+                onLoadImage?(item)
+            }
         }
+    }
+
+    @ViewBuilder
+    private var imageOverlay: some View {
+        ZStack {
+            if let uiImage = spotImage?.image {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFit()
+            } else if spotImage?.isLoading == true {
+                ProgressView()
+                    .tint(.gray)
+            }
+
+            VStack {
+                Spacer()
+                ZStack {
+                    VStack {
+                        Spacer()
+                        Color.black
+                            .frame(maxHeight: 70)
+                            .opacity(0.5)
+                    }
+                    infoContent
+                }
+            }
+        }
+    }
+
+    private var infoOverlay: some View {
+        ZStack {
+            Color.black
+                .opacity(0.5)
+
+            infoContent
+        }
+        .frame(height: 70)
+    }
+
+    private var infoContent: some View {
+        VStack {
+            Spacer()
+            HStack {
+                Image(systemName: "location.circle")
+                Text(item.coordinates?.textWitWhitespaces ?? "-")
+                Spacer()
+            }
+            HStack {
+                Image(systemName: "globe.desk")
+                Text(worldText)
+                Spacer()
+            }
+        }
+        .foregroundColor(.white)
+        .padding()
+    }
+
+    private var worldText: String {
+        if let title = item.world?.name {
+            return title
+        } else if let seed = item.world?.seed?.text {
+            return seed
+        }
+        return "-"
     }
 }
 
