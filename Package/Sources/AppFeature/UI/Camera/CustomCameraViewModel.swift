@@ -171,7 +171,14 @@ final class CustomCameraViewModel {
         uiState.gridEnabled.toggle()
     }
 
+    func toggleAspectRatio() {
+        // 正方形とワイドを切り替え
+        uiState.aspectRatio = uiState.aspectRatio == .square ? .widescreen : .square
+    }
+
     func switchCamera() {
+        // MainActorコンテキストで現在の位置を取得してから非同期処理に渡す
+        let currentPosition = uiState.cameraPosition
         sessionQueue.async { [weak self] in
             guard let self else { return }
 
@@ -183,7 +190,7 @@ final class CustomCameraViewModel {
             }
 
             // カメラ位置を切り替え
-            let newPosition: AVCaptureDevice.Position = uiState.cameraPosition == .back ? .front : .back
+            let newPosition: AVCaptureDevice.Position = currentPosition == .back ? .front : .back
 
             guard let newDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: newPosition) else {
                 captureSession.commitConfiguration()

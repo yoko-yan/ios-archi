@@ -106,6 +106,8 @@ struct CameraSettings: Codable, Equatable, Sendable {
     enum AspectRatio: String, Codable, CaseIterable, Sendable {
         /// 1:1（正方形）
         case square
+        /// 16:9（ワイドスクリーン）
+        case widescreen
         /// アスペクト比を保持して画面全体を埋める（一部切れる）
         case fill
         /// アスペクト比を保持して全体を表示（黒い帯が出る）
@@ -116,6 +118,7 @@ struct CameraSettings: Codable, Equatable, Sendable {
         var displayName: String {
             switch self {
             case .square: return "正方形（1:1）"
+            case .widescreen: return "ワイド（16:9）"
             case .fill: return "全画面（切り抜き）"
             case .fit: return "全体表示"
             case .stretch: return "引き伸ばし"
@@ -133,7 +136,7 @@ struct CameraSettings: Codable, Equatable, Sendable {
         shutterButtonPosition: .center,
         flashEnabled: false,
         gridEnabled: false,
-        aspectRatio: .square,
+        aspectRatio: .widescreen,
         exposureMode: .auto,
         focusMode: .auto,
         zoomFactor: 1.0
