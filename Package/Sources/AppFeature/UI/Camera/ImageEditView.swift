@@ -13,6 +13,8 @@ struct ImageEditView: View {
     @State private var lastScale: CGFloat = 1.0
     @State private var offset: CGSize = .zero
     @State private var lastOffset: CGSize = .zero
+    @State private var viewWidth: CGFloat = UIScreen.main.bounds.width
+    @State private var viewHeight: CGFloat = UIScreen.main.bounds.height
 
     init(
         image: UIImage,
@@ -93,6 +95,14 @@ struct ImageEditView: View {
                     }
                     .frame(width: cropFrameWidth, height: cropFrameHeight)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .onAppear {
+                        viewWidth = geometry.size.width
+                        viewHeight = geometry.size.height
+                    }
+                    .onChange(of: geometry.size) { _, newSize in
+                        viewWidth = newSize.width
+                        viewHeight = newSize.height
+                    }
                 }
 
                 // 操作ボタン
@@ -147,15 +157,15 @@ struct ImageEditView: View {
         case .widescreen:
             return width * 9 / 16
         case .fill, .fit, .stretch:
-            // フルスクリーンの場合は画面高さを使用
-            return UIScreen.main.bounds.height
+            // フルスクリーンの場合はビューの高さを使用
+            return viewHeight
         }
     }
 
     /// クロッピング領域の計算
     private func calculateCropRect() -> CGRect {
         let imageSize = image.size
-        let cropFrameWidth = UIScreen.main.bounds.width
+        let cropFrameWidth = viewWidth
         let cropFrameHeight = cropHeight(for: aspectRatio, width: cropFrameWidth)
 
         // scaledToFillの実際のスケールを計算
