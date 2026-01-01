@@ -52,8 +52,8 @@ struct ImageEditView: View {
                 .padding()
 
                 // 画像プレビュー領域（切り取り枠付き）
-                GeometryReader { _ in
-                    let cropFrameWidth = UIScreen.main.bounds.width
+                GeometryReader { geometry in
+                    let cropFrameWidth = geometry.size.width
                     let cropFrameHeight = cropHeight(for: aspectRatio, width: cropFrameWidth)
 
                     ZStack {

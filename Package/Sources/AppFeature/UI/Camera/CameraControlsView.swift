@@ -60,7 +60,7 @@ struct CameraControlsView: View {
                 }
 
                 Button(action: onToggleGrid) {
-                    Image(systemName: gridEnabled ? "grid" : "grid")
+                    Image(systemName: "grid")
                         .font(.title2)
                         .foregroundColor(gridEnabled ? .blue : .white)
                         .padding()
