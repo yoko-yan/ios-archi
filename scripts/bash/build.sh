@@ -59,19 +59,21 @@ fi
 
 echo "ビルド実行中..." >&2
 
+DESTINATION="${DESTINATION:-platform=iOS Simulator,name=iPhone 16}"
+
 if [[ -n "$LOG_FILE" ]]; then
     xcodebuild \
         -workspace "$WORKSPACE" \
         -scheme "$SCHEME" \
         -sdk iphonesimulator \
-        -destination "generic/platform=iOS Simulator" \
+        -destination "$DESTINATION" \
         2>&1 | tee "$LOG_FILE"
 else
     xcodebuild \
         -workspace "$WORKSPACE" \
         -scheme "$SCHEME" \
         -sdk iphonesimulator \
-        -destination "generic/platform=iOS Simulator"
+        -destination "$DESTINATION"
 fi
 
 echo "ビルド完了" >&2

@@ -1,7 +1,7 @@
 ---
 name: verify-cycle
 description: 検証サイクル（ビルド→テスト→レビュー→動作確認）
-tools: Bash, Read, Edit, Write, Glob, Grep, mcp__mobile-mcp__mobile_take_screenshot, mcp__mobile-mcp__mobile_launch_app
+tools: Task, Bash, Read, Edit, Write, Glob, Grep, mcp__mobile-mcp__mobile_take_screenshot, mcp__mobile-mcp__mobile_launch_app
 model: sonnet
 ---
 
