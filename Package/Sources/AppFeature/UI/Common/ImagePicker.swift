@@ -14,18 +14,33 @@ struct ImagePicker: UIViewControllerRepresentable {
         }
 
         func imagePickerControllerDidCancel(_: UIImagePickerController) {
-            parent.show.toggle()
+            parent.onCancel?()
+            if parent.dismissOnPick {
+                parent.show.toggle()
+            }
         }
 
         func imagePickerController(
             _: UIImagePickerController,
             didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
         ) {
-            let image = info[.editedImage] as? UIImage
-            parent.image = image?
+            let pickedImage: UIImage?
+            if parent.allowsEditing {
+                pickedImage = info[.editedImage] as? UIImage
+            } else {
+                pickedImage = info[.originalImage] as? UIImage
+            }
+
+            let normalizedImage = pickedImage?
                 .normalizedImage()?
                 .resized(toMaxSizeKB: 1000.0)
-            parent.show.toggle()
+            parent.image = normalizedImage
+            if let normalizedImage {
+                parent.onPicked?(normalizedImage)
+            }
+            if parent.dismissOnPick {
+                parent.show.toggle()
+            }
         }
     }
 
@@ -33,6 +48,9 @@ struct ImagePicker: UIViewControllerRepresentable {
     @Binding var image: UIImage?
     var sourceType: SourceType
     var allowsEditing = false
+    var dismissOnPick = true
+    var onPicked: ((UIImage) -> Void)?
+    var onCancel: (() -> Void)?
 
     func makeCoordinator() -> Self.Coordinator {
         Self.Coordinator(parent: self)
