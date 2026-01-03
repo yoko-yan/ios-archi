@@ -1,6 +1,6 @@
-import Macros
+import Spyable
 
-@Mockable
+@Spyable
 public protocol CrashlyticsService: Sendable {
     func record(error: any Error)
     func log(_ message: String)

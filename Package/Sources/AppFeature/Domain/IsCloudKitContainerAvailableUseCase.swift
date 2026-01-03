@@ -1,8 +1,8 @@
 import Dependencies
 import Foundation
-import Macros
+import Spyable
 
-@Mockable
+@Spyable
 protocol IsCloudKitContainerAvailableUseCase: Sendable {
     func execute() -> Bool
 }

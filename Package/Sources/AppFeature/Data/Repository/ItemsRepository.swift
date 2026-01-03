@@ -1,8 +1,8 @@
 import Dependencies
-import Macros
+import Spyable
 import UIKit
 
-@Mockable
+@Spyable
 protocol ItemsRepository: Sendable {
     func fetchAll() async throws -> [Item]
     func fetchWithoutNoPhoto() async throws -> [Item]
