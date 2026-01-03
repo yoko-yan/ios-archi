@@ -1,7 +1,7 @@
 import Dependencies
-import Macros
+import Spyable
 
-@Mockable
+@Spyable
 protocol WorldsRepositoryProtocol: Sendable {
     func fetchAll() async throws -> [World]
     func insert(world: World) async throws

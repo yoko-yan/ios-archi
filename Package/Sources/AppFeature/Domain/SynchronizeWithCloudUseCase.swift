@@ -1,8 +1,8 @@
 import CoreData
 import Dependencies
-import Macros
+import Spyable
 
-@Mockable
+@Spyable
 protocol SynchronizeWithCloudUseCase: Sendable {
     func execute() async throws
 }

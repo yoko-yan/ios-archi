@@ -1,10 +1,10 @@
 import Dependencies
 import Foundation
-import Macros
+import Spyable
 import SwiftData
 import UIKit
 
-@Mockable
+@Spyable
 protocol LoadSpotImageUseCase: Sendable {
     func execute(fileName: String?) async throws -> UIImage?
 }
