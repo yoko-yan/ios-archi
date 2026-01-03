@@ -24,6 +24,8 @@ struct ImagePickerAdapter: View {
     var sourceType: SourceType
     var allowsEditing = false
     var cameraMode: CameraMode = .custom
+    @State private var pendingImage: UIImage?
+    @State private var showImageEdit = false
 
     @ObservationIgnored
     @Dependency(\.getCameraSettingsUseCase) private var getCameraSettings
@@ -36,6 +38,47 @@ struct ImagePickerAdapter: View {
                 capturedImage: $image,
                 show: $show
             )
+        } else if sourceType == .library {
+            ImagePicker(
+                show: $show,
+                image: $pendingImage,
+                sourceType: .library,
+                allowsEditing: false,
+                dismissOnPick: false,
+                onPicked: { newImage in
+                    pendingImage = newImage
+                    showImageEdit = true
+                },
+                onCancel: {
+                    show = false
+                }
+            )
+            .fullScreenCover(isPresented: $showImageEdit) {
+                if let pendingImage {
+                    ImageEditView(
+                        image: pendingImage,
+                        onSave: { editedImage in
+                            image = editedImage
+                            showImageEdit = false
+                            self.pendingImage = nil
+                            show = false
+                        },
+                        onCancel: {
+                            showImageEdit = false
+                            self.pendingImage = nil
+                        }
+                    )
+                    .transaction { transaction in
+                        transaction.disablesAnimations = true
+                    }
+                }
+            }
+            .onChange(of: show) { _, newValue in
+                if !newValue {
+                    showImageEdit = false
+                    pendingImage = nil
+                }
+            }
         } else {
             // システムのImagePickerを使用
             ImagePicker(
