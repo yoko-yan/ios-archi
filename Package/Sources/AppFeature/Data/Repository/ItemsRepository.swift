@@ -1,8 +1,8 @@
 import Dependencies
-import Macros
+import Spyable
 import UIKit
 
-@Mockable
+@Spyable
 protocol ItemsRepository: Sendable {
     func fetchAll() async throws -> [Item]
     func fetchWithoutNoPhoto() async throws -> [Item]
@@ -59,16 +59,15 @@ struct ItemsRepositoryImpl: ItemsRepository {
 #if DEBUG
 extension ItemsRepositoryImpl {
     static var preview: some ItemsRepository {
-        let repository = ItemsRepositoryMock()
-        repository
-            .fetchAllClosure = {
-                [
-                    Item.preview,
-                    Item.previewWithImage,
-                    Item.previewWithNoImage
-                ]
-            }
-        return repository
+        let spy = ItemsRepositorySpy()
+        spy.fetchAllClosure = {
+            [
+                Item.preview,
+                Item.previewWithImage,
+                Item.previewWithNoImage
+            ]
+        }
+        return spy
     }
 }
 #endif

@@ -1,10 +1,10 @@
 import Dependencies
 import Foundation
-import Macros
+import Spyable
 import SwiftData
 import UIKit
 
-@Mockable
+@Spyable
 protocol LoadSpotImageUseCase: Sendable {
     func execute(fileName: String?) async throws -> UIImage?
 }
@@ -51,12 +51,11 @@ struct LoadSpotImageUseCaseImpl: LoadSpotImageUseCase {
 #if DEBUG
 extension LoadSpotImageUseCaseImpl {
     static var preview: some LoadSpotImageUseCase {
-        let repository = LoadSpotImageUseCaseMock()
-        repository
-            .executeFileNameClosure = { _ in
-                UIImage(resource: .sampleCoordinates)
-            }
-        return repository
+        let spy = LoadSpotImageUseCaseSpy()
+        spy.executeFileNameClosure = { _ in
+            UIImage(resource: .sampleCoordinates)
+        }
+        return spy
     }
 }
 #endif
