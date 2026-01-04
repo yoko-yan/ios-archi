@@ -1,0 +1,17 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "CI用にビルドとテストを実行"
+  lane :ci do
+    build_app(
+      workspace: "ios-archi.xcworkspace",
+      scheme: "ios-archi"
+    )
+
+    scan(
+      workspace: "ios-archi.xcworkspace",
+      scheme: "ios-archi",
+      device: "iPhone 16"
+    )
+  end
+end
