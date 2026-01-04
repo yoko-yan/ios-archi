@@ -13,6 +13,9 @@ struct CustomCameraView: View {
 
     var body: some View {
         ZStack {
+            Color.black
+                .ignoresSafeArea()
+
             // カメラプレビュー
             if viewModel.uiState.isSessionRunning {
                 GeometryReader { geometry in
@@ -40,10 +43,6 @@ struct CustomCameraView: View {
                 }
                 .ignoresSafeArea()
                 .transition(.identity)
-            } else {
-                Color.black
-                    .ignoresSafeArea()
-                    .transition(.identity)
             }
 
             // グリッド表示
@@ -115,7 +114,6 @@ struct CustomCameraView: View {
             if let image = capturedImageForEdit {
                 ImageEditView(
                     image: image,
-                    aspectRatio: viewModel.uiState.aspectRatio,
                     onSave: { editedImage in
                         capturedImage = editedImage
                         dismiss()
@@ -127,7 +125,8 @@ struct CustomCameraView: View {
                             // カメラを再開
                             await viewModel.setupCamera()
                         }
-                    }
+                    },
+                    initialAspectRatio: viewModel.uiState.aspectRatio
                 )
                 .transaction { transaction in
                     transaction.disablesAnimations = true

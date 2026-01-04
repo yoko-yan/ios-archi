@@ -26,6 +26,7 @@ struct ImagePickerAdapter: View {
     var cameraMode: CameraMode = .custom
     @State private var pendingImage: UIImage?
     @State private var showImageEdit = false
+    @State private var cameraAspectRatio: CameraSettings.AspectRatio = .square
 
     @ObservationIgnored
     @Dependency(\.getCameraSettingsUseCase) private var getCameraSettings
@@ -66,7 +67,9 @@ struct ImagePickerAdapter: View {
                         onCancel: {
                             showImageEdit = false
                             self.pendingImage = nil
-                        }
+                        },
+                        cancelButtonTitle: "再選択",
+                        initialAspectRatio: cameraAspectRatio
                     )
                     .transaction { transaction in
                         transaction.disablesAnimations = true
@@ -77,6 +80,14 @@ struct ImagePickerAdapter: View {
                 if !newValue {
                     showImageEdit = false
                     pendingImage = nil
+                }
+            }
+            .task {
+                do {
+                    let settings = try await getCameraSettings.execute()
+                    cameraAspectRatio = settings.aspectRatio
+                } catch {
+                    cameraAspectRatio = .square
                 }
             }
         } else {
