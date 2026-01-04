@@ -63,6 +63,7 @@ struct CustomCameraView: View {
                 shutterButtonPosition: viewModel.uiState.shutterButtonPosition,
                 flashEnabled: viewModel.uiState.flashEnabled,
                 gridEnabled: viewModel.uiState.gridEnabled,
+                aspectRatio: viewModel.uiState.aspectRatio,
                 onCapture: {
                     viewModel.capturePhoto()
                 },
@@ -71,6 +72,9 @@ struct CustomCameraView: View {
                 },
                 onToggleGrid: {
                     viewModel.toggleGrid()
+                },
+                onToggleAspectRatio: {
+                    viewModel.toggleAspectRatio()
                 },
                 onSwitchCamera: {
                     viewModel.switchCamera()
@@ -121,7 +125,8 @@ struct CustomCameraView: View {
                             // カメラを再開
                             await viewModel.setupCamera()
                         }
-                    }
+                    },
+                    initialAspectRatio: viewModel.uiState.aspectRatio
                 )
                 .transaction { transaction in
                     transaction.disablesAnimations = true

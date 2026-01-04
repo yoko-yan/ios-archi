@@ -5,9 +5,11 @@ struct CameraControlsView: View {
     let shutterButtonPosition: CameraSettings.ShutterButtonPosition
     let flashEnabled: Bool
     let gridEnabled: Bool
+    let aspectRatio: CameraSettings.AspectRatio
     let onCapture: () -> Void
     let onToggleFlash: () -> Void
     let onToggleGrid: () -> Void
+    let onToggleAspectRatio: () -> Void
     let onSwitchCamera: () -> Void
     let onClose: () -> Void
 
@@ -15,18 +17,22 @@ struct CameraControlsView: View {
         shutterButtonPosition: CameraSettings.ShutterButtonPosition,
         flashEnabled: Bool,
         gridEnabled: Bool,
+        aspectRatio: CameraSettings.AspectRatio,
         onCapture: @escaping () -> Void,
         onToggleFlash: @escaping () -> Void,
         onToggleGrid: @escaping () -> Void,
+        onToggleAspectRatio: @escaping () -> Void,
         onSwitchCamera: @escaping () -> Void,
         onClose: @escaping () -> Void
     ) {
         self.shutterButtonPosition = shutterButtonPosition
         self.flashEnabled = flashEnabled
         self.gridEnabled = gridEnabled
+        self.aspectRatio = aspectRatio
         self.onCapture = onCapture
         self.onToggleFlash = onToggleFlash
         self.onToggleGrid = onToggleGrid
+        self.onToggleAspectRatio = onToggleAspectRatio
         self.onSwitchCamera = onSwitchCamera
         self.onClose = onClose
     }
@@ -49,6 +55,14 @@ struct CameraControlsView: View {
                     Image(systemName: gridEnabled ? "grid" : "grid")
                         .font(.title2)
                         .foregroundColor(gridEnabled ? .blue : .white)
+                        .padding()
+                        .background(Circle().fill(Color.black.opacity(0.5)))
+                }
+
+                Button(action: onToggleAspectRatio) {
+                    Image(systemName: aspectRatio == .square ? "square" : "rectangle")
+                        .font(.title2)
+                        .foregroundColor(.white)
                         .padding()
                         .background(Circle().fill(Color.black.opacity(0.5)))
                 }
@@ -122,9 +136,11 @@ struct CameraControlsView: View {
             shutterButtonPosition: .center,
             flashEnabled: false,
             gridEnabled: true,
+            aspectRatio: .square,
             onCapture: {},
             onToggleFlash: {},
             onToggleGrid: {},
+            onToggleAspectRatio: {},
             onSwitchCamera: {},
             onClose: {}
         )

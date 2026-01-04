@@ -171,6 +171,10 @@ final class CustomCameraViewModel {
         uiState.gridEnabled.toggle()
     }
 
+    func toggleAspectRatio() {
+        uiState.aspectRatio = uiState.aspectRatio == .square ? .fill : .square
+    }
+
     func switchCamera() {
         sessionQueue.async { [weak self] in
             guard let self else { return }

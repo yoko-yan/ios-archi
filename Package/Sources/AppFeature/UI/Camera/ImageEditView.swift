@@ -12,17 +12,21 @@ struct ImageEditView: View {
     @State private var lastScale: CGFloat = 1.0
     @State private var offset: CGSize = .zero
     @State private var lastOffset: CGSize = .zero
+    @State private var cropFrameSize: CGSize = .zero
+    @State private var aspectRatio: CameraSettings.AspectRatio
 
     init(
         image: UIImage,
         onSave: @escaping (UIImage) -> Void,
         onCancel: @escaping () -> Void,
-        cancelButtonTitle: LocalizedStringKey = "再撮影"
+        cancelButtonTitle: LocalizedStringKey = "再撮影",
+        initialAspectRatio: CameraSettings.AspectRatio = .square
     ) {
         self.image = image
         self.onSave = onSave
         self.onCancel = onCancel
         self.cancelButtonTitle = cancelButtonTitle
+        _aspectRatio = State(initialValue: initialAspectRatio)
     }
 
     var body: some View {
@@ -32,15 +36,15 @@ struct ImageEditView: View {
 
             VStack {
                 // 画像プレビュー領域（切り取り枠付き）
-                GeometryReader { _ in
-                    let cropFrameSize = UIScreen.main.bounds.width
+                GeometryReader { geometry in
+                    let cropFrameSize = resolvedCropFrameSize(geometry.size)
 
                     ZStack {
                         // 画像
                         Image(uiImage: image)
                             .resizable()
                             .scaledToFill()
-                            .frame(width: cropFrameSize, height: cropFrameSize)
+                            .frame(width: cropFrameSize.width, height: cropFrameSize.height)
                             .scaleEffect(scale)
                             .offset(offset)
                             .clipped()
@@ -67,11 +71,20 @@ struct ImageEditView: View {
                             )
 
                         // 切り取り枠オーバーレイ
-                        CropOverlay(cropSize: CGSize(width: cropFrameSize, height: cropFrameSize))
+                        CropOverlay(cropSize: cropFrameSize)
                             .allowsHitTesting(false)
                     }
-                    .frame(width: cropFrameSize, height: cropFrameSize)
+                    .frame(width: cropFrameSize.width, height: cropFrameSize.height)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .onAppear {
+                        updateCropFrameSize(cropFrameSize)
+                    }
+                    .onChange(of: geometry.size) { _, newValue in
+                        updateCropFrameSize(resolvedCropFrameSize(newValue))
+                    }
+                    .onChange(of: aspectRatio) { _, _ in
+                        updateCropFrameSize(resolvedCropFrameSize(geometry.size))
+                    }
                 }
 
                 // 操作ボタン
@@ -104,6 +117,24 @@ struct ImageEditView: View {
                 }
                 .padding(.bottom, 40)
             }
+
+            VStack {
+                HStack {
+                    Spacer()
+                    Button {
+                        toggleAspectRatio()
+                    } label: {
+                        Image(systemName: aspectRatio == .square ? "square" : "rectangle")
+                            .font(.title2)
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Circle().fill(Color.black.opacity(0.5)))
+                    }
+                }
+                .padding()
+
+                Spacer()
+            }
         }
         .transaction { transaction in
             transaction.animation = nil
@@ -113,23 +144,32 @@ struct ImageEditView: View {
     /// 切り取り枠内の画像をクロッピング
     private func renderCroppedImage() -> UIImage {
         // UIGraphicsImageRendererを使用してクロッピング
-        let cropRect = calculateCropRect()
+        let cropRect = calculateCropRect(cropFrameSize: cropFrameSize)
         let croppedImage = cropImage(image, toRect: cropRect)
         return croppedImage ?? image
     }
 
     /// クロッピング領域の計算
-    private func calculateCropRect() -> CGRect {
+    private func calculateCropRect(cropFrameSize: CGSize) -> CGRect {
         let imageSize = image.size
-        let cropFrameSize = UIScreen.main.bounds.width
+        guard cropFrameSize.width > 0, cropFrameSize.height > 0 else {
+            return CGRect(origin: .zero, size: imageSize)
+        }
 
         // scaledToFillの実際のスケールを計算
-        // scaledToFillは max(cropFrameSize/width, cropFrameSize/height) でスケーリングされる
+        // scaledToFillは max(cropFrameWidth/width, cropFrameHeight/height) でスケーリングされる
         // 表示座標から画像座標への変換倍率は、そのスケールの逆数
-        let coordinateScale = min(imageSize.width / cropFrameSize, imageSize.height / cropFrameSize)
+        let scaledToFillScale = max(
+            cropFrameSize.width / imageSize.width,
+            cropFrameSize.height / imageSize.height
+        )
+        let coordinateScale = 1 / scaledToFillScale
 
         // 切り取り枠のサイズ（画像座標系）
-        let cropSizeInImage = cropFrameSize * coordinateScale / scale
+        let cropSizeInImage = CGSize(
+            width: cropFrameSize.width * coordinateScale / scale,
+            height: cropFrameSize.height * coordinateScale / scale
+        )
 
         // 切り取り枠の中心位置（画像座標系）
         // 画像の中心から切り取り枠の中心までの距離 = -offset / scale * coordinateScale
@@ -137,10 +177,10 @@ struct ImageEditView: View {
         let centerYInImage = imageSize.height / 2 - offset.height / scale * coordinateScale
 
         // 切り取り枠の左上位置
-        let cropX = centerXInImage - cropSizeInImage / 2
-        let cropY = centerYInImage - cropSizeInImage / 2
+        let cropX = centerXInImage - cropSizeInImage.width / 2
+        let cropY = centerYInImage - cropSizeInImage.height / 2
 
-        return CGRect(x: cropX, y: cropY, width: cropSizeInImage, height: cropSizeInImage)
+        return CGRect(x: cropX, y: cropY, width: cropSizeInImage.width, height: cropSizeInImage.height)
     }
 
     /// 画像をクロッピング
@@ -162,6 +202,23 @@ struct ImageEditView: View {
                 height: image.size.height
             )
             image.draw(in: drawRect)
+        }
+    }
+
+    private func toggleAspectRatio() {
+        aspectRatio = aspectRatio == .square ? .fill : .square
+    }
+
+    private func resolvedCropFrameSize(_ size: CGSize) -> CGSize {
+        let squareSide = min(size.width, size.height)
+        return aspectRatio == .square
+            ? CGSize(width: squareSide, height: squareSide)
+            : size
+    }
+
+    private func updateCropFrameSize(_ size: CGSize) {
+        if cropFrameSize != size {
+            cropFrameSize = size
         }
     }
 }
