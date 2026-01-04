@@ -51,12 +51,11 @@ struct LoadSpotImageUseCaseImpl: LoadSpotImageUseCase {
 #if DEBUG
 extension LoadSpotImageUseCaseImpl {
     static var preview: some LoadSpotImageUseCase {
-        let repository = LoadSpotImageUseCaseMock()
-        repository
-            .executeFileNameClosure = { _ in
-                UIImage(resource: .sampleCoordinates)
-            }
-        return repository
+        let spy = LoadSpotImageUseCaseSpy()
+        spy.executeFileNameClosure = { _ in
+            UIImage(resource: .sampleCoordinates)
+        }
+        return spy
     }
 }
 #endif

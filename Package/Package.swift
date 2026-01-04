@@ -36,7 +36,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "0.1.4"),
-        .package(url: "https://github.com/pointfreeco/swift-spyable", from: "0.1.0"),
+        .package(url: "https://github.com/Matejkob/swift-spyable", from: "0.9.0"),
         .package(url: "https://github.com/Quick/Quick.git", .upToNextMajor(from: "7.0.0")),
         .package(url: "https://github.com/Quick/Nimble.git", .upToNextMajor(from: "13.0.0")),
         .package(url: "https://github.com/firebase/firebase-ios-sdk.git", .upToNextMajor(from: "12.6.0"))
