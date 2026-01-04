@@ -6,12 +6,24 @@ struct ImageEditView: View {
     let image: UIImage
     let onSave: (UIImage) -> Void
     let onCancel: () -> Void
-    let cancelButtonTitle: LocalizedStringKey = "再撮影"
+    let cancelButtonTitle: LocalizedStringKey
 
     @State private var scale: CGFloat = 1.0
     @State private var lastScale: CGFloat = 1.0
     @State private var offset: CGSize = .zero
     @State private var lastOffset: CGSize = .zero
+
+    init(
+        image: UIImage,
+        onSave: @escaping (UIImage) -> Void,
+        onCancel: @escaping () -> Void,
+        cancelButtonTitle: LocalizedStringKey = "再撮影"
+    ) {
+        self.image = image
+        self.onSave = onSave
+        self.onCancel = onCancel
+        self.cancelButtonTitle = cancelButtonTitle
+    }
 
     var body: some View {
         ZStack {
