@@ -68,8 +68,8 @@ struct ImagePickerAdapter: View {
                             showImageEdit = false
                             self.pendingImage = nil
                         },
-                        initialAspectRatio: cameraAspectRatio,
-                        cancelButtonTitle: "再選択"
+                        cancelButtonTitle: "再選択",
+                        initialAspectRatio: cameraAspectRatio
                     )
                     .transaction { transaction in
                         transaction.disablesAnimations = true
