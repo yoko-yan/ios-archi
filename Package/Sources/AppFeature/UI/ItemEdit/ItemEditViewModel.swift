@@ -140,7 +140,7 @@ final class ItemEditViewModel {
         case .onRegisterButtonTap:
             await send(action: .onRegister)
         case .onUpdateButtonTap:
-            uiState.confirmationAlert = .confirmUpdate(.onUpdate)
+            await send(action: .onUpdate)
         case .onDeleteButtonTap:
             uiState.confirmationAlert = .confirmDeletion(.onDelete)
         case .onCloseButtonTap:

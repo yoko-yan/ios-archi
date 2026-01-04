@@ -150,7 +150,7 @@ final class WorldEditViewModel {
                 uiState.error = .error(error)
             }
         case .onUpdateButtonTap:
-            uiState.confirmationAlert = .confirmUpdate(.onUpdate)
+            await send(action: .onUpdate)
         case .onUpdate:
             do {
                 validate()
