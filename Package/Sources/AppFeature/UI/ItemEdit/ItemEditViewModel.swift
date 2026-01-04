@@ -124,7 +124,7 @@ final class ItemEditViewModel {
         case .saveImage:
             // SwiftDataでは画像はItemsRepository.insert/updateに渡されるため、
             // ここでは何もしません
-            if let spotImage = uiState.spotImage {
+            if uiState.spotImage != nil {
                 let spotImageName = uiState.input.spotImageName ?? UUID().uuidString
                 uiState.input.spotImageName = spotImageName
             }
