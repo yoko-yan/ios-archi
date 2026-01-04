@@ -6,6 +6,7 @@ struct ImageEditView: View {
     let image: UIImage
     let onSave: (UIImage) -> Void
     let onCancel: () -> Void
+    let cancelButtonTitle: LocalizedStringKey = "再撮影"
 
     @State private var scale: CGFloat = 1.0
     @State private var lastScale: CGFloat = 1.0
@@ -67,7 +68,7 @@ struct ImageEditView: View {
                         onCancel()
                         dismiss()
                     } label: {
-                        Text("再撮影", bundle: .module)
+                        Text(cancelButtonTitle, bundle: .module)
                             .foregroundColor(.white)
                             .padding(.horizontal, 30)
                             .padding(.vertical, 12)

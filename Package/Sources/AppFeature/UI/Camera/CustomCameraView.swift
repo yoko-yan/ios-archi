@@ -13,6 +13,9 @@ struct CustomCameraView: View {
 
     var body: some View {
         ZStack {
+            Color.black
+                .ignoresSafeArea()
+
             // カメラプレビュー
             if viewModel.uiState.isSessionRunning {
                 GeometryReader { geometry in
@@ -40,10 +43,6 @@ struct CustomCameraView: View {
                 }
                 .ignoresSafeArea()
                 .transition(.identity)
-            } else {
-                Color.black
-                    .ignoresSafeArea()
-                    .transition(.identity)
             }
 
             // グリッド表示

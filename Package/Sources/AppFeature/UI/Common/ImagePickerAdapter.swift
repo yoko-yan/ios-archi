@@ -66,7 +66,8 @@ struct ImagePickerAdapter: View {
                         onCancel: {
                             showImageEdit = false
                             self.pendingImage = nil
-                        }
+                        },
+                        cancelButtonTitle: "再選択"
                     )
                     .transaction { transaction in
                         transaction.disablesAnimations = true
