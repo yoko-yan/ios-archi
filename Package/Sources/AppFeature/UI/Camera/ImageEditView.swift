@@ -4,16 +4,17 @@ import SwiftUI
 struct ImageEditView: View {
     @Environment(\.dismiss) private var dismiss
     let image: UIImage
+    let initialAspectRatio: CameraSettings.AspectRatio
     let onSave: (UIImage) -> Void
     let onCancel: () -> Void
     let cancelButtonTitle: LocalizedStringKey
 
+    @State private var aspectRatio: CameraSettings.AspectRatio
     @State private var scale: CGFloat = 1.0
     @State private var lastScale: CGFloat = 1.0
     @State private var offset: CGSize = .zero
     @State private var lastOffset: CGSize = .zero
     @State private var cropFrameSize: CGSize = .zero
-    @State private var aspectRatio: CameraSettings.AspectRatio
 
     init(
         image: UIImage,
@@ -23,6 +24,7 @@ struct ImageEditView: View {
         initialAspectRatio: CameraSettings.AspectRatio = .square
     ) {
         self.image = image
+        self.initialAspectRatio = initialAspectRatio
         self.onSave = onSave
         self.onCancel = onCancel
         self.cancelButtonTitle = cancelButtonTitle
@@ -35,6 +37,24 @@ struct ImageEditView: View {
                 .ignoresSafeArea()
 
             VStack {
+                // 上部コントロール（アスペクト比切り替え）
+                HStack {
+                    Spacer()
+
+                    Button {
+                        withAnimation(.easeInOut(duration: 0.2)) {
+                            aspectRatio = aspectRatio == .square ? .widescreen : .square
+                        }
+                    } label: {
+                        Image(systemName: aspectRatio == .square ? "square" : "rectangle")
+                            .font(.title2)
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Circle().fill(Color.black.opacity(0.5)))
+                    }
+                }
+                .padding()
+
                 // 画像プレビュー領域（切り取り枠付き）
                 GeometryReader { geometry in
                     let cropFrameSize = resolvedCropFrameSize(geometry.size)
@@ -206,7 +226,7 @@ struct ImageEditView: View {
     }
 
     private func toggleAspectRatio() {
-        aspectRatio = aspectRatio == .square ? .fill : .square
+        aspectRatio = aspectRatio == .square ? .widescreen : .square
     }
 
     private func resolvedCropFrameSize(_ size: CGSize) -> CGSize {
@@ -274,6 +294,7 @@ private struct CropOverlay: View {
     return ImageEditView(
         image: placeholderImage,
         onSave: { _ in },
-        onCancel: {}
+        onCancel: {},
+        initialAspectRatio: .widescreen
     )
 }

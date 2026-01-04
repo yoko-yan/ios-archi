@@ -43,6 +43,14 @@ struct CameraControlsView: View {
             HStack {
                 Spacer()
 
+                Button(action: onToggleAspectRatio) {
+                    Image(systemName: aspectRatio == .square ? "square" : "rectangle")
+                        .font(.title2)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Circle().fill(Color.black.opacity(0.5)))
+                }
+
                 Button(action: onToggleFlash) {
                     Image(systemName: flashEnabled ? "bolt.fill" : "bolt.slash.fill")
                         .font(.title2)
@@ -52,7 +60,7 @@ struct CameraControlsView: View {
                 }
 
                 Button(action: onToggleGrid) {
-                    Image(systemName: gridEnabled ? "grid" : "grid")
+                    Image(systemName: "grid")
                         .font(.title2)
                         .foregroundColor(gridEnabled ? .blue : .white)
                         .padding()
@@ -136,7 +144,7 @@ struct CameraControlsView: View {
             shutterButtonPosition: .center,
             flashEnabled: false,
             gridEnabled: true,
-            aspectRatio: .square,
+            aspectRatio: .widescreen,
             onCapture: {},
             onToggleFlash: {},
             onToggleGrid: {},

@@ -42,6 +42,9 @@ struct CameraPreviewView: UIViewRepresentable {
         case .square:
             // 正方形の場合もfillを使用し、外側でクリッピングする
             return .resizeAspectFill
+        case .widescreen:
+            // 16:9の場合もfillを使用し、外側でクリッピングする
+            return .resizeAspectFill
         case .fill:
             return .resizeAspectFill
         case .fit:

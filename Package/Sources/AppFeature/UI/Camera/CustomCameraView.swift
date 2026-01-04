@@ -34,8 +34,8 @@ struct CustomCameraView: View {
                             }
                     )
                     .frame(
-                        width: viewModel.uiState.aspectRatio == .square ? geometry.size.width : nil,
-                        height: viewModel.uiState.aspectRatio == .square ? geometry.size.width : nil
+                        width: previewWidth(for: viewModel.uiState.aspectRatio, geometry: geometry),
+                        height: previewHeight(for: viewModel.uiState.aspectRatio, geometry: geometry)
                     )
                     .clipped()
                     .frame(maxHeight: .infinity)
@@ -50,8 +50,8 @@ struct CustomCameraView: View {
                 GeometryReader { geometry in
                     GridOverlay()
                         .frame(
-                            width: viewModel.uiState.aspectRatio == .square ? geometry.size.width : nil,
-                            height: viewModel.uiState.aspectRatio == .square ? geometry.size.width : nil
+                            width: previewWidth(for: viewModel.uiState.aspectRatio, geometry: geometry),
+                            height: previewHeight(for: viewModel.uiState.aspectRatio, geometry: geometry)
                         )
                         .frame(maxHeight: .infinity)
                 }
@@ -114,6 +114,7 @@ struct CustomCameraView: View {
             if let image = capturedImageForEdit {
                 ImageEditView(
                     image: image,
+                    aspectRatio: viewModel.uiState.aspectRatio,
                     onSave: { editedImage in
                         capturedImage = editedImage
                         dismiss()
@@ -132,6 +133,33 @@ struct CustomCameraView: View {
                     transaction.disablesAnimations = true
                 }
             }
+        }
+    }
+
+    private func previewWidth(
+        for aspectRatio: CameraSettings.AspectRatio,
+        geometry: GeometryProxy
+    ) -> CGFloat? {
+        switch aspectRatio {
+        case .square, .widescreen:
+            return geometry.size.width
+        case .fill, .fit, .stretch:
+            return nil
+        }
+    }
+
+    private func previewHeight(
+        for aspectRatio: CameraSettings.AspectRatio,
+        geometry: GeometryProxy
+    ) -> CGFloat? {
+        switch aspectRatio {
+        case .square:
+            return geometry.size.width
+        case .widescreen:
+            // 16:9 アスペクト比
+            return geometry.size.width * 9 / 16
+        case .fill, .fit, .stretch:
+            return nil
         }
     }
 
