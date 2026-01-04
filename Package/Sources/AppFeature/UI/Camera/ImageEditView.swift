@@ -10,6 +10,7 @@ struct ImageEditView: View {
     let cancelButtonTitle: LocalizedStringKey
 
     @State private var aspectRatio: CameraSettings.AspectRatio
+    @State private var gridEnabled: Bool = false
     @State private var scale: CGFloat = 1.0
     @State private var lastScale: CGFloat = 1.0
     @State private var offset: CGSize = .zero
@@ -37,18 +38,28 @@ struct ImageEditView: View {
                 .ignoresSafeArea()
 
             VStack {
-                // 上部コントロール（アスペクト比切り替え）
+                // 上部コントロール（アスペクト比切り替え、グリッド切り替え）
                 HStack {
                     Spacer()
 
+                    // アスペクト比切り替えボタン
                     Button {
-                        withAnimation(.easeInOut(duration: 0.2)) {
-                            aspectRatio = aspectRatio == .square ? .widescreen : .square
-                        }
+                        aspectRatio = aspectRatio == .square ? .widescreen : .square
                     } label: {
                         Image(systemName: aspectRatio == .square ? "square" : "rectangle")
                             .font(.title2)
                             .foregroundColor(.white)
+                            .padding()
+                            .background(Circle().fill(Color.black.opacity(0.5)))
+                    }
+
+                    // グリッド切り替えボタン
+                    Button {
+                        gridEnabled.toggle()
+                    } label: {
+                        Image(systemName: "grid")
+                            .font(.title2)
+                            .foregroundColor(gridEnabled ? .blue : .white)
                             .padding()
                             .background(Circle().fill(Color.black.opacity(0.5)))
                     }
@@ -57,14 +68,14 @@ struct ImageEditView: View {
 
                 // 画像プレビュー領域（切り取り枠付き）
                 GeometryReader { geometry in
-                    let cropFrameSize = resolvedCropFrameSize(geometry.size)
+                    let currentCropFrameSize = resolvedCropFrameSize(geometry.size)
 
                     ZStack {
                         // 画像
                         Image(uiImage: image)
                             .resizable()
                             .scaledToFill()
-                            .frame(width: cropFrameSize.width, height: cropFrameSize.height)
+                            .frame(width: currentCropFrameSize.width, height: currentCropFrameSize.height)
                             .scaleEffect(scale)
                             .offset(offset)
                             .clipped()
@@ -91,13 +102,13 @@ struct ImageEditView: View {
                             )
 
                         // 切り取り枠オーバーレイ
-                        CropOverlay(cropSize: cropFrameSize)
+                        CropOverlay(cropSize: currentCropFrameSize, showGrid: gridEnabled)
                             .allowsHitTesting(false)
                     }
-                    .frame(width: cropFrameSize.width, height: cropFrameSize.height)
+                    .frame(width: currentCropFrameSize.width, height: currentCropFrameSize.height)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .onAppear {
-                        updateCropFrameSize(cropFrameSize)
+                        updateCropFrameSize(currentCropFrameSize)
                     }
                     .onChange(of: geometry.size) { _, newValue in
                         updateCropFrameSize(resolvedCropFrameSize(newValue))
@@ -137,27 +148,6 @@ struct ImageEditView: View {
                 }
                 .padding(.bottom, 40)
             }
-
-            VStack {
-                HStack {
-                    Spacer()
-                    Button {
-                        toggleAspectRatio()
-                    } label: {
-                        Image(systemName: aspectRatio == .square ? "square" : "rectangle")
-                            .font(.title2)
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(Circle().fill(Color.black.opacity(0.5)))
-                    }
-                }
-                .padding()
-
-                Spacer()
-            }
-        }
-        .transaction { transaction in
-            transaction.animation = nil
         }
     }
 
@@ -225,15 +215,17 @@ struct ImageEditView: View {
         }
     }
 
-    private func toggleAspectRatio() {
-        aspectRatio = aspectRatio == .square ? .widescreen : .square
-    }
-
     private func resolvedCropFrameSize(_ size: CGSize) -> CGSize {
-        let squareSide = min(size.width, size.height)
-        return aspectRatio == .square
-            ? CGSize(width: squareSide, height: squareSide)
-            : size
+        switch aspectRatio {
+        case .square:
+            // 正方形: 幅を基準にする
+            return CGSize(width: size.width, height: size.width)
+        case .widescreen:
+            // 16:9: 幅を基準にする
+            return CGSize(width: size.width, height: size.width * 9 / 16)
+        case .fill, .fit, .stretch:
+            return size
+        }
     }
 
     private func updateCropFrameSize(_ size: CGSize) {
@@ -246,6 +238,7 @@ struct ImageEditView: View {
 /// 切り取り枠オーバーレイ
 private struct CropOverlay: View {
     let cropSize: CGSize
+    let showGrid: Bool
 
     var body: some View {
         ZStack {
@@ -266,25 +259,27 @@ private struct CropOverlay: View {
                 .stroke(Color.white, lineWidth: 2)
                 .frame(width: cropSize.width, height: cropSize.height)
 
-            // グリッド線（三分割法）
-            Path { path in
-                let verticalSpacing = cropSize.width / 3
-                let horizontalSpacing = cropSize.height / 3
+            // グリッド線（三分割法）- showGridがtrueの場合のみ表示
+            if showGrid {
+                Path { path in
+                    let verticalSpacing = cropSize.width / 3
+                    let horizontalSpacing = cropSize.height / 3
 
-                // 縦線
-                path.move(to: CGPoint(x: verticalSpacing, y: 0))
-                path.addLine(to: CGPoint(x: verticalSpacing, y: cropSize.height))
-                path.move(to: CGPoint(x: verticalSpacing * 2, y: 0))
-                path.addLine(to: CGPoint(x: verticalSpacing * 2, y: cropSize.height))
+                    // 縦線
+                    path.move(to: CGPoint(x: verticalSpacing, y: 0))
+                    path.addLine(to: CGPoint(x: verticalSpacing, y: cropSize.height))
+                    path.move(to: CGPoint(x: verticalSpacing * 2, y: 0))
+                    path.addLine(to: CGPoint(x: verticalSpacing * 2, y: cropSize.height))
 
-                // 横線
-                path.move(to: CGPoint(x: 0, y: horizontalSpacing))
-                path.addLine(to: CGPoint(x: cropSize.width, y: horizontalSpacing))
-                path.move(to: CGPoint(x: 0, y: horizontalSpacing * 2))
-                path.addLine(to: CGPoint(x: cropSize.width, y: horizontalSpacing * 2))
+                    // 横線
+                    path.move(to: CGPoint(x: 0, y: horizontalSpacing))
+                    path.addLine(to: CGPoint(x: cropSize.width, y: horizontalSpacing))
+                    path.move(to: CGPoint(x: 0, y: horizontalSpacing * 2))
+                    path.addLine(to: CGPoint(x: cropSize.width, y: horizontalSpacing * 2))
+                }
+                .stroke(Color.white.opacity(0.5), lineWidth: 1)
+                .frame(width: cropSize.width, height: cropSize.height)
             }
-            .stroke(Color.white.opacity(0.5), lineWidth: 1)
-            .frame(width: cropSize.width, height: cropSize.height)
         }
     }
 }

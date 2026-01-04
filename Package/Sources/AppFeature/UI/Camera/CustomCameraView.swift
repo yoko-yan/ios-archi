@@ -114,7 +114,6 @@ struct CustomCameraView: View {
             if let image = capturedImageForEdit {
                 ImageEditView(
                     image: image,
-                    aspectRatio: viewModel.uiState.aspectRatio,
                     onSave: { editedImage in
                         capturedImage = editedImage
                         dismiss()

@@ -66,14 +66,6 @@ struct CameraControlsView: View {
                         .padding()
                         .background(Circle().fill(Color.black.opacity(0.5)))
                 }
-
-                Button(action: onToggleAspectRatio) {
-                    Image(systemName: aspectRatio == .square ? "square" : "rectangle")
-                        .font(.title2)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Circle().fill(Color.black.opacity(0.5)))
-                }
             }
             .padding()
 
