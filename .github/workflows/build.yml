@@ -28,6 +28,12 @@ jobs:
           cd ci_scripts
           bash ci_post_clone.sh
 
+      - name: Xcodeバージョン選択
+        run: |
+          XCODE_VERSION=$(cat .xcode-version)
+          sudo xcode-select -s "/Applications/Xcode_${XCODE_VERSION}.app/Contents/Developer"
+          xcodebuild -version
+
       - name: ビルドとテスト
         uses: fastlane/fastlane-action@v3
         with:
