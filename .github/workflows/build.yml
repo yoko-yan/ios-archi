@@ -1,0 +1,56 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: macos-26
+    timeout-minutes: 30
+    env:
+      XCCONFIG: ${{ secrets.XCCONFIG }}
+      GOOGLE_SERVICE_INFO: ${{ secrets.GOOGLE_SERVICE_INFO }}
+      GOOGLE_SERVICE_INFO_DEBUG: ${{ secrets.GOOGLE_SERVICE_INFO_DEBUG }}
+      FASTLANE_SKIP_UPDATE_CHECK: true
+    steps:
+      - name: チェックアウト
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+
+      - name: Rubyセットアップ
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+
+      - name: 設定ファイル生成
+        run: bash ci_post_clone.sh
+        working-directory: ci_scripts
+
+      - name: Xcodeバージョン選択
+        run: |
+          XCODE_VERSION=$(cat .xcode-version)
+          sudo xcode-select -s "/Applications/Xcode_${XCODE_VERSION}.app/Contents/Developer"
+          xcodebuild -version
+
+      - name: fastlaneのパスを設定
+        run: |
+          echo "/opt/homebrew/bin" >> "$GITHUB_PATH"
+          echo "/usr/local/bin" >> "$GITHUB_PATH"
+          echo "作業ディレクトリ: $(pwd)"
+          which fastlane || true
+
+      - name: ビルドとテスト
+        run: fastlane ci
+        working-directory: ${{ github.workspace }}
