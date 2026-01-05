@@ -45,8 +45,5 @@ jobs:
           sudo xcode-select -s "/Applications/Xcode_${XCODE_VERSION}.app/Contents/Developer"
           xcodebuild -version
 
-      - name: fastlaneインストール
-        run: gem install fastlane --no-document
-
       - name: ビルドとテスト
         run: fastlane ci
