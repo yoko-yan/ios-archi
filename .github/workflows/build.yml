@@ -45,5 +45,12 @@ jobs:
           sudo xcode-select -s "/Applications/Xcode_${XCODE_VERSION}.app/Contents/Developer"
           xcodebuild -version
 
+      - name: fastlaneのパスを設定
+        run: |
+          echo "/opt/homebrew/bin" >> "$GITHUB_PATH"
+          echo "/usr/local/bin" >> "$GITHUB_PATH"
+          echo "作業ディレクトリ: $(pwd)"
+          which fastlane || true
+
       - name: ビルドとテスト
         run: fastlane ci
