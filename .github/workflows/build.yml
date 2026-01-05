@@ -23,11 +23,6 @@ jobs:
         with:
           ruby-version: .ruby-version
 
-      - name: Xcodeセットアップ
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: latest-stable
-
       - name: 設定ファイル生成
         run: |
           cd ci_scripts
