@@ -6,9 +6,17 @@ on:
       - main
   pull_request:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: macos-26
+    timeout-minutes: 30
     env:
       XCCONFIG: ${{ secrets.XCCONFIG }}
       GOOGLE_SERVICE_INFO: ${{ secrets.GOOGLE_SERVICE_INFO }}
@@ -17,6 +25,9 @@ jobs:
     steps:
       - name: チェックアウト
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 1
 
       - name: Rubyセットアップ
         uses: ruby/setup-ruby@v1
