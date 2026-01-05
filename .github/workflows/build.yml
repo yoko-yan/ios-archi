@@ -35,9 +35,8 @@ jobs:
           ruby-version: .ruby-version
 
       - name: 設定ファイル生成
-        run: |
-          cd ci_scripts
-          bash ci_post_clone.sh
+        run: bash ci_post_clone.sh
+        working-directory: ci_scripts
 
       - name: Xcodeバージョン選択
         run: |
@@ -54,3 +53,4 @@ jobs:
 
       - name: ビルドとテスト
         run: fastlane ci
+        working-directory: ${{ github.workspace }}
